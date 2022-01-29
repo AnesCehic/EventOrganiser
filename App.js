@@ -7,14 +7,11 @@
  */
 
 import React from 'react';
-import {Text, View} from 'react-native';
+
+import Navigation from './src/navigation';
 
 const App = () => {
-  return (
-    <View>
-      <Text>4</Text>
-    </View>
-  );
+  return <Navigation />;
 };
 
 export default App;
