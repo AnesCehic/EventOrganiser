@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import LoginScreen from './LoginScreen';
+import EventsListScreen from './EventsListScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ const MainNavigation = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="EventsList" component={EventsListScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
