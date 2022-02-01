@@ -1,8 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+
+import {Styles} from '@common';
 
 import {EventsList} from '@containers';
+import {Header} from '@components';
 
 const EventsListScreen = ({navigation}) => {
+  useEffect(() => {
+    const {setOptions} = navigation;
+
+    setOptions({
+      header: ({navigation: {goBack}}) => (
+        <Header goBack={goBack} backgroundColor={Styles.Colors.white} />
+      ),
+    });
+  }, []);
+
   return <EventsList navigation={navigation} />;
 };
 

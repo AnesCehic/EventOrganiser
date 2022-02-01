@@ -23,15 +23,15 @@ const styles = StyleSheet.create({
   leftContent: {},
   date: {
     color: 'blue',
-    fontSize: 14,
+    // fontSize: 14,
   },
   name: {
-    fontSize: 20,
+    // fontSize: 20,
     fontWeight: '600',
     marginVertical: 10,
   },
   location: {
-    fontSize: 14,
+    // fontSize: 14,
     color: '#A9A9A9',
   },
 });

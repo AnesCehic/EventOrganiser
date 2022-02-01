@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import dayjs from 'dayjs';
 
@@ -40,7 +40,6 @@ const EventsList = ({}) => {
   };
 
   const handleRefresh = () => {};
-
   return <View style={styles.container}>{renderEventsList()}</View>;
 };
 
