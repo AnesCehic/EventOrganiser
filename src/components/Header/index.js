@@ -12,9 +12,7 @@ const Header = ({goBack, backgroundColor, bar}) => {
       barStyle={barStyle}
       leftComponent={
         <TouchableOpacity onPress={goBack}>
-          <Text h4 style={styles.leftText}>
-            LeftTest
-          </Text>
+          <Icon name="arrow-back" size={30} />
         </TouchableOpacity>
       }
       centerComponent={
@@ -27,14 +25,16 @@ const Header = ({goBack, backgroundColor, bar}) => {
       rightComponent={
         <View style={styles.headerRight}>
           <TouchableOpacity>
-            <Text h4>Right Test</Text>
+            <Icon name="search" size={30} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Icon name="more-vert" size={30} />
           </TouchableOpacity>
         </View>
       }
       leftContainerStyle={styles.headerLeftContainer}
       centerContainerStyle={styles.headerCenterContainer}
       rightContainerStyle={styles.headerRightContainer}
-      placement="left"
     />
   );
 };

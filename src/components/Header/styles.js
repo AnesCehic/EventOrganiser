@@ -4,6 +4,9 @@ const styles = StyleSheet.create({
   headerLeftContainer: {},
   headerCenterContainer: {},
   headerRightContainer: {},
+  headerRight: {
+    flexDirection: 'row',
+  },
 
   leftText: {},
   centerText: {
