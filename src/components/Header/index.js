@@ -35,7 +35,6 @@ const Header = ({goBack, backgroundColor, bar}) => {
       leftContainerStyle={styles.headerLeftContainer}
       centerContainerStyle={styles.headerCenterContainer}
       rightContainerStyle={styles.headerRightContainer}
-      placement="left"
     />
   );
 };
