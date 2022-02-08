@@ -11,6 +11,7 @@ import RegisterScreen from './RegisterScreen';
 import FeedScreen from './FeedScreen';
 import FeedDetailsScreen from './FeedDetails';
 import ProfileScreen from './ProfileScreen';
+import StartScreen from './StartScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -70,7 +71,8 @@ const FeedNavigation = () => {
 const MainNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Start">
+        <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={BottomTabNavigation} />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />

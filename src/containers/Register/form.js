@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react';
 import {TouchableHighlight, Text, View} from 'react-native';
 
 import TextInput from '@components/TextInput';
+import {SubmitButton} from '@components';
 
 import styles from './styles';
 
@@ -35,15 +36,10 @@ const Form = ({navigation}) => {
         onChangeValue={value => setPassword(value)}
       />
 
-      <TouchableHighlight
-        onPress={() => {
-          navigation.navigate('Login');
-        }}
-        activeOpacity={0.6}
-        underlayColor="rgb(100, 100, 255)"
-        style={styles.loginButton}>
-        <Text>LOGIN</Text>
-      </TouchableHighlight>
+      <SubmitButton
+        onPress={() => navigation.navigate('Login')}
+        title="Register"
+      />
     </View>
   );
 };

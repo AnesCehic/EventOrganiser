@@ -3,6 +3,7 @@ import {TouchableHighlight, Text, View} from 'react-native';
 
 import TextInput from '@components/TextInput';
 import CheckBox from '@components/CheckBox';
+import {SubmitButton} from '@components';
 
 import styles from './styles';
 
@@ -29,15 +30,12 @@ const Form = ({navigation}) => {
         onChangeValue={value => setPassword(value)}
       />
 
-      <TouchableHighlight
+      <SubmitButton
         onPress={() => {
           navigation.navigate('Home');
         }}
-        activeOpacity={0.6}
-        underlayColor="rgb(100, 100, 255)"
-        style={styles.loginButton}>
-        <Text>LOGIN</Text>
-      </TouchableHighlight>
+        title="Login"
+      />
     </View>
   );
 };
