@@ -16,12 +16,10 @@ const EventItem = ({name, img, date, location, onPress}) => {
         />
       </View>
       <View style={styles.rightContent}>
-        <Text h5 style={styles.date}>
-          {date}
-        </Text>
-        <Text h4 style={styles.name}>
-          {name}
-        </Text>
+        <View style={styles.rightContentTop}>
+          <Text style={styles.date}>{date}</Text>
+          <Text style={styles.name}>{name}</Text>
+        </View>
         <Text h5 style={styles.location}>
           {location}
         </Text>
