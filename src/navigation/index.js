@@ -1,24 +1,80 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
+import Icon from 'react-native-ico';
 
 import LoginScreen from './LoginScreen';
 import EventsListScreen from './EventsListScreen';
+import RegisterScreen from './RegisterScreen';
+import FeedScreen from './FeedScreen';
+import FeedDetailsScreen from './FeedDetails';
 import ProfileScreen from './ProfileScreen';
 
 const Stack = createNativeStackNavigator();
+const BottomTab = createBottomTabNavigator();
+const FeedStack = createNativeStackNavigator();
+
+const BottomTabNavigation = () => {
+  return (
+    <BottomTab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <BottomTab.Screen
+        name="Feed"
+        options={{
+          tabBarIcon: () => <Icon name="home" group="universalicons" />,
+          tabBarShowLabel: false,
+        }}
+        component={FeedNavigation}
+      />
+      <BottomTab.Screen
+        name="Calendar"
+        options={{
+          tabBarIcon: () => <Icon name="calendar" group="miscellaneous" />,
+          tabBarShowLabel: false,
+        }}
+        component={EventsListScreen}
+      />
+      <BottomTab.Screen
+        name="Chat"
+        options={{
+          tabBarIcon: () => <Icon name="chat" group="shopping" />,
+          tabBarShowLabel: false,
+        }}
+        component={EventsListScreen}
+      />
+      <BottomTab.Screen
+        name="ProfileScreen"
+        options={{
+          tabBarIcon: () => <Icon name="profile" group="basic" />,
+          tabBarShowLabel: false,
+        }}
+        component={ProfileScreen}
+      />
+    </BottomTab.Navigator>
+  );
+};
+
+const FeedNavigation = () => {
+  return (
+    <FeedStack.Navigator>
+      <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
+      <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
+    </FeedStack.Navigator>
+  );
+};
 
 const MainNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" headerMode="none">
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="Login"
-          component={LoginScreen}
-        />
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={BottomTabNavigation} />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
-        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -13,6 +13,8 @@ target 'LincolnApp' do
   )
 
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'LincolnAppTests' do
     inherit! :complete
     # Pods for testing

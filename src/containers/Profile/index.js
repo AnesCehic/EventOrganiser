@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {Avatar, Button, Icon} from 'react-native-elements';
 import dayjs from 'dayjs';
 
-import PostsList from './PostsList';
+import {PostsList} from '@components';
 
 import data from './data';
 
