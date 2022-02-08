@@ -1,27 +1,19 @@
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import {Header as HeaderRNE, Icon, Text} from 'react-native-elements';
+import {Header as HeaderRNE, Icon} from 'react-native-elements';
+
+import {HeaderTitleText, HeaderBackButton} from './HeaderItems';
 
 import styles from './styles';
 
-const Header = ({goBack, backgroundColor, bar}) => {
+const Header = ({goBack, backgroundColor, bar, title, leftIcon}) => {
   const barStyle = bar || 'default';
   return (
     <HeaderRNE
       backgroundColor={backgroundColor}
       barStyle={barStyle}
-      leftComponent={
-        <TouchableOpacity onPress={goBack}>
-          <Icon name="arrow-back" size={30} />
-        </TouchableOpacity>
-      }
-      centerComponent={
-        <View style={styles.headerCenter}>
-          <Text h4 style={styles.centerText}>
-            Center Test
-          </Text>
-        </View>
-      }
+      leftComponent={<HeaderBackButton onPress={goBack} icon={leftIcon} />}
+      centerComponent={<HeaderTitleText title={title} />}
       rightComponent={
         <View style={styles.headerRight}>
           <TouchableOpacity>

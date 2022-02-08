@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
 
   leftText: {},
-  centerText: {
+  headerTitle: {
     fontWeight: '600',
   },
   rightText: {},

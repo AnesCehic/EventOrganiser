@@ -2,10 +2,10 @@ import React, {useEffect} from 'react';
 
 import {Styles} from '@common';
 
-import {EventsList} from '@containers';
+import {Profile} from '@containers';
 import {Header} from '@components';
 
-const EventsListScreen = ({navigation}) => {
+const ProfileScreen = ({navigation}) => {
   useEffect(() => {
     const {setOptions} = navigation;
 
@@ -14,13 +14,13 @@ const EventsListScreen = ({navigation}) => {
         <Header
           goBack={goBack}
           backgroundColor={Styles.Colors.white}
-          title="Events List"
+          title="Profile"
         />
       ),
     });
   }, []);
 
-  return <EventsList navigation={navigation} />;
+  return <Profile navigation={navigation} />;
 };
 
-export default EventsListScreen;
+export default ProfileScreen;
