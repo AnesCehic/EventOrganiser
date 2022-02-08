@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
+import {Text} from 'react-native-elements';
 
 import styles from './styles';
 
@@ -15,9 +16,13 @@ const EventItem = ({name, img, date, location, onPress}) => {
         />
       </View>
       <View style={styles.rightContent}>
-        <Text style={styles.date}>{date}</Text>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.location}>{location}</Text>
+        <View style={styles.rightContentTop}>
+          <Text style={styles.date}>{date}</Text>
+          <Text style={styles.name}>{name}</Text>
+        </View>
+        <Text h5 style={styles.location}>
+          {location}
+        </Text>
       </View>
     </TouchableOpacity>
   );

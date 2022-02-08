@@ -1,10 +1,11 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
 
-import Feed from '@containers/Feed';
+import {Styles} from '@common';
+
+import {Profile} from '@containers';
 import {Header} from '@components';
-import {Styles} from '@common'
 
-const FeedScreen = ({navigation}) => {
+const ProfileScreen = ({navigation}) => {
   useEffect(() => {
     const {setOptions} = navigation;
 
@@ -13,13 +14,13 @@ const FeedScreen = ({navigation}) => {
         <Header
           goBack={goBack}
           backgroundColor={Styles.Colors.white}
-          title="Feed"
+          title="Profile"
         />
       ),
     });
   }, []);
 
-  return <Feed navigation={navigation} />;
+  return <Profile navigation={navigation} />;
 };
 
-export default FeedScreen;
+export default ProfileScreen;

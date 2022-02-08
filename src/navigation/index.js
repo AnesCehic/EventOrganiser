@@ -3,13 +3,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-ico';
 
 import LoginScreen from './LoginScreen';
 import EventsListScreen from './EventsListScreen';
 import RegisterScreen from './RegisterScreen';
 import FeedScreen from './FeedScreen';
 import FeedDetailsScreen from './FeedDetails';
+import ProfileScreen from './ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -24,7 +25,7 @@ const BottomTabNavigation = () => {
       <BottomTab.Screen
         name="Feed"
         options={{
-          tabBarIcon: () => <Icon name="home" size={20} />,
+          tabBarIcon: () => <Icon name="home" group="universalicons" />,
           tabBarShowLabel: false,
         }}
         component={FeedNavigation}
@@ -32,7 +33,7 @@ const BottomTabNavigation = () => {
       <BottomTab.Screen
         name="Calendar"
         options={{
-          tabBarIcon: () => <Icon name="calendar-today" size={20} />,
+          tabBarIcon: () => <Icon name="calendar" group="miscellaneous" />,
           tabBarShowLabel: false,
         }}
         component={EventsListScreen}
@@ -40,18 +41,18 @@ const BottomTabNavigation = () => {
       <BottomTab.Screen
         name="Chat"
         options={{
-          tabBarIcon: () => <Icon name="chat" size={20} />,
+          tabBarIcon: () => <Icon name="chat" group="shopping" />,
           tabBarShowLabel: false,
         }}
         component={EventsListScreen}
       />
       <BottomTab.Screen
-        name="Profile"
+        name="ProfileScreen"
         options={{
-          tabBarIcon: () => <Icon name="profile" size={20} />,
+          tabBarIcon: () => <Icon name="profile" group="basic" />,
           tabBarShowLabel: false,
         }}
-        component={EventsListScreen}
+        component={ProfileScreen}
       />
     </BottomTab.Navigator>
   );
@@ -69,14 +70,10 @@ const FeedNavigation = () => {
 const MainNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" screenOptions={{
-        headerShown: false
-      }}>
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-        />
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={BottomTabNavigation} />
+        <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   img: {
     width: 90,
-    height: 100,
+    height: 90,
     borderRadius: 10,
   },
   rightContent: {
@@ -20,19 +20,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     justifyContent: 'space-between',
   },
+  rightContentTop: {},
   leftContent: {},
   date: {
-    color: 'blue',
-    fontSize: 14,
+    color: '#007FFF',
+    fontSize: 13,
   },
   name: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginVertical: 10,
+    fontSize: 16,
+    marginTop: 5,
+    color: '#120D26',
   },
   location: {
-    fontSize: 14,
-    color: '#A9A9A9',
+    fontSize: 12,
+    color: '#747688',
   },
 });
 

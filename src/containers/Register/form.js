@@ -2,7 +2,6 @@ import React, {useState, useRef} from 'react';
 import {TouchableHighlight, Text, View} from 'react-native';
 
 import TextInput from '@components/TextInput';
-import CheckBox from '@components/CheckBox';
 
 import styles from './styles';
 
@@ -10,9 +9,6 @@ const Form = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [isChecked, setIsChecked] = useState(false);
-  const checkBox = useRef(null);
 
   return (
     <View style={styles.form}>
@@ -41,8 +37,7 @@ const Form = ({navigation}) => {
 
       <TouchableHighlight
         onPress={() => {
-          console.log('Check', checkBox);
-          navigation.navigate('Feed');
+          navigation.navigate('Login');
         }}
         activeOpacity={0.6}
         underlayColor="rgb(100, 100, 255)"

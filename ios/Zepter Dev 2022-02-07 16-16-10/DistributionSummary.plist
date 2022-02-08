@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Zepter.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>66</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>B2F6878E63605E130FB4C2325013DFB7350B9343</string>
+				<key>dateExpires</key>
+				<string>7.2.23.</string>
+				<key>type</key>
+				<string>iOS Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>3YKEKWB9VD.com.zepter.mobile-app.dev</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>com.apple.developer.associated-domains</key>
+				<array>
+					<string>applinks:zepter.page.link</string>
+				</array>
+				<key>com.apple.developer.team-identifier</key>
+				<string>3YKEKWB9VD</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>Zepter.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>8ce8b17a-73fb-44dc-bd58-7b50336bb098</string>
+				<key>dateExpires</key>
+				<string>6.9.22.</string>
+				<key>name</key>
+				<string>iOS Team Inhouse Provisioning Profile: com.zepter.mobile-app.dev</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>3YKEKWB9VD</string>
+				<key>name</key>
+				<string>Zepter IT Sp. z o.o. (Enterprise)</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>2.21.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

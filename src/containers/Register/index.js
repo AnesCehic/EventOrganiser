@@ -5,10 +5,10 @@ import Form from './form';
 
 import styles from './styles';
 
-const Register = () => {
+const Register = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Form />
+      <Form navigation={navigation} />
     </View>
   );
 };
