@@ -17,7 +17,7 @@ const LoginScreen = ({navigation, count, increaseCounter, decreaseCounter}) => {
           <Button title="Decrease" onPress={decreaseCounter} />
           <Button
             title="Navigate"
-            onPress={() => navigation.navigate('EventsList')}
+            onPress={() => navigation.navigate('ProfileScreen')}
           />
         </View>
       </View>
