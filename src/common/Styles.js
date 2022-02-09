@@ -15,6 +15,9 @@ const Styles = {
     secondaryPink: '#F19BFF',
     grayBorder: '#E7ECF3',
   },
+  Sizes: {
+    avatar: 72,
+  },
 };
 
 export default Styles;
