@@ -3,6 +3,7 @@ const Constants = {
     LoginScreen: 'LoginScreen',
     EventListScreen: 'EventListScreen',
     ProfileScreen: 'ProfileScreen',
+    ImagesScreen: 'ImagesScreen',
   },
   UserRoles: {
     admin: 'admin',

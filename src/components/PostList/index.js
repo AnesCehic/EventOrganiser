@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 
 import {PostItem} from '@components';
 
@@ -19,6 +19,7 @@ const PostsList = ({data, onPress}) => {
   const renderList = () => {
     return (
       <FlatList
+        numColumns={2}
         style={styles.postsList}
         data={data}
         renderItem={renderItem}
