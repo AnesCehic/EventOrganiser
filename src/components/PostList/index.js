@@ -28,7 +28,7 @@ const PostsList = ({data, onPress}) => {
     );
   };
 
-  return <View>{renderList()}</View>;
+  return renderList();
 };
 
 const styles = StyleSheet.create({

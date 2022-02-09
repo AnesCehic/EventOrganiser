@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
+import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: Styles.Colors.white,
     marginHorizontal: 10,
     marginVertical: 5,
     borderRadius: 10,
@@ -23,17 +24,17 @@ const styles = StyleSheet.create({
   rightContentTop: {},
   leftContent: {},
   date: {
-    color: '#007FFF',
+    color: Styles.Colors.primaryBlue,
     fontSize: 13,
   },
   name: {
     fontSize: 16,
     marginTop: 5,
-    color: '#120D26',
+    color: Styles.Colors.primaryText,
   },
   location: {
     fontSize: 12,
-    color: '#747688',
+    color: Styles.Colors.grayText,
   },
 });
 

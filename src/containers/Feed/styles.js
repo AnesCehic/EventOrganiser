@@ -1,14 +1,15 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
     backgroundColor: 'white',
   },
   cardsContainer: {
-    flexDirection: "row"
-  }
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginVertical: 15,
+  },
 });
 
 export default styles;
