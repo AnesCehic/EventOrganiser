@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
+import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: Styles.Colors.white,
   },
   loginContainer: {
     borderRadius: 7,
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '90%',
     height: '80%',
-    backgroundColor: 'white',
+    backgroundColor: Styles.Colors.white,
   },
   form: {
     width: '100%',
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   loginButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0275d8',
+    backgroundColor: Styles.Colors.primaryBlue,
     width: '80%',
     height: 40,
     borderRadius: 5,

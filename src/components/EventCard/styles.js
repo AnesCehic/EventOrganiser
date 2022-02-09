@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   eventCardContainer: {
@@ -6,7 +7,6 @@ const styles = StyleSheet.create({
     width: 106,
     height: 98,
     borderRadius: 8,
-    marginRight: 10,
   },
   statusCirle: {
     position: 'absolute',
@@ -25,7 +25,10 @@ const styles = StyleSheet.create({
     bottom: 4,
     width: '100%',
     height: 20,
-  }
+  },
+  dateTimeText: {
+    color: Styles.Colors.lightGrayText,
+  },
 });
 
 export default styles;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import dayjs from 'dayjs';
 
 import Search from '@components/SearchInput';
@@ -26,10 +26,8 @@ const Feed = ({navigation}) => {
         <EventCard />
         <EventCard />
       </View>
-
-      {renderPosts()}
-
       <Search />
+      {renderPosts()}
     </View>
   );
 };

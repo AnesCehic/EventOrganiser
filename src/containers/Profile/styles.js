@@ -18,23 +18,23 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 32,
-    color: '#1D232E',
+    color: Styles.Colors.primaryText,
   },
   memberSince: {
     fontSize: 16,
-    color: '#919191',
+    color: Styles.Colors.grayText,
   },
   buttonStyle: {
     backgroundColor: 'transparent',
     borderWidth: 2,
-    borderColor: '#007FFF',
+    borderColor: Styles.Colors.primaryBlue,
     borderRadius: 8,
     paddingHorizontal: 32,
     paddingVertical: 10,
     marginTop: 10,
   },
   buttonTitle: {
-    color: '#007FFF',
+    color: Styles.Colors.primaryBlue,
     fontSize: 16,
   },
   btnIcon: {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: '#F8FAFD',
+    backgroundColor: Styles.Colors.lightGrayBg,
     maxWidth: 320,
     width: '100%',
     padding: 2,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 1,
     elevation: 5,
-    backgroundColor: 'white',
+    backgroundColor: Styles.Colors.white,
   },
 });
 

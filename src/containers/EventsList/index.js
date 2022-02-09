@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import dayjs from 'dayjs';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
