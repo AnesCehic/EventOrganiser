@@ -15,7 +15,7 @@ const Profile = ({navigation}) => {
     return (
       <View style={styles.avatar}>
         <Avatar
-          size={72}
+          size={Styles.Sizes.avatar}
           rounded
           source={data.avatarImg ? {uri: data.avatarImg} : {}}
         />

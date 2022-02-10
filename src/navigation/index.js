@@ -10,6 +10,7 @@ import EventsListScreen from './EventsListScreen';
 import RegisterScreen from './RegisterScreen';
 import FeedScreen from './FeedScreen';
 import FeedDetailsScreen from './FeedDetails';
+import EditProfileScreen from './EditProfileScreen';
 import ProfileScreen from './ProfileScreen';
 import StartScreen from './StartScreen';
 import ImagesScreen from './ImagesScreen';
@@ -17,6 +18,7 @@ import ImagesScreen from './ImagesScreen';
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
+const ProfileStack = createNativeStackNavigator();
 
 const BottomTabNavigation = () => {
   return (
@@ -49,12 +51,12 @@ const BottomTabNavigation = () => {
         component={EventsListScreen}
       />
       <BottomTab.Screen
-        name="ProfileScreen"
+        name="Profile"
         options={{
           tabBarIcon: () => <Icon name="profile" group="basic" />,
           tabBarShowLabel: false,
         }}
-        component={ProfileScreen}
+        component={ProfileNavigation}
       />
     </BottomTab.Navigator>
   );
@@ -66,6 +68,18 @@ const FeedNavigation = () => {
       <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
       <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
     </FeedStack.Navigator>
+  );
+};
+
+const ProfileNavigation = () => {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="EditPofileScreen"
+        component={EditProfileScreen}
+      />
+      <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
+    </ProfileStack.Navigator>
   );
 };
 
