@@ -1,29 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Avatar, Button, Icon} from 'react-native-elements';
 import dayjs from 'dayjs';
 
 import {PostsList} from '@components';
-import {Styles} from '@common';
+import {Constants, Styles} from '@common';
 
 import data from './data';
 
 import styles from './styles';
 
-const switchItems = [
-  {
-    index: 0,
-    item: 'Posts',
-  },
-  {
-    index: 1,
-    item: 'Photos',
-  },
-];
-
-const Profile = ({}) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
+const Profile = ({navigation}) => {
   const renderAvatar = () => {
     return (
       <View style={styles.avatar}>
@@ -54,7 +41,7 @@ const Profile = ({}) => {
               name="message"
               style={styles.btnIcon}
               size={22}
-              color="#007FFF"
+              color={Styles.Colors.primaryBlue}
             />
           }
           iconContainerStyle={styles.btnIcon}
@@ -66,29 +53,27 @@ const Profile = ({}) => {
   const renderSwitch = () => {
     return (
       <View style={styles.switchContentContainer}>
-        {switchItems.map((switchItem, index) => {
-          const key = switchItem.index;
-          return (
-            <TouchableOpacity
-              key={key}
-              onPress={() => setActiveIndex(index)}
-              style={[
-                styles.switchContent,
-                index === activeIndex ? styles.switchContentActive : null,
-              ]}>
-              <Text
-                style={[
-                  styles.switchContentText,
-                  // eslint-disable-next-line react-native/no-inline-styles
-                  {color: index !== activeIndex ? '#A7B0C0' : null},
-                ]}>
-                {switchItem.item}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+        <TouchableOpacity
+          style={[styles.switchContent, styles.switchContentActive]}>
+          <Text style={styles.switchContentText}>Posts</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={goToPhotosScreen}
+          style={styles.switchContent}>
+          <Text
+            style={[
+              styles.switchContentText,
+              {color: Styles.Colors.lightGrayText},
+            ]}>
+            Photos
+          </Text>
+        </TouchableOpacity>
       </View>
     );
+  };
+
+  const goToPhotosScreen = () => {
+    navigation.navigate(Constants.NavigationScreens.ImagesScreen);
   };
 
   const renderPosts = () => {
@@ -99,19 +84,6 @@ const Profile = ({}) => {
     return <PostsList data={newDataTest} />;
   };
 
-  const renderPhotos = () => {
-    return <Text>Photos</Text>;
-  };
-
-  const renderContent = () => {
-    if (activeIndex === 0) {
-      return renderPosts();
-    }
-    if (activeIndex === 1) {
-      return renderPhotos();
-    }
-  };
-
   return (
     <View
       style={styles.container}
@@ -119,7 +91,7 @@ const Profile = ({}) => {
       {renderAvatar()}
       {renderUserInfo()}
       {renderSwitch()}
-      {renderContent()}
+      {renderPosts()}
     </View>
   );
 };
