@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
 
+import {MenuItem} from '@components';
 import {Constants, Styles} from '@common';
 
 import styles from './styles';
@@ -14,7 +15,38 @@ const data = {
     'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f',
 };
 
+// Add menuScreen from Constants.NavigationScreens when ready
+const MenuItems = [
+  {
+    id: 1,
+    menuText: 'Profile',
+    menuScreen: Constants.NavigationScreens.ProfileScreen,
+  },
+  {
+    id: 2,
+    menuText: 'Change password',
+    menuScreen: null,
+  },
+  {
+    id: 3,
+    menuText: 'Groups',
+    menuScreen: Constants.NavigationScreens.GroupsScreen,
+  },
+  {
+    id: 4,
+    menuText: 'Preferences',
+    menuScreen: null,
+  },
+  {
+    id: 5,
+    menuText: 'Log out',
+    menuScreen: null,
+  },
+];
+
 const EditProfile = ({navigation}) => {
+  const {navigate} = navigation;
+
   const renderAvatar = () => {
     return (
       <View style={styles.avatarContainer}>
@@ -63,65 +95,20 @@ const EditProfile = ({navigation}) => {
     );
   };
 
-  const navigateTo = screen => {
-    const {navigate} = navigation;
-    navigate(screen);
-  };
-
   const renderMenu = () => {
     return (
       <View style={styles.menu}>
-        <TouchableOpacity
-          onPress={() => navigateTo(Constants.NavigationScreens.ProfileScreen)}
-          style={styles.menuItem}>
-          <Text style={styles.menuItemText}>Profile</Text>
-          <Icon
-            name="keyboard-arrow-right"
-            size={24}
-            color={Styles.Colors.grayText}
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuItemText}>Change password</Text>
-          <Icon
-            onPress={() => console.log('')}
-            name="keyboard-arrow-right"
-            size={24}
-            color={Styles.Colors.grayText}
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuItemText}>Groups</Text>
-          <Icon
-            onPress={() => console.log('')}
-            name="keyboard-arrow-right"
-            size={24}
-            color={Styles.Colors.grayText}
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuItemText}>Preferences</Text>
-          <Icon
-            onPress={() => console.log('')}
-            name="keyboard-arrow-right"
-            size={24}
-            color={Styles.Colors.grayText}
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuItemText}>Log out</Text>
-          <Icon
-            onPress={() => console.log('')}
-            name="keyboard-arrow-right"
-            size={24}
-            color={Styles.Colors.grayText}
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
+        {MenuItems.map(menuItem => {
+          return (
+            <MenuItem
+              key={menuItem.id}
+              onPress={() =>
+                menuItem.menuScreen ? navigate(menuItem.menuScreen) : null
+              }
+              menuText={menuItem.menuText}
+            />
+          );
+        })}
       </View>
     );
   };
