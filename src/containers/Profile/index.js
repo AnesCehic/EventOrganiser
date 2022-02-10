@@ -4,6 +4,7 @@ import {Avatar, Button, Icon} from 'react-native-elements';
 import dayjs from 'dayjs';
 
 import {PostsList} from '@components';
+import {Styles} from '@common';
 
 import data from './data';
 
@@ -27,7 +28,7 @@ const Profile = ({}) => {
     return (
       <View style={styles.avatar}>
         <Avatar
-          size={72}
+          size={Styles.Sizes.avatar}
           rounded
           source={data.avatarImg ? {uri: data.avatarImg} : {}}
         />
