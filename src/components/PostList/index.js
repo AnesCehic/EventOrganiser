@@ -19,7 +19,6 @@ const PostsList = ({data, onPress}) => {
   const renderList = () => {
     return (
       <FlatList
-        numColumns={2}
         style={styles.postsList}
         data={data}
         renderItem={renderItem}
