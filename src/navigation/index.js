@@ -13,6 +13,7 @@ import FeedDetailsScreen from './FeedDetails';
 import EditProfileScreen from './EditProfileScreen';
 import ProfileScreen from './ProfileScreen';
 import StartScreen from './StartScreen';
+import ChatScreen from './ChatScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -21,13 +22,11 @@ const ProfileStack = createNativeStackNavigator();
 
 const BottomTabNavigation = () => {
   return (
-    <BottomTab.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}>
+    <BottomTab.Navigator>
       <BottomTab.Screen
         name="Feed"
         options={{
+          headerShown: false,
           tabBarIcon: () => <Icon name="home" group="universalicons" />,
           tabBarShowLabel: false,
         }}
@@ -47,11 +46,12 @@ const BottomTabNavigation = () => {
           tabBarIcon: () => <Icon name="chat" group="shopping" />,
           tabBarShowLabel: false,
         }}
-        component={EventsListScreen}
+        component={ChatScreen}
       />
       <BottomTab.Screen
         name="Profile"
         options={{
+          headerShown: false,
           tabBarIcon: () => <Icon name="profile" group="basic" />,
           tabBarShowLabel: false,
         }}
@@ -88,7 +88,13 @@ const MainNavigation = () => {
       <Stack.Navigator initialRouteName="Start">
         <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={BottomTabNavigation} />
+        <Stack.Screen
+          name="Home"
+          options={{
+            headerShown: false,
+          }}
+          component={BottomTabNavigation}
+        />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>

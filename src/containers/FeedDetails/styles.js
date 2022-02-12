@@ -5,8 +5,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Styles.Colors.white,
+    alignItems: 'center',
     height: '100%',
     padding: 15,
+  },
+  dateAndLocationWithInfo: {
+    width: '100%',
   },
   image: {
     width: '100%',
@@ -15,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    bottom: 0,
+    bottom: 10,
     width: '100%',
     height: 40,
   },
@@ -29,6 +33,7 @@ const styles = StyleSheet.create({
   },
   rsvpText: {
     fontSize: 18,
+    color: 'white',
   },
   dateContainer: {
     padding: 5,
@@ -37,6 +42,15 @@ const styles = StyleSheet.create({
   },
   dateText: {
     marginLeft: 10,
+  },
+  header: {
+    padding: 15,
+    paddingLeft: 20,
+    fontSize: 25,
+  },
+  description: {
+    padding: 15,
+    paddingLeft: 20,
   },
 });
 

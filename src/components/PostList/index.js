@@ -32,7 +32,9 @@ const PostsList = ({data, onPress}) => {
 };
 
 const styles = StyleSheet.create({
-  postsList: {},
+  postsList: {
+    marginTop: 20,
+  },
 });
 
 export default PostsList;

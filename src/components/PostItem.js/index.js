@@ -8,12 +8,7 @@ const PostItem = ({onPress, img, time, headline, content}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.leftContent}>
-        <Image
-          style={styles.img}
-          source={{
-            uri: img,
-          }}
-        />
+        <View style={styles.img} />
       </View>
       <View style={styles.rightContent}>
         <View style={styles.topRightContent}>

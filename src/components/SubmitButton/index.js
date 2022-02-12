@@ -10,7 +10,7 @@ const SubmitButton = ({onPress, title, style}) => {
       activeOpacity={0.6}
       underlayColor="rgb(100, 100, 255)"
       style={{...styles.loginButton, ...style}}>
-      <Text>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableHighlight>
   );
 };

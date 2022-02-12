@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   memberSince: {
     fontSize: 16,
     color: Styles.Colors.grayText,
+    marginBottom: 10,
   },
   buttonStyle: {
     backgroundColor: 'transparent',
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 32,
     paddingVertical: 10,
-    marginTop: 10,
   },
   buttonTitle: {
     color: Styles.Colors.primaryBlue,

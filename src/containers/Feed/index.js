@@ -26,7 +26,9 @@ const Feed = ({navigation}) => {
         <EventCard />
         <EventCard />
       </View>
+
       <Search />
+
       {renderPosts()}
     </View>
   );
