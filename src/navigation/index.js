@@ -14,6 +14,7 @@ import EditProfileScreen from './EditProfileScreen';
 import ProfileScreen from './ProfileScreen';
 import StartScreen from './StartScreen';
 import ImagesScreen from './ImagesScreen';
+import GroupsScreen from './GroupsScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -79,6 +80,8 @@ const ProfileNavigation = () => {
         component={EditProfileScreen}
       />
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Screen name="ImagesScreen" component={ImagesScreen} />
+      <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />
     </ProfileStack.Navigator>
   );
 };
@@ -92,7 +95,6 @@ const MainNavigation = () => {
         <Stack.Screen name="Home" component={BottomTabNavigation} />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="ImagesScreen" component={ImagesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
