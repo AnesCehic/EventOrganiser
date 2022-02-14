@@ -15,6 +15,7 @@ import ProfileScreen from './ProfileScreen';
 import StartScreen from './StartScreen';
 import ImagesScreen from './ImagesScreen';
 import GroupsScreen from './GroupsScreen';
+import ExpensesScreen from './ExpensesScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -95,6 +96,7 @@ const MainNavigation = () => {
         <Stack.Screen name="Home" component={BottomTabNavigation} />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
