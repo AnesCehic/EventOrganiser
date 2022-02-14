@@ -36,7 +36,7 @@ const MenuItems = [
   {
     id: 4,
     menuText: 'Preferences',
-    menuScreen: null,
+    menuScreen: Constants.NavigationScreens.PreferencesScreen,
   },
   {
     id: 5,

@@ -17,6 +17,7 @@ import ChatScreen from './ChatScreen';
 import ImagesScreen from './ImagesScreen';
 import GroupsScreen from './GroupsScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
+import PreferencesScreen from './PreferencesScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -92,8 +93,12 @@ const ProfileNavigation = () => {
         component={EditProfileScreen}
       />
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
-      <Stack.Screen name="ImagesScreen" component={ImagesScreen} />
+      <ProfileStack.Screen name="ImagesScreen" component={ImagesScreen} />
       <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />
+      <ProfileStack.Screen
+        name="PreferencesScreen"
+        component={PreferencesScreen}
+      />
     </ProfileStack.Navigator>
   );
 };

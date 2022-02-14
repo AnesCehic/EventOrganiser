@@ -5,6 +5,7 @@ const Constants = {
     ProfileScreen: 'ProfileScreen',
     ImagesScreen: 'ImagesScreen',
     GroupsScreen: 'GroupsScreen',
+    PreferencesScreen: 'PreferencesScreen',
   },
   UserRoles: {
     admin: 'admin',
