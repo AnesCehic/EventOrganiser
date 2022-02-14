@@ -16,11 +16,22 @@ import StartScreen from './StartScreen';
 import ChatScreen from './ChatScreen';
 import ImagesScreen from './ImagesScreen';
 import GroupsScreen from './GroupsScreen';
+import ChatMessagesScreen from './ChatMessagesScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
+const ChatStack = createNativeStackNavigator();
+
+const ChatNavigation = () => {
+  return (
+    <ChatStack.Navigator screenOptions={{headerShadowVisible: false}}>
+      <ChatStack.Screen name="Chats" component={ChatScreen} />
+      <ChatStack.Screen name="Messages" component={ChatMessagesScreen} />
+    </ChatStack.Navigator>
+  );
+};
 
 const BottomTabNavigation = () => {
   return (
@@ -45,10 +56,11 @@ const BottomTabNavigation = () => {
       <BottomTab.Screen
         name="Chat"
         options={{
+          headerShown: false,
           tabBarIcon: () => <Icon name="chat" group="shopping" />,
           tabBarShowLabel: false,
         }}
-        component={ChatScreen}
+        component={ChatNavigation}
       />
       <BottomTab.Screen
         name="Profile"
@@ -65,7 +77,7 @@ const BottomTabNavigation = () => {
 
 const FeedNavigation = () => {
   return (
-    <FeedStack.Navigator>
+    <FeedStack.Navigator screenOptions={{headerShadowVisible: false}} >
       <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
       <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
     </FeedStack.Navigator>

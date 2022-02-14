@@ -1,29 +1,48 @@
 import React, {useState, useRef} from 'react';
-import {TouchableHighlight, Text, View} from 'react-native';
+import {TouchableHighlight, Text, View, Alert} from 'react-native';
 
 import TextInput from '@components/TextInput';
 import {SubmitButton} from '@components';
 
+import {UsersService} from '../../services/apiClient';
+
 import styles from './styles';
 
 const Form = ({navigation}) => {
-  const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+
+  const register = () => {
+    UsersService.create({
+      firstName,
+      lastName,
+      email,
+      password,
+    }).then(res => console.log('create'));
+  };
 
   return (
     <View style={styles.form}>
       <TextInput
-        name="username"
-        placeholder="Name"
-        value={username}
-        setUsername={setUsername}
-        onChangeValue={value => setUsername(value)}
+        name="firstName"
+        placeholder="First name"
+        value={firstName}
+        setUsername={setFirstName}
+        onChangeValue={value => setFirstName(value)}
       />
+      <TextInput
+        name="lastName"
+        placeholder="Last name"
+        value={lastName}
+        setUsername={setLastName}
+        onChangeValue={value => setLastName(value)}
+      />
+
       <TextInput
         name="email"
         placeholder="Email"
-        secureTextEntry
         value={email}
         onChangeValue={value => setEmail(value)}
       />
@@ -36,10 +55,7 @@ const Form = ({navigation}) => {
         onChangeValue={value => setPassword(value)}
       />
 
-      <SubmitButton
-        onPress={() => navigation.navigate('Login')}
-        title="Register"
-      />
+      <SubmitButton onPress={register} title="Register" />
     </View>
   );
 };

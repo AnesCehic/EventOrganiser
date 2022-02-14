@@ -10,6 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@feathersjs/authentication-client": "^4.5.13",
+    "@feathersjs/feathers": "^4.5.12",
+    "@feathersjs/socketio-client": "^4.5.13",
     "@react-native-async-storage/async-storage": "^1.15.17",
     "@react-native-community/checkbox": "^0.5.9",
     "@react-navigation/bottom-tabs": "^6.0.9",
@@ -32,7 +35,8 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",
-    "reselect": "^4.1.5"
+    "reselect": "^4.1.5",
+    "socket.io-client": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

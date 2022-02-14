@@ -10,13 +10,17 @@ import data from './data';
 
 import styles from './styles';
 
-const Chat = () => {
+const Chat = ({navigation}) => {
+  const navigateToMessages = () => {
+    navigation.navigate('Messages');
+  };
+
   const renderPosts = () => {
     const time = dayjs(dayjs().subtract(5, 'minute'));
     const timeFromNow = time.fromNow(); // for testing time ago
     const newDataTest = data.posts.map(post => ({...post, time: timeFromNow}));
 
-    return <PostsList data={newDataTest} />;
+    return <PostsList data={newDataTest} onPress={navigateToMessages} />;
   };
 
   return (
