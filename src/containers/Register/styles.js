@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
   registerLink: {
     paddingBottom: 10,
   },
+  checkbox: {
+    width: '80%',
+    marginTop: 10,
+  },
   loginButton: {
     justifyContent: 'center',
     alignItems: 'center',

@@ -3,8 +3,13 @@ import {TextInput} from 'react-native';
 
 import styles from './styles';
 
-const SearchInput = () => {
-  return <TextInput placeholder="Search" style={styles.searchContainer} />;
+const SearchInput = ({placeholder = 'Search', style}) => {
+  return (
+    <TextInput
+      placeholder={placeholder}
+      style={[styles.searchContainer, style]}
+    />
+  );
 };
 
 export default SearchInput;
