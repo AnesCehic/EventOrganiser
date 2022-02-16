@@ -16,6 +16,7 @@ import StartScreen from './StartScreen';
 import ChatScreen from './ChatScreen';
 import ImagesScreen from './ImagesScreen';
 import GroupsScreen from './GroupsScreen';
+import ExpensesScreen from './ExpensesScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
 import ContentScreen from './ContentScreen';
@@ -119,6 +120,7 @@ const MainNavigation = () => {
         />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
         <Stack.Screen name="ContentScreen" component={ContentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
