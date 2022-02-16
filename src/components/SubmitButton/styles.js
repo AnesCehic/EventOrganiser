@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.primaryBlue,
     width: '80%',
     height: 50,
-    marginTop: 40,
     borderRadius: 9,
   },
   text: {

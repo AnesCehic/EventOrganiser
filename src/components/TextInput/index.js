@@ -8,14 +8,19 @@ const CustomTextInput = ({
   secureTextEntry,
   value,
   onChangeValue,
+  multiline,
+  style,
+  ...props
 }) => {
   return (
     <TextInput
       value={value}
-      style={styles.textInput}
+      style={[styles.textInput, {paddingTop: multiline ? 15 : null}, style]}
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
       onChangeText={onChangeValue}
+      multiline={multiline}
+      {...props}
     />
   );
 };

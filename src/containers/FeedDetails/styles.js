@@ -52,6 +52,24 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingLeft: 20,
   },
+
+  modalContainer: {
+    alignItems: 'center',
+  },
+  modalTextAraea: {
+    width: '100%',
+    height: 100,
+  },
+  modalTextInput: {
+    width: '100%',
+  },
+  modalConfirmBtn: {
+    marginTop: 10,
+    width: '100%',
+  },
+  modalIcon: {
+    margin: 20,
+  },
 });
 
 export default styles;
