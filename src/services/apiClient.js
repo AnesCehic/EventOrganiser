@@ -17,7 +17,8 @@ client.setup();
 
 const UsersService = client.service('users');
 const EventService = client.service('events');
+const GroupService = client.service('groups');
 
 //UsersService.on('created', () => console.log('Create'));
 
-export {UsersService, EventService, client};
+export {UsersService, EventService, GroupService, client};

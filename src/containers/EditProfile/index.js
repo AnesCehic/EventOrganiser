@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
+import {CommonActions} from '@react-navigation/native';
 
 import {MenuItem} from '@components';
 import {Constants, Styles} from '@common';
 import {UsersService} from '@services/apiClient';
+
+import {client} from '@services/apiClient';
 
 import styles from './styles';
 
@@ -37,11 +40,6 @@ const MenuItems = [
     id: 4,
     menuText: 'Preferences',
     menuScreen: Constants.NavigationScreens.PreferencesScreen,
-  },
-  {
-    id: 5,
-    menuText: 'Log out',
-    menuScreen: null,
   },
 ];
 
@@ -114,6 +112,24 @@ const EditProfile = ({navigation}) => {
     );
   };
 
+  const logout = async () => {
+    try {
+      await client.logout();
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'Start',
+            },
+          ],
+        }),
+      );
+    } catch (err) {
+      console.log('[Error logout]', err);
+    }
+  };
+
   const renderMenu = () => {
     return (
       <View style={styles.menu}>
@@ -128,6 +144,7 @@ const EditProfile = ({navigation}) => {
             />
           );
         })}
+        <MenuItem onPress={() => logout()} menuText="Log out" />
       </View>
     );
   };

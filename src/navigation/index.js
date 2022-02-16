@@ -21,6 +21,7 @@ import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
 import InsightsScreen from './InsightsScreen';
 import ContentScreen from './ContentScreen';
+import GroupMembersScreen from './GroupMembersScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -90,7 +91,7 @@ const FeedNavigation = () => {
 
 const ProfileNavigation = () => {
   return (
-    <ProfileStack.Navigator>
+    <ProfileStack.Navigator screenOptions={{headerShadowVisible: false}}>
       <ProfileStack.Screen
         name="EditPofileScreen"
         component={EditProfileScreen}
@@ -98,6 +99,7 @@ const ProfileNavigation = () => {
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <ProfileStack.Screen name="ImagesScreen" component={ImagesScreen} />
       <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />
+      <ProfileStack.Screen name="GroupMembers" component={GroupMembersScreen} />
       <ProfileStack.Screen
         name="PreferencesScreen"
         component={PreferencesScreen}
