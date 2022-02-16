@@ -5,6 +5,7 @@ import _PostsList from './PostList';
 import _SubmitButton from './SubmitButton';
 import _MenuItem from './MenuItem';
 import _MessageInput from './MessageInput';
+import _CustomCheckBox from './CheckBox';
 
 export const EventItem = _EventItem;
 export const Header = _Header;
@@ -13,3 +14,4 @@ export const PostsList = _PostsList;
 export const SubmitButton = _SubmitButton;
 export const MenuItem = _MenuItem;
 export const MessageInput = _MessageInput;
+export const CustomCheckBox = _CustomCheckBox;
