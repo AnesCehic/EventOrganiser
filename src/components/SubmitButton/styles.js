@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     marginTop: 40,
     borderRadius: 9,
   },
+  text: {
+    color: 'white',
+  },
 });
 
 export default styles;

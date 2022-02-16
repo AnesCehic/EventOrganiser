@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Avatar, Button, Icon} from 'react-native-elements';
 import dayjs from 'dayjs';
 
 import {PostsList} from '@components';
 import {Constants, Styles} from '@common';
+
+import {UsersService} from '@services/apiClient';
 
 import data from './data';
 

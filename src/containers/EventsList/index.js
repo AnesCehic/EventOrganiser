@@ -1,16 +1,34 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import dayjs from 'dayjs';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
 import {EventItem} from '@components';
+import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
 import data from './data';
 
 const EventsList = ({}) => {
+  const [events, setEvents] = useState([]);
+  useEffect(() => {
+    EventService.find()
+      .then(({data}) => {
+        let eventsData = data.map(e => ({
+          name: e.title,
+          location: e.location,
+          img: data[0].img,
+        }));
+
+        setEvents(eventsData);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
   const renderCalendar = () => {
     const today = dayjs().format();
     const maxDate = dayjs().add(20, 'day').format(); // testing max date
@@ -78,6 +96,7 @@ const EventsList = ({}) => {
   };
 
   const renderItem = ({item: event}) => {
+    console.log(event)
     return (
       <EventItem
         date={dayjs().format('ddd, MMM D, YYYY h:mm A')}
@@ -96,7 +115,7 @@ const EventsList = ({}) => {
     return (
       <FlatList
         style={styles.eventList}
-        data={data}
+        data={events}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
         keyExtractor={item => item.name}

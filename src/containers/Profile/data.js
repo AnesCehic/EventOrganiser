@@ -1,6 +1,6 @@
 const data = {
-  firstName: 'Ninoslav',
-  lastName: 'Kremic',
+  firstName: 'Anes',
+  lastName: 'Cehic',
   avatarImg: 'https://api.uifaces.co/our-content/donated/KtCFjlD4.jpg',
   memberSince: '2019',
   posts: [
