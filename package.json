@@ -26,6 +26,7 @@
     "react-native-elements": "^3.4.2",
     "react-native-ico": "^28.7.4",
     "react-native-ico-coolicons": "^3.3.1",
+    "react-native-modal": "^13.0.0",
     "react-native-paper": "^4.11.2",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.2",
