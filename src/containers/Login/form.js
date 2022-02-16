@@ -1,17 +1,35 @@
 import React, {useState, useRef} from 'react';
 import {TouchableHighlight, Text, View} from 'react-native';
 
+import {client} from '../../services/apiClient';
+
 import TextInput from '@components/TextInput';
 import CheckBox from '@components/CheckBox';
 import {SubmitButton} from '@components';
 
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Form = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   // eslint-disable-next-line no-unused-vars
   const [isChecked, setIsChecked] = useState(false);
+
+  const login = () => {
+    client
+      .authenticate({
+        strategy: 'local',
+        email: username,
+        password: password,
+      })
+      .then(res => {
+        navigation.navigate('Home');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <View style={styles.form}>
@@ -30,12 +48,7 @@ const Form = ({navigation}) => {
         onChangeValue={value => setPassword(value)}
       />
 
-      <SubmitButton
-        onPress={() => {
-          navigation.navigate('Home');
-        }}
-        title="Login"
-      />
+      <SubmitButton onPress={login} title="Login" />
     </View>
   );
 };

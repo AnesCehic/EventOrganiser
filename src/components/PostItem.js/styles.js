@@ -13,9 +13,10 @@ const styles = StyleSheet.create({
   },
   leftContent: {},
   img: {
-    width: 70,
-    height: 70,
+    width: 50,
+    height: 50,
     borderRadius: 10,
+    backgroundColor: '#F8FAFD',
   },
 
   rightContent: {

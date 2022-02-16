@@ -4,7 +4,7 @@ import {Styles} from '@common';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    paddingTop: 60,
     alignItems: 'center',
     backgroundColor: Styles.Colors.white,
   },
@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
   },
   registerLink: {
     paddingBottom: 10,
+  },
+  checkbox: {
+    width: '80%',
+    marginTop: 10,
   },
   loginButton: {
     justifyContent: 'center',

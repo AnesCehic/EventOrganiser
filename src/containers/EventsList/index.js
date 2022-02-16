@@ -1,42 +1,65 @@
-import React from 'react';
-import {View, Text, FlatList, SafeAreaView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import {connect} from 'react-redux';
 import dayjs from 'dayjs';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
 import {EventItem} from '@components';
+import {Constants} from '@common';
+import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-import data from './data';
+const EventsList = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [events, setEvents] = useState([]);
 
-const EventsList = ({}) => {
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  const getEvents = async () => {
+    try {
+      setIsLoading(true);
+
+      const {data} = await EventService.find();
+
+      setEvents(data || []);
+      setIsLoading(false);
+    } catch (e) {
+      console.log('[Error fetch Events]', e);
+    }
+  };
+
   const renderCalendar = () => {
     const today = dayjs().format();
-    const maxDate = dayjs().add(20, 'day').format(); // testing max date
-    // test dots
-    const markedDates = {
-      [dayjs().format('YYYY-MM-DD')]: {selected: false},
-      [dayjs().add(7, 'day').format('YYYY-MM-DD')]: {
+    // const maxDate = dayjs().add(20, 'day').format(); // testing max date
+
+    const eventDates = events.reduce((acc, value) => {
+      const key = dayjs(value.start).format('YYYY-MM-DD');
+      acc[key] = {
         marked: true,
-        dotColor: '#007FFF',
-      },
-      [dayjs().add(10, 'day').format('YYYY-MM-DD')]: {
-        marked: true,
-        dotColor: '#E7ECF3',
-      },
-      [dayjs().add(2, 'day').format('YYYY-MM-DD')]: {
-        marked: true,
-        dotColor: '#12D125',
-      },
-    };
+        dotColor: value.start < today ? '#007FFF' : '#12D125',
+      };
+      return acc;
+    }, {});
+
     return (
       <Calendar
         current={today}
         minDate={today}
-        maxDate={maxDate}
+        // maxDate={maxDate}
         onDayPress={day => {
           console.log('selected day', day);
+          navigation.navigate(Constants.NavigationScreens.ContentScreen, {
+            testParam: 'test param',
+          });
         }}
         onDayLongPress={day => {
           console.log('long selected day', day);
@@ -68,7 +91,7 @@ const EventsList = ({}) => {
         }}
         // Enable the option to swipe between months. Default = false
         enableSwipeMonths={false}
-        markedDates={markedDates}
+        markedDates={eventDates}
         theme={{
           arrowColor: 'black',
           todayTextColor: '#2d4150',
@@ -78,11 +101,12 @@ const EventsList = ({}) => {
   };
 
   const renderItem = ({item: event}) => {
+    const date = dayjs(event.start).format('ddd, MMM D, YYYY h:mm A');
     return (
       <EventItem
-        date={dayjs().format('ddd, MMM D, YYYY h:mm A')}
+        date={date}
         img={event.img}
-        name={event.name}
+        name={event.title}
         location={event.location}
       />
     );
@@ -96,17 +120,30 @@ const EventsList = ({}) => {
     return (
       <FlatList
         style={styles.eventList}
-        data={data}
+        data={events}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
         keyExtractor={item => item.name}
-        onRefresh={handleRefresh}
-        refreshing={false}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+        }
       />
     );
   };
 
-  const handleRefresh = () => {};
+  const handleRefresh = () => {
+    getEvents();
+  };
+
+  if (isLoading) {
+    return (
+      // eslint-disable-next-line react-native/no-inline-styles
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {renderCalendar()}

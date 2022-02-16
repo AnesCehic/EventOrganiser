@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
 
 import {MenuItem} from '@components';
 import {Constants, Styles} from '@common';
+import {UsersService} from '@services/apiClient';
 
 import styles from './styles';
 
@@ -35,7 +36,7 @@ const MenuItems = [
   {
     id: 4,
     menuText: 'Preferences',
-    menuScreen: null,
+    menuScreen: Constants.NavigationScreens.PreferencesScreen,
   },
   {
     id: 5,
@@ -45,7 +46,25 @@ const MenuItems = [
 ];
 
 const EditProfile = ({navigation}) => {
+  const [userData, setUserData] = useState({});
+
   const {navigate} = navigation;
+
+  useEffect(() => {
+    UsersService.get('620a9de1c8ec5100103aca38')
+      .then(({firstName, lastName, email}) => {
+        setUserData({
+          firstName,
+          lastName,
+          email,
+          avatarImg:
+            'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f',
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   const renderAvatar = () => {
     return (
@@ -70,7 +89,7 @@ const EditProfile = ({navigation}) => {
     return (
       <View style={styles.userInfo}>
         <Text style={styles.userName}>
-          {data.firstName} {data.lastName}
+          {userData.firstName} {userData.lastName}
           <Icon
             onPress={() => console.log('edit username')}
             name="mode-edit"
@@ -81,7 +100,7 @@ const EditProfile = ({navigation}) => {
           />
         </Text>
         <Text style={styles.userEmail}>
-          {data.email}
+          {userData.email}
           <Icon
             onPress={() => console.log('edit email')}
             name="mode-edit"

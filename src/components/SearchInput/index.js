@@ -1,15 +1,15 @@
-import React from "react";
-import { TextInput } from "react-native";
+import React from 'react';
+import {TextInput} from 'react-native';
 
 import styles from './styles';
 
-const SearchInput = () => {
+const SearchInput = ({placeholder = 'Search', style}) => {
   return (
     <TextInput
-      placeholder='Search'
-      style={styles.searchContainer}
+      placeholder={placeholder}
+      style={[styles.searchContainer, style]}
     />
-  )
+  );
 };
 
 export default SearchInput;
