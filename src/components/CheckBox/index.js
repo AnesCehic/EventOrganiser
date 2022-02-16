@@ -1,22 +1,23 @@
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
-
-import CheckBox from '@react-native-community/checkbox';
+import {View} from 'react-native';
+import {CheckBox} from 'react-native-elements';
 
 import styles from './styles';
 
-const CustomCheckBox = ({reference}) => {
+const CustomCheckBox = ({reference, text}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <View style={styles.checkBoxInput}>
+    <View style={styles.container}>
       <CheckBox
-        ref={reference}
-        forwardedRef
-        value={isChecked}
-        onValueChange={newValue => setIsChecked(newValue)}
+        title={text}
+        center
+        checked={isChecked}
+        onPress={() => setIsChecked(!isChecked)}
+        containerStyle={styles.checkboxContainer}
+        wrapperStyle={styles.checkboxWrapper}
+        textStyle={styles.checkboxText}
       />
-      <Text>Keep me logged in</Text>
     </View>
   );
 };

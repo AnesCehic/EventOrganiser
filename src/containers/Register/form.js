@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 import {TouchableHighlight, Text, View, Alert} from 'react-native';
 
 import TextInput from '@components/TextInput';
-import {SubmitButton} from '@components';
+import {SubmitButton, CustomCheckBox} from '@components';
 
 import {UsersService} from '../../services/apiClient';
 
@@ -54,6 +54,15 @@ const Form = ({navigation}) => {
         value={password}
         onChangeValue={value => setPassword(value)}
       />
+
+      <View style={styles.checkbox}>
+        <CustomCheckBox
+          boxType="square"
+          text="I would like to receive your newsletter and other promotional information."
+          animationDuration={0.1}
+          lineWidth={1}
+        />
+      </View>
 
       <SubmitButton onPress={register} title="Register" />
     </View>
