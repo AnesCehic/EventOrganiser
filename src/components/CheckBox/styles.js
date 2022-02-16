@@ -1,14 +1,19 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  checkBoxInput: {
+  container: {
     flexDirection: 'row',
-    alignItems: 'center',
-    height: 40,
-    width: '80%',
-    margin: 5,
-    marginTop: 10,
-    marginBottom: 10,
+  },
+  checkboxContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0,
+  },
+  checkboxWrapper: {
+    alignItems: 'flex-start',
+  },
+  checkboxText: {
+    fontWeight: '400',
   },
 });
 

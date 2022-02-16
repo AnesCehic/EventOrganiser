@@ -16,8 +16,11 @@ import StartScreen from './StartScreen';
 import ChatScreen from './ChatScreen';
 import ImagesScreen from './ImagesScreen';
 import GroupsScreen from './GroupsScreen';
+import ExpensesScreen from './ExpensesScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
+import InsightsScreen from './InsightsScreen';
+import ContentScreen from './ContentScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -78,7 +81,7 @@ const BottomTabNavigation = () => {
 
 const FeedNavigation = () => {
   return (
-    <FeedStack.Navigator screenOptions={{headerShadowVisible: false}} >
+    <FeedStack.Navigator screenOptions={{headerShadowVisible: false}}>
       <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
       <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
     </FeedStack.Navigator>
@@ -118,6 +121,9 @@ const MainNavigation = () => {
         />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
+        <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
+        <Stack.Screen name="ContentScreen" component={ContentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
