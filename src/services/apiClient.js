@@ -8,9 +8,11 @@ const socket = io('http://api.lincolnclub.app');
 const client = feathers();
 
 client.configure(socketioClient(socket));
-client.configure(authentication({
+client.configure(
+  authentication({
     storage: AsyncStorageLib,
-}));
+  }),
+);
 client.setup();
 
 const UsersService = client.service('users');

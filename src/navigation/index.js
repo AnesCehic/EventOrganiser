@@ -18,6 +18,7 @@ import ImagesScreen from './ImagesScreen';
 import GroupsScreen from './GroupsScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
+import ContentScreen from './ContentScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -78,7 +79,7 @@ const BottomTabNavigation = () => {
 
 const FeedNavigation = () => {
   return (
-    <FeedStack.Navigator screenOptions={{headerShadowVisible: false}} >
+    <FeedStack.Navigator screenOptions={{headerShadowVisible: false}}>
       <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
       <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
     </FeedStack.Navigator>
@@ -118,6 +119,7 @@ const MainNavigation = () => {
         />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="ContentScreen" component={ContentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
