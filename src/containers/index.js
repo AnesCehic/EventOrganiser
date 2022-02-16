@@ -7,6 +7,7 @@ import _Chat from './Chat';
 import _Groups from './Groups';
 import _ChatMessages from './ChatMessages';
 import _Preferences from './Preferences';
+import _Content from './Content';
 
 export const EventsList = _EventsList;
 export const Start = _Start;
@@ -17,3 +18,4 @@ export const Chat = _Chat;
 export const Groups = _Groups;
 export const ChatMessages = _ChatMessages;
 export const Preferences = _Preferences;
+export const Content = _Content;
