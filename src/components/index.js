@@ -6,6 +6,7 @@ import _SubmitButton from './SubmitButton';
 import _MenuItem from './MenuItem';
 import _VerticalBar from './VerticalBar';
 import _MessageInput from './MessageInput';
+import _CircleProgress from './CircleProgress';
 import _SearchInput from './SearchInput';
 import _CustomCheckBox from './CheckBox';
 
@@ -17,5 +18,6 @@ export const SubmitButton = _SubmitButton;
 export const MenuItem = _MenuItem;
 export const VerticalBar = _VerticalBar;
 export const MessageInput = _MessageInput;
+export const CircleProgress = _CircleProgress;
 export const SearchInput = _SearchInput;
 export const CustomCheckBox = _CustomCheckBox;

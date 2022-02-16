@@ -19,6 +19,7 @@ import GroupsScreen from './GroupsScreen';
 import ExpensesScreen from './ExpensesScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
+import InsightsScreen from './InsightsScreen';
 import ContentScreen from './ContentScreen';
 
 const Stack = createNativeStackNavigator();
@@ -120,6 +121,7 @@ const MainNavigation = () => {
         />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
         <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
         <Stack.Screen name="ContentScreen" component={ContentScreen} />
       </Stack.Navigator>
