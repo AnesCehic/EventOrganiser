@@ -10,6 +10,7 @@ import _BottomSheetModal from './BottomSheetModal';
 import _CircleProgress from './CircleProgress';
 import _SearchInput from './SearchInput';
 import _CustomCheckBox from './CheckBox';
+import _LoadingIndicator from './LoadingIndicator';
 
 export const EventItem = _EventItem;
 export const Header = _Header;
@@ -23,3 +24,4 @@ export const BottomSheetModal = _BottomSheetModal;
 export const CircleProgress = _CircleProgress;
 export const SearchInput = _SearchInput;
 export const CustomCheckBox = _CustomCheckBox;
+export const LoadingIndicator = _LoadingIndicator;

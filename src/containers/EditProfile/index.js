@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
 import {CommonActions} from '@react-navigation/native';
 
-import {MenuItem} from '@components';
+import {MenuItem, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UsersService} from '@services/apiClient';
 
@@ -45,24 +45,33 @@ const MenuItems = [
 
 const EditProfile = ({navigation}) => {
   const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const {navigate} = navigation;
 
   useEffect(() => {
-    UsersService.get('620a9de1c8ec5100103aca38')
-      .then(({firstName, lastName, email}) => {
-        setUserData({
-          firstName,
-          lastName,
-          email,
-          avatarImg:
-            'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f',
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    getUser();
   }, []);
+
+  const getUser = async () => {
+    try {
+      setIsLoading(true);
+      const {firstName, lastName, email} = await UsersService.get(
+        '620a9de1c8ec5100103aca38',
+      );
+      const avatarImg =
+        'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f';
+      setUserData({
+        firstName,
+        lastName,
+        email,
+        avatarImg,
+      });
+      setIsLoading(false);
+    } catch (error) {
+      console.log('[Error logout]', error);
+    }
+  };
 
   const renderAvatar = () => {
     return (
@@ -114,7 +123,9 @@ const EditProfile = ({navigation}) => {
 
   const logout = async () => {
     try {
+      setIsLoading(true);
       await client.logout();
+      setIsLoading(false);
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
@@ -126,6 +137,7 @@ const EditProfile = ({navigation}) => {
         }),
       );
     } catch (err) {
+      setIsLoading(false);
       console.log('[Error logout]', err);
     }
   };
@@ -148,6 +160,10 @@ const EditProfile = ({navigation}) => {
       </View>
     );
   };
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <View style={styles.container}>
