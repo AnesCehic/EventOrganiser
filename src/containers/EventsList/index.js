@@ -1,41 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  RefreshControl,
-  ActivityIndicator,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Text, FlatList, RefreshControl} from 'react-native';
 import {connect} from 'react-redux';
 import dayjs from 'dayjs';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
-import {EventItem} from '@components';
+import {EventItem, LoadingIndicator} from '@components';
 import {Constants} from '@common';
-import {EventService} from '@services/apiClient';
+import {useEvents} from '../../hooks';
 
 import styles from './styles';
 
 const EventsList = ({navigation}) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [events, setEvents] = useState([]);
+  const {events, eventsError, eventsLoading, refetch} = useEvents();
 
   useEffect(() => {
-    getEvents();
-  }, []);
-
-  const getEvents = async () => {
-    try {
-      setIsLoading(true);
-
-      const {data} = await EventService.find();
-
-      setEvents(data || []);
-      setIsLoading(false);
-    } catch (e) {
-      console.log('[Error fetch Events]', e);
+    if (eventsError) {
+      //toast here
     }
-  };
+  }, [eventsError]);
 
   const renderCalendar = () => {
     const today = dayjs().format();
@@ -123,25 +105,23 @@ const EventsList = ({navigation}) => {
         data={events}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
-        keyExtractor={item => item.name}
+        keyExtractor={item => item._id}
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+          <RefreshControl
+            refreshing={eventsLoading}
+            onRefresh={handleRefresh}
+          />
         }
       />
     );
   };
 
   const handleRefresh = () => {
-    getEvents();
+    refetch({});
   };
 
-  if (isLoading) {
-    return (
-      // eslint-disable-next-line react-native/no-inline-styles
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+  if (eventsLoading) {
+    return <LoadingIndicator />;
   }
 
   return (
