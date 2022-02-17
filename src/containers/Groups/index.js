@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 
 import {MenuItem} from '@components';
 import {Styles} from '@common';
+import {GroupService} from '@services/apiClient';
 
 import styles from './styles';
 
@@ -36,8 +37,22 @@ const MenuItems = [
   },
 ];
 
-const Groups = () => {
+const Groups = ({navigation}) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    fetchGroups();
+  }, []);
+
+  const fetchGroups = async () => {
+    try {
+      const {data} = await GroupService.find();
+      setGroups(data);
+    } catch (error) {
+      console.log('[Error get groups]', error);
+    }
+  };
 
   const renderSwitch = () => {
     return (
@@ -75,12 +90,17 @@ const Groups = () => {
   const renderMyGroups = () => {
     return (
       <View style={styles.menu}>
-        {MenuItems.map(menuItem => {
+        {groups.map(menuItem => {
           return (
             <MenuItem
-              key={menuItem.id}
-              onPress={() => {}}
-              menuText={menuItem.menuText}
+              key={menuItem._id}
+              groupId={menuItem._id}
+              onPress={() => {
+                navigation.navigate('GroupMembers', {
+                  id: menuItem._id,
+                });
+              }}
+              menuText={menuItem.name}
             />
           );
         })}
