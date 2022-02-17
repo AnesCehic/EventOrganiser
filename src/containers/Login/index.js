@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
 
 import {client} from '../../services/apiClient';
 
@@ -24,12 +23,6 @@ const Login = ({navigation}) => {
       navigateToHome();
     } catch (error) {
       setIsLoading(false);
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: error.message,
-        onPress: () => Toast.hide(),
-      });
       console.log('[Error login]', error);
     }
   };
@@ -50,7 +43,7 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Form submitLogin={login} isLoading={isLoading} />
-      <Toast />
+
       <TouchableOpacity
         style={styles.registerLink}
         onPress={() => {
