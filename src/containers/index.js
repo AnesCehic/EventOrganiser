@@ -10,6 +10,7 @@ import _ChatMessages from './ChatMessages';
 import _Preferences from './Preferences';
 import _Insights from './Insights';
 import _Content from './Content';
+import _VerifyAccount from './VerifyAccount';
 
 export const EventsList = _EventsList;
 export const Start = _Start;
@@ -23,3 +24,4 @@ export const ChatMessages = _ChatMessages;
 export const Preferences = _Preferences;
 export const Insights = _Insights;
 export const Content = _Content;
+export const VerifyAccount = _VerifyAccount;

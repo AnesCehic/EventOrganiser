@@ -22,6 +22,7 @@ import PreferencesScreen from './PreferencesScreen';
 import InsightsScreen from './InsightsScreen';
 import ContentScreen from './ContentScreen';
 import GroupMembersScreen from './GroupMembersScreen';
+import VerifyAccountScreen from './VerifyAccountScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -123,6 +124,7 @@ const MainNavigation = () => {
         />
         <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="VerifyAccount" component={VerifyAccountScreen} />
         <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
         <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
         <Stack.Screen name="ContentScreen" component={ContentScreen} />
