@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {View, Text, FlatList, RefreshControl} from 'react-native';
-import {connect} from 'react-redux';
 import dayjs from 'dayjs';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
@@ -38,9 +37,8 @@ const EventsList = ({navigation}) => {
         minDate={today}
         // maxDate={maxDate}
         onDayPress={day => {
-          console.log('selected day', day);
           navigation.navigate(Constants.NavigationScreens.ContentScreen, {
-            testParam: 'test param',
+            date: day.dateString,
           });
         }}
         onDayLongPress={day => {
@@ -75,7 +73,7 @@ const EventsList = ({navigation}) => {
         enableSwipeMonths={false}
         markedDates={eventDates}
         theme={{
-          arrowColor: 'black',
+          arrowColor: '#000',
           todayTextColor: '#2d4150',
         }}
       />
@@ -117,7 +115,7 @@ const EventsList = ({navigation}) => {
   };
 
   const handleRefresh = () => {
-    refetch({});
+    refetch({}); // trigger refetch from hook
   };
 
   if (eventsLoading) {

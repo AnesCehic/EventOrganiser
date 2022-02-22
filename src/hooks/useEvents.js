@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react';
 
-import {EventService} from '../services/apiClient';
+import {EventService} from '@services/apiClient';
 
-const useEvents = () => {
+const useEvents = eventsDate => {
   const [events, setEvents] = useState([]);
   const [eventsLoading, setEventsLoading] = useState(false);
   const [eventsError, setEventsError] = useState(null);
@@ -15,7 +15,20 @@ const useEvents = () => {
   const getEvents = async () => {
     try {
       setEventsLoading(true);
-      const res = await EventService.find();
+      let res;
+      if (!eventsDate) {
+        res = await EventService.find();
+        setEvents(res.data);
+      } else {
+        // if param passed return just events on that date
+        res = await EventService.find({
+          query: {
+            start: {
+              $gte: new Date(eventsDate),
+            },
+          },
+        });
+      }
       setEvents(res.data);
       setEventsLoading(false);
     } catch (error) {
