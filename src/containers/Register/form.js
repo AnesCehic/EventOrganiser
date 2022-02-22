@@ -20,7 +20,12 @@ const Form = ({navigation}) => {
       lastName,
       email,
       password,
-    }).then(res => console.log('create'));
+    }).then(res => {
+      navigation.navigate('VerifyAccount', {
+        userId: res._id,
+        verificationKey: res.verificationKey,
+      });
+    });
   };
 
   return (

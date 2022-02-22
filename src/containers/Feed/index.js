@@ -6,7 +6,7 @@ import Search from '@components/SearchInput';
 import EventCard from '@components/EventCard';
 
 import {PostsList} from '@components';
-import {useEvents} from '@hooks';
+import {useEvents} from '../../hooks';
 
 import styles from './styles';
 
