@@ -20,7 +20,7 @@ import ExpensesScreen from './ExpensesScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
 import InsightsScreen from './InsightsScreen';
-import ContentScreen from './ContentScreen';
+import EventsOnDayScreen from './EventsOnDayScreen';
 import GroupMembersScreen from './GroupMembersScreen';
 import VerifyAccountScreen from './VerifyAccountScreen';
 
@@ -127,7 +127,7 @@ const MainNavigation = () => {
         <Stack.Screen name="VerifyAccount" component={VerifyAccountScreen} />
         <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
         <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
-        <Stack.Screen name="ContentScreen" component={ContentScreen} />
+        <Stack.Screen name="EventsOnDayScreen" component={EventsOnDayScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
