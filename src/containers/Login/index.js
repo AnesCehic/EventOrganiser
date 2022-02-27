@@ -25,8 +25,8 @@ const Login = ({navigation}) => {
       });
 
       await AsyncStorageLib.setItem('@userId', user._id);
-      handleLogin();
       setIsLoading(false);
+      handleLogin();
     } catch (error) {
       setIsLoading(false);
       console.log('[Error login]', error);
