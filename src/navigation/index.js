@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {LoadingIndicator} from '@components';
-import {client} from '../services/apiClient';
+import {client} from '@services/apiClient';
 
 import {AuthContext} from '@contexts';
 
@@ -127,10 +127,10 @@ const MainNavigation = () => {
   const {authenticated, setAuthenticated} = useContext(AuthContext);
 
   useEffect(() => {
-    getIsSignedIn();
+    getAuth();
   }, []);
 
-  const getIsSignedIn = async () => {
+  const getAuth = async () => {
     try {
       setIsLoading(true);
       await client.reAuthenticate();
