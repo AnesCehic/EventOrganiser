@@ -10,6 +10,7 @@ import {UsersService} from '@services/apiClient';
 import {client} from '@services/apiClient';
 
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const data = {
   firstName: 'Bruce',
@@ -29,7 +30,7 @@ const MenuItems = [
   {
     id: 2,
     menuText: 'Change password',
-    menuScreen: null,
+    menuScreen: Constants.NavigationScreens.ChangePasswordScreen,
   },
   {
     id: 3,
@@ -56,9 +57,8 @@ const EditProfile = ({navigation}) => {
   const getUser = async () => {
     try {
       setIsLoading(true);
-      const {firstName, lastName, email} = await UsersService.get(
-        '620a9de1c8ec5100103aca38',
-      );
+      const userId = await AsyncStorageLib.getItem('@userId');
+      const {firstName, lastName, email} = await UsersService.get(userId);
       const avatarImg =
         'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f';
       setUserData({

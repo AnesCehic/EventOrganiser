@@ -7,6 +7,7 @@ import {client} from '../../services/apiClient';
 import Form from './form';
 
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,11 +15,13 @@ const Login = ({navigation}) => {
   const login = async (username, password) => {
     try {
       setIsLoading(true);
-      await client.authenticate({
+      const {user} = await client.authenticate({
         strategy: 'local',
         email: username,
         password: password,
       });
+
+      await AsyncStorageLib.setItem('@userId', user._id);
       setIsLoading(false);
       navigateToHome();
     } catch (error) {

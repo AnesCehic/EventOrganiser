@@ -2,7 +2,7 @@ import React from 'react';
 
 import {ChatMessages} from '@containers';
 
-const ChatMessagesScreen = () => {
+const ChatMessagesScreen = ({navigation}) => {
   return <ChatMessages />;
 };
 

@@ -6,6 +6,7 @@ import {Styles} from '@common';
 import {GroupService} from '@services/apiClient';
 
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const switchItems = [
   {
@@ -46,8 +47,15 @@ const Groups = ({navigation}) => {
   }, []);
 
   const fetchGroups = async () => {
+    const userId = await AsyncStorageLib.getItem('@userId');
+    console.log(userId);
     try {
-      const {data} = await GroupService.find();
+      const {data} = await GroupService.find({
+        query: {
+          members: userId,
+        },
+      });
+      console.log(data);
       setGroups(data);
     } catch (error) {
       console.log('[Error get groups]', error);

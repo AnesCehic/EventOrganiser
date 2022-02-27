@@ -11,6 +11,8 @@ import _Preferences from './Preferences';
 import _Insights from './Insights';
 import _VerifyAccount from './VerifyAccount';
 import _EventsOnDay from './EventsOnDay';
+import _GroupMembers from './GroupMembers';
+import _ChangePassword from './ChangePassword';
 
 export const EventsList = _EventsList;
 export const Start = _Start;
@@ -25,3 +27,5 @@ export const Preferences = _Preferences;
 export const Insights = _Insights;
 export const VerifyAccount = _VerifyAccount;
 export const EventsOnDay = _EventsOnDay;
+export const ChangePassword = _ChangePassword;
+export const GroupMembers = _GroupMembers;

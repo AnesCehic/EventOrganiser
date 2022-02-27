@@ -23,6 +23,7 @@ import InsightsScreen from './InsightsScreen';
 import EventsOnDayScreen from './EventsOnDayScreen';
 import GroupMembersScreen from './GroupMembersScreen';
 import VerifyAccountScreen from './VerifyAccountScreen';
+import ChangePasswordScreen from './ChangePasswordScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -104,6 +105,10 @@ const ProfileNavigation = () => {
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <ProfileStack.Screen name="ImagesScreen" component={ImagesScreen} />
       <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />
+      <ProfileStack.Screen
+        name="ChangePassword"
+        component={ChangePasswordScreen}
+      />
       <ProfileStack.Screen name="GroupMembers" component={GroupMembersScreen} />
       <ProfileStack.Screen
         name="PreferencesScreen"
