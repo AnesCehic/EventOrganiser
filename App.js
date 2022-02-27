@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {UserContext} from '@contexts';
+import {AuthContext} from '@contexts';
 
 import {Provider} from 'react-redux';
 
@@ -33,7 +33,7 @@ import Navigation from './src/navigation';
 import store from './store';
 
 const App = () => {
-  const [userData, setUserData] = useState({});
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     setAnonymousMode();
@@ -46,11 +46,6 @@ const App = () => {
         AsyncStorage.setItem('@anonymousMode', 'disabled');
         return;
       }
-      // eslint-disable-next-line no-shadow
-      setUserData(userData => ({
-        ...userData,
-        anonymousMode: value,
-      }));
     } catch (error) {
       console.log('[Error set anon mode to storage]', error);
     }
@@ -58,11 +53,11 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <UserContext.Provider value={userData}>
+      <AuthContext.Provider value={{authenticated, setAuthenticated}}>
         <View style={styles.container}>
           <Navigation />
         </View>
-      </UserContext.Provider>
+      </AuthContext.Provider>
     </Provider>
   );
 };

@@ -1,3 +1,3 @@
-import _UserContext from './UserContext';
+import _AuthContext from './AuthContext';
 
-export const UserContext = _UserContext;
+export const AuthContext = _AuthContext;
