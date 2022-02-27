@@ -1,13 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import {View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {UserContext} from '@contexts';
 
 import {Provider} from 'react-redux';
 
@@ -16,7 +10,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocale);
-
+// put localization in different folder
 dayjs.updateLocale('en', {
   relativeTime: {
     future: 'in %s',
@@ -39,13 +33,46 @@ import Navigation from './src/navigation';
 import store from './store';
 
 const App = () => {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    setAnonymousMode();
+  }, []);
+
+  const setAnonymousMode = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@anonymousMode');
+      if (!value) {
+        AsyncStorage.setItem('@anonymousMode', 'disabled');
+        return;
+      }
+      // eslint-disable-next-line no-shadow
+      setUserData(userData => ({
+        ...userData,
+        anonymousMode: value,
+      }));
+    } catch (error) {
+      console.log('[Error set anon mode to storage]', error);
+    }
+  };
+
   return (
     <Provider store={store}>
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <Navigation />
-      </View>
+      <UserContext.Provider value={userData}>
+        <View style={styles.container}>
+          <Navigation />
+        </View>
+      </UserContext.Provider>
     </Provider>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+});
 
 export default App;

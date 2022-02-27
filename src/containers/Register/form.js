@@ -50,6 +50,8 @@ const Form = ({navigation}) => {
         placeholder="Email"
         value={email}
         onChangeValue={value => setEmail(value)}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
 
       <TextInput
