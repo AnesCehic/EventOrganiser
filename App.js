@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AuthContext} from '@contexts';
+import {UserContext} from '@contexts';
 
 import {Provider} from 'react-redux';
 
@@ -33,7 +33,9 @@ import Navigation from './src/navigation';
 import store from './store';
 
 const App = () => {
+  // if needed put all states into one object state
   const [authenticated, setAuthenticated] = useState(false);
+  const [chatForbiden, setChatForbiden] = useState(false);
 
   useEffect(() => {
     setAnonymousMode();
@@ -42,10 +44,15 @@ const App = () => {
   const setAnonymousMode = async () => {
     try {
       const value = await AsyncStorage.getItem('@anonymousMode');
-      if (!value) {
-        AsyncStorage.setItem('@anonymousMode', 'disabled');
-        return;
+      let isAnonEnabled;
+      if (value) {
+        isAnonEnabled = value === 'enabled';
       }
+      if (!value) {
+        await AsyncStorage.setItem('@anonymousMode', 'disabled');
+        isAnonEnabled = false;
+      }
+      setChatForbiden(isAnonEnabled);
     } catch (error) {
       console.log('[Error set anon mode to storage]', error);
     }
@@ -53,11 +60,17 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <AuthContext.Provider value={{authenticated, setAuthenticated}}>
+      <UserContext.Provider
+        value={{
+          authenticated,
+          setAuthenticated,
+          chatForbiden,
+          setChatForbiden,
+        }}>
         <View style={styles.container}>
           <Navigation />
         </View>
-      </AuthContext.Provider>
+      </UserContext.Provider>
     </Provider>
   );
 };

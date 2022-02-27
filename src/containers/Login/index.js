@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 
 import {client} from '@services/apiClient';
-import {AuthContext} from '@contexts';
+import {UserContext} from '@contexts';
 
 import Form from './form';
 
@@ -12,7 +12,7 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 const Login = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const {setAuthenticated} = useContext(AuthContext);
+  const {setAuthenticated} = useContext(UserContext);
   const handleLogin = () => setAuthenticated(true);
 
   const login = async (username, password) => {

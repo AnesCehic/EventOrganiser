@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {LoadingIndicator} from '@components';
 import {client} from '@services/apiClient';
 
-import {AuthContext} from '@contexts';
+import {UserContext} from '@contexts';
 
 import Icon from 'react-native-ico';
 
@@ -124,7 +124,7 @@ const ProfileNavigation = () => {
 
 const MainNavigation = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const {authenticated, setAuthenticated} = useContext(AuthContext);
+  const {authenticated, setAuthenticated} = useContext(UserContext);
 
   useEffect(() => {
     getAuth();

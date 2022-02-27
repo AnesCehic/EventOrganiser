@@ -5,7 +5,7 @@ import {Avatar, Icon} from 'react-native-elements';
 import {MenuItem, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UsersService} from '@services/apiClient';
-import {AuthContext} from '@contexts';
+import {UserContext} from '@contexts';
 
 import {client} from '@services/apiClient';
 
@@ -45,7 +45,7 @@ const MenuItems = [
 ];
 
 const EditProfile = ({navigation}) => {
-  const {setAuthenticated} = useContext(AuthContext);
+  const {setAuthenticated} = useContext(UserContext);
   const handleLogout = () => setAuthenticated(false);
 
   const [userData, setUserData] = useState({});
