@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Switch} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {SubmitButton} from '@components';
 
@@ -9,8 +10,32 @@ import styles from './styles';
 
 const Preferences = () => {
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
-  const [anonModeEnabled, setAnonModeEnabled] = useState(true);
+  const [anonModeEnabled, setAnonModeEnabled] = useState(false);
   const [allowMsgEnabled, setAllowMsgEnabled] = useState(true);
+
+  useEffect(() => {
+    getAnonMode();
+  }, []);
+
+  const getAnonMode = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@anonymousMode');
+      const isAnonMode = value === 'enabled';
+      setAnonModeEnabled(isAnonMode);
+    } catch (error) {
+      console.log('[Error get anon mode - preferences]', error);
+    }
+  };
+
+  const anonModeToggle = async value => {
+    try {
+      const anonymousMode = value ? 'enabled' : 'disabled';
+      await AsyncStorage.setItem('@anonymousMode', anonymousMode);
+      setAnonModeEnabled(value);
+    } catch (error) {
+      console.log('[Error set switch anon mode]', error);
+    }
+  };
 
   const renderDarkMode = () => {
     return (
@@ -41,7 +66,7 @@ const Preferences = () => {
           }}
           thumbColor={Styles.Colors.white}
           ios_backgroundColor={Styles.Colors.darkGrayBg}
-          onValueChange={setAnonModeEnabled}
+          onValueChange={anonModeToggle}
           value={anonModeEnabled}
         />
       </View>
