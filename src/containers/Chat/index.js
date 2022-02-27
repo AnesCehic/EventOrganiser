@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import dayjs from 'dayjs';
+import Icon from 'react-native-ico';
 
 import {PostsList, SubmitButton} from '@components';
 
@@ -11,22 +11,6 @@ import data from './data';
 import styles from './styles';
 
 const Chat = ({navigation}) => {
-  const [isAnonMode, setIsAnonMode] = useState();
-
-  useEffect(() => {
-    getAnonMode();
-  }, []);
-
-  const getAnonMode = async () => {
-    try {
-      const res = await AsyncStorage.getItem('@anonymousMode');
-      const isEnabled = res === 'enabled';
-      setIsAnonMode(isEnabled);
-    } catch (error) {
-      console.log('[Error get anon mode chat]', error);
-    }
-  };
-
   const navigateToMessages = () => {
     navigation.navigate('Messages');
   };
@@ -38,13 +22,7 @@ const Chat = ({navigation}) => {
 
     return <PostsList data={newDataTest} onPress={navigateToMessages} />;
   };
-  if (isAnonMode) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize: 26}}>Forbiden!</Text>
-      </View>
-    );
-  }
+
   return (
     <View style={styles.container}>
       <View style={{marginBottom: 70}}>{renderPosts()}</View>
@@ -57,6 +35,7 @@ const Chat = ({navigation}) => {
           alignItems: 'center',
           marginTop: 10,
         }}>
+
         <SubmitButton
           style={{marginTop: 0, width: '60%'}}
           title="Send message"

@@ -48,7 +48,6 @@ const BottomTabNavigation = () => {
           headerShown: false,
           tabBarIcon: () => <Icon name="home" group="universalicons" />,
           tabBarShowLabel: false,
-          unmountOnBlur: true,
         }}
         component={FeedNavigation}
       />
@@ -57,7 +56,6 @@ const BottomTabNavigation = () => {
         options={{
           tabBarIcon: () => <Icon name="calendar" group="miscellaneous" />,
           tabBarShowLabel: false,
-          unmountOnBlur: true,
         }}
         component={EventsListScreen}
       />
@@ -67,7 +65,6 @@ const BottomTabNavigation = () => {
           headerShown: false,
           tabBarIcon: () => <Icon name="chat" group="shopping" />,
           tabBarShowLabel: false,
-          unmountOnBlur: true,
         }}
         component={ChatNavigation}
       />
@@ -77,7 +74,6 @@ const BottomTabNavigation = () => {
           headerShown: false,
           tabBarIcon: () => <Icon name="profile" group="basic" />,
           tabBarShowLabel: false,
-          unmountOnBlur: true,
         }}
         component={ProfileNavigation}
       />
