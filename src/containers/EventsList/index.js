@@ -37,7 +37,7 @@ const EventsList = ({navigation}) => {
         minDate={today}
         // maxDate={maxDate}
         onDayPress={day => {
-          navigation.navigate(Constants.NavigationScreens.ContentScreen, {
+          navigation.navigate(Constants.NavigationScreens.EventsOnDayScreen, {
             date: day.dateString,
           });
         }}

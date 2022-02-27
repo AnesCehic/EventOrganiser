@@ -5,7 +5,13 @@ import {Styles} from '@common';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
+  },
+
+  eventItemContainer: {
+    borderBottomColor: Styles.Colors.grayBorder,
+    borderBottomWidth: 1,
+    marginHorizontal: 20,
   },
 });
 

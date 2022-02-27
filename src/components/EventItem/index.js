@@ -4,9 +4,11 @@ import {Text} from 'react-native-elements';
 
 import styles from './styles';
 
-const EventItem = ({name, img, date, location, onPress}) => {
+const EventItem = ({name, img, date, location, onPress, containerStyle}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, containerStyle]}>
       <View style={styles.leftContent}>
         <Image
           style={styles.img}

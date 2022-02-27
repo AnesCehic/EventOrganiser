@@ -30,6 +30,7 @@ const BottomTab = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const ChatStack = createNativeStackNavigator();
+const EventsStack = createNativeStackNavigator();
 
 const ChatNavigation = () => {
   return (
@@ -56,11 +57,12 @@ const BottomTabNavigation = () => {
       <BottomTab.Screen
         name="Calendar"
         options={{
+          headerShown: false,
           tabBarIcon: () => <Icon name="calendar" group="miscellaneous" />,
           tabBarShowLabel: false,
           unmountOnBlur: true,
         }}
-        component={EventsListScreen}
+        component={EventsNavigation}
       />
       <BottomTab.Screen
         name="Chat"
@@ -118,6 +120,15 @@ const ProfileNavigation = () => {
   );
 };
 
+const EventsNavigation = () => {
+  return (
+    <EventsStack.Navigator screenOptions={{headerShadowVisible: false}}>
+      <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
+      <Stack.Screen name="EventsOnDayScreen" component={EventsOnDayScreen} />
+    </EventsStack.Navigator>
+  );
+};
+
 const MainNavigation = () => {
   return (
     <NavigationContainer>
@@ -131,12 +142,17 @@ const MainNavigation = () => {
           }}
           component={BottomTabNavigation}
         />
-        <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
+        <Stack.Screen
+          name="EventsScreen"
+          options={{
+            headerShown: false,
+          }}
+          component={EventsNavigation}
+        />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="VerifyAccount" component={VerifyAccountScreen} />
         <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
         <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
-        <Stack.Screen name="EventsOnDayScreen" component={EventsOnDayScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

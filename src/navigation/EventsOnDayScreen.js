@@ -1,9 +1,9 @@
 import React from 'react';
 
-import {Content} from '@containers';
+import {EventsOnDay} from '@containers';
 
-const ContentScreen = ({route, navigation}) => {
-  return <Content navigation={navigation} route={route} />;
+const EventsOnDayScreen = ({route, navigation}) => {
+  return <EventsOnDay navigation={navigation} route={route} />;
 };
 
-export default ContentScreen;
+export default EventsOnDayScreen;
