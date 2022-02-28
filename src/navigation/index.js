@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {LoadingIndicator} from '@components';
+import {client} from '@services/apiClient';
+
+import {UserContext} from '@contexts';
 
 import Icon from 'react-native-ico';
 
@@ -119,10 +123,67 @@ const ProfileNavigation = () => {
 };
 
 const MainNavigation = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const {authenticated, setAuthenticated} = useContext(UserContext);
+
+  useEffect(() => {
+    getAuth();
+  }, []);
+
+  const getAuth = async () => {
+    try {
+      setIsLoading(true);
+      await client.reAuthenticate();
+      setIsLoading(false);
+      setAuthenticated(true);
+    } catch (error) {
+      console.log('[Error get is signed in navigation index]', error);
+      setIsLoading(false);
+      setAuthenticated(false);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
-        <Stack.Screen name="Start" component={StartScreen} />
+        {!authenticated ? (
+          <>
+            <Stack.Screen name="Start" component={StartScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen
+              name="VerifyAccount"
+              component={VerifyAccountScreen}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Home"
+              options={{
+                headerShown: false,
+              }}
+              component={BottomTabNavigation}
+            />
+            <Stack.Screen
+              name="EventsListScreen"
+              component={EventsListScreen}
+            />
+
+            <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
+            <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
+            <Stack.Screen
+              name="EventsOnDayScreen"
+              component={EventsOnDayScreen}
+            />
+          </>
+        )}
+
+        {/* <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen
           name="Home"
@@ -136,7 +197,7 @@ const MainNavigation = () => {
         <Stack.Screen name="VerifyAccount" component={VerifyAccountScreen} />
         <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
         <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
-        <Stack.Screen name="EventsOnDayScreen" component={EventsOnDayScreen} />
+        <Stack.Screen name="EventsOnDayScreen" component={EventsOnDayScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

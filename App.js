@@ -33,7 +33,9 @@ import Navigation from './src/navigation';
 import store from './store';
 
 const App = () => {
-  const [userData, setUserData] = useState({});
+  // if needed put all states into one object state
+  const [authenticated, setAuthenticated] = useState(false);
+  const [chatForbiden, setChatForbiden] = useState(false);
 
   useEffect(() => {
     setAnonymousMode();
@@ -42,15 +44,15 @@ const App = () => {
   const setAnonymousMode = async () => {
     try {
       const value = await AsyncStorage.getItem('@anonymousMode');
-      if (!value) {
-        AsyncStorage.setItem('@anonymousMode', 'disabled');
-        return;
+      let isAnonEnabled;
+      if (value) {
+        isAnonEnabled = value === 'enabled';
       }
-      // eslint-disable-next-line no-shadow
-      setUserData(userData => ({
-        ...userData,
-        anonymousMode: value,
-      }));
+      if (!value) {
+        await AsyncStorage.setItem('@anonymousMode', 'disabled');
+        isAnonEnabled = false;
+      }
+      setChatForbiden(isAnonEnabled);
     } catch (error) {
       console.log('[Error set anon mode to storage]', error);
     }
@@ -58,7 +60,13 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <UserContext.Provider value={userData}>
+      <UserContext.Provider
+        value={{
+          authenticated,
+          setAuthenticated,
+          chatForbiden,
+          setChatForbiden,
+        }}>
         <View style={styles.container}>
           <Navigation />
         </View>

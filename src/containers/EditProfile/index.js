@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {View, Text} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
-import {CommonActions} from '@react-navigation/native';
 
 import {MenuItem, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UsersService} from '@services/apiClient';
+import {UserContext} from '@contexts';
 
 import {client} from '@services/apiClient';
 
@@ -45,6 +45,9 @@ const MenuItems = [
 ];
 
 const EditProfile = ({navigation}) => {
+  const {setAuthenticated} = useContext(UserContext);
+  const handleLogout = () => setAuthenticated(false);
+
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -126,16 +129,7 @@ const EditProfile = ({navigation}) => {
       setIsLoading(true);
       await client.logout();
       setIsLoading(false);
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'Start',
-            },
-          ],
-        }),
-      );
+      handleLogout();
     } catch (err) {
       setIsLoading(false);
       console.log('[Error logout]', err);

@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {CommonActions} from '@react-navigation/native';
 
-import {client} from '../../services/apiClient';
+import {client} from '@services/apiClient';
+import {UserContext} from '@contexts';
 
 import Form from './form';
 
@@ -11,6 +11,9 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const {setAuthenticated} = useContext(UserContext);
+  const handleLogin = () => setAuthenticated(true);
 
   const login = async (username, password) => {
     try {
@@ -23,24 +26,11 @@ const Login = ({navigation}) => {
 
       await AsyncStorageLib.setItem('@userId', user._id);
       setIsLoading(false);
-      navigateToHome();
+      handleLogin();
     } catch (error) {
       setIsLoading(false);
       console.log('[Error login]', error);
     }
-  };
-
-  const navigateToHome = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [
-          {
-            name: 'Home',
-          },
-        ],
-      }),
-    );
   };
 
   return (
