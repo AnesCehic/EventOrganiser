@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Avatar, Button, Icon} from 'react-native-elements';
 import dayjs from 'dayjs';
 
 import {PostsList, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
+import {UserContext} from '@contexts';
 
 import {UsersService} from '@services/apiClient';
 
@@ -15,6 +16,7 @@ import styles from './styles';
 const Profile = ({navigation, route}) => {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const {chatForbiden} = useContext(UserContext);
 
   const fetchUserData = async () => {
     try {
@@ -29,6 +31,7 @@ const Profile = ({navigation, route}) => {
   };
 
   useEffect(() => {
+    console.log(chatForbiden)
     fetchUserData();
   }, []);
 
@@ -53,20 +56,22 @@ const Profile = ({navigation, route}) => {
         <Text style={styles.memberSince}>
           Member Since {dayjs(data.memberSince).format('YYYY')}
         </Text>
-        <Button
-          title="Send Message"
-          buttonStyle={styles.buttonStyle}
-          titleStyle={styles.buttonTitle}
-          icon={
-            <Icon
-              name="message"
-              style={styles.btnIcon}
-              size={22}
-              color={Styles.Colors.primaryBlue}
-            />
-          }
-          iconContainerStyle={styles.btnIcon}
-        />
+        {chatForbiden ? null : (
+          <Button
+            title="Send Message"
+            buttonStyle={styles.buttonStyle}
+            titleStyle={styles.buttonTitle}
+            icon={
+              <Icon
+                name="message"
+                style={styles.btnIcon}
+                size={22}
+                color={Styles.Colors.primaryBlue}
+              />
+            }
+            iconContainerStyle={styles.btnIcon}
+          />
+        )}
       </View>
     );
   };
