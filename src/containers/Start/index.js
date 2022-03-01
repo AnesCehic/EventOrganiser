@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View, ImageBackground} from 'react-native';
 
 import {SubmitButton} from '@components';
 
@@ -20,18 +20,27 @@ const Start = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <SubmitButton
-        onPress={() => navigation.navigate('Login')}
-        title="Login"
-        style={styles.button}
-      />
-      <SubmitButton
-        onPress={() => navigation.navigate('Register')}
-        title="Regsiter"
-        style={styles.button}
-      />
-    </View>
+    <ImageBackground
+      source={require('../../assets/background-video.png')}
+      resizeMode="cover"
+      style={styles.mainContainer}>
+      <View style={styles.container}>
+        <SubmitButton
+          onPress={() => navigation.navigate('Login')}
+          title="Login"
+          style={styles.button}
+        />
+        <SubmitButton
+          onPress={() => navigation.navigate('Register')}
+          title="Regsiter"
+          style={styles.button}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.registerButton}>
+        <Text>Register</Text>
+      </TouchableOpacity>
+    </ImageBackground>
   );
 };
 

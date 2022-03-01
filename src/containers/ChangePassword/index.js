@@ -21,16 +21,9 @@ const ChangePassword = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        name="email"
-        placeholder="Email"
-        value={email}
-        onChangeValue={value => setEmail(value)}
-      />
-
       <SubmitButton
         onPress={() => resetPassword(email)}
-        title="Reset password"
+        title="Send email link for reset password"
         isLoading={isLoading}
       />
     </View>

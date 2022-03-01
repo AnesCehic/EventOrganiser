@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Avatar, Button, Icon} from 'react-native-elements';
 import dayjs from 'dayjs';
 
-import {PostsList} from '@components';
+import {PostsList, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 
 import {UsersService} from '@services/apiClient';
@@ -12,7 +12,26 @@ import data from './data';
 
 import styles from './styles';
 
-const Profile = ({navigation}) => {
+const Profile = ({navigation, route}) => {
+  const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchUserData = async () => {
+    try {
+      setIsLoading(true);
+      const res = await UsersService.get(route.params.userId);
+      setUserData(res);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log('[Error loading user data]:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   const renderAvatar = () => {
     return (
       <View style={styles.avatar}>
@@ -29,7 +48,7 @@ const Profile = ({navigation}) => {
     return (
       <View style={styles.userInfo}>
         <Text style={styles.userName}>
-          {data.firstName} {data.lastName}
+          {userData.firstName} {userData.lastName}
         </Text>
         <Text style={styles.memberSince}>
           Member Since {dayjs(data.memberSince).format('YYYY')}
@@ -85,6 +104,10 @@ const Profile = ({navigation}) => {
 
     return <PostsList data={newDataTest} />;
   };
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <View
