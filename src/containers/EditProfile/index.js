@@ -61,12 +61,13 @@ const EditProfile = ({navigation}) => {
     try {
       setIsLoading(true);
       const userId = await AsyncStorageLib.getItem('@userId');
-      const {firstName, lastName, email} = await UsersService.get(userId);
+      const {firstName, lastName, email, _id} = await UsersService.get(userId);
       const avatarImg =
         'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f';
       setUserData({
         firstName,
         lastName,
+        _id,
         email,
         avatarImg,
       });
@@ -144,7 +145,10 @@ const EditProfile = ({navigation}) => {
             <MenuItem
               key={menuItem.id}
               onPress={() =>
-                menuItem.menuScreen ? navigate(menuItem.menuScreen) : null
+                menuItem.menuScreen ? navigate(menuItem.menuScreen, {
+                  userId: userData._id,
+                  hideSendMessage: true,
+                }) : null
               }
               menuText={menuItem.menuText}
             />

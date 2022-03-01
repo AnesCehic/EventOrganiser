@@ -31,7 +31,6 @@ const Profile = ({navigation, route}) => {
   };
 
   useEffect(() => {
-    console.log(chatForbiden)
     fetchUserData();
   }, []);
 
@@ -56,7 +55,7 @@ const Profile = ({navigation, route}) => {
         <Text style={styles.memberSince}>
           Member Since {dayjs(data.memberSince).format('YYYY')}
         </Text>
-        {chatForbiden ? null : (
+        {chatForbiden || route?.params?.hideSendMessage ? null : (
           <Button
             title="Send Message"
             buttonStyle={styles.buttonStyle}
