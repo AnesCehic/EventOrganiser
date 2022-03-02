@@ -1,9 +1,10 @@
 import React, {useState, useContext} from 'react';
-import {View, Text, Switch} from 'react-native';
+import {View, Text, Switch, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {SubmitButton} from '@components';
+import {SubmitButton, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
+import {UsersService} from '@services/apiClient';
 
 import {Styles} from '@common';
 
@@ -13,6 +14,8 @@ const Preferences = () => {
   const {chatForbiden, setChatForbiden} = useContext(UserContext);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
   const [allowMsgEnabled, setAllowMsgEnabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const {setAuthenticated} = useContext(UserContext);
 
   const anonModeToggle = async value => {
     try {
@@ -21,6 +24,31 @@ const Preferences = () => {
       setChatForbiden(value);
     } catch (error) {
       console.log('[Error set switch anon mode]', error);
+    }
+  };
+
+  const alertDeleteUser = () => {
+    Alert.alert('Are you sure you want to delete your account?', '', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: handleDeleteUser},
+    ]);
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      setIsLoading(true);
+      const userId = await AsyncStorage.getItem('@userId');
+      await UsersService.remove(userId);
+      // -- toast here --
+      setAuthenticated(false);
+    } catch (error) {
+      console.log('[Error delete user]', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,6 +106,10 @@ const Preferences = () => {
     );
   };
 
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.switches}>
@@ -86,7 +118,7 @@ const Preferences = () => {
         {renderAllowMessaging()}
       </View>
       <SubmitButton
-        onPress={() => console.log('deactivate account')}
+        onPress={alertDeleteUser}
         title="Delete My Account"
         style={styles.button}
         titleStyle={styles.btnTitle}
