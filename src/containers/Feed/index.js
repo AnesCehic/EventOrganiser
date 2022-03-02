@@ -29,7 +29,7 @@ const Feed = ({navigation}) => {
       time: timeFromNow,
     }));
 
-    return <PostsList data={eventsData} />;
+    return <PostsList data={eventsData} navigation={navigation} />;
   };
 
   return (

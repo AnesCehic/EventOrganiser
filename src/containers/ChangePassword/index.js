@@ -3,26 +3,32 @@ import {Text, View} from 'react-native';
 
 import {TextInput, SubmitButton} from '@components';
 
+import {ForgotPasswordService} from '../../services/apiClient';
+
 import styles from './styles';
 
 const ChangePassword = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const resetPassword = email => {
-    console.log(email);
-
-    setTimeout(() => {
+  const resetPassword = async () => {
+    try {
+      setIsLoading(true);
+      const res = await ForgotPasswordService.create({
+        email: 'anes.cehic@gmail.com',
+      });
+      console.log(res);
+    } catch (error) {
+      console.log('[Error forgot password reset]', error);
+    } finally {
       setIsLoading(false);
-    }, 1000);
-
-    setIsLoading(true);
+    }
   };
 
   return (
     <View style={styles.container}>
       <SubmitButton
-        onPress={() => resetPassword(email)}
+        onPress={resetPassword}
         title="Send email link for reset password"
         isLoading={isLoading}
       />

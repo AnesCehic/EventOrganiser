@@ -14,25 +14,28 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    flex: 1,
+    aspectRatio: 1,
   },
   rsvpContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 10,
+    justifyContent: 'space-between',
     width: '100%',
     height: 40,
   },
   rsvpButton: {
-    height: '100%',
-    width: 107,
+    height: 48,
+    width: 133,
     borderRadius: 8,
-    backgroundColor: Styles.Colors.primaryBlue,
+    backgroundColor: Styles.Colors.gold,
     justifyContent: 'center',
     alignItems: 'center',
   },
   rsvpText: {
-    fontSize: 18,
+    fontSize: 14,
     color: 'white',
   },
   dateContainer: {
@@ -69,6 +72,10 @@ const styles = StyleSheet.create({
   },
   modalIcon: {
     margin: 20,
+  },
+  joinText: {
+    fontWeight: '700',
+    fontSize: 16,
   },
 });
 

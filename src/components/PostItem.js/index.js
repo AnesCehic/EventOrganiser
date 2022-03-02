@@ -1,10 +1,15 @@
 import React, {memo} from 'react';
 import {View, TouchableOpacity, Image} from 'react-native';
 import {Text} from 'react-native-elements';
+import RenderHTML from 'react-native-render-html';
 
 import styles from './styles';
 
 const PostItem = ({onPress, img, time, headline, content}) => {
+  const source = {
+    html: content,
+  };
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.leftContent}>
@@ -17,9 +22,7 @@ const PostItem = ({onPress, img, time, headline, content}) => {
             {time}
           </Text>
         </View>
-        <Text numberOfLines={2} h5 style={styles.content}>
-          {content}
-        </Text>
+        <RenderHTML source={source} />
       </View>
     </TouchableOpacity>
   );

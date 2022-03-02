@@ -3,11 +3,16 @@ import {FlatList, StyleSheet} from 'react-native';
 
 import {PostItem} from '@components';
 
-const PostsList = ({data, onPress}) => {
+const PostsList = ({data, navigation}) => {
   const renderItem = ({item: post}) => {
+    const {navigate} = navigation;
     return (
       <PostItem
-        onPress={onPress}
+        onPress={() => {
+          navigate('FeedDetails', {
+            id: post.id,
+          });
+        }}
         img={post.img}
         time={post.time}
         headline={post.headline}

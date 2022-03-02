@@ -14,6 +14,7 @@ const Styles = {
     lightGrayText: '#A7B0C0',
     secondaryPink: '#F19BFF',
     grayBorder: '#E7ECF3',
+    gold: '#BFBB85',
   },
   Sizes: {
     avatar: 72,
