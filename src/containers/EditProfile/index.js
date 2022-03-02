@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Alert} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
 
 import {MenuItem, LoadingIndicator} from '@components';
@@ -34,11 +34,17 @@ const MenuItems = [
   },
   {
     id: 3,
+    menuText: 'Change email',
+    menuScreen: null,
+    menuPressHandle: 'email_change',
+  },
+  {
+    id: 4,
     menuText: 'Groups',
     menuScreen: Constants.NavigationScreens.GroupsScreen,
   },
   {
-    id: 4,
+    id: 5,
     menuText: 'Preferences',
     menuScreen: Constants.NavigationScreens.PreferencesScreen,
   },
@@ -145,10 +151,14 @@ const EditProfile = ({navigation}) => {
             <MenuItem
               key={menuItem.id}
               onPress={() =>
-                menuItem.menuScreen ? navigate(menuItem.menuScreen, {
-                  userId: userData._id,
-                  hideSendMessage: true,
-                }) : null
+                menuItem.menuScreen
+                  ? navigate(menuItem.menuScreen, {
+                      userId: userData._id,
+                      hideSendMessage: true,
+                    })
+                  : menuItem?.menuPressHandle
+                  ? handleMenuItemPress(menuItem.menuPressHandle)
+                  : null
               }
               menuText={menuItem.menuText}
             />
@@ -157,6 +167,31 @@ const EditProfile = ({navigation}) => {
         <MenuItem onPress={() => logout()} menuText="Log out" />
       </View>
     );
+  };
+
+  const handleMenuItemPress = menuItem => {
+    if (menuItem === 'email_change') {
+      Alert.alert(
+        'Change Email?',
+        'Instructions will be sent to your email address.',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: handleConfirmChangeEmail},
+        ],
+      );
+    }
+  };
+
+  const handleConfirmChangeEmail = () => {
+    Alert.alert('Instructions was sent to your email address!', '', {
+      text: 'OK',
+      onPress: () => {},
+      style: 'plain-text',
+    });
   };
 
   if (isLoading) {
