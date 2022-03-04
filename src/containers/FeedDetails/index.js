@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Icon} from 'react-native-elements';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
@@ -138,42 +145,49 @@ const FeedDetails = ({navigation, route}) => {
     return <LoadingIndicator />;
   }
 
+  const location1 = eventData.location.split(',')[0];
+  const location2 = eventData.location.split(',').slice(1).join('');
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={{
-          marginBottom: 12,
-        }}>
+      <ScrollView contentContainerStyle={styles.scrollViewStyle}>
         <Image
           style={styles.image}
           source={{
-            uri: 'https://api.lincolnclub.app/uploads/render/621ddd344e61f846fa5df354',
+            // uri: 'https://api.lincolnclub.app/uploads/render/621ddd344e61f846fa5df354',
+            uri: 'https://picsum.photos/200/300',
             method: 'GET',
             headers: {
               Pragma: 'no-cache',
-              Authoriztion: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyIsInR5cGUiOiJhY2Nlc3MifQ.eyJpYXQiOjE2NDYxMTk0MjIsImV4cCI6MTY0NjIwNTgyMiwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjIxODIyMWU2YTQ5ZjcwMjExNTlhNDM1IiwianRpIjoiYTJiMDdhZmYtYmYyYy00ZTc1LTk1ZDctNTFjMzQ0NGI0ZmRiIn0.gPyohltMSuKO01svr5v4WVECt8Q8U5WqAqYMHeXo8CI`
+              Authoriztion:
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyIsInR5cGUiOiJhY2Nlc3MifQ.eyJpYXQiOjE2NDYxMTk0MjIsImV4cCI6MTY0NjIwNTgyMiwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjIxODIyMWU2YTQ5ZjcwMjExNTlhNDM1IiwianRpIjoiYTJiMDdhZmYtYmYyYy00ZTc1LTk1ZDctNTFjMzQ0NGI0ZmRiIn0.gPyohltMSuKO01svr5v4WVECt8Q8U5WqAqYMHeXo8CI',
             },
           }}
         />
 
-        <View style={styles.dateAndLocationWithInfo}>
-          <DateAndPlace
-            icon="calendar-today"
-            text={`${eventData.start} - ${eventData.end} - ${eventData.startTime}, ${eventData.endTime}`}
+        <View style={styles.scrollViewContentStyle}>
+          <View>
+            <Text style={styles.header}>{eventData.title}</Text>
+          </View>
+          <View style={styles.dateAndLocationWithInfo}>
+            <DateAndPlace
+              icon="calendar-today"
+              text1={`${eventData.start} - ${eventData.end}`}
+              text2={`${eventData.startTime}, ${eventData.endTime}`}
+              bold
+            />
+            <DateAndPlace
+              icon="location-pin"
+              text1={location1}
+              text2={location2}
+            />
+          </View>
+          <RenderHTML
+            source={{
+              html: eventData.description,
+            }}
+            contentWidth={500}
           />
-          <DateAndPlace icon="location-pin" text={eventData.location} />
         </View>
-
-        <View style={styles.dateAndLocationWithInfo}>
-          <Text style={styles.header}>{eventData.title}</Text>
-        </View>
-
-        <RenderHTML
-          source={{
-            html: eventData.description,
-          }}
-          contentWidth={500}
-        />
       </ScrollView>
 
       {renderRSVP()}
