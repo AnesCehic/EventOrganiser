@@ -173,7 +173,11 @@ const MainNavigation = () => {
               name="EventsListScreen"
               component={EventsListScreen}
             />
-
+            <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
+            <FeedStack.Screen
+              name="FeedDetails"
+              component={FeedDetailsScreen}
+            />
             <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
             <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
             <Stack.Screen
