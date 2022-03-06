@@ -1,17 +1,17 @@
-import React, {useState, useRef} from 'react';
-import {TouchableHighlight, Text, View} from 'react-native';
-
-import {client} from '../../services/apiClient';
+import React, {useState} from 'react';
+import {View} from 'react-native';
 
 import TextInput from '@components/TextInput';
 import {SubmitButton} from '@components';
 
+import Icon from 'react-native-vector-icons/AntDesign';
+
 import styles from './styles';
-import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Form = ({submitLogin, isLoading}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordHidden, setPasswordHidden] = useState(true);
 
   return (
     <View style={styles.form}>
@@ -22,13 +22,24 @@ const Form = ({submitLogin, isLoading}) => {
         setUsername={setUsername}
         onChangeValue={value => setUsername(value)}
       />
-      <TextInput
-        name="password"
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeValue={value => setPassword(value)}
-      />
+      <View style={styles.passwordWrapper}>
+        <TextInput
+          style={styles.passwordInput}
+          name="password"
+          placeholder="Password"
+          secureTextEntry={passwordHidden}
+          value={password}
+          onChangeValue={value => setPassword(value)}
+        />
+        <Icon
+          style={styles.passwordHiddenIcon}
+          name={passwordHidden ? 'eyeo' : 'eye'}
+          size={20}
+          onPress={() => {
+            setPasswordHidden(!passwordHidden);
+          }}
+        />
+      </View>
 
       <SubmitButton
         onPress={() => submitLogin(username, password)}
