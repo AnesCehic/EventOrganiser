@@ -7,7 +7,7 @@ import {Constants, Styles} from '@common';
 import {UsersService} from '@services/apiClient';
 import {UserContext} from '@contexts';
 
-import {client} from '@services/apiClient';
+import {client, ChangeEmail} from '@services/apiClient';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
@@ -56,8 +56,6 @@ const EditProfile = ({navigation}) => {
 
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
-  const {navigate} = navigation;
 
   useEffect(() => {
     getUser();
@@ -152,7 +150,7 @@ const EditProfile = ({navigation}) => {
               key={menuItem.id}
               onPress={() =>
                 menuItem.menuScreen
-                  ? navigate(menuItem.menuScreen, {
+                  ? navigation.navigate(menuItem.menuScreen, {
                       userId: userData._id,
                       hideSendMessage: true,
                     })
@@ -187,11 +185,23 @@ const EditProfile = ({navigation}) => {
   };
 
   const handleConfirmChangeEmail = () => {
-    Alert.alert('Instructions was sent to your email address!', '', {
-      text: 'OK',
-      onPress: () => {},
-      style: 'plain-text',
-    });
+    Alert.alert('Instructions was sent to your email address!', '', [
+      {
+        text: 'OK',
+        onPress: async () => {
+          try {
+            const res = await ChangeEmail.create({
+              type: 'change-email',
+              email: 'anesssanw@gmail.com',
+            });
+            console.log(res);
+          } catch (error) {
+            console.log('[Error resend verification email]', error);
+          }
+        },
+        style: 'plain-text',
+      },
+    ]);
   };
 
   if (isLoading) {

@@ -21,6 +21,9 @@ const GroupService = client.service('groups');
 const VerifyAccountService = client.service('verify-account');
 const ForgotPasswordService = client.service('forgot-password');
 const RSVPService = client.service('rsvp');
+const ResendVerification = client.service('resend-verification');
+const ChangeEmail = client.service('change-email');
+const PostsService = client.service('posts');
 
 export {
   UsersService,
@@ -30,4 +33,7 @@ export {
   client,
   ForgotPasswordService,
   RSVPService,
+  ResendVerification,
+  ChangeEmail,
+  PostsService,
 };

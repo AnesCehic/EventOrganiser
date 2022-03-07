@@ -1,12 +1,14 @@
 import React, {Component, useEffect} from 'react';
 
 import Feed from '@containers/Feed';
+import {Text} from 'react-native';
 
 const FeedScreen = ({navigation}) => {
   useEffect(() => {
     navigation.setOptions({
-      title: 'Feed',
-      headerTitleAlign: 'center',
+      headerTitle: () => <Text />,
+      headerTintColor: '#fff',
+      headerTransparent: true,
     });
   }, []);
 

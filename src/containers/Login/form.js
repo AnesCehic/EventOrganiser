@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {TouchableHighlight, Text, View} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {client} from '../../services/apiClient';
 
@@ -15,10 +15,12 @@ const Form = ({submitLogin, isLoading}) => {
 
   return (
     <View style={styles.form}>
+      <Text style={stylesHelper.header}>Sign in to your {"\n"}account</Text>
       <TextInput
         name="username"
         placeholder="Username"
         value={username}
+        style={stylesHelper.shadow}
         setUsername={setUsername}
         onChangeValue={value => setUsername(value)}
       />
@@ -27,16 +29,41 @@ const Form = ({submitLogin, isLoading}) => {
         placeholder="Password"
         secureTextEntry
         value={password}
+        style={stylesHelper.shadow}
         onChangeValue={value => setPassword(value)}
       />
 
       <SubmitButton
         onPress={() => submitLogin(username, password)}
-        title="Login"
+        title="Sign in"
+        style={[stylesHelper.shadow, {marginTop: 16}]}
         isLoading={isLoading}
       />
+
+      <TouchableOpacity onPress={() => null} style={stylesHelper.forgotPassword}>
+        <Text>Forgot your password?</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
+const stylesHelper = StyleSheet.create({
+  shadow: {
+    elevation: 5,
+  },
+  forgotPassword: {
+    width: '80%',
+    paddingTop: 16,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  header: {
+    width: '80%',
+    paddingBottom: 16,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    fontSize: 30,
+  }
+});
 
 export default Form;

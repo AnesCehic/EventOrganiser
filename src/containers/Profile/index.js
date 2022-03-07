@@ -106,7 +106,7 @@ const Profile = ({navigation, route}) => {
     const timeFromNow = time.fromNow(); // for testing time ago
     const newDataTest = data.posts.map(post => ({...post, time: timeFromNow}));
 
-    return <PostsList data={newDataTest} />;
+    return <PostsList navigation={navigation} data={newDataTest} />;
   };
 
   if (isLoading) {

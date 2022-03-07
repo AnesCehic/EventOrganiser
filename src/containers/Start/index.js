@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Text, TouchableOpacity, View, ImageBackground} from 'react-native';
 
-import {SubmitButton} from '@components';
+import {SubmitButton, BottomStartScreenButton} from '@components';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
@@ -24,22 +24,29 @@ const Start = ({navigation}) => {
       source={require('../../assets/background-video.png')}
       resizeMode="cover"
       style={styles.mainContainer}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headers}>Welcome to{'\n'}Lincoln Club</Text>
+      </View>
       <View style={styles.container}>
         <SubmitButton
           onPress={() => navigation.navigate('Login')}
-          title="Login"
-          style={styles.button}
+          title="Sign in with Google"
+          style={styles.googleButton}
+          googleLogo
+          titleStyle={styles.googleTextStyle}
         />
         <SubmitButton
           onPress={() => navigation.navigate('Register')}
-          title="Regsiter"
+          title="Sign in with email"
           style={styles.button}
+          titleStyle={styles.textStyle}
         />
       </View>
 
-      <TouchableOpacity style={styles.registerButton}>
-        <Text>Register</Text>
-      </TouchableOpacity>
+      <BottomStartScreenButton
+        onPress={() => navigation.navigate('Register')}
+        text="Sign up for an account"
+      />
     </ImageBackground>
   );
 };

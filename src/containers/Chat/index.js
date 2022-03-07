@@ -22,7 +22,13 @@ const Chat = ({navigation}) => {
     const timeFromNow = time.fromNow(); // for testing time ago
     const newDataTest = data.posts.map(post => ({...post, time: timeFromNow}));
 
-    return <PostsList data={newDataTest} onPress={navigateToMessages} />;
+    return (
+      <PostsList
+        navigation={navigation}
+        data={newDataTest}
+        onPress={navigateToMessages}
+      />
+    );
   };
   if (chatForbiden) {
     return (

@@ -7,23 +7,23 @@ import styles from './styles';
 
 const PostItem = ({onPress, img, time, headline, content}) => {
   const source = {
-    html: content,
+    html: `<section>${content}</section>`,
   };
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <View style={styles.leftContent}>
+      <View style={styles.imageContainer}>
         <View style={styles.img} />
       </View>
-      <View style={styles.rightContent}>
-        <View style={styles.topRightContent}>
-          <Text style={styles.headline}>{headline}</Text>
-          <Text h5 style={styles.time}>
-            {time}
-          </Text>
+      <View style={styles.ownerAndTimeInfo}>
+        <View style={styles.ownerData}>
+          <Image source={require('../../assets/data.png')} />
+          <Text style={styles.ownerName}>Adam Braley</Text>
         </View>
-        <RenderHTML source={source} />
+        <Text>5d ago</Text>
       </View>
+      <Text style={styles.headline}>{headline}</Text>
+      <RenderHTML contentWidth={10} source={source} />
     </TouchableOpacity>
   );
 };

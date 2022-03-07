@@ -40,13 +40,14 @@ const FeedDetails = ({navigation, route}) => {
     try {
       setIsLoading(true);
       const res = await EventService.get(route.params.id);
-      console.log(res);
+      let image = res.upload.files[0].uri;
       setEventData({
         ...res,
         start: dayjs(eventData.start).format('MMMM DD'),
         end: dayjs(eventData.end).format('MMMM DD'),
         startTime: dayjs(eventData.start).format('hh mm a'),
         endTime: dayjs(eventData.end).format('hh mm a'),
+        eventImage: image,
       });
       setIsLoading(false);
     } catch (error) {
