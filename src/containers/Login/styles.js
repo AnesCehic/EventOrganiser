@@ -30,6 +30,18 @@ const styles = StyleSheet.create({
   registerLink: {
     paddingBottom: 10,
   },
+
+  passwordWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  passwordInput: {
+    paddingRight: 40,
+  },
+  passwordHiddenIcon: {
+    position: 'absolute',
+    right: 20,
+  },
 });
 
 export default styles;
