@@ -6,6 +6,7 @@ import {MenuItem, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UsersService} from '@services/apiClient';
 import {UserContext} from '@contexts';
+import {toast} from '@utils';
 
 import {client} from '@services/apiClient';
 
@@ -77,9 +78,11 @@ const EditProfile = ({navigation}) => {
         email,
         avatarImg,
       });
-      setIsLoading(false);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error logout]', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -135,11 +138,12 @@ const EditProfile = ({navigation}) => {
     try {
       setIsLoading(true);
       await client.logout();
-      setIsLoading(false);
       handleLogout();
     } catch (err) {
-      setIsLoading(false);
+      toast('error', 'Error', err.message);
       console.log('[Error logout]', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 

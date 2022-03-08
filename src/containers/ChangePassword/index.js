@@ -3,7 +3,8 @@ import {Text, View} from 'react-native';
 
 import {TextInput, SubmitButton} from '@components';
 
-import {ForgotPasswordService} from '../../services/apiClient';
+import {ForgotPasswordService} from '@services/apiClient';
+import {toast} from '@utils';
 
 import styles from './styles';
 
@@ -19,6 +20,7 @@ const ChangePassword = ({navigation}) => {
       });
       console.log(res);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error forgot password reset]', error);
     } finally {
       setIsLoading(false);

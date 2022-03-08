@@ -4,6 +4,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {MenuItem, LoadingIndicator} from '@components';
 import {Styles} from '@common';
 import {GroupService} from '@services/apiClient';
+import {toast} from '@utils';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
@@ -40,7 +41,6 @@ const Groups = ({navigation}) => {
 
   const fetchGroups = async () => {
     const userId = await AsyncStorageLib.getItem('@userId');
-    console.log(userId);
     try {
       setIsLoading(true);
       const {data} = await GroupService.find({
@@ -48,9 +48,9 @@ const Groups = ({navigation}) => {
           members: userId,
         },
       });
-      console.log(data);
       setGroups(data);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error get groups]', error);
     } finally {
       setIsLoading(false);
@@ -61,9 +61,9 @@ const Groups = ({navigation}) => {
     try {
       setIsLoading(true);
       const {data} = await GroupService.find();
-      console.log('res', data);
       setGroups(data);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error fetching all groups]', error);
     } finally {
       setIsLoading(false);

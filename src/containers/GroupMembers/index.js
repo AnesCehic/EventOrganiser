@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {FlatList, View} from 'react-native';
 
 import {LoadingIndicator, MenuItem} from '@components';
-import {GroupService, UsersService} from '../../services/apiClient';
+import {GroupService, UsersService} from '@services/apiClient';
+import {toast} from '@utils';
 
 import styles from '../Groups/styles';
 
@@ -15,7 +16,6 @@ const GroupMembers = ({navigation, route}) => {
     try {
       setIsLoading(true);
       let group = await GroupService.get(route.params.id);
-      console.log(group);
       let {data} = await UsersService.find({
         query: {
           _id: {
@@ -24,10 +24,11 @@ const GroupMembers = ({navigation, route}) => {
         },
       });
       setGroupMembers(data);
-      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
+      toast('error', 'Error', error.message);
       console.log('[Error fetch group members]', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
