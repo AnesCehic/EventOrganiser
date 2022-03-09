@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SubmitButton, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
 import {UsersService} from '@services/apiClient';
+import {toast} from '@utils';
 
 import {Styles} from '@common';
 
@@ -46,6 +47,7 @@ const Preferences = () => {
       // -- toast here --
       setAuthenticated(false);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error delete user]', error);
     } finally {
       setIsLoading(false);

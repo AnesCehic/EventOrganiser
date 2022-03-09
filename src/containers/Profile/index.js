@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import {PostsList, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UserContext} from '@contexts';
+import {toast} from '@utils';
 
 import {UsersService} from '@services/apiClient';
 
@@ -23,10 +24,11 @@ const Profile = ({navigation, route}) => {
       setIsLoading(true);
       const res = await UsersService.get(route.params.userId);
       setUserData(res);
-      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
+      toast('error', 'Error', error.message);
       console.log('[Error loading user data]:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
