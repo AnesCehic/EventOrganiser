@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 
 import {EventService} from '@services/apiClient';
+import {toast} from '@utils';
 
 const useEvents = eventsDate => {
   const [events, setEvents] = useState([]);
@@ -30,10 +31,11 @@ const useEvents = eventsDate => {
         });
       }
       setEvents(res.data);
-      setEventsLoading(false);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error fetch events]', error);
       setEventsError(error);
+    } finally {
       setEventsLoading(false);
     }
   };

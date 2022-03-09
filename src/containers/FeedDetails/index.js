@@ -1,12 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  Image,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
@@ -14,6 +7,7 @@ import dayjs from 'dayjs';
 import {BottomSheetModal, SubmitButton, LoadingIndicator} from '@components';
 import TextInput from '@components/TextInput';
 import {Styles} from '@common';
+import {toast} from '@utils';
 
 import {EventService} from '../../services/apiClient';
 
@@ -49,10 +43,11 @@ const FeedDetails = ({navigation, route}) => {
         endTime: dayjs(eventData.end).format('hh mm a'),
         eventImage: image,
       });
-      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
+      toast('error', 'Error', error.message);
       console.log('[Error fetching data for event]', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

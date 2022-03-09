@@ -1,6 +1,8 @@
+/* eslint-disable */
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
 import {UserContext} from '@contexts';
 
 import {Provider} from 'react-redux';
@@ -32,6 +34,32 @@ dayjs.updateLocale('en', {
 import Navigation from './src/navigation';
 import store from './store';
 
+const toastConfig = {
+  /* Success message toast config */
+  // success: props => (
+  //   <BaseToast
+  //     {...props}
+  //     text1Style={{
+  //       fontSize: 15,
+  //       fontWeight: '400',
+  //     }}
+  //   />
+  // ),
+
+  /* Error message toast config */
+  error: props => (
+    <ErrorToast
+      {...props}
+      text1Style={{
+        fontSize: 16,
+      }}
+      text2Style={{
+        fontSize: 14,
+      }}
+    />
+  ),
+};
+
 const App = () => {
   // if needed put all states into one object state
   const [authenticated, setAuthenticated] = useState(false);
@@ -60,17 +88,20 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <UserContext.Provider
-        value={{
-          authenticated,
-          setAuthenticated,
-          chatForbiden,
-          setChatForbiden,
-        }}>
-        <View style={styles.container}>
-          <Navigation />
-        </View>
-      </UserContext.Provider>
+      <>
+        <UserContext.Provider
+          value={{
+            authenticated,
+            setAuthenticated,
+            chatForbiden,
+            setChatForbiden,
+          }}>
+          <View style={styles.container}>
+            <Navigation />
+          </View>
+        </UserContext.Provider>
+        <Toast config={toastConfig} />
+      </>
     </Provider>
   );
 };

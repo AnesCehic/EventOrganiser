@@ -6,6 +6,7 @@ import {UserContext} from '@contexts';
 import {SubmitButton, BottomStartScreenButton} from '@components';
 
 import stylesStart from '@containers/Start/styles.js';
+import {toast} from '@utils';
 
 import Form from './form';
 
@@ -28,11 +29,12 @@ const Login = ({navigation}) => {
       });
 
       await AsyncStorageLib.setItem('@userId', user._id);
-      setIsLoading(false);
       handleLogin();
     } catch (error) {
-      setIsLoading(false);
+      toast('error', 'Error', error.message);
       console.log('[Error login]', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

@@ -6,16 +6,18 @@ import {client} from '../../services/apiClient';
 import TextInput from '@components/TextInput';
 import {SubmitButton} from '@components';
 
+import Icon from 'react-native-vector-icons/AntDesign';
+
 import styles from './styles';
-import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Form = ({submitLogin, isLoading}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordHidden, setPasswordHidden] = useState(true);
 
   return (
     <View style={styles.form}>
-      <Text style={stylesHelper.header}>Sign in to your {"\n"}account</Text>
+      <Text style={stylesHelper.header}>Sign in to your {'\n'}account</Text>
       <TextInput
         name="username"
         placeholder="Username"
@@ -24,14 +26,24 @@ const Form = ({submitLogin, isLoading}) => {
         setUsername={setUsername}
         onChangeValue={value => setUsername(value)}
       />
-      <TextInput
-        name="password"
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        style={stylesHelper.shadow}
-        onChangeValue={value => setPassword(value)}
-      />
+      <View style={styles.passwordWrapper}>
+        <TextInput
+          style={styles.passwordInput}
+          name="password"
+          placeholder="Password"
+          secureTextEntry={passwordHidden}
+          value={password}
+          onChangeValue={value => setPassword(value)}
+        />
+        <Icon
+          style={styles.passwordHiddenIcon}
+          name={passwordHidden ? 'eyeo' : 'eye'}
+          size={20}
+          onPress={() => {
+            setPasswordHidden(!passwordHidden);
+          }}
+        />
+      </View>
 
       <SubmitButton
         onPress={() => submitLogin(username, password)}

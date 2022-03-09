@@ -136,12 +136,13 @@ const MainNavigation = () => {
     try {
       setIsLoading(true);
       await client.reAuthenticate();
-      setIsLoading(false);
+
       setAuthenticated(true);
     } catch (error) {
       console.log('[Error get is signed in navigation index]', error);
-      setIsLoading(false);
       setAuthenticated(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
