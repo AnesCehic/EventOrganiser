@@ -1,15 +1,18 @@
 import React from 'react';
-import {View, TextInput} from 'react-native';
+import {View, TextInput, TouchableOpacity, Text} from 'react-native';
 
 import styles from './styles';
 
-const MessageInput = () => {
+const MessageInput = ({onPress, onTextChange, value}) => {
   return (
     <View style={styles.container}>
-      <TextInput placeholder="Enter message" />
-      <View style={styles.sendIcon}>
-
-      </View>
+      <TextInput
+        onChangeText={onTextChange}
+        placeholder="Enter message"
+      />
+      <TouchableOpacity style={styles.sendIcon} onPress={onPress}>
+        <Text>Send message</Text>
+      </TouchableOpacity>
     </View>
   );
 };

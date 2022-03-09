@@ -24,6 +24,8 @@ const RSVPService = client.service('rsvp');
 const ResendVerification = client.service('resend-verification');
 const ChangeEmail = client.service('change-email');
 const PostsService = client.service('posts');
+const MessageGroupsService = client.service('message-groups');
+const MessagesService = client.service('messages');
 
 export {
   UsersService,
@@ -36,4 +38,6 @@ export {
   ResendVerification,
   ChangeEmail,
   PostsService,
+  MessageGroupsService,
+  MessagesService,
 };

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, ImageBackground} from 'react-native';
 import dayjs from 'dayjs';
 
 import Search from '@components/SearchInput';
@@ -55,6 +55,9 @@ const Feed = ({navigation}) => {
         handleRefresh={handleRefresh}
         headerData={data}
         data={eventsData}
+        style={{
+          marginTop: -50,
+        }}
         navigation={navigation}
       />
     );
@@ -66,10 +69,15 @@ const Feed = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-
-      <View style={{ width: '100%', height: 300, backgroundColor: 'grey'}}>
-
-      </View>
+      <ImageBackground style={{
+        height: 250,
+        width: '100%',
+        backgroundColor: 'lightblue',
+      }}
+      source={require('../../assets/headerBackground.png')}
+      resizeMode='cover'>
+        <Text>Welcome Back {'\n'}Anes</Text>
+      </ImageBackground>
       {/* {renderFeaturedPosts()} */}
 
       {/* <Image style={{backgroundColor: 'black'}} source={require('../../assets/Home/logo.png')} /> */}

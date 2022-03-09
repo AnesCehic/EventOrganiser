@@ -7,11 +7,12 @@ import {PostsList, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UserContext} from '@contexts';
 
-import {UsersService} from '@services/apiClient';
+import {UsersService, MessageGroupsService} from '@services/apiClient';
 
 import data from './data';
 
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation, route}) => {
   const [userData, setUserData] = useState({});
@@ -21,9 +22,17 @@ const Profile = ({navigation, route}) => {
   const fetchUserData = async () => {
     try {
       setIsLoading(true);
-      const res = await UsersService.get(route.params.userId);
-      setUserData(res);
-      setIsLoading(false);
+      console.log(route);
+      if (!route?.params?.userId) {
+        const uId = await AsyncStorageLib.getItem('@userId');
+        const res = await UsersService.get(uId);
+        setUserData(res);
+        setIsLoading(false);
+      } else {
+        const res = await UsersService.get(route.params.userId);
+        setUserData(res);
+        setIsLoading(false);
+      }
     } catch (error) {
       setIsLoading(false);
       console.log('[Error loading user data]:', error);
@@ -46,6 +55,18 @@ const Profile = ({navigation, route}) => {
     );
   };
 
+  const createMessageGroup = async () => {
+    try {
+      const res = await MessageGroupsService.create({
+        type: 0,
+        participants: [route.params.userId],
+      });
+      console.log(res);
+    } catch (error) {
+      console.log('[Error creating message group]', error);
+    }
+  };
+
   const renderUserInfo = () => {
     return (
       <View style={styles.userInfo}>
@@ -57,6 +78,13 @@ const Profile = ({navigation, route}) => {
         </Text>
         {chatForbiden || route?.params?.hideSendMessage ? null : (
           <Button
+            onPress={() => {
+              if (route?.params?.userId) {
+                createMessageGroup();
+              } else {
+                navigation.navigate('EditPofileScreen');
+              }
+            }}
             title="Send Message"
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.buttonTitle}

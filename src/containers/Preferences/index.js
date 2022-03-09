@@ -42,7 +42,6 @@ const Preferences = () => {
     try {
       setIsLoading(true);
       const userId = await AsyncStorage.getItem('@userId');
-      console.log(userId)
       await UsersService.remove(userId);
       // -- toast here --
       setAuthenticated(false);

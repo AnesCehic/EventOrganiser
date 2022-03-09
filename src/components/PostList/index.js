@@ -4,7 +4,7 @@ import {FlatList, StyleSheet, RefreshControl, Text} from 'react-native';
 import {PostItem} from '@components';
 import EventCard from '@components/EventCard';
 
-const PostsList = ({data, navigation, headerData, handleRefresh}) => {
+const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
   const renderFeaturedPosts = () => {
     return (
       <FlatList
@@ -39,6 +39,7 @@ const PostsList = ({data, navigation, headerData, handleRefresh}) => {
       <FlatList
         ListHeaderComponent={renderFeaturedPosts}
         data={data}
+        style={style}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         refreshing={false}

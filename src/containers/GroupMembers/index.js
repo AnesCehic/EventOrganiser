@@ -45,7 +45,7 @@ const GroupMembers = ({navigation, route}) => {
           key={member._id}
           groupId={member._id}
           onPress={() => {
-            navigation.navigate('ProfileScreen', {
+            navigation.push('ProfileScreen', {
               userId: member._id,
             });
           }}
