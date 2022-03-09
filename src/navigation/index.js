@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
+import {Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -24,10 +25,11 @@ import ExpensesScreen from './ExpensesScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
 import InsightsScreen from './InsightsScreen';
-import EventsOnDayScreen from './EventsOnDayScreen';
+import EventsOnDayScreen from './EventsOnMonthScreen';
 import GroupMembersScreen from './GroupMembersScreen';
 import VerifyAccountScreen from './VerifyAccountScreen';
 import ChangePasswordScreen from './ChangePasswordScreen';
+import EventsOnMonthScreen from './EventsOnMonthScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -174,7 +176,15 @@ const MainNavigation = () => {
               name="EventsListScreen"
               component={EventsListScreen}
             />
-
+            <Stack.Screen
+              name="EventsOnMonthScreen"
+              component={EventsOnMonthScreen}
+            />
+            <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
+            <FeedStack.Screen
+              name="FeedDetails"
+              component={FeedDetailsScreen}
+            />
             <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
             <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
             <Stack.Screen
@@ -183,22 +193,6 @@ const MainNavigation = () => {
             />
           </>
         )}
-
-        {/* <Stack.Screen name="Start" component={StartScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen
-          name="Home"
-          options={{
-            headerShown: false,
-          }}
-          component={BottomTabNavigation}
-        />
-        <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="VerifyAccount" component={VerifyAccountScreen} />
-        <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
-        <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
-        <Stack.Screen name="EventsOnDayScreen" component={EventsOnDayScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
