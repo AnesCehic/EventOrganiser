@@ -9,6 +9,7 @@ import {useEvents} from '../../hooks';
 
 import {PostsService} from '../../services/apiClient';
 
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import styles from './styles';
 
 const data = [{id: 1}, {id: 2}, {id: 3}];
@@ -16,6 +17,7 @@ const data = [{id: 1}, {id: 2}, {id: 3}];
 const Feed = ({navigation}) => {
   const {events, eventsError, eventsLoading, refetch} = useEvents();
   const [refreshing, setRefreshing] = useState(false);
+  const [user, setUser] = useState(true);
 
   const loadPosts = async () => {
     try {
@@ -26,7 +28,21 @@ const Feed = ({navigation}) => {
     }
   };
 
+  const loadUser = async () => {
+    try {
+      const user = await AsyncStorageLib.getItem('@user');
+      if (typeof user !== "undefined") {
+        setUser(JSON.parse(user));
+      } else {
+        setUser({firstName: 'Valued Member'});
+      }
+    } catch (e) {
+      setUser({firstName: 'Valued Member'});
+    }
+  };
+
   useEffect(() => {
+    loadUser();
     loadPosts();
     console.log(events);
   }, []);
@@ -67,7 +83,7 @@ const Feed = ({navigation}) => {
   if (eventsLoading) {
     return <LoadingIndicator />;
   }
-
+  
   return (
     <View style={styles.container}>
       <ImageBackground style={{
@@ -81,7 +97,7 @@ const Feed = ({navigation}) => {
           fontSize: 28,
           fontWeight: '600',
           paddingLeft: 16,
-        }}>Welcome Back {'\n'}Anes</Text>
+        }}>Welcome Back {'\n'}{user ? user.firstName : 'Valued Member'}</Text>
       </ImageBackground>
       {/* {renderFeaturedPosts()} */}
 
