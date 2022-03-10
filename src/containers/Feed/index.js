@@ -79,8 +79,11 @@ const Feed = ({navigation}) => {
       resizeMode='cover'>
         <Text style={{
           fontSize: 28,
-          fontWeight: '600',
-          paddingLeft: 16,
+          fontWeight: '800',
+          fontFamily: 'serif',
+          color: '#fff',
+          paddingLeft: 30,
+          paddingTop: 30
         }}>Welcome Back {'\n'}Anes</Text>
       </ImageBackground>
       {/* {renderFeaturedPosts()} */}
