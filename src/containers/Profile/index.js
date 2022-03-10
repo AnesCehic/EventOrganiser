@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import {StackActions} from '@react-navigation/native';
 import {Avatar, Button, Icon} from 'react-native-elements';
 import dayjs from 'dayjs';
 
@@ -64,7 +65,11 @@ const Profile = ({navigation, route}) => {
         type: 0,
         participants: [route.params.userId],
       });
-      console.log(res);
+      navigation.dispatch(
+        StackActions.push('Messages', {
+          groupId: res._id,
+        }),
+      );
     } catch (error) {
       console.log('[Error creating message group]', error);
     }
@@ -88,7 +93,9 @@ const Profile = ({navigation, route}) => {
                 navigation.navigate('EditPofileScreen');
               }
             }}
-            title={!route?.params?.userId ? 'Go to profile' : 'Send Message'}
+            title={
+              !route?.params?.userId ? 'Go to profile' : 'New Conversation'
+            }
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.buttonTitle}
             icon={
