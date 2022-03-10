@@ -7,8 +7,7 @@ const LoginScreen = ({navigation}) => {
     const {setOptions} = navigation;
 
     setOptions({
-      title: 'Login',
-      headerTitleAlign: 'center',
+      headerShown: false,
     });
   }, []);
 

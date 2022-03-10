@@ -1,8 +1,11 @@
 import React, {useState, useContext} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, KeyboardAvoidingViewBase} from 'react-native';
 
 import {client} from '@services/apiClient';
 import {UserContext} from '@contexts';
+import {SubmitButton, BottomStartScreenButton} from '@components';
+
+import stylesStart from '@containers/Start/styles.js';
 import {toast} from '@utils';
 
 import Form from './form';
@@ -25,6 +28,8 @@ const Login = ({navigation}) => {
         password: password,
       });
 
+      console.log('here');
+
       await AsyncStorageLib.setItem('@userId', user._id);
       handleLogin();
     } catch (error) {
@@ -39,13 +44,16 @@ const Login = ({navigation}) => {
     <View style={styles.container}>
       <Form submitLogin={login} isLoading={isLoading} />
 
-      <TouchableOpacity
-        style={styles.registerLink}
-        onPress={() => {
-          navigation.navigate('Register');
-        }}>
-        <Text>No account yet? Register here.</Text>
-      </TouchableOpacity>
+      <SubmitButton
+        googleLogo
+        onPress={() => null}
+        style={{...stylesStart.googleButton, ...styles.logInWithGoogle}}
+        titleStyle={{
+          ...stylesStart.googleTextStyle,
+          ...styles.logInWithGoogleText,
+        }}
+        title="Sign in with Google instead"
+      />
     </View>
   );
 };

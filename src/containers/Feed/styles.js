@@ -5,11 +5,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  cardsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginVertical: 15,
-  },
 });
 
 export default styles;

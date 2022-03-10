@@ -103,7 +103,9 @@ const FeedNavigation = () => {
 
 const ProfileNavigation = () => {
   return (
-    <ProfileStack.Navigator screenOptions={{headerShadowVisible: false}}>
+    <ProfileStack.Navigator
+      initialRouteName="ProfileScreen"
+      screenOptions={{headerShadowVisible: false}}>
       <ProfileStack.Screen
         name="EditPofileScreen"
         component={EditProfileScreen}

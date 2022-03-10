@@ -1,15 +1,29 @@
 import React from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, RefreshControl, Text} from 'react-native';
 
 import {PostItem} from '@components';
+import EventCard from '@components/EventCard';
 
-const PostsList = ({data, navigation}) => {
+const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
+  const renderFeaturedPosts = () => {
+    return (
+      <FlatList
+        style={styles.headerList}
+        data={headerData}
+        keyExtractor={item => item.id}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        renderItem={() => <EventCard navigation={navigation} />}
+      />
+    );
+  };
+
   const renderItem = ({item: post}) => {
-    const {navigate} = navigation;
+    console.log(post)
     return (
       <PostItem
         onPress={() => {
-          navigate('FeedDetails', {
+          navigation.navigate('FeedDetails', {
             id: post.id,
           });
         }}
@@ -24,11 +38,15 @@ const PostsList = ({data, navigation}) => {
   const renderList = () => {
     return (
       <FlatList
-        style={styles.postsList}
+        ListHeaderComponent={renderFeaturedPosts}
         data={data}
+        style={style}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         refreshing={false}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
+        }
       />
     );
   };
@@ -37,8 +55,9 @@ const PostsList = ({data, navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  postsList: {
-    marginTop: 20,
+  headerList: {
+    maxHeight: 124,
+    margin: 8,
   },
 });
 

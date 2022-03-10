@@ -34,12 +34,14 @@ const FeedDetails = ({navigation, route}) => {
     try {
       setIsLoading(true);
       const res = await EventService.get(route.params.id);
+      let image = res.upload.files[0].uri;
       setEventData({
         ...res,
         start: dayjs(eventData.start).format('MMMM DD'),
         end: dayjs(eventData.end).format('MMMM DD'),
         startTime: dayjs(eventData.start).format('hh mm a'),
         endTime: dayjs(eventData.end).format('hh mm a'),
+        eventImage: image,
       });
     } catch (error) {
       toast('error', 'Error', error.message);
@@ -147,14 +149,7 @@ const FeedDetails = ({navigation, route}) => {
         <Image
           style={styles.image}
           source={{
-            // uri: 'https://api.lincolnclub.app/uploads/render/621ddd344e61f846fa5df354',
-            uri: 'https://picsum.photos/200/300',
-            method: 'GET',
-            headers: {
-              Pragma: 'no-cache',
-              Authoriztion:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyIsInR5cGUiOiJhY2Nlc3MifQ.eyJpYXQiOjE2NDYxMTk0MjIsImV4cCI6MTY0NjIwNTgyMiwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjIxODIyMWU2YTQ5ZjcwMjExNTlhNDM1IiwianRpIjoiYTJiMDdhZmYtYmYyYy00ZTc1LTk1ZDctNTFjMzQ0NGI0ZmRiIn0.gPyohltMSuKO01svr5v4WVECt8Q8U5WqAqYMHeXo8CI',
-            },
+            uri: eventData?.upload?.files[0]?.signedURL,
           }}
         />
 

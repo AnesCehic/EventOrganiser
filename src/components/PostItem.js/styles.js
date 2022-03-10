@@ -3,41 +3,39 @@ import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
     backgroundColor: Styles.Colors.white,
-    marginHorizontal: 5,
-    marginVertical: 2,
-    borderRadius: 10,
-    padding: 10,
+    marginHorizontal: 12,
+    marginVertical: 5,
+    borderWidth: 1,
+    borderColor: '#E7E7E7',
+    elevation: 3,
+    borderRadius: 8,
+    padding: 12,
+    maxHeight: 300,
   },
-  leftContent: {},
-  img: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-    backgroundColor: '#F8FAFD',
+  imageContainer: {
+    borderRadius: 8,
+    width: '100%',
+    height: 120,
   },
-
-  rightContent: {
-    flex: 1,
-    marginHorizontal: 15,
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: Styles.Colors.grayBorder,
-    paddingBottom: 10,
-  },
-  topRightContent: {
+  ownerData: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  ownerName: {
+    marginLeft: 7,
+  },
+  ownerAndTimeInfo: {
+    marginTop: 13,
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 5,
   },
   time: {
     textAlign: 'right',
     color: Styles.Colors.lightGrayText,
   },
   headline: {
+    marginTop: 13,
     fontSize: 20,
   },
   content: {},

@@ -15,6 +15,7 @@ const Styles = {
     secondaryPink: '#F19BFF',
     grayBorder: '#E7ECF3',
     gold: '#BFBB85',
+    grayButtonBackground: '#2D2B0D',
   },
   Sizes: {
     avatar: 72,
