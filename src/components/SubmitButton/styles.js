@@ -10,8 +10,15 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 9,
   },
+  textContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   text: {
     color: 'white',
+  },
+  logo: {
+    marginRight: 5,
   },
 });
 

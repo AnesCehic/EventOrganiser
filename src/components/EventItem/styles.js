@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 10,
     padding: 10,
+    borderBottomWidth: 1,
+    borderColor: Styles.Colors.grayBorder,
   },
   img: {
     width: 90,

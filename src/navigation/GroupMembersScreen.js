@@ -1,12 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+
+import {GroupMembers} from '@containers';
 
 const GroupMembersScreen = ({navigation, route}) => {
-  return (
-    <View>
-      <Text>{route.params.id}</Text>
-    </View>
-  );
+  return <GroupMembers navigation={navigation} route={route} />;
 };
 
 export default GroupMembersScreen;

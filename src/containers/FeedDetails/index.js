@@ -1,16 +1,27 @@
-import React, {useState} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {Icon} from 'react-native-elements';
+import RenderHTML from 'react-native-render-html';
+import dayjs from 'dayjs';
 
-import {BottomSheetModal, SubmitButton} from '@components';
+import {BottomSheetModal, SubmitButton, LoadingIndicator} from '@components';
 import TextInput from '@components/TextInput';
 import {Styles} from '@common';
+import {toast} from '@utils';
+
+import {EventService} from '../../services/apiClient';
 
 import DateAndPlace from './DateAndPlace';
 
 import styles from './styles';
 
-const FeedDetails = () => {
+const FeedDetails = ({navigation, route}) => {
+  const [eventData, setEventData] = useState({
+    title: 'Test',
+    description: 'Description',
+    location: 'Location',
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const [isRSVPModalVisible, setIsRSVPModalVisible] = useState(false);
   const [isConfirmRSVPModalVisible, setIsConfirmRSVPModalVisible] =
     useState(false);
@@ -18,6 +29,31 @@ const FeedDetails = () => {
   const toggleRSVPModal = () => {
     setIsRSVPModalVisible(!isRSVPModalVisible);
   };
+
+  const fetchEventData = async () => {
+    try {
+      setIsLoading(true);
+      const res = await EventService.get(route.params.id);
+      let image = res.upload.files[0].uri;
+      setEventData({
+        ...res,
+        start: dayjs(eventData.start).format('MMMM DD'),
+        end: dayjs(eventData.end).format('MMMM DD'),
+        startTime: dayjs(eventData.start).format('hh mm a'),
+        endTime: dayjs(eventData.end).format('hh mm a'),
+        eventImage: image,
+      });
+    } catch (error) {
+      toast('error', 'Error', error.message);
+      console.log('[Error fetching data for event]', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEventData();
+  }, []);
 
   const renderRSVPModal = () => {
     return (
@@ -83,24 +119,67 @@ const FeedDetails = () => {
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={require('./image.png')} />
+  const renderRSVP = () => {
+    if (eventData.canRSVP) {
+      return null;
+    }
 
-      <View style={styles.dateAndLocationWithInfo}>
-        <DateAndPlace icon="calendar-today" text="January, 28th 2022" />
-        <DateAndPlace icon="location-pin" text="Test" />
-      </View>
-
+    return (
       <View style={styles.rsvpContainer}>
+        <View>
+          <Text style={styles.joinText}>Want to join?</Text>
+          <Text>Seats still available</Text>
+        </View>
         <TouchableOpacity style={styles.rsvpButton} onPress={toggleRSVPModal}>
-          <Text style={styles.rsvpText}>RSVP</Text>
+          <Text style={styles.rsvpText}>RSVP Now</Text>
         </TouchableOpacity>
       </View>
+    );
+  };
 
-      <View style={styles.dateAndLocationWithInfo}>
-        <Text style={styles.header}>Description</Text>
-      </View>
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
+  const location1 = eventData.location.split(',')[0];
+  const location2 = eventData.location.split(',').slice(1).join('');
+  return (
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewStyle}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: eventData?.upload?.files[0]?.signedURL,
+          }}
+        />
+
+        <View style={styles.scrollViewContentStyle}>
+          <View>
+            <Text style={styles.header}>{eventData.title}</Text>
+          </View>
+          <View style={styles.dateAndLocationWithInfo}>
+            <DateAndPlace
+              icon="calendar-today"
+              text1={`${eventData.start} - ${eventData.end}`}
+              text2={`${eventData.startTime}, ${eventData.endTime}`}
+              bold
+            />
+            <DateAndPlace
+              icon="location-pin"
+              text1={location1}
+              text2={location2}
+            />
+          </View>
+          <RenderHTML
+            source={{
+              html: eventData.description,
+            }}
+            contentWidth={500}
+          />
+        </View>
+      </ScrollView>
+
+      {renderRSVP()}
 
       {renderRSVPModal()}
       {renderConfirmedRSVPModal()}
