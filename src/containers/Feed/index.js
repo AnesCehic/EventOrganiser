@@ -49,6 +49,7 @@ const Feed = ({navigation}) => {
     <View style={styles.container}>
       <ImageBackground
         style={{
+          justifyContent: 'center',
           height: 250,
           width: '100%',
           backgroundColor: 'lightblue',
