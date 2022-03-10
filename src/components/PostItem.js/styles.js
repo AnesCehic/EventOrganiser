@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   },
   ownerName: {
     marginLeft: 7,
+    fontWeight: '800',
   },
   ownerAndTimeInfo: {
     marginTop: 13,
@@ -35,8 +36,9 @@ const styles = StyleSheet.create({
     color: Styles.Colors.lightGrayText,
   },
   headline: {
-    marginTop: 13,
-    fontSize: 20,
+    marginVertical: 15,
+    fontSize: 22,
+    fontWeight: '600',
   },
   content: {},
 });
