@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ImageBackground} from 'react-native';
+import React from 'react';
+import {View, Text, ImageBackground} from 'react-native';
 import dayjs from 'dayjs';
 
 import Search from '@components/SearchInput';
@@ -11,8 +11,6 @@ import {PostsService} from '../../services/apiClient';
 
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import styles from './styles';
-
-const data = [{id: 1}, {id: 2}, {id: 3}];
 
 const Feed = ({navigation}) => {
   const {events, eventsError, eventsLoading, refetch} = useEvents();
@@ -54,7 +52,7 @@ const Feed = ({navigation}) => {
   }, [refreshing]);
 
   const handleRefresh = () => {
-    setRefreshing(true);
+    refetch({});
   };
 
   const renderPosts = () => {
@@ -70,7 +68,7 @@ const Feed = ({navigation}) => {
     return (
       <PostsList
         handleRefresh={handleRefresh}
-        headerData={data}
+        headerData={events}
         data={eventsData}
         style={{
           marginTop: -50,
@@ -86,6 +84,7 @@ const Feed = ({navigation}) => {
   
   return (
     <View style={styles.container}>
+<<<<<<< HEAD
       <ImageBackground style={{
         height: 250,
         width: '100%',
@@ -98,6 +97,25 @@ const Feed = ({navigation}) => {
           fontWeight: '600',
           paddingLeft: 16,
         }}>Welcome Back {'\n'}{user ? user.firstName : 'Valued Member'}</Text>
+=======
+      <ImageBackground
+        style={{
+          justifyContent: 'center',
+          height: 250,
+          width: '100%',
+          backgroundColor: 'lightblue',
+        }}
+        source={require('../../assets/headerBackground.png')}
+        resizeMode="cover">
+        <Text
+          style={{
+            fontSize: 28,
+            fontWeight: '600',
+            paddingLeft: 16,
+          }}>
+          Welcome Back {'\n'}Anes
+        </Text>
+>>>>>>> master
       </ImageBackground>
       {/* {renderFeaturedPosts()} */}
 
