@@ -9,10 +9,47 @@ import {useEvents} from '../../hooks';
 
 import {PostsService} from '../../services/apiClient';
 
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import styles from './styles';
 
 const Feed = ({navigation}) => {
   const {events, eventsError, eventsLoading, refetch} = useEvents();
+  const [refreshing, setRefreshing] = useState(false);
+  const [user, setUser] = useState(true);
+
+  const loadPosts = async () => {
+    try {
+      const res = await PostsService.find();
+      console.log('posts', res);
+    } catch (error) {
+      console.log('[Error loading posts]', error);
+    }
+  };
+
+  const loadUser = async () => {
+    try {
+      const user = await AsyncStorageLib.getItem('@user');
+      if (typeof user !== "undefined") {
+        setUser(JSON.parse(user));
+      } else {
+        setUser({firstName: 'Valued Member'});
+      }
+    } catch (e) {
+      setUser({firstName: 'Valued Member'});
+    }
+  };
+
+  useEffect(() => {
+    loadUser();
+    loadPosts();
+    console.log(events);
+  }, []);
+
+  useEffect(() => {
+    if (refreshing) {
+      setRefreshing(false);
+    }
+  }, [refreshing]);
 
   const handleRefresh = () => {
     refetch({});
@@ -44,7 +81,7 @@ const Feed = ({navigation}) => {
   if (eventsLoading) {
     return <LoadingIndicator />;
   }
-
+  
   return (
     <View style={styles.container}>
       <ImageBackground style={{
@@ -61,7 +98,7 @@ const Feed = ({navigation}) => {
           color: '#fff',
           paddingLeft: 30,
           paddingTop: 30
-        }}>Welcome Back {'\n'}Anes</Text>
+        }}>Welcome Back {'\n'}{user ? user.firstName : 'Valued Member'}</Text>
       </ImageBackground>
       {/* {renderFeaturedPosts()} */}
 
