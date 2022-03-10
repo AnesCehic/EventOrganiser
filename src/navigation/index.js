@@ -178,6 +178,8 @@ const MainNavigation = () => {
               name="EventsListScreen"
               component={EventsListScreen}
             />
+            <Stack.Screen name="Messages" component={ChatMessagesScreen} />
+
             <Stack.Screen
               name="EventsOnMonthScreen"
               component={EventsOnMonthScreen}
