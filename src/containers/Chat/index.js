@@ -51,7 +51,7 @@ const Chat = ({navigation}) => {
         onPress={() => {
           navigateToMessages(item._id);
         }}
-        menuText={item._id}
+        menuText={item.label}
       />
     );
   };
