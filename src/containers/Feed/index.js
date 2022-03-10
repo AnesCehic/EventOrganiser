@@ -84,7 +84,6 @@ const Feed = ({navigation}) => {
   
   return (
     <View style={styles.container}>
-<<<<<<< HEAD
       <ImageBackground style={{
         height: 250,
         width: '100%',
@@ -94,28 +93,12 @@ const Feed = ({navigation}) => {
       resizeMode='cover'>
         <Text style={{
           fontSize: 28,
-          fontWeight: '600',
-          paddingLeft: 16,
+          fontWeight: '800',
+          fontFamily: 'serif',
+          color: '#fff',
+          paddingLeft: 30,
+          paddingTop: 30
         }}>Welcome Back {'\n'}{user ? user.firstName : 'Valued Member'}</Text>
-=======
-      <ImageBackground
-        style={{
-          justifyContent: 'center',
-          height: 250,
-          width: '100%',
-          backgroundColor: 'lightblue',
-        }}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
-        <Text
-          style={{
-            fontSize: 28,
-            fontWeight: '600',
-            paddingLeft: 16,
-          }}>
-          Welcome Back {'\n'}Anes
-        </Text>
->>>>>>> master
       </ImageBackground>
       {/* {renderFeaturedPosts()} */}
 
