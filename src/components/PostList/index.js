@@ -19,6 +19,7 @@ const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
   };
 
   const renderItem = ({item: post}) => {
+    console.log(post)
     return (
       <PostItem
         onPress={() => {

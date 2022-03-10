@@ -10,10 +10,17 @@ const PostItem = ({onPress, img, time, headline, content}) => {
     html: `<section>${content}</section>`,
   };
 
+  console.log(img[0].signedURL);
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.imageContainer}>
-        <View style={styles.img} />
+        <Image
+          source={{uri: img[0].signedURL}}
+          width={100}
+          height={100}
+          resizeMode="cover"
+        />
       </View>
       <View style={styles.ownerAndTimeInfo}>
         <View style={styles.ownerData}>

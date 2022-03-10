@@ -12,6 +12,13 @@ const ChatMessages = ({navigation, route}) => {
   const [userId, setUserId] = useState(null);
   const [textMessage, setTextMessage] = useState('');
 
+  MessagesService.on('created', message => {
+    if (message.groupId === route.params.groupId) {
+      setMessages([message, ...messages]);
+      setTextMessage('');
+    }
+  });
+
   const getMessages = async () => {
     try {
       const userId = await AsyncStorageLib.getItem('@userId');
@@ -32,12 +39,6 @@ const ChatMessages = ({navigation, route}) => {
 
   useEffect(() => {
     getMessages();
-    MessagesService.on('created', message => {
-      if (message.groupId === route.params.groupId) {
-        setMessages([message, ...messages]);
-        setTextMessage('');
-      }
-    });
   }, []);
 
   const renderItem = ({item}) => {
@@ -76,7 +77,7 @@ const ChatMessages = ({navigation, route}) => {
       <FlatList
         contentContainerStyle={{alignItems: 'stretch'}}
         data={messages}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item._id}
         renderItem={renderItem}
         inverted
         onEndReached={() => console.log('reached')}
@@ -94,6 +95,7 @@ const ChatMessages = ({navigation, route}) => {
         groupId: route.params.groupId,
         text: textMessage,
       });
+      setTextMessage('');
     } catch (error) {
       console.log('[Error sending a message]', error);
     }

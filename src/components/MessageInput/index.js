@@ -9,6 +9,7 @@ const MessageInput = ({onPress, onTextChange, value}) => {
       <TextInput
         onChangeText={onTextChange}
         placeholder="Enter message"
+        value={value}
       />
       <TouchableOpacity style={styles.sendIcon} onPress={onPress}>
         <Text>Send message</Text>

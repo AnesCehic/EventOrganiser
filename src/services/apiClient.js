@@ -4,10 +4,10 @@ import socketioClient from '@feathersjs/socketio-client';
 import io from 'socket.io-client';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
-const socket = io('http://api.lincolnclub.app');
+const socket = io('https://api.lincolnclub.app');
 const client = feathers();
 
-client.configure(socketioClient(socket));
+client.configure(socketioClient(socket, {timeout: 30000}));
 client.configure(
   authentication({
     storage: AsyncStorageLib,

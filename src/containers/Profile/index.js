@@ -88,7 +88,7 @@ const Profile = ({navigation, route}) => {
                 navigation.navigate('EditPofileScreen');
               }
             }}
-            title="Send Message"
+            title={!route?.params?.userId ? 'Go to profile' : 'Send Message'}
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.buttonTitle}
             icon={

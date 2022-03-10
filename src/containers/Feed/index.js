@@ -28,6 +28,7 @@ const Feed = ({navigation}) => {
 
   useEffect(() => {
     loadPosts();
+    console.log(events);
   }, []);
 
   useEffect(() => {
@@ -48,8 +49,8 @@ const Feed = ({navigation}) => {
       headline: post.title,
       content: post.description,
       time: timeFromNow,
+      img: post.upload.files,
     }));
-
     return (
       <PostsList
         handleRefresh={handleRefresh}
@@ -76,7 +77,11 @@ const Feed = ({navigation}) => {
       }}
       source={require('../../assets/headerBackground.png')}
       resizeMode='cover'>
-        <Text>Welcome Back {'\n'}Anes</Text>
+        <Text style={{
+          fontSize: 28,
+          fontWeight: '600',
+          paddingLeft: 16,
+        }}>Welcome Back {'\n'}Anes</Text>
       </ImageBackground>
       {/* {renderFeaturedPosts()} */}
 

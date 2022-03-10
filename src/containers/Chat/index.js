@@ -3,7 +3,7 @@ import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 
 import dayjs from 'dayjs';
 
-import {PostsList, SubmitButton, LoadingIndicator} from '@components';
+import {MenuItem, SubmitButton, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
 import {MessageGroupsService} from '@services/apiClient';
 
@@ -45,20 +45,24 @@ const Chat = ({navigation}) => {
   }, []);
 
   const renderGroup = ({item}) => {
-    console.log(item)
     return (
-      <TouchableOpacity
+      <MenuItem
+        key={item._id}
         onPress={() => {
           navigateToMessages(item._id);
-        }}>
-        <Text>{item._id}</Text>
-      </TouchableOpacity>
+        }}
+        menuText={item._id}
+      />
     );
   };
 
   const renderMessageGroups = () => {
+    console.log(messageGroups);
     return (
       <FlatList
+        style={{
+          padding: 20,
+        }}
         data={messageGroups}
         keyExtractor={item => item._id}
         renderItem={renderGroup}
