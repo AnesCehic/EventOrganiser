@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground} from 'react-native';
 import dayjs from 'dayjs';
 
