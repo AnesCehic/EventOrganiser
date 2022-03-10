@@ -1,15 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect, useState, useContext} from 'react';
+import {View, Text, Alert} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
-import {CommonActions} from '@react-navigation/native';
 
 import {MenuItem, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UsersService} from '@services/apiClient';
+import {UserContext} from '@contexts';
+import {toast} from '@utils';
 
-import {client} from '@services/apiClient';
+import {client, ChangeEmail} from '@services/apiClient';
 
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const data = {
   firstName: 'Bruce',
@@ -29,25 +31,32 @@ const MenuItems = [
   {
     id: 2,
     menuText: 'Change password',
-    menuScreen: null,
+    menuScreen: Constants.NavigationScreens.ChangePasswordScreen,
   },
   {
     id: 3,
+    menuText: 'Change email',
+    menuScreen: null,
+    menuPressHandle: 'email_change',
+  },
+  {
+    id: 4,
     menuText: 'Groups',
     menuScreen: Constants.NavigationScreens.GroupsScreen,
   },
   {
-    id: 4,
+    id: 5,
     menuText: 'Preferences',
     menuScreen: Constants.NavigationScreens.PreferencesScreen,
   },
 ];
 
 const EditProfile = ({navigation}) => {
+  const {setAuthenticated} = useContext(UserContext);
+  const handleLogout = () => setAuthenticated(false);
+
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
-  const {navigate} = navigation;
 
   useEffect(() => {
     getUser();
@@ -56,20 +65,22 @@ const EditProfile = ({navigation}) => {
   const getUser = async () => {
     try {
       setIsLoading(true);
-      const {firstName, lastName, email} = await UsersService.get(
-        '620a9de1c8ec5100103aca38',
-      );
+      const userId = await AsyncStorageLib.getItem('@userId');
+      const {firstName, lastName, email, _id} = await UsersService.get(userId);
       const avatarImg =
         'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f';
       setUserData({
         firstName,
         lastName,
+        _id,
         email,
         avatarImg,
       });
-      setIsLoading(false);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error logout]', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -125,20 +136,12 @@ const EditProfile = ({navigation}) => {
     try {
       setIsLoading(true);
       await client.logout();
-      setIsLoading(false);
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'Start',
-            },
-          ],
-        }),
-      );
+      handleLogout();
     } catch (err) {
-      setIsLoading(false);
+      toast('error', 'Error', err.message);
       console.log('[Error logout]', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -150,7 +153,14 @@ const EditProfile = ({navigation}) => {
             <MenuItem
               key={menuItem.id}
               onPress={() =>
-                menuItem.menuScreen ? navigate(menuItem.menuScreen) : null
+                menuItem.menuScreen
+                  ? navigation.navigate(menuItem.menuScreen, {
+                      userId: userData._id,
+                      hideSendMessage: true,
+                    })
+                  : menuItem?.menuPressHandle
+                  ? handleMenuItemPress(menuItem.menuPressHandle)
+                  : null
               }
               menuText={menuItem.menuText}
             />
@@ -159,6 +169,43 @@ const EditProfile = ({navigation}) => {
         <MenuItem onPress={() => logout()} menuText="Log out" />
       </View>
     );
+  };
+
+  const handleMenuItemPress = menuItem => {
+    if (menuItem === 'email_change') {
+      Alert.alert(
+        'Change Email?',
+        'Instructions will be sent to your email address.',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: handleConfirmChangeEmail},
+        ],
+      );
+    }
+  };
+
+  const handleConfirmChangeEmail = () => {
+    Alert.alert('Instructions was sent to your email address!', '', [
+      {
+        text: 'OK',
+        onPress: async () => {
+          try {
+            const res = await ChangeEmail.create({
+              type: 'change-email',
+              email: 'anesssanw@gmail.com',
+            });
+            console.log(res);
+          } catch (error) {
+            console.log('[Error resend verification email]', error);
+          }
+        },
+        style: 'plain-text',
+      },
+    ]);
   };
 
   if (isLoading) {

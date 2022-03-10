@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 
-import {MenuItem} from '@components';
+import {MenuItem, LoadingIndicator} from '@components';
 import {Styles} from '@common';
 import {GroupService} from '@services/apiClient';
+import {toast} from '@utils';
 
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const switchItems = [
   {
@@ -19,38 +21,52 @@ const switchItems = [
 ];
 
 // Add menuScreen from Constants.NavigationScreens when ready
-const MenuItems = [
-  {
-    id: 1,
-    menuText: 'Members',
-    menuScreen: null,
-  },
-  {
-    id: 2,
-    menuText: 'Gold Members',
-    menuScreen: null,
-  },
-  {
-    id: 3,
-    menuText: 'Donors',
-    menuScreen: null,
-  },
-];
 
 const Groups = ({navigation}) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isAllGroupsSelected, setIsAllGroupsSelected] = useState(false);
   const [groups, setGroups] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchGroups();
-  }, []);
+    setGroups([]);
+    if (activeIndex === 0) {
+      fetchGroups();
+    }
+
+    if (activeIndex === 1) {
+      fetchGroupsAll();
+    }
+  }, [activeIndex]);
 
   const fetchGroups = async () => {
+    const userId = await AsyncStorageLib.getItem('@userId');
     try {
+      setIsLoading(true);
+      const {data} = await GroupService.find({
+        query: {
+          members: userId,
+        },
+      });
+      setGroups(data);
+    } catch (error) {
+      toast('error', 'Error', error.message);
+      console.log('[Error get groups]', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fetchGroupsAll = async () => {
+    try {
+      setIsLoading(true);
       const {data} = await GroupService.find();
       setGroups(data);
     } catch (error) {
-      console.log('[Error get groups]', error);
+      toast('error', 'Error', error.message);
+      console.log('[Error fetching all groups]', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -87,7 +103,7 @@ const Groups = ({navigation}) => {
     );
   };
 
-  const renderMyGroups = () => {
+  const renderGroups = () => {
     return (
       <View style={styles.menu}>
         {groups.map(menuItem => {
@@ -113,13 +129,19 @@ const Groups = ({navigation}) => {
   };
 
   const renderContent = () => {
-    if (activeIndex === 0) {
-      return renderMyGroups();
+    // if (activeIndex === 0) {
+    //   return renderMyGroups();
+    // }
+    // if (activeIndex === 1) {
+    //   return renderAllGroups();
+    // }
+    // return null;
+
+    if (isLoading) {
+      return <LoadingIndicator />;
     }
-    if (activeIndex === 1) {
-      return renderAllGroups();
-    }
-    return null;
+
+    return renderGroups();
   };
 
   return (

@@ -8,11 +8,18 @@ const EventCard = ({navigation}) => {
     <TouchableOpacity
       style={styles.eventCardContainer}
       onPress={() => navigation.navigate('FeedDetails')}>
-      <View style={styles.statusCirle} />
-
       <View style={styles.dateTime}>
-        <Text style={styles.dateTimeText}>1/30</Text>
-        <Text style={styles.dateTimeText}>20:30</Text>
+        <View style={styles.dateContainer}>
+          <Text>22</Text>
+          <Text>OCT</Text>
+        </View>
+        <View style={styles.timeContainer}>
+          <Text style={styles.time}>07:30 PM</Text>
+        </View>
+      </View>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Annual fundraiser 2020</Text>
       </View>
     </TouchableOpacity>
   );

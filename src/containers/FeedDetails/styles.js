@@ -7,46 +7,72 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.white,
     alignItems: 'center',
     height: '100%',
+  },
+  scrollViewStyle: {},
+  scrollViewContentStyle: {
     padding: 15,
   },
   dateAndLocationWithInfo: {
     width: '100%',
+    borderBottomWidth: 1,
+    paddingBottom: 20,
+    borderBottomColor: Styles.Colors.grayBorder,
+    marginVertical: 10,
   },
   image: {
     width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    flex: 1,
+    aspectRatio: 1,
   },
   rsvpContainer: {
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 10,
+    justifyContent: 'space-between',
     width: '100%',
-    height: 40,
+    borderTopWidth: 1,
+    borderTopColor: Styles.Colors.grayBorder,
   },
   rsvpButton: {
-    height: '100%',
-    width: 107,
+    height: 48,
+    width: 133,
     borderRadius: 8,
-    backgroundColor: Styles.Colors.primaryBlue,
+    backgroundColor: Styles.Colors.gold,
     justifyContent: 'center',
     alignItems: 'center',
   },
   rsvpText: {
-    fontSize: 18,
+    fontSize: 14,
     color: 'white',
   },
+
   dateContainer: {
-    padding: 5,
     flexDirection: 'row',
-    alignItems: 'center',
+    padding: 15,
+    marginVertical: 5,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: Styles.Colors.grayBorder,
+  },
+  dateTextContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
   },
   dateText: {
-    marginLeft: 10,
+    margin: 5,
+    fontSize: 16,
   },
+  dateTextBigger: {
+    fontWeight: '600',
+    fontSize: 17,
+  },
+  dateText2: {},
   header: {
-    padding: 15,
-    paddingLeft: 20,
-    fontSize: 25,
+    fontSize: 35,
+    marginVertical: 10,
   },
   description: {
     padding: 15,
@@ -69,6 +95,10 @@ const styles = StyleSheet.create({
   },
   modalIcon: {
     margin: 20,
+  },
+  joinText: {
+    fontWeight: '700',
+    fontSize: 16,
   },
 });
 

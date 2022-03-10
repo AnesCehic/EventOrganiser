@@ -11,6 +11,8 @@ import _CircleProgress from './CircleProgress';
 import _SearchInput from './SearchInput';
 import _CustomCheckBox from './CheckBox';
 import _LoadingIndicator from './LoadingIndicator';
+import _TextInput from './TextInput';
+import _BottomStartScreeButton from './BottomStartScreenButton';
 
 export const EventItem = _EventItem;
 export const Header = _Header;
@@ -25,3 +27,5 @@ export const CircleProgress = _CircleProgress;
 export const SearchInput = _SearchInput;
 export const CustomCheckBox = _CustomCheckBox;
 export const LoadingIndicator = _LoadingIndicator;
+export const TextInput = _TextInput;
+export const BottomStartScreenButton = _BottomStartScreeButton;

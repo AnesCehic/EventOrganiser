@@ -4,14 +4,13 @@ import {Styles} from '@common';
 const styles = StyleSheet.create({
   textInput: {
     borderColor: Styles.Colors.grayBorder,
-    borderRadius: 8,
+    borderRadius: 6,
     borderWidth: 1,
     height: 50,
     width: '80%',
-    backgroundColor: Styles.Colors.lightGrayBg,
+    backgroundColor: Styles.Colors.white,
     margin: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
+    padding: 16,
   },
 });
 

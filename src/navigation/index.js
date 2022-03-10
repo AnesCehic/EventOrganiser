@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
+import {Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {LoadingIndicator} from '@components';
+import {client} from '@services/apiClient';
+
+import {UserContext} from '@contexts';
 
 import Icon from 'react-native-ico';
 
@@ -20,8 +25,11 @@ import ExpensesScreen from './ExpensesScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
 import InsightsScreen from './InsightsScreen';
-import ContentScreen from './ContentScreen';
+import EventsOnDayScreen from './EventsOnMonthScreen';
 import GroupMembersScreen from './GroupMembersScreen';
+import VerifyAccountScreen from './VerifyAccountScreen';
+import ChangePasswordScreen from './ChangePasswordScreen';
+import EventsOnMonthScreen from './EventsOnMonthScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -47,6 +55,7 @@ const BottomTabNavigation = () => {
           headerShown: false,
           tabBarIcon: () => <Icon name="home" group="universalicons" />,
           tabBarShowLabel: false,
+          unmountOnBlur: true,
         }}
         component={FeedNavigation}
       />
@@ -55,6 +64,7 @@ const BottomTabNavigation = () => {
         options={{
           tabBarIcon: () => <Icon name="calendar" group="miscellaneous" />,
           tabBarShowLabel: false,
+          unmountOnBlur: true,
         }}
         component={EventsListScreen}
       />
@@ -64,6 +74,7 @@ const BottomTabNavigation = () => {
           headerShown: false,
           tabBarIcon: () => <Icon name="chat" group="shopping" />,
           tabBarShowLabel: false,
+          unmountOnBlur: true,
         }}
         component={ChatNavigation}
       />
@@ -73,6 +84,7 @@ const BottomTabNavigation = () => {
           headerShown: false,
           tabBarIcon: () => <Icon name="profile" group="basic" />,
           tabBarShowLabel: false,
+          unmountOnBlur: true,
         }}
         component={ProfileNavigation}
       />
@@ -91,7 +103,9 @@ const FeedNavigation = () => {
 
 const ProfileNavigation = () => {
   return (
-    <ProfileStack.Navigator screenOptions={{headerShadowVisible: false}}>
+    <ProfileStack.Navigator
+      initialRouteName="ProfileScreen"
+      screenOptions={{headerShadowVisible: false}}>
       <ProfileStack.Screen
         name="EditPofileScreen"
         component={EditProfileScreen}
@@ -99,6 +113,10 @@ const ProfileNavigation = () => {
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <ProfileStack.Screen name="ImagesScreen" component={ImagesScreen} />
       <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />
+      <ProfileStack.Screen
+        name="ChangePassword"
+        component={ChangePasswordScreen}
+      />
       <ProfileStack.Screen name="GroupMembers" component={GroupMembersScreen} />
       <ProfileStack.Screen
         name="PreferencesScreen"
@@ -109,23 +127,74 @@ const ProfileNavigation = () => {
 };
 
 const MainNavigation = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const {authenticated, setAuthenticated} = useContext(UserContext);
+
+  useEffect(() => {
+    getAuth();
+  }, []);
+
+  const getAuth = async () => {
+    try {
+      setIsLoading(true);
+      await client.reAuthenticate();
+
+      setAuthenticated(true);
+    } catch (error) {
+      console.log('[Error get is signed in navigation index]', error);
+      setAuthenticated(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
-        <Stack.Screen name="Start" component={StartScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen
-          name="Home"
-          options={{
-            headerShown: false,
-          }}
-          component={BottomTabNavigation}
-        />
-        <Stack.Screen name="EventsListScreen" component={EventsListScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
-        <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
-        <Stack.Screen name="ContentScreen" component={ContentScreen} />
+        {!authenticated ? (
+          <>
+            <Stack.Screen name="Start" component={StartScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen
+              name="VerifyAccount"
+              component={VerifyAccountScreen}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Home"
+              options={{
+                headerShown: false,
+              }}
+              component={BottomTabNavigation}
+            />
+            <Stack.Screen
+              name="EventsListScreen"
+              component={EventsListScreen}
+            />
+            <Stack.Screen
+              name="EventsOnMonthScreen"
+              component={EventsOnMonthScreen}
+            />
+            <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
+            <FeedStack.Screen
+              name="FeedDetails"
+              component={FeedDetailsScreen}
+            />
+            <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
+            <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
+            <Stack.Screen
+              name="EventsOnDayScreen"
+              component={EventsOnDayScreen}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

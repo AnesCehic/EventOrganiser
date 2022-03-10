@@ -30,6 +30,26 @@ const styles = StyleSheet.create({
   registerLink: {
     paddingBottom: 10,
   },
+  logInWithGoogle: {
+    backgroundColor: 'white',
+    elevation: 3,
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  logInWithGoogleText: {
+    color: 'black',
+  },
+  passwordWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  passwordInput: {
+    paddingRight: 40,
+  },
+  passwordHiddenIcon: {
+    position: 'absolute',
+    right: 20,
+  },
 });
 
 export default styles;

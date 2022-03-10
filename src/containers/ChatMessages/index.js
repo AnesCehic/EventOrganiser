@@ -1,63 +1,71 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {FlatList, Text, View} from 'react-native';
 import {MessageInput} from '@components';
 
+import {MessagesService} from '@services/apiClient';
+
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
-const data = [
-  {
-    id: 1,
-    message:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla quam eu faci lisis mollis. ',
-    user: 1,
-  },
-  {
-    id: 2,
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-    user: 1,
-  },
-  {
-    id: 3,
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-    user: 2,
-  },
-  {
-    id: 4,
-    message:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla quam eu faci lisis mollis. ',
-    user: 1,
-  },
-  {
-    id: 5,
-    message: 'Poruka 5 ',
-    user: 2,
-  },
-];
+const ChatMessages = ({navigation, route}) => {
+  const [messages, setMessages] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [textMessage, setTextMessage] = useState('');
 
-const ChatMessages = () => {
+  MessagesService.on('created', message => {
+    if (message.groupId === route.params.groupId) {
+      setMessages([message, ...messages]);
+      setTextMessage('');
+    }
+  });
+
+  const getMessages = async () => {
+    try {
+      const userId = await AsyncStorageLib.getItem('@userId');
+      setUserId(userId);
+      const {data} = await MessagesService.find({
+        query: {
+          groupId: route.params.groupId,
+          $sort: {
+            createdAt: -1,
+          },
+        },
+      });
+      setMessages(data);
+    } catch (error) {
+      console.log('[Error get messages]', error);
+    }
+  };
+
+  useEffect(() => {
+    getMessages();
+  }, []);
+
   const renderItem = ({item}) => {
     return (
       <View>
         <View
           style={[
             styles.messageContainer,
-            item.user === 1
+            item.ownerId === userId
               ? styles.userMessageContainer
               : styles.friendMessageContainer,
           ]}>
           <Text
             style={
-              item.user === 1
+              item.ownerId === userId
                 ? styles.userMessageContainerText
                 : styles.friendMessageContainerText
             }>
-            {item.message}
+            {item.text}
           </Text>
         </View>
         <View
           style={[
             styles.triangle,
-            item.user === 1 ? styles.triangleRight : styles.triangleLeft,
+            item.ownerId === userId
+              ? styles.triangleRight
+              : styles.triangleLeft,
           ]}
         />
       </View>
@@ -68,16 +76,39 @@ const ChatMessages = () => {
     return (
       <FlatList
         contentContainerStyle={{alignItems: 'stretch'}}
-        data={data}
-        keyExtractor={item => item.id}
+        data={messages}
+        keyExtractor={item => item._id}
         renderItem={renderItem}
         inverted
+        onEndReached={() => console.log('reached')}
       />
     );
   };
 
+  const textChange = text => {
+    setTextMessage(text);
+  };
+
+  const sendMessage = async () => {
+    try {
+      const res = await MessagesService.create({
+        groupId: route.params.groupId,
+        text: textMessage,
+      });
+      setTextMessage('');
+    } catch (error) {
+      console.log('[Error sending a message]', error);
+    }
+  };
+
   const renderMessageInput = () => {
-    return <MessageInput />;
+    return (
+      <MessageInput
+        value={textMessage}
+        onTextChange={textChange}
+        onPress={sendMessage}
+      />
+    );
   };
 
   return (

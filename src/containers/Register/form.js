@@ -20,7 +20,12 @@ const Form = ({navigation}) => {
       lastName,
       email,
       password,
-    }).then(res => console.log('create'));
+    }).then(res => {
+      navigation.navigate('VerifyAccount', {
+        userId: res._id,
+        verificationKey: res.verificationKey,
+      });
+    });
   };
 
   return (
@@ -45,6 +50,8 @@ const Form = ({navigation}) => {
         placeholder="Email"
         value={email}
         onChangeValue={value => setEmail(value)}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
 
       <TextInput
