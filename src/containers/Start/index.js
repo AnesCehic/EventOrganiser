@@ -36,7 +36,7 @@ const Start = ({navigation}) => {
           titleStyle={styles.googleTextStyle}
         />
         <SubmitButton
-          onPress={() => navigation.navigate('Register')}
+          onPress={() => navigation.navigate('Login')}
           title="Sign in with email"
           style={styles.button}
           titleStyle={styles.textStyle}
