@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View, Linking, Platform} from 'react-native';
 import {Icon} from 'react-native-elements';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
@@ -34,13 +34,13 @@ const FeedDetails = ({navigation, route}) => {
     try {
       setIsLoading(true);
       const res = await EventService.get(route.params.id);
-      let image = res.upload.files[0].uri;
+      let image = res.upload.files[0].signedURL;
       setEventData({
         ...res,
-        start: dayjs(eventData.start).format('MMMM DD'),
-        end: dayjs(eventData.end).format('MMMM DD'),
-        startTime: dayjs(eventData.start).format('hh mm a'),
-        endTime: dayjs(eventData.end).format('hh mm a'),
+        startDay: dayjs(res.start).format('MMMM DD'),
+        endDay: dayjs(res.end).format('MMMM DD'),
+        startTime: dayjs(res.start).format('hh:mm a'),
+        endTime: dayjs(res.end).format('hh:mm a'),
         eventImage: image,
       });
     } catch (error) {
@@ -48,6 +48,19 @@ const FeedDetails = ({navigation, route}) => {
       console.log('[Error fetching data for event]', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const openMap = async (address) => {
+    const destination = encodeURIComponent(address); 
+    const provider = Platform.OS === 'ios' ? 'apple' : 'google'
+    const link = `http://maps.${provider}.com/?daddr=${destination}`;
+    console.log('LINK:', link);
+
+    try {
+        await Linking.openURL(link);
+    } catch (error) {
+        console.log(error);
     }
   };
 
@@ -160,15 +173,17 @@ const FeedDetails = ({navigation, route}) => {
           <View style={styles.dateAndLocationWithInfo}>
             <DateAndPlace
               icon="calendar-today"
-              text1={`${eventData.start} - ${eventData.end}`}
-              text2={`${eventData.startTime}, ${eventData.endTime}`}
+              text1={`${eventData.startDay} - ${eventData.endDay}`}
+              text2={`${eventData.startTime} - ${eventData.endTime}`}
               bold
             />
-            <DateAndPlace
-              icon="location-pin"
-              text1={location1}
-              text2={location2}
-            />
+            <TouchableOpacity onPress={() => { openMap(eventData.location); }}>
+              <DateAndPlace
+                icon="location-pin"
+                text1={location1}
+                text2={location2}
+              />
+            </TouchableOpacity>
           </View>
           <RenderHTML
             source={{
