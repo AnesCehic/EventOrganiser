@@ -41,8 +41,11 @@ const ChatStack = createNativeStackNavigator();
 const ChatNavigation = () => {
   return (
     <ChatStack.Navigator screenOptions={{headerShadowVisible: false}}>
-      <ChatStack.Screen name="Chats" component={ChatScreen} />
-      <ChatStack.Screen name="Messages" component={ChatMessagesScreen} />
+      <ChatStack.Screen name="Messages" component={ChatScreen} />
+      <ChatStack.Screen name="Message"
+       component={ChatMessagesScreen}
+       options={({ route }) => ({ title: route.params.label })}
+       />
     </ChatStack.Navigator>
   );
 };
@@ -70,7 +73,7 @@ const BottomTabNavigation = () => {
         component={EventsListScreen}
       />
       <BottomTab.Screen
-        name="Chat"
+        name="Messages"
         options={{
           headerShown: false,
           tabBarIcon: () => <Icon name="chat" group="shopping" />,
@@ -179,7 +182,7 @@ const MainNavigation = () => {
               name="EventsListScreen"
               component={EventsListScreen}
             />
-            <Stack.Screen name="Messages" component={ChatMessagesScreen} />
+            <Stack.Screen name="Message" component={ChatMessagesScreen} />
 
             <Stack.Screen
               name="EventsOnMonthScreen"

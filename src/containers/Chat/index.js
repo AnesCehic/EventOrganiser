@@ -17,9 +17,10 @@ const Chat = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [messageGroups, setMessageGroups] = useState([]);
 
-  const navigateToMessages = groupId => {
-    navigation.navigate('Messages', {
+  const navigateToMessages = (groupId, label) => {
+    navigation.navigate('Message', {
       groupId,
+      label
     });
   };
 
@@ -49,7 +50,7 @@ const Chat = ({navigation}) => {
       <MenuItem
         key={item._id}
         onPress={() => {
-          navigateToMessages(item._id);
+          navigateToMessages(item._id, item.label);
         }}
         menuText={item.label}
       />
