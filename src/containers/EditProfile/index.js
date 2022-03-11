@@ -26,7 +26,7 @@ const MenuItems = [
   {
     id: 1,
     menuText: 'Profile',
-    menuScreen: Constants.NavigationScreens.ProfileScreen,
+    menuScreen: Constants.NavigationScreens.UpdateUserFormScreen,
   },
   {
     id: 2,
@@ -109,7 +109,7 @@ const EditProfile = ({navigation}) => {
         <Text style={styles.userName}>
           {userData.firstName} {userData.lastName}
           <Icon
-            onPress={() => console.log('edit username')}
+            onPress={() => navigation.navigate('UpdateUserForm')}
             name="mode-edit"
             size={24}
             color={Styles.Colors.primaryText}

@@ -30,6 +30,7 @@ import GroupMembersScreen from './GroupMembersScreen';
 import VerifyAccountScreen from './VerifyAccountScreen';
 import ChangePasswordScreen from './ChangePasswordScreen';
 import EventsOnMonthScreen from './EventsOnMonthScreen';
+import UpdateUserFormScreen from './UpdateUserFormScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -194,6 +195,10 @@ const MainNavigation = () => {
             <Stack.Screen
               name="EventsOnDayScreen"
               component={EventsOnDayScreen}
+            />
+            <Stack.Screen
+              name="UpdateUserForm"
+              component={UpdateUserFormScreen}
             />
           </>
         )}

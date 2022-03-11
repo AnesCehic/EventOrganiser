@@ -10,6 +10,7 @@ const Constants = {
     InsightsScreen: 'InsightsScreen',
     ContentScreen: 'ContentScreen',
     ChangePasswordScreen: 'ChangePassword',
+    UpdateUserFormScreen: 'UpdateUserForm',
   },
   UserRoles: {
     admin: 'admin',
