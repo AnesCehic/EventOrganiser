@@ -12,10 +12,17 @@ const ChatMessages = ({navigation, route}) => {
   const [userId, setUserId] = useState(null);
   const [textMessage, setTextMessage] = useState('');
 
-  MessagesService.on('created', message => {
+  const handleNewMessages = message => {
     if (message.groupId === route.params.groupId) {
       setMessages([message, ...messages]);
       setTextMessage('');
+    }
+  };
+
+  useEffect(() => {
+    MessagesService.on('created', handleNewMessages);
+    return () => {
+      MessagesService.off('created', handleNewMessages);
     }
   });
 
