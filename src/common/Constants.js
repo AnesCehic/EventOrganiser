@@ -11,6 +11,7 @@ const Constants = {
     ContentScreen: 'ContentScreen',
     ChangePasswordScreen: 'ChangePassword',
     UpdateUserFormScreen: 'UpdateUserForm',
+    CreatePostScreen: 'CreatePost',
   },
   UserRoles: {
     admin: 'admin',

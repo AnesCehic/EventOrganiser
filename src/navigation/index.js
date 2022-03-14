@@ -31,6 +31,7 @@ import VerifyAccountScreen from './VerifyAccountScreen';
 import ChangePasswordScreen from './ChangePasswordScreen';
 import EventsOnMonthScreen from './EventsOnMonthScreen';
 import UpdateUserFormScreen from './UpdateUserFormScreen';
+import CreatePostScreen from './CreatePostScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -118,6 +119,7 @@ const ProfileNavigation = () => {
         name="ChangePassword"
         component={ChangePasswordScreen}
       />
+      <ProfileStack.Screen name="CreatePost" component={CreatePostScreen} />
       <ProfileStack.Screen name="GroupMembers" component={GroupMembersScreen} />
       <ProfileStack.Screen
         name="PreferencesScreen"

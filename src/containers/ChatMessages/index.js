@@ -23,7 +23,7 @@ const ChatMessages = ({navigation, route}) => {
     MessagesService.on('created', handleNewMessages);
     return () => {
       MessagesService.off('created', handleNewMessages);
-    }
+    };
   });
 
   const getMessages = async () => {
