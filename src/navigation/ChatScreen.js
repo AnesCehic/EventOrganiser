@@ -13,13 +13,8 @@ const ChatScreen = ({navigation}) => {
     const {setOptions} = navigation;
 
     setOptions({
-      title: 'Chat',
-      headerTitleAlign: 'center',
-      headerLeft: () => {
-        return (
-          <Text>Test</Text>
-        )
-      },
+      title: 'Messages',
+      headerTitleAlign: 'center'
     });
   }, []);
 
