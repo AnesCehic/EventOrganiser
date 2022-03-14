@@ -107,10 +107,14 @@ const ProfileNavigation = () => {
       initialRouteName="ProfileScreen"
       screenOptions={{headerShadowVisible: false}}>
       <ProfileStack.Screen
-        name="EditPofileScreen"
+        name="EditProfileScreen"
         component={EditProfileScreen}
       />
-      <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <ProfileStack.Screen
+        options={{headerShown: false}}
+        name="ProfileScreen"
+        component={ProfileScreen}
+      />
       <ProfileStack.Screen name="ImagesScreen" component={ImagesScreen} />
       <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />
       <ProfileStack.Screen
