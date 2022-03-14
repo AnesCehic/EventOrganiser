@@ -8,8 +8,7 @@ const styles = StyleSheet.create({
     paddingBottom: 68,
     height: '90%',
     padding: 16,
-    borderColor: 'black',
-    borderWidth: 1,
+    textAlignVertical: 'top',
   },
   userData: {
     height: '10%',
@@ -17,8 +16,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 16,
     width: '100%',
-    borderWidth: 1,
-    borderColor: 'black',
   },
   floatingUploadImageButton: {
     position: 'absolute',
@@ -31,11 +28,10 @@ const styles = StyleSheet.create({
   },
   uploadPhotoText: {
     fontSize: 12,
+    fontWeight: '600',
   },
   username: {
     height: '90%',
-    borderWidth: 1,
-    borderColor: 'black',
   },
 });
 
