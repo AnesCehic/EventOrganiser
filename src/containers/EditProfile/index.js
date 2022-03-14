@@ -26,7 +26,7 @@ const MenuItems = [
   {
     id: 1,
     menuText: 'Profile',
-    menuScreen: Constants.NavigationScreens.UpdateUserFormScreen,
+    menuScreen: Constants.NavigationScreens.ProfileScreen,
   },
   {
     id: 6,
