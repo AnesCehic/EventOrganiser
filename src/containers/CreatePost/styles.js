@@ -1,12 +1,14 @@
 import {StyleSheet} from 'react-native';
 
+import {Styles} from '@common';
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
   },
   postTextInput: {
     paddingBottom: 68,
-    height: '90%',
+    height: '60%',
     padding: 16,
     textAlignVertical: 'top',
   },
@@ -32,6 +34,20 @@ const styles = StyleSheet.create({
   },
   username: {
     height: '90%',
+  },
+  createPostButton: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingRight: 12,
+    paddingLeft: 12,
+    borderRadius: 6,
+    backgroundColor: Styles.Colors.white,
+  },
+  text: {
+    textAlign: 'center',
+  },
+  createPostButtonDisabled: {
+    opacity: 0.4,
   },
 });
 

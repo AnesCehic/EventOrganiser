@@ -1,13 +1,16 @@
 import feathers from '@feathersjs/feathers';
+import rest from '@feathersjs/rest-client';
 import authentication from '@feathersjs/authentication-client';
 import socketioClient from '@feathersjs/socketio-client';
 import io from 'socket.io-client';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const socket = io('https://api.lincolnclub.app');
+const restClient = rest('https://api.lincolnclub.app');
 const client = feathers();
 
-client.configure(socketioClient(socket, {timeout: 30000}));
+//client.configure(socketioClient(socket, {timeout: 30000}));
+client.configure(restClient.fetch(fetch));
 client.configure(
   authentication({
     storage: AsyncStorageLib,
@@ -26,6 +29,7 @@ const ChangeEmail = client.service('change-email');
 const PostsService = client.service('posts');
 const MessageGroupsService = client.service('message-groups');
 const MessagesService = client.service('messages');
+const UploadsService = client.service('uploads');
 
 export {
   UsersService,
@@ -40,4 +44,5 @@ export {
   PostsService,
   MessageGroupsService,
   MessagesService,
+  UploadsService,
 };

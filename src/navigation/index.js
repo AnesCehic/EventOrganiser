@@ -1,14 +1,13 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {Text} from 'react-native';
+import {Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {LoadingIndicator} from '@components';
 import {client} from '@services/apiClient';
+import {Styles} from '@common';
 
 import {UserContext} from '@contexts';
-
-import Icon from 'react-native-ico';
 
 import LoginScreen from './LoginScreen';
 import EventsListScreen from './EventsListScreen';
@@ -42,11 +41,16 @@ const ChatStack = createNativeStackNavigator();
 const ChatNavigation = () => {
   return (
     <ChatStack.Navigator screenOptions={{headerShadowVisible: false}}>
-      <ChatStack.Screen name="Messages" component={ChatScreen} />
-      <ChatStack.Screen name="Message"
-       component={ChatMessagesScreen}
-       options={({ route }) => ({ title: route.params.label })}
-       />
+      <ChatStack.Screen
+        options={{headerShown: false}}
+        name="Messages"
+        component={ChatScreen}
+      />
+      <ChatStack.Screen
+        name="Message"
+        component={ChatMessagesScreen}
+        options={({route}) => ({title: route.params.label})}
+      />
     </ChatStack.Navigator>
   );
 };
@@ -58,8 +62,8 @@ const BottomTabNavigation = () => {
         name="Feed"
         options={{
           headerShown: false,
-          tabBarIcon: () => <Icon name="home" group="universalicons" />,
-          tabBarShowLabel: false,
+          tabBarIcon: () => <Image source={require('../assets/Home.png')} />,
+          tabBarLabel: 'Home',
           unmountOnBlur: true,
         }}
         component={FeedNavigation}
@@ -67,8 +71,8 @@ const BottomTabNavigation = () => {
       <BottomTab.Screen
         name="Calendar"
         options={{
-          tabBarIcon: () => <Icon name="calendar" group="miscellaneous" />,
-          tabBarShowLabel: false,
+          tabBarIcon: () => <Image source={require('../assets/Shape.png')} />,
+          tabBarLabel: 'Events',
           unmountOnBlur: true,
         }}
         component={EventsListScreen}
@@ -77,8 +81,8 @@ const BottomTabNavigation = () => {
         name="Messages"
         options={{
           headerShown: false,
-          tabBarIcon: () => <Icon name="chat" group="shopping" />,
-          tabBarShowLabel: false,
+          tabBarIcon: () => <Image source={require('../assets/Chat.png')} />,
+          tabBarLabel: 'Chat',
           unmountOnBlur: true,
         }}
         component={ChatNavigation}
@@ -87,8 +91,8 @@ const BottomTabNavigation = () => {
         name="Profile"
         options={{
           headerShown: false,
-          tabBarIcon: () => <Icon name="profile" group="basic" />,
-          tabBarShowLabel: false,
+          tabBarIcon: () => <Image source={require('../assets/Profile.png')} />,
+          tabBarLabel: 'Account',
           unmountOnBlur: true,
         }}
         component={ProfileNavigation}

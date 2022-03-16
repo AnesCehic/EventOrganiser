@@ -19,6 +19,7 @@ const Styles = {
   },
   Sizes: {
     avatar: 140,
+    avatarMedium: 60,
   },
 };
 
