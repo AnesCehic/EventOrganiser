@@ -45,6 +45,11 @@ const MenuItems = [
     menuText: 'Chat',
     menuScreen: 'Chats',
   },
+  {
+    id: 4,
+    menuText: 'Create post',
+    menuScreen: 'CreatePost',
+  },
 ];
 
 const EditProfile = ({navigation}) => {

@@ -239,7 +239,7 @@ const Profile = ({navigation, route}) => {
             onPress={goToEditProfile}
           />
         </View>
-        {renderSwitch()}
+        {/* {renderSwitch()} */}
         {renderContent()}
       </View>
     </View>

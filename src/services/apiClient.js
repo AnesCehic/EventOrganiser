@@ -9,8 +9,7 @@ const socket = io('https://api.lincolnclub.app');
 const restClient = rest('https://api.lincolnclub.app');
 const client = feathers();
 
-//client.configure(socketioClient(socket, {timeout: 30000}));
-client.configure(restClient.fetch(fetch));
+client.configure(socketioClient(socket, {timeout: 30000}));
 client.configure(
   authentication({
     storage: AsyncStorageLib,
