@@ -31,11 +31,11 @@ const Login = ({navigation}) => {
       console.log('here');
 
       await AsyncStorageLib.setItem('@userId', user._id);
+      await AsyncStorageLib.setItem('@user', JSON.stringify(user));
       handleLogin();
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error login]', error);
-    } finally {
       setIsLoading(false);
     }
   };

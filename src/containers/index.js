@@ -13,6 +13,8 @@ import _VerifyAccount from './VerifyAccount';
 import _EventsOnMonth from './EventsOnMonth';
 import _GroupMembers from './GroupMembers';
 import _ChangePassword from './ChangePassword';
+import _UpdateUserForm from './UpdateUserForm';
+import _CreatePost from './CreatePost';
 
 export const EventsList = _EventsList;
 export const Start = _Start;
@@ -29,3 +31,5 @@ export const VerifyAccount = _VerifyAccount;
 export const EventsOnMonth = _EventsOnMonth;
 export const ChangePassword = _ChangePassword;
 export const GroupMembers = _GroupMembers;
+export const UpdateUserForm = _UpdateUserForm;
+export const CreatePost = _CreatePost;

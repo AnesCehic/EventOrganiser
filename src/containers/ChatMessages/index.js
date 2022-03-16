@@ -8,15 +8,31 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const ChatMessages = ({navigation, route}) => {
+
   const [messages, setMessages] = useState([]);
   const [userId, setUserId] = useState(null);
   const [textMessage, setTextMessage] = useState('');
 
-  MessagesService.on('created', message => {
+  const handleNewMessages = message => {
     if (message.groupId === route.params.groupId) {
       setMessages([message, ...messages]);
       setTextMessage('');
     }
+  };
+  
+  useEffect(() => {
+    const {setOptions} = navigation;
+
+    setOptions({
+      headerTitleAlign: 'center'
+    });
+  }, []);
+
+  useEffect(() => {
+    MessagesService.on('created', handleNewMessages);
+    return () => {
+      MessagesService.off('created', handleNewMessages);
+    };
   });
 
   const getMessages = async () => {

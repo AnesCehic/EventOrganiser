@@ -30,6 +30,8 @@ import GroupMembersScreen from './GroupMembersScreen';
 import VerifyAccountScreen from './VerifyAccountScreen';
 import ChangePasswordScreen from './ChangePasswordScreen';
 import EventsOnMonthScreen from './EventsOnMonthScreen';
+import UpdateUserFormScreen from './UpdateUserFormScreen';
+import CreatePostScreen from './CreatePostScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -40,8 +42,11 @@ const ChatStack = createNativeStackNavigator();
 const ChatNavigation = () => {
   return (
     <ChatStack.Navigator screenOptions={{headerShadowVisible: false}}>
-      <ChatStack.Screen name="Chats" component={ChatScreen} />
-      <ChatStack.Screen name="Messages" component={ChatMessagesScreen} />
+      <ChatStack.Screen name="Messages" component={ChatScreen} />
+      <ChatStack.Screen name="Message"
+       component={ChatMessagesScreen}
+       options={({ route }) => ({ title: route.params.label })}
+       />
     </ChatStack.Navigator>
   );
 };
@@ -69,7 +74,7 @@ const BottomTabNavigation = () => {
         component={EventsListScreen}
       />
       <BottomTab.Screen
-        name="Chat"
+        name="Messages"
         options={{
           headerShown: false,
           tabBarIcon: () => <Icon name="chat" group="shopping" />,
@@ -121,6 +126,7 @@ const ProfileNavigation = () => {
         name="ChangePassword"
         component={ChangePasswordScreen}
       />
+      <ProfileStack.Screen name="CreatePost" component={CreatePostScreen} />
       <ProfileStack.Screen name="GroupMembers" component={GroupMembersScreen} />
       <ProfileStack.Screen
         name="PreferencesScreen"
@@ -182,7 +188,7 @@ const MainNavigation = () => {
               name="EventsListScreen"
               component={EventsListScreen}
             />
-            <Stack.Screen name="Messages" component={ChatMessagesScreen} />
+            <Stack.Screen name="Message" component={ChatMessagesScreen} />
 
             <Stack.Screen
               name="EventsOnMonthScreen"
@@ -198,6 +204,10 @@ const MainNavigation = () => {
             <Stack.Screen
               name="EventsOnDayScreen"
               component={EventsOnDayScreen}
+            />
+            <Stack.Screen
+              name="UpdateUserForm"
+              component={UpdateUserFormScreen}
             />
           </>
         )}
