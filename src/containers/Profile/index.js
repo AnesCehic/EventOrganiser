@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  ImageBackground,
+} from 'react-native';
 import {StackActions} from '@react-navigation/native';
 import {Avatar, Button, Icon} from 'react-native-elements';
 import dayjs from 'dayjs';
@@ -12,6 +19,7 @@ import {toast} from '@utils';
 import {UsersService, MessageGroupsService} from '@services/apiClient';
 
 import data from './data';
+import imageData from './imageData';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
@@ -19,21 +27,19 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 const Profile = ({navigation, route}) => {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [activeSwitch, setActiveSwitch] = useState(0);
   const {chatForbiden} = useContext(UserContext);
 
   const fetchUserData = async () => {
     try {
       setIsLoading(true);
-      console.log(route);
       if (!route?.params?.userId) {
         const uId = await AsyncStorageLib.getItem('@userId');
         const res = await UsersService.get(uId);
         setUserData(res);
-        setIsLoading(false);
       } else {
         const res = await UsersService.get(route.params.userId);
         setUserData(res);
-        setIsLoading(false);
       }
     } catch (error) {
       toast('error', 'Error', error.message);
@@ -49,13 +55,12 @@ const Profile = ({navigation, route}) => {
 
   const renderAvatar = () => {
     return (
-      <View style={styles.avatar}>
-        <Avatar
-          size={Styles.Sizes.avatar}
-          rounded
-          source={data.avatarImg ? {uri: data.avatarImg} : {}}
-        />
-      </View>
+      <Avatar
+        size={140}
+        rounded
+        source={data.avatarImg ? {uri: data.avatarImg} : {}}
+        containerStyle={styles.avatar}
+      />
     );
   };
 
@@ -82,9 +87,10 @@ const Profile = ({navigation, route}) => {
           {userData.firstName} {userData.lastName}
         </Text>
         <Text style={styles.memberSince}>
-          Member Since {dayjs(data.memberSince).format('YYYY')}
+          Member Since {dayjs(userData.createdAt).format('YYYY')} ·{' '}
+          {userData.email}
         </Text>
-        {chatForbiden || route?.params?.hideSendMessage ? null : (
+        {/* {chatForbiden || route?.params?.hideSendMessage ? null : (
           <Button
             onPress={() => {
               if (route?.params?.userId) {
@@ -108,7 +114,7 @@ const Profile = ({navigation, route}) => {
             }
             iconContainerStyle={styles.btnIcon}
           />
-        )}
+        )} */}
       </View>
     );
   };
@@ -117,26 +123,39 @@ const Profile = ({navigation, route}) => {
     return (
       <View style={styles.switchContentContainer}>
         <TouchableOpacity
-          style={[styles.switchContent, styles.switchContentActive]}>
-          <Text style={styles.switchContentText}>Posts</Text>
+          style={[styles.switchContent, styles.switchContentActive]}
+          onPress={() => {
+            setActiveSwitch(0);
+          }}>
+          <Text
+            style={[
+              styles.switchContentText,
+              {
+                color:
+                  activeSwitch === 0 ? '#000' : Styles.Colors.lightGrayText,
+              },
+            ]}>
+            Posts
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={goToPhotosScreen}
+          onPress={() => {
+            setActiveSwitch(1);
+          }}
           style={styles.switchContent}>
           <Text
             style={[
               styles.switchContentText,
-              {color: Styles.Colors.lightGrayText},
+              {
+                color:
+                  activeSwitch === 1 ? '#000' : Styles.Colors.lightGrayText,
+              },
             ]}>
             Photos
           </Text>
         </TouchableOpacity>
       </View>
     );
-  };
-
-  const goToPhotosScreen = () => {
-    navigation.navigate(Constants.NavigationScreens.ImagesScreen);
   };
 
   const renderPosts = () => {
@@ -147,18 +166,82 @@ const Profile = ({navigation, route}) => {
     return <PostsList navigation={navigation} data={newDataTest} />;
   };
 
+  const renderImages = () => {
+    return (
+      <ScrollView contentContainerStyle={styles.imagesContainer}>
+        {imageData.map((image, index) => {
+          const nthChild = index + 1;
+          let width;
+          let height = 128;
+          if (nthChild % 1 === 0) {
+            width = '33%';
+          }
+          if (nthChild % 2 === 0) {
+            width = '66%';
+          }
+          if (nthChild % 3 === 0) {
+            width = '100%';
+            height = 198;
+          }
+          return (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              key={image.id}
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{padding: 5, width, height}}>
+              <Image
+                resizeMode="cover"
+                style={styles.imageItem}
+                source={{uri: image.url}}
+              />
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
+    );
+  };
+
+  const renderContent = () => {
+    if (activeSwitch === 0) {
+      return renderPosts();
+    }
+    if (activeSwitch === 1) {
+      return renderImages();
+    }
+  };
+
+  const goToEditProfile = () => {
+    navigation.navigate('EditProfileScreen');
+  };
+
   if (isLoading) {
     return <LoadingIndicator />;
   }
 
   return (
-    <View
-      style={styles.container}
-      contentContainerStyle={styles.contentContainerStyle}>
-      {renderAvatar()}
-      {renderUserInfo()}
-      {renderSwitch()}
-      {renderPosts()}
+    <View style={styles.container}>
+      <ImageBackground
+        style={styles.topImage}
+        source={require('../../assets/headerBackground.png')}
+        resizeMode="cover"
+      />
+      <View style={styles.contentContainer}>
+        <View style={styles.userWrapper}>
+          <View>
+            {renderAvatar()}
+            {renderUserInfo()}
+          </View>
+          <Icon
+            name="settings"
+            color="#fff"
+            size={30}
+            style={styles.settingsIcon}
+            onPress={goToEditProfile}
+          />
+        </View>
+        {renderSwitch()}
+        {renderContent()}
+      </View>
     </View>
   );
 };

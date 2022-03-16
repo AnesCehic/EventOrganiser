@@ -18,7 +18,7 @@ const Styles = {
     grayButtonBackground: '#2D2B0D',
   },
   Sizes: {
-    avatar: 72,
+    avatar: 140,
   },
 };
 

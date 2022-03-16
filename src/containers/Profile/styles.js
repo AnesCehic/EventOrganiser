@@ -2,36 +2,57 @@ import {StyleSheet} from 'react-native';
 import {Styles} from '@common';
 
 const styles = StyleSheet.create({
-  contentContainerStyle: {
-    alignItems: 'center',
-  },
   container: {
     flex: 1,
     backgroundColor: Styles.Colors.white,
   },
+  contentContainer: {
+    flex: 1,
+    marginTop: -73,
+  },
+  topImage: {
+    justifyContent: 'center',
+    height: 130,
+    width: '100%',
+  },
+  settingsIcon: {
+    backgroundColor: '#00000075',
+    borderRadius: 50,
+    padding: 10,
+  },
+
+  userWrapper: {
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+  },
   avatar: {
-    alignItems: 'center',
-    marginVertical: 30,
+    padding: 6,
+    backgroundColor: 'white',
+    borderRadius: 100,
   },
   userInfo: {
-    alignItems: 'center',
+    width: '100%',
+    marginTop: 10,
   },
   userName: {
     fontSize: 32,
     color: Styles.Colors.primaryText,
   },
   memberSince: {
-    fontSize: 16,
+    fontSize: 14,
     color: Styles.Colors.grayText,
     marginBottom: 10,
+    marginTop: 5,
   },
   buttonStyle: {
+    width: '100%',
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: Styles.Colors.primaryBlue,
     borderRadius: 8,
     paddingHorizontal: 32,
     paddingVertical: 10,
+    marginTop: 20,
   },
   buttonTitle: {
     color: Styles.Colors.primaryBlue,
@@ -42,33 +63,35 @@ const styles = StyleSheet.create({
   },
 
   switchContentContainer: {
-    alignSelf: 'center',
-    marginVertical: 30,
-    borderRadius: 100,
+    borderBottomWidth: 3,
+    borderBottomColor: Styles.Colors.grayBorder,
+    marginTop: 20,
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: Styles.Colors.lightGrayBg,
-    maxWidth: 320,
     width: '100%',
     padding: 2,
+    marginBottom: 15,
   },
   switchContent: {
     flex: 1,
-    borderRadius: 100,
-    backgroundColor: 'transparent',
     paddingVertical: 14,
-    justifyContent: 'center',
   },
   switchContentText: {
+    fontSize: 16,
+    fontWeight: '600',
     textAlign: 'center',
   },
-  switchContentActive: {
-    shadowColor: '#c1c1c1',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.8,
-    shadowRadius: 1,
-    elevation: 5,
-    backgroundColor: Styles.Colors.white,
+  switchContentActive: {},
+
+  imagesContainer: {
+    backgroundColor: 'white',
+    padding: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  imageItem: {
+    flex: 1,
+    borderRadius: 8,
   },
 });
 

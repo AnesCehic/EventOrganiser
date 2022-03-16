@@ -1,15 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState, useContext} from 'react';
-import {
-  View,
-  Text,
-  Alert,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native';
+import {View, Text, Alert} from 'react-native';
 import {Avatar, Icon} from 'react-native-elements';
 
-import {LoadingIndicator} from '@components';
+import {MenuItem, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UsersService} from '@services/apiClient';
 import {UserContext} from '@contexts';
@@ -32,18 +25,29 @@ const data = {
 const MenuItems = [
   {
     id: 1,
-    menuText: 'Password',
-    menuScreen: Constants.NavigationScreens.ChangePasswordScreen,
+    menuText: 'Profile',
+    menuScreen: Constants.NavigationScreens.ProfileScreen,
   },
   {
     id: 2,
-    menuText: 'Notifications',
-    menuScreen: null,
+    menuText: 'Change password',
+    menuScreen: Constants.NavigationScreens.ChangePasswordScreen,
   },
   {
     id: 3,
-    menuText: 'Chat',
-    menuScreen: 'Chats',
+    menuText: 'Change email',
+    menuScreen: null,
+    menuPressHandle: 'email_change',
+  },
+  {
+    id: 4,
+    menuText: 'Groups',
+    menuScreen: Constants.NavigationScreens.GroupsScreen,
+  },
+  {
+    id: 5,
+    menuText: 'Preferences',
+    menuScreen: Constants.NavigationScreens.PreferencesScreen,
   },
 ];
 
@@ -72,7 +76,6 @@ const EditProfile = ({navigation}) => {
         email,
         avatarImg,
       });
-      console.log('first');
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error logout]', error);
@@ -81,15 +84,11 @@ const EditProfile = ({navigation}) => {
     }
   };
 
-  const renderUser = () => {
+  const renderAvatar = () => {
     return (
-      <TouchableOpacity
-        style={styles.user}
-        onPress={() => {
-          console.log('navigate');
-        }}>
+      <View style={styles.avatarContainer}>
         <Avatar
-          size={70}
+          size={Styles.Sizes.avatar}
           rounded
           containerStyle={{}}
           source={data.avatarImg ? {uri: data.avatarImg} : {}}>
@@ -98,22 +97,38 @@ const EditProfile = ({navigation}) => {
             size={20}
             style={styles.avatarIcon}
             name="vertical-align-top"
-            color="white"
           />
         </Avatar>
-        <View style={styles.userInfo}>
-          <Text style={styles.userName}>
-            {userData.firstName} {userData.lastName}
-          </Text>
-          <Text style={styles.userEmail}>{userData.email}</Text>
-        </View>
-        <Icon
-          name="keyboard-arrow-right"
-          size={34}
-          style={styles.userArrowIcon}
-          color="#000"
-        />
-      </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderUserInfo = () => {
+    return (
+      <View style={styles.userInfo}>
+        <Text style={styles.userName}>
+          {userData.firstName} {userData.lastName}
+          <Icon
+            onPress={() => console.log('edit username')}
+            name="mode-edit"
+            size={24}
+            color={Styles.Colors.primaryText}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={[styles.icon, {bottom: 1}]}
+          />
+        </Text>
+        <Text style={styles.userEmail}>
+          {userData.email}
+          <Icon
+            onPress={() => console.log('edit email')}
+            name="mode-edit"
+            size={18}
+            color={Styles.Colors.grayText}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={[styles.icon, {top: 2}]}
+          />
+        </Text>
+      </View>
     );
   };
 
@@ -132,55 +147,27 @@ const EditProfile = ({navigation}) => {
 
   const renderMenu = () => {
     return (
-      <>
-        <View style={styles.menu}>
-          {MenuItems.map((menuItem, i) => {
-            return (
-              <TouchableOpacity
-                style={[
-                  styles.menuItem,
-                  {borderBottomWidth: i === MenuItems.length - 1 ? 0 : 1},
-                  {borderTopLeftRadius: i === 0 ? 10 : 0},
-                  {borderTopRightRadius: i === 0 ? 10 : 0},
-                  {borderBottomLeftRadius: i === MenuItems.length - 1 ? 10 : 0},
-                  {
-                    borderBottomRightRadius:
-                      i === MenuItems.length - 1 ? 10 : 0,
-                  },
-                ]}
-                onPress={() => {
-                  menuItem.menuScreen
-                    ? navigation.navigate(menuItem.menuScreen, {
-                        userId: userData._id,
-                        hideSendMessage: true,
-                      })
-                    : menuItem?.menuPressHandle
-                    ? handleMenuItemPress(menuItem.menuPressHandle)
-                    : null;
-                }}>
-                <Text style={styles.menuItemText}>{menuItem.menuText}</Text>
-                <Icon
-                  name="keyboard-arrow-right"
-                  size={24}
-                  color={Styles.Colors.grayText}
-                  style={styles.arrowIcon}
-                />
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-        <TouchableOpacity
-          onPress={() => logout()}
-          style={[styles.menuItem, styles.logoutItem]}>
-          <Text style={styles.menuItemText}>Log out</Text>
-          <Icon
-            name="keyboard-arrow-right"
-            size={24}
-            color={Styles.Colors.grayText}
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
-      </>
+      <View style={styles.menu}>
+        {MenuItems.map(menuItem => {
+          return (
+            <MenuItem
+              key={menuItem.id}
+              onPress={() =>
+                menuItem.menuScreen
+                  ? navigation.navigate(menuItem.menuScreen, {
+                      userId: userData._id,
+                      hideSendMessage: true,
+                    })
+                  : menuItem?.menuPressHandle
+                  ? handleMenuItemPress(menuItem.menuPressHandle)
+                  : null
+              }
+              menuText={menuItem.menuText}
+            />
+          );
+        })}
+        <MenuItem onPress={() => logout()} menuText="Log out" />
+      </View>
     );
   };
 
@@ -227,19 +214,9 @@ const EditProfile = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
-        <Text style={styles.headerText}>Edit profile</Text>
-      </ImageBackground>
-      <View style={styles.content}>
-        {renderUser()}
-        <View style={styles.settings}>
-          <Text style={styles.settingsText}>Settings</Text>
-        </View>
-        {renderMenu()}
-      </View>
+      {renderAvatar()}
+      {renderUserInfo()}
+      {renderMenu()}
     </View>
   );
 };
