@@ -14,9 +14,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import styles from './styles';
 
 const CreatePost = ({navigation}) => {
-  const [loadedImages, setLoadedImages] = useState({
-    images: [],
-  });
+  const [loadedImages, setLoadedImages] = useState({ files: [] });
   const [createDisabled, setCreateDisabled] = useState(true);
   const [postData, setPostData] = useState('');
 
@@ -68,7 +66,6 @@ const CreatePost = ({navigation}) => {
     try {
       const res = await launchImageLibrary({
         mediaType: 'photo',
-        includeBase64: true,
       });
 
       console.log('Assets', res.assets);
@@ -77,44 +74,38 @@ const CreatePost = ({navigation}) => {
         throw new Error('Image is not selected');
       }
 
-      let formData = new FormData();
-
-      let image = res.assets[0];
-
-      formData.append('images', [
-        {
-          name: image.fileName.split('.')[0],
-          filename: image.fileName,
-          filepath: image.uri,
-          filetype: image.type,
-        },
-      ]);
-
-      console.log(formData);
-
-      const res2 = await fetch('https://api.lincolnclub.app/uploads', {
+      const formData = new FormData();
+      const { assets } = res;
+      for (let i=0; i<assets.length; i++) {
+          const image = assets[i];
+          formData.append(`file_${i}`, {
+            name: image.fileName,
+            type: image.type,
+            uri: image.uri,
+          });
+      }
+      const upload = await fetch('https://api.lincolnclub.app/uploads', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           Authorization:
             'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInR5cGUiOiJhY2Nlc3MifQ.eyJpYXQiOjE2NDc0NTk0MDksImV4cCI6MTY0NzU0NTgwOSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjIwYTlkZTFjOGVjNTEwMDEwM2FjYTM4IiwianRpIjoiNDRlYzE5MDktMzUxNi00NDgwLTgyNTgtYTJiMTE4MzU5ZTZjIn0.mIcKzm2x5l33HWWXSjcyi-KYp06UMeTlLWXLllC9z24',
         },
-        body: {
-          files: formData,
-        },
-      });
-      console.log(res2);
+        body: formData,
+      }).then(res => res.json());
+      setLoadedImages(upload);
+      // you should be able to send Post { uploadId: loadedImages._id } to associate the images to the post
     } catch (error) {
       console.log('[Error loading images]', error);
     }
   };
 
   const renderImages = () => {
-    return loadedImages.images.map(image => {
+    return loadedImages.files.map(image => {
       return (
         <View>
           <Image
-            source={{uri: image.uri}}
+            source={{uri: image.signedURL}}
             style={{
               width: 88,
               height: 88,
