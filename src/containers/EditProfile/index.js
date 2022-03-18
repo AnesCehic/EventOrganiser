@@ -32,8 +32,13 @@ const data = {
 const MenuItems = [
   {
     id: 1,
-    menuText: 'Password',
-    menuScreen: Constants.NavigationScreens.ChangePasswordScreen,
+    menuText: 'Profile',
+    menuScreen: Constants.NavigationScreens.ProfileScreen,
+  },
+  {
+    id: 6,
+    menuText: 'Create post',
+    menuScreen: Constants.NavigationScreens.CreatePostScreen,
   },
   {
     id: 2,
