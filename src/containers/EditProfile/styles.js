@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.grayBorder,
     marginTop: 20,
     borderRadius: 10,
+    marginBottom: 20,
   },
 });
 

@@ -1,3 +1,4 @@
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
 import {
   Text,
@@ -9,12 +10,14 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 
+import {PostsService} from '@services/apiClient';
+
 import {launchImageLibrary} from 'react-native-image-picker';
 
 import styles from './styles';
 
 const CreatePost = ({navigation}) => {
-  const [loadedImages, setLoadedImages] = useState({ files: [] });
+  const [loadedImages, setLoadedImages] = useState(null);
   const [createDisabled, setCreateDisabled] = useState(true);
   const [postData, setPostData] = useState('');
 
@@ -25,7 +28,16 @@ const CreatePost = ({navigation}) => {
 
   const createPostMethod = async () => {
     console.log(loadedImages, postData);
-    return;
+    try {
+      const res = await PostsService.create({
+        title: 'Test',
+        body: postData,
+        uploadId: loadedImages._id,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log('[Error creating post]', error);
+    }
   };
 
   useEffect(() => {
@@ -74,22 +86,23 @@ const CreatePost = ({navigation}) => {
         throw new Error('Image is not selected');
       }
 
+      const token = await AsyncStorageLib.getItem('feathers-jwt');
+
       const formData = new FormData();
-      const { assets } = res;
-      for (let i=0; i<assets.length; i++) {
-          const image = assets[i];
-          formData.append(`file_${i}`, {
-            name: image.fileName,
-            type: image.type,
-            uri: image.uri,
-          });
+      const {assets} = res;
+      for (let i = 0; i < assets.length; i++) {
+        const image = assets[i];
+        formData.append(`file_${i}`, {
+          name: image.fileName,
+          type: image.type,
+          uri: image.uri,
+        });
       }
       const upload = await fetch('https://api.lincolnclub.app/uploads', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInR5cGUiOiJhY2Nlc3MifQ.eyJpYXQiOjE2NDc0NTk0MDksImV4cCI6MTY0NzU0NTgwOSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjIwYTlkZTFjOGVjNTEwMDEwM2FjYTM4IiwianRpIjoiNDRlYzE5MDktMzUxNi00NDgwLTgyNTgtYTJiMTE4MzU5ZTZjIn0.mIcKzm2x5l33HWWXSjcyi-KYp06UMeTlLWXLllC9z24',
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       }).then(res => res.json());
@@ -101,27 +114,22 @@ const CreatePost = ({navigation}) => {
   };
 
   const renderImages = () => {
-    return loadedImages.files.map(image => {
-      return (
-        <View>
-          <Image
-            source={{uri: image.signedURL}}
-            style={{
-              width: 88,
-              height: 88,
-              borderRadius: 8,
-              margin: 7,
-            }}
-          />
-          {/* <Image
-            source={{uri: require('../../assets/Delete.png')}}
-            width={10}
-            height={10}
-            style={{position: 'absolute', top: 0, right: 0, backgroundColor: 'green'}}
-          /> */}
-        </View>
-      );
-    });
+    loadedImages &&
+      loadedImages.files.map(image => {
+        return (
+          <View>
+            <Image
+              source={{uri: image.signedURL}}
+              style={{
+                width: 88,
+                height: 88,
+                borderRadius: 8,
+                margin: 7,
+              }}
+            />
+          </View>
+        );
+      });
   };
 
   return (

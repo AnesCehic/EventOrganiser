@@ -16,11 +16,14 @@ const Feed = ({navigation}) => {
   const {events, eventsError, eventsLoading, refetch} = useEvents();
   const [refreshing, setRefreshing] = useState(false);
   const [user, setUser] = useState(true);
+  const [posts, setPosts] = useState(null);
 
   const loadPosts = async () => {
     try {
       const res = await PostsService.find();
-      console.log('posts', res);
+      console.log('posts', res, res.data[0]._id);
+      const res2 = await PostsService.get(res.data[0]._id);
+      console.log('posts2', res2);
     } catch (error) {
       console.log('[Error loading posts]', error);
     }

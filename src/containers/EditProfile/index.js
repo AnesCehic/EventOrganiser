@@ -4,6 +4,7 @@ import {
   View,
   Text,
   Alert,
+  ScrollView,
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
@@ -236,7 +237,7 @@ const EditProfile = ({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <ImageBackground
         style={styles.topImage}
         source={require('../../assets/headerBackground.png')}
@@ -250,7 +251,7 @@ const EditProfile = ({navigation}) => {
         </View>
         {renderMenu()}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
