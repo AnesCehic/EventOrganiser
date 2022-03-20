@@ -15,6 +15,7 @@ import _GroupMembers from './GroupMembers';
 import _ChangePassword from './ChangePassword';
 import _UpdateUserForm from './UpdateUserForm';
 import _CreatePost from './CreatePost';
+import _PostDetails from './PostDetails';
 
 export const EventsList = _EventsList;
 export const Start = _Start;
@@ -33,3 +34,4 @@ export const ChangePassword = _ChangePassword;
 export const GroupMembers = _GroupMembers;
 export const UpdateUserForm = _UpdateUserForm;
 export const CreatePost = _CreatePost;
+export const PostDetails = _PostDetails;

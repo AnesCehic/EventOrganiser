@@ -133,8 +133,17 @@ const EventsList = ({navigation}) => {
         renderHeader={(date, i) => {
           return (
             <View style={styles.header}>
-              <Text>{dayjs(date['0']).format('MMMM')}</Text>
+              <Text style={{fontSize: 16, fontWeight: '700'}}>
+                {`${dayjs(date['0']).format('MMMM')}, ${dayjs(date['0']).format(
+                  'YYYY',
+                )}`}
+              </Text>
               <TouchableOpacity
+                style={{
+                  backgroundColor: '#F5F6F7',
+                  padding: 11,
+                  borderRadius: 50,
+                }}
                 onPress={() => {
                   navigation.navigate('EventsOnMonthScreen', {
                     date: dayjs(date['0']).format(),

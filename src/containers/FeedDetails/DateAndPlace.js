@@ -7,8 +7,8 @@ import styles from './styles';
 const Date = ({icon, text1, text2, bold}) => {
   return (
     <View style={styles.dateContainer}>
-      <View style={{margin: 10}}>
-        <Icon name={icon} size={40} />
+      <View style={styles.centeredIconVertically}>
+        <Icon name={icon} size={20} />
       </View>
       <View style={styles.dateTextContainer}>
         <Text style={[styles.dateText, bold ? styles.dateTextBigger : {}]}>

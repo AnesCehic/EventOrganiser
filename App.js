@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Appearance, useColorScheme} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
 import {UserContext} from '@contexts';
@@ -67,6 +67,8 @@ const App = () => {
 
   useEffect(() => {
     setAnonymousMode();
+    const colorScheme = Appearance.getColorScheme();
+    console.log('Color Scheme', colorScheme)
   }, []);
 
   const setAnonymousMode = async () => {

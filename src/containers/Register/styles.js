@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     width: '80%',
-    marginTop: 10,
+    paddingTop: 6,
+    paddingBottom: 6,
   },
   loginButton: {
     justifyContent: 'center',

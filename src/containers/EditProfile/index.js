@@ -49,12 +49,12 @@ const MenuItems = [
   {
     id: 3,
     menuText: 'Chat',
-    menuScreen: 'Chats',
+    menuScreen: 'Messages',
   },
   {
     id: 4,
-    menuText: 'Create post',
-    menuScreen: 'CreatePost',
+    menuText: 'Groups',
+    menuScreen: 'GroupsScreen',
   },
 ];
 

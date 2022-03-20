@@ -1,7 +1,15 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {FlatList, Text, TouchableOpacity, View, Image} from 'react-native';
+import {
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  TextInput,
+} from 'react-native';
 
 import dayjs from 'dayjs';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 import {MenuItem, SubmitButton, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
@@ -38,27 +46,21 @@ const Chat = ({navigation}) => {
             <Image source={require('../../assets/CreateMessage.png')} />
           </View>
         </View>
-        <View style={{paddingTop: 32}}>
-          <SearchBar
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 32,
+            backgroundColor: Styles.Colors.white,
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+            borderRadius: 6,
+          }}>
+          {/* <Icon name="search" size={30} style={{padding: 5}} /> */}
+          <TextInput
             value={search}
-            containerStyle={{
-              backgroundColor: Styles.Colors.white,
-              borderTopWidth: 0,
-              borderBottomWidth: 0,
-              padding: 3,
-              borderRadius: 6,
-            }}
-            leftIconContainerStyle={{
-              backgroundColor: Styles.Colors.white,
-            }}
-            inputContainerStyle={{
-              padding: 0,
-              backgroundColor: Styles.Colors.white,
-            }}
-            inputStyle={{
-              padding: 0,
-              backgroundColor: Styles.Colors.white,
-            }}
+            style={{paddingLeft: 10, paddingRight: 10}}
             onChangeText={text => setSearch(text)}
             placeholder="Search conversations or people"
           />

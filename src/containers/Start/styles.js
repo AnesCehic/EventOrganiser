@@ -14,9 +14,10 @@ const styles = StyleSheet.create({
     paddingBottom: 80,
   },
   headerContainer: {
-    marginTop: 30,
+    marginTop: 54,
+    marginLeft: 30,
     width: '100%',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   headers: {
     color: Styles.Colors.white,
@@ -26,16 +27,20 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: Styles.Colors.white,
     marginTop: 15,
+    width: '100%',
   },
   googleButton: {
     marginTop: 15,
+    width: '100%',
     backgroundColor: Styles.Colors.grayButtonBackground,
   },
   textStyle: {
     color: Styles.Colors.black,
+    fontSize: 14,
   },
   googleTextStyle: {
     color: Styles.Colors.white,
+    fontSize: 14,
   },
 });
 

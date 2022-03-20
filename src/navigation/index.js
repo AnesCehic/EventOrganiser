@@ -31,6 +31,7 @@ import ChangePasswordScreen from './ChangePasswordScreen';
 import EventsOnMonthScreen from './EventsOnMonthScreen';
 import UpdateUserFormScreen from './UpdateUserFormScreen';
 import CreatePostScreen from './CreatePostScreen';
+import PostDetailsSCreen from './PostsDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -106,6 +107,7 @@ const FeedNavigation = () => {
     <FeedStack.Navigator screenOptions={{headerShadowVisible: false}}>
       <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
       <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
+      <FeedStack.Screen name="PostDetails" component={PostDetailsSCreen} />
     </FeedStack.Navigator>
   );
 };
@@ -123,6 +125,11 @@ const ProfileNavigation = () => {
         options={{headerShown: false}}
         name="ProfileScreen"
         component={ProfileScreen}
+      />
+      <ProfileStack.Screen
+        options={{headerShown: false}}
+        name="PostDetails"
+        component={PostDetailsSCreen}
       />
       <ProfileStack.Screen name="ImagesScreen" component={ImagesScreen} />
       <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />

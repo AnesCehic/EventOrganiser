@@ -19,12 +19,12 @@ const ChatMessages = ({navigation, route}) => {
       setTextMessage('');
     }
   };
-  
+
   useEffect(() => {
     const {setOptions} = navigation;
 
     setOptions({
-      headerTitleAlign: 'center'
+      headerTitleAlign: 'center',
     });
   }, []);
 
@@ -130,6 +130,7 @@ const ChatMessages = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       {renderMesagesList()}
+      <View style={{width: '100%', height: 1, backgroundColor: '#E6EBF0'}} />
       {renderMessageInput()}
     </View>
   );

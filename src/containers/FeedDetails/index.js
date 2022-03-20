@@ -1,5 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View, Linking, Platform} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  Linking,
+  Platform,
+  Dimensions,
+  StatusBar,
+} from 'react-native';
 import {Icon} from 'react-native-elements';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
@@ -9,7 +19,7 @@ import TextInput from '@components/TextInput';
 import {Styles} from '@common';
 import {toast} from '@utils';
 
-import {EventService} from '../../services/apiClient';
+import {EventService, RSVPService} from '../../services/apiClient';
 
 import DateAndPlace from './DateAndPlace';
 
@@ -25,6 +35,7 @@ const FeedDetails = ({navigation, route}) => {
   const [isRSVPModalVisible, setIsRSVPModalVisible] = useState(false);
   const [isConfirmRSVPModalVisible, setIsConfirmRSVPModalVisible] =
     useState(false);
+  const [note, setNote] = useState('');
 
   const toggleRSVPModal = () => {
     setIsRSVPModalVisible(!isRSVPModalVisible);
@@ -34,6 +45,7 @@ const FeedDetails = ({navigation, route}) => {
     try {
       setIsLoading(true);
       const res = await EventService.get(route.params.id);
+      console.log(res);
       let image = res.upload.files[0].signedURL;
       setEventData({
         ...res,
@@ -51,16 +63,16 @@ const FeedDetails = ({navigation, route}) => {
     }
   };
 
-  const openMap = async (address) => {
-    const destination = encodeURIComponent(address); 
-    const provider = Platform.OS === 'ios' ? 'apple' : 'google'
+  const openMap = async address => {
+    const destination = encodeURIComponent(address);
+    const provider = Platform.OS === 'ios' ? 'apple' : 'google';
     const link = `http://maps.${provider}.com/?daddr=${destination}`;
     console.log('LINK:', link);
 
     try {
-        await Linking.openURL(link);
+      await Linking.openURL(link);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
@@ -68,28 +80,82 @@ const FeedDetails = ({navigation, route}) => {
     fetchEventData();
   }, []);
 
+  const setNoteText = text => {
+    console.log(text);
+    setNote(text);
+  };
+
+  const renderModalEventDetails = () => {
+    return (
+      <View style={styles.rsvpInfo}>
+        <Text style={{fontSize: 16, marginBottom: 8}}>Event details</Text>
+        <Text style={{fontSize: 18, fontWeight: '800', marginBottom: 20}}>
+          {eventData.title}
+        </Text>
+        {/* {renderDateAndPlace()}
+        {renderDateAndPlaceLocation()} */}
+      </View>
+    );
+  };
+
   const renderRSVPModal = () => {
+    const screenWidth = Dimensions.get('screen').width;
+
     return (
       <BottomSheetModal
         isVisible={isRSVPModalVisible}
-        title="RSVP"
+        title="RSVP Now"
         closeModal={() => setIsRSVPModalVisible(false)}
         contentContainerStyle={styles.modalContainer}>
+        <TouchableOpacity
+          style={styles.closeButton}
+          onPress={() => setIsRSVPModalVisible(false)}>
+          <Text>X</Text>
+        </TouchableOpacity>
+        {renderModalEventDetails()}
+        <View
+          style={{
+            width: screenWidth,
+            backgroundColor: '#E6EBF0',
+            height: 1,
+            marginBottom: 20,
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 16,
+            marginBottom: 8,
+            width: '100%',
+            textAlign: 'left',
+          }}>
+          Enter any special dietary restrictions
+        </Text>
         <TextInput
           placeholder="Dietary Restrictions & notes..."
           style={styles.modalTextAraea}
           multiline={true}
+          value={note}
+          onChangeText={setNoteText}
         />
         <TextInput placeholder="Guests" style={styles.modalTextInput} />
         <SubmitButton
           style={styles.modalConfirmBtn}
-          title="CONFIRM"
-          onPress={() => {
-            setIsRSVPModalVisible(false);
-            // change this with async when api is set
-            setTimeout(() => {
-              setIsConfirmRSVPModalVisible(true);
-            }, 400);
+          title="Confirm reservation"
+          onPress={async () => {
+            try {
+              const res = await RSVPService.create({
+                eventId: route.params.id,
+                notes: note,
+              });
+            } catch (error) {
+              console.log('[Error posting rsvp field]', error);
+            } finally {
+              setIsRSVPModalVisible(false);
+              // change this with async when api is set
+              setTimeout(() => {
+                setIsConfirmRSVPModalVisible(true);
+              }, 400);
+            }
           }}
         />
       </BottomSheetModal>
@@ -103,7 +169,10 @@ const FeedDetails = ({navigation, route}) => {
           isVisible={isConfirmRSVPModalVisible}
           title="Reservation Confirmed!"
           closeModal={() => setIsConfirmRSVPModalVisible(false)}
-          contentContainerStyle={styles.modalContainer}>
+          contentContainerStyle={[
+            styles.modalContainer,
+            {justifyContent: 'space-between'},
+          ]}>
           <Icon
             style={styles.modalIcon}
             name="checkcircle"
@@ -112,24 +181,45 @@ const FeedDetails = ({navigation, route}) => {
             size={70}
           />
 
-          <SubmitButton
-            style={styles.modalConfirmBtn}
-            title="ADD TO CALENDAR"
-            onPress={() => setIsConfirmRSVPModalVisible(false)}
-          />
-          <SubmitButton
-            style={[
-              styles.modalConfirmBtn,
-              {backgroundColor: Styles.Colors.grayBorder},
-            ]}
-            // eslint-disable-next-line react-native/no-inline-styles
-            titleStyle={{color: '#5D6470'}}
-            title="UPDATE RSVP INFO"
-            onPress={() => console.log('UPDATE RSVP INFO')}
-          />
+          {renderModalEventDetails()}
+
+          <View style={{width: '100%'}}>
+            <SubmitButton
+              style={[styles.modalConfirmBtn, {marginBottom: 0}]}
+              title="Add to calendar"
+              onPress={() => setIsConfirmRSVPModalVisible(false)}
+            />
+            <SubmitButton
+              style={[
+                styles.modalConfirmBtn,
+                {backgroundColor: Styles.Colors.grayBorder},
+              ]}
+              // eslint-disable-next-line react-native/no-inline-styles
+              titleStyle={{color: '#5D6470'}}
+              title="Update reservation"
+              onPress={() => console.log('UPDATE RSVP INFO')}
+            />
+          </View>
         </BottomSheetModal>
       );
     }
+  };
+
+  const renderDateAndPlace = () => {
+    return (
+      <DateAndPlace
+        icon="calendar-today"
+        text1={`${eventData.startDay} - ${eventData.endDay}`}
+        text2={`${eventData.startTime} - ${eventData.endTime}`}
+        bold
+      />
+    );
+  };
+
+  const renderDateAndPlaceLocation = () => {
+    return (
+      <DateAndPlace icon="location-pin" text1={location1} text2={location2} />
+    );
   };
 
   const renderRSVP = () => {
@@ -158,6 +248,7 @@ const FeedDetails = ({navigation, route}) => {
   const location2 = eventData.location.split(',').slice(1).join('');
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent" />
       <ScrollView contentContainerStyle={styles.scrollViewStyle}>
         <Image
           style={styles.image}
@@ -171,18 +262,12 @@ const FeedDetails = ({navigation, route}) => {
             <Text style={styles.header}>{eventData.title}</Text>
           </View>
           <View style={styles.dateAndLocationWithInfo}>
-            <DateAndPlace
-              icon="calendar-today"
-              text1={`${eventData.startDay} - ${eventData.endDay}`}
-              text2={`${eventData.startTime} - ${eventData.endTime}`}
-              bold
-            />
-            <TouchableOpacity onPress={() => { openMap(eventData.location); }}>
-              <DateAndPlace
-                icon="location-pin"
-                text1={location1}
-                text2={location2}
-              />
+            {renderDateAndPlace()}
+            <TouchableOpacity
+              onPress={() => {
+                openMap(eventData.location);
+              }}>
+              {renderDateAndPlaceLocation()}
             </TouchableOpacity>
           </View>
           <RenderHTML

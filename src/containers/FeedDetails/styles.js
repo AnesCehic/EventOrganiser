@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   rsvpContainer: {
-    paddingHorizontal: 15,
-    paddingVertical: 15,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -46,24 +46,31 @@ const styles = StyleSheet.create({
   },
   rsvpText: {
     fontSize: 14,
-    color: 'white',
+    color: Styles.Colors.black,
+    fontWeight: '600',
   },
 
   dateContainer: {
     flexDirection: 'row',
-    padding: 15,
+    padding: 9,
+    paddingLeft: 14,
+    paddingRight: 14,
     marginVertical: 5,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: Styles.Colors.grayBorder,
+  },
+  centeredIconVertically: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   dateTextContainer: {
     flex: 1,
     justifyContent: 'space-between',
   },
   dateText: {
-    margin: 5,
-    fontSize: 16,
+    marginLeft: 14,
+    fontSize: 14,
   },
   dateTextBigger: {
     fontWeight: '600',
@@ -80,11 +87,16 @@ const styles = StyleSheet.create({
   },
 
   modalContainer: {
+    padding: 16,
+    height: '75%',
+    borderTopRightRadius: 24,
+    borderTopLeftRadius: 24,
     alignItems: 'center',
   },
   modalTextAraea: {
     width: '100%',
     height: 100,
+    elevation: 2,
   },
   modalTextInput: {
     width: '100%',
@@ -92,6 +104,8 @@ const styles = StyleSheet.create({
   modalConfirmBtn: {
     marginTop: 10,
     width: '100%',
+    marginBottom: 18,
+    backgroundColor: Styles.Colors.gold,
   },
   modalIcon: {
     margin: 20,
@@ -99,6 +113,15 @@ const styles = StyleSheet.create({
   joinText: {
     fontWeight: '700',
     fontSize: 16,
+  },
+  rsvpInfo: {
+    width: '100%',
+    alignItems: 'flex-start',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
   },
 });
 

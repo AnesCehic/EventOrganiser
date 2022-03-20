@@ -71,7 +71,15 @@ const Form = ({navigation}) => {
         />
       </View>
 
-      <SubmitButton onPress={register} title="Register" />
+      <SubmitButton
+        style={{backgroundColor: '#2D2B0D'}}
+        onPress={register}
+        title="Create account"
+      />
+      <Text style={{width: '80%', paddingTop: 10}}>
+        By signing up you agree to our Terms of Use {'\n'}
+        and privacy policy.
+      </Text>
     </View>
   );
 };

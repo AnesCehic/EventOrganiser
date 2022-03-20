@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 import {client} from '../../services/apiClient';
 
@@ -17,6 +17,9 @@ const Form = ({submitLogin, isLoading}) => {
 
   return (
     <View style={styles.form}>
+      <View style={stylesHelper.image}>
+        <Image source={require('../../assets/Home/white.png')} />
+      </View>
       <Text style={stylesHelper.header}>Sign in to your {'\n'}account</Text>
       <TextInput
         name="username"
@@ -28,7 +31,7 @@ const Form = ({submitLogin, isLoading}) => {
       />
       <View style={styles.passwordWrapper}>
         <TextInput
-          style={styles.passwordInput}
+          style={[styles.passwordInput, stylesHelper.shadow]}
           name="password"
           placeholder="Password"
           secureTextEntry={passwordHidden}
@@ -48,11 +51,16 @@ const Form = ({submitLogin, isLoading}) => {
       <SubmitButton
         onPress={() => submitLogin(username, password)}
         title="Sign in"
-        style={[stylesHelper.shadow, {marginTop: 16}]}
+        style={[
+          stylesHelper.shadow,
+          {marginTop: 16, backgroundColor: '#2D2B0D'},
+        ]}
         isLoading={isLoading}
       />
 
-      <TouchableOpacity onPress={() => null} style={stylesHelper.forgotPassword}>
+      <TouchableOpacity
+        onPress={() => null}
+        style={stylesHelper.forgotPassword}>
         <Text>Forgot your password?</Text>
       </TouchableOpacity>
     </View>
@@ -75,7 +83,12 @@ const stylesHelper = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     fontSize: 30,
-  }
+  },
+  image: {
+    width: '80%',
+    alignItems: 'flex-start',
+    marginBottom: 30,
+  },
 });
 
 export default Form;

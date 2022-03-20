@@ -16,7 +16,11 @@ import {Constants, Styles} from '@common';
 import {UserContext} from '@contexts';
 import {toast} from '@utils';
 
-import {UsersService, MessageGroupsService} from '@services/apiClient';
+import {
+  UsersService,
+  MessageGroupsService,
+  PostsService,
+} from '@services/apiClient';
 
 import data from './data';
 import imageData from './imageData';
@@ -29,6 +33,7 @@ const Profile = ({navigation, route}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
   const {chatForbiden} = useContext(UserContext);
+  const [posts, setPosts] = useState([]);
 
   const fetchUserData = async () => {
     try {
@@ -41,6 +46,20 @@ const Profile = ({navigation, route}) => {
         const res = await UsersService.get(route.params.userId);
         setUserData(res);
       }
+
+      const resData = await PostsService.find();
+      console.log('req', resData)
+      const postsData = resData.data.map(e => {
+        console.log(e.owner);
+        return {
+          id: e._id,
+          headline: e.title,
+          content: e.body,
+          img: e.upload?.files,
+          owner: e.owner,
+        };
+      });
+      setPosts(postsData);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error loading user data]:', error);
@@ -161,9 +180,10 @@ const Profile = ({navigation, route}) => {
   const renderPosts = () => {
     const time = dayjs(dayjs().subtract(5, 'hour'));
     const timeFromNow = time.fromNow(); // for testing time ago
-    const newDataTest = data.posts.map(post => ({...post, time: timeFromNow}));
 
-    return <PostsList navigation={navigation} data={newDataTest} />;
+    console.log('123', posts)
+
+    return <PostsList navigation={navigation} data={posts} />;
   };
 
   const renderImages = () => {

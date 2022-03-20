@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {View, KeyboardAvoidingViewBase} from 'react-native';
+import {View, ImageBackground, Text, TouchableOpacity} from 'react-native';
 
 import {client} from '@services/apiClient';
 import {UserContext} from '@contexts';
@@ -41,20 +41,34 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      resizeMode="cover"
+      source={require('../../assets/background-video.png')}
+      style={styles.container}>
       <Form submitLogin={login} isLoading={isLoading} />
 
-      <SubmitButton
-        googleLogo
-        onPress={() => null}
-        style={{...stylesStart.googleButton, ...styles.logInWithGoogle}}
-        titleStyle={{
-          ...stylesStart.googleTextStyle,
-          ...styles.logInWithGoogleText,
-        }}
-        title="Sign in with Google instead"
-      />
-    </View>
+      <View style={{width: '100%', alignItems: 'center'}}>
+        <SubmitButton
+          googleLogo
+          onPress={() => null}
+          style={{
+            ...stylesStart.googleButton,
+            ...styles.logInWithGoogle,
+            marginBottom: 20,
+          }}
+          titleStyle={{
+            ...stylesStart.googleTextStyle,
+            ...styles.logInWithGoogleText,
+          }}
+          title="Sign in with Google instead"
+        />
+        <TouchableOpacity
+          style={styles.registerButton}
+          onPress={() => navigation.navigate('Register')}>
+          <Text>Sign up for an account</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 

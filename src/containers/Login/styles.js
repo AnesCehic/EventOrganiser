@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 60,
-    paddingBottom: 50,
     backgroundColor: 'white',
   },
   form: {
@@ -30,11 +29,16 @@ const styles = StyleSheet.create({
   registerLink: {
     paddingBottom: 10,
   },
+  registerButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: 60,
+    backgroundColor: 'rgba(100, 100, 100, 0.5)',
+  },
   logInWithGoogle: {
     backgroundColor: 'white',
-    elevation: 3,
-    borderColor: 'black',
-    borderWidth: 1,
+    width: '80%',
   },
   logInWithGoogleText: {
     color: 'black',

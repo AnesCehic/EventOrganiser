@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text, TouchableOpacity, View, ImageBackground} from 'react-native';
+import {Text, Image, View, ImageBackground, StatusBar} from 'react-native';
 
 import {SubmitButton, BottomStartScreenButton} from '@components';
 
@@ -24,6 +24,11 @@ const Start = ({navigation}) => {
       source={require('../../assets/background-video.png')}
       resizeMode="cover"
       style={styles.mainContainer}>
+      <StatusBar translucent backgroundColor="transparent" />
+      <Image
+        source={require('../../assets/Home/white.png')}
+        style={{marginLeft: 30, marginTop: 60}}
+      />
       <View style={styles.headerContainer}>
         <Text style={styles.headers}>Welcome to{'\n'}Lincoln Club</Text>
       </View>

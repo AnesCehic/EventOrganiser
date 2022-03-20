@@ -6,9 +6,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 18,
   },
-
   messageContainer: {
     padding: 15,
     borderRadius: 10,
