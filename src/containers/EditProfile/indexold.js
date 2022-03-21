@@ -194,11 +194,10 @@ const EditProfile = ({navigation}) => {
         text: 'OK',
         onPress: async () => {
           try {
-            const res = await ChangeEmail.create({
+            await ChangeEmail.create({
               type: 'change-email',
               email: 'anesssanw@gmail.com',
             });
-            console.log(res);
           } catch (error) {
             console.log('[Error resend verification email]', error);
           }

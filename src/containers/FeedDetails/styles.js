@@ -26,6 +26,11 @@ const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 1,
   },
+  imageContainer: {
+    backgroundColor: 'black',
+    width: '100%',
+    height: '100%',
+  },
   rsvpContainer: {
     paddingHorizontal: 12,
     paddingVertical: 12,

@@ -1,9 +1,13 @@
 /* eslint-disable */
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Appearance, useColorScheme} from 'react-native';
+import {View, StatusBar, StyleSheet, Appearance, useColorScheme} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
+
 import {UserContext} from '@contexts';
+import {UsersService} from '@services/apiClient';
+
+import {LoadingIndicator} from '@components';
 
 import {Provider} from 'react-redux';
 
@@ -62,17 +66,21 @@ const toastConfig = {
 
 const App = () => {
   // if needed put all states into one object state
+  const [isLoading, setIsLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [chatForbiden, setChatForbiden] = useState(false);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     setAnonymousMode();
     const colorScheme = Appearance.getColorScheme();
     console.log('Color Scheme', colorScheme)
+    getUser();
   }, []);
 
   const setAnonymousMode = async () => {
     try {
+      setIsLoading(true);
       const value = await AsyncStorage.getItem('@anonymousMode');
       let isAnonEnabled;
       if (value) {
@@ -85,8 +93,31 @@ const App = () => {
       setChatForbiden(isAnonEnabled);
     } catch (error) {
       console.log('[Error set anon mode to storage]', error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const getUser = async () => {
+    try {
+      const userId = await AsyncStorage.getItem('@userId');
+      const {firstName, lastName, email, _id} = await UsersService.get(userId);
+      setUserData({
+        firstName,
+        lastName,
+        email,
+        _id,
+        avatarImg:
+          'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f',
+      });
+    } catch (error) {
+      console.log('[Error get user data app]', error);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <Provider store={store}>
@@ -97,8 +128,11 @@ const App = () => {
             setAuthenticated,
             chatForbiden,
             setChatForbiden,
+            userData,
+            setUserData,
           }}>
           <View style={styles.container}>
+            <StatusBar translucent backgroundColor="transparent" />
             <Navigation />
           </View>
         </UserContext.Provider>

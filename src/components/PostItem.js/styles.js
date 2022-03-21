@@ -16,7 +16,14 @@ const styles = StyleSheet.create({
   imageContainer: {
     borderRadius: 8,
     width: '100%',
-    height: 120,
+    height: 132,
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 8,
   },
   ownerData: {
     flexDirection: 'row',
@@ -40,7 +47,10 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '600',
   },
-  content: {},
+  content: {
+    paddingTop: 16,
+    paddingBottom: 6,
+  },
 });
 
 export default styles;

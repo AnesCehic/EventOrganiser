@@ -1,28 +1,34 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import {TextInput} from 'react-native';
 
 import styles from './styles';
 
-const CustomTextInput = ({
-  placeholder,
-  secureTextEntry,
-  value,
-  onChangeValue,
-  multiline,
-  style,
-  ...props
-}) => {
-  return (
-    <TextInput
-      value={value}
-      style={[styles.textInput, {paddingTop: multiline ? 15 : null}, style]}
-      placeholder={placeholder}
-      secureTextEntry={secureTextEntry}
-      onChangeText={onChangeValue}
-      multiline={multiline}
-      {...props}
-    />
-  );
-};
+const CustomTextInput = forwardRef(
+  (
+    {
+      placeholder,
+      secureTextEntry,
+      value,
+      onChangeValue,
+      multiline,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <TextInput
+        value={value}
+        style={[styles.textInput, {paddingTop: multiline ? 15 : null}, style]}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+        onChangeText={onChangeValue}
+        multiline={multiline}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
 
 export default CustomTextInput;

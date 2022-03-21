@@ -8,7 +8,6 @@ import styles from './styles';
 const VerifyAccount = ({navigation, route}) => {
   useEffect(() => {
     const {userId, verificationKey} = route.params;
-    console.log(route.params.userId);
     VerifyAccountService.create(
       {
         user: {

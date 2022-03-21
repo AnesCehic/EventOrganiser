@@ -1,8 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, ImageBackground} from 'react-native';
-import dayjs from 'dayjs';
-
-import Search from '@components/SearchInput';
+import {View, Text, ImageBackground, Image} from 'react-native';
 
 import {PostsList, LoadingIndicator} from '@components';
 import {useEvents} from '../../hooks';
@@ -21,6 +18,7 @@ const Feed = ({navigation}) => {
   const loadPosts = async () => {
     try {
       const {data} = await PostsService.find();
+      console.log(data);
       const postsData = data.map(e => {
         console.log(e.owner);
         return {
@@ -29,6 +27,7 @@ const Feed = ({navigation}) => {
           content: e.body,
           img: e.upload?.files,
           owner: e.owner,
+          createdAt: e.createdAt,
         };
       });
       setPosts(postsData);
@@ -55,7 +54,6 @@ const Feed = ({navigation}) => {
   useEffect(() => {
     loadUser();
     loadPosts();
-    console.log(events);
   }, []);
 
   useEffect(() => {
@@ -66,19 +64,16 @@ const Feed = ({navigation}) => {
 
   const handleRefresh = () => {
     refetch({});
+    loadPosts();
   };
 
   const renderPosts = () => {
-    const time = dayjs(dayjs().subtract(5, 'minute'));
-    const timeFromNow = time.fromNow(); // for testing time ago
     return (
       <PostsList
         handleRefresh={handleRefresh}
         headerData={events}
         data={posts}
-        style={{
-          marginTop: -50,
-        }}
+        style={styles.postList}
         navigation={navigation}
       />
     );
@@ -91,29 +86,15 @@ const Feed = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        style={{
-          justifyContent: 'center',
-          height: 250,
-          width: '100%',
-          backgroundColor: 'lightblue',
-        }}
+        style={styles.imageBackground}
         source={require('../../assets/headerBackground.png')}
         resizeMode="cover">
-        <Text
-          style={{
-            fontSize: 28,
-            fontWeight: '600',
-            paddingLeft: 16,
-          }}>
-          Welcome Back {'\n'}Anes
-        </Text>
+        <Image
+          source={require('../../assets/Home/white.png')}
+          style={styles.headerLogo}
+        />
+        <Text style={styles.welcomeBack}>Welcome Back,{'\n'}Anes</Text>
       </ImageBackground>
-      {/* {renderFeaturedPosts()} */}
-
-      {/* <Image style={{backgroundColor: 'black'}} source={require('../../assets/Home/logo.png')} /> */}
-
-      {/* <Search /> */}
-
       {renderPosts()}
     </View>
   );

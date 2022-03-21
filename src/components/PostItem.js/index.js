@@ -1,20 +1,29 @@
 import React, {memo} from 'react';
 import {View, TouchableOpacity, Image} from 'react-native';
 import {Text} from 'react-native-elements';
-import RenderHTML from 'react-native-render-html';
+import dayjs from 'dayjs';
 
 import styles from './styles';
 
-const PostItem = ({onPress, img, time, headline, content, owner}) => {
+const PostItem = ({
+  onPress,
+  img,
+  time,
+  headline,
+  content,
+  owner,
+  createdAt,
+}) => {
+  const timeFromNow = dayjs(createdAt).fromNow();
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       {img && img[0]?.signedURL ? (
         <View style={styles.imageContainer}>
           <Image
-            source={{uri: img[0].signedURL}}
-            width={100}
-            height={100}
-            resizeMode="cover"
+            source={{
+              uri: img[0].signedURL,
+            }}
+            style={styles.image}
           />
         </View>
       ) : null}
@@ -26,11 +35,13 @@ const PostItem = ({onPress, img, time, headline, content, owner}) => {
               styles.ownerName
             }>{`${owner.firstName} ${owner.lastName}`}</Text>
         </View>
-        <Text>5d ago</Text>
+        <Text>{timeFromNow}</Text>
       </View>
-      <Text style={{paddingTop: 16, paddingBottom: 6}} numberOfLines={2}>
-        {content}
-      </Text>
+      {content ? (
+        <Text style={styles.content} numberOfLines={2}>
+          {content}
+        </Text>
+      ) : null}
     </TouchableOpacity>
   );
 };

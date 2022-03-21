@@ -52,7 +52,7 @@ const EventsOnMonth = ({route, navigation}) => {
 
   const renderItem = ({item: post}) => {
     const {navigate} = navigation;
-    console.log('post aaaaa', post);
+
     return (
       <EventItem
         onPress={() => {

@@ -24,7 +24,6 @@ const Start = ({navigation}) => {
       source={require('../../assets/background-video.png')}
       resizeMode="cover"
       style={styles.mainContainer}>
-      <StatusBar translucent backgroundColor="transparent" />
       <Image
         source={require('../../assets/Home/white.png')}
         style={{marginLeft: 30, marginTop: 60}}

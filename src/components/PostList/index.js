@@ -14,14 +14,18 @@ import {PostItem} from '@components';
 const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
   const renderFeaturedPosts = () => {
     return (
-      <FlatList
-        style={styles.headerList}
-        data={headerData}
-        keyExtractor={item => item.id}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        renderItem={renderFeaturedItem}
-      />
+      <View>
+        <Text style={styles.latestUpdate}>Your picks</Text>
+        <FlatList
+          style={styles.headerList}
+          data={headerData}
+          keyExtractor={item => item.id}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          renderItem={renderFeaturedItem}
+        />
+        <Text style={styles.latestUpdate}>Latest updates</Text>
+      </View>
     );
   };
 
@@ -65,6 +69,7 @@ const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
         time={post.time}
         content={post.content}
         owner={post.owner}
+        createdAt={post.createdAt}
       />
     );
   };
@@ -81,6 +86,10 @@ const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={handleRefresh} />
         }
+        onScroll={e => {
+          const scrollOffset = e.nativeEvent.contentOffset.y;
+          console.log('scroll off', scrollOffset);
+        }}
       />
     );
   };
@@ -103,7 +112,9 @@ const styles = StyleSheet.create({
     margin: 4,
     minHeight: 100,
   },
-  featuredItemTop: {flexDirection: 'row'},
+  featuredItemTop: {
+    flexDirection: 'row',
+  },
   featuredItemTopDate: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -128,7 +139,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 13,
   },
-
   featuredItemBottom: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -137,6 +147,11 @@ const styles = StyleSheet.create({
   featuredItemBottomText: {
     paddingTop: 10,
     paddingHorizontal: 10,
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  latestUpdate: {
+    paddingLeft: 16,
     fontSize: 16,
     fontWeight: '700',
   },

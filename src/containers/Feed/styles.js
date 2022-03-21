@@ -1,9 +1,30 @@
 import {StyleSheet} from 'react-native';
+import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  headerLogo: {
+    position: 'absolute',
+    top: 48,
+    alignSelf: 'center',
+  },
+  imageBackground: {
+    justifyContent: 'center',
+    height: 250,
+    width: '100%',
+    backgroundColor: 'lightblue',
+  },
+  welcomeBack: {
+    fontSize: 28,
+    fontWeight: '600',
+    paddingLeft: 16,
+    color: Styles.Colors.white,
+  },
+  postList: {
+    marginTop: -50,
   },
 });
 

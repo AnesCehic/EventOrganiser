@@ -32,6 +32,7 @@ import EventsOnMonthScreen from './EventsOnMonthScreen';
 import UpdateUserFormScreen from './UpdateUserFormScreen';
 import CreatePostScreen from './CreatePostScreen';
 import PostDetailsSCreen from './PostsDetailsScreen';
+import PersonalDetailsScreen from './PersonalDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -42,11 +43,7 @@ const ChatStack = createNativeStackNavigator();
 const ChatNavigation = () => {
   return (
     <ChatStack.Navigator screenOptions={{headerShadowVisible: false}}>
-      <ChatStack.Screen
-        options={{headerShown: false}}
-        name="Messages"
-        component={ChatScreen}
-      />
+      <ChatStack.Screen name="Messages" component={ChatScreen} />
       <ChatStack.Screen
         name="Message"
         component={ChatMessagesScreen}
@@ -127,9 +124,8 @@ const ProfileNavigation = () => {
         component={ProfileScreen}
       />
       <ProfileStack.Screen
-        options={{headerShown: false}}
-        name="PostDetails"
-        component={PostDetailsSCreen}
+        name="PersonalDetailsScreen"
+        component={PersonalDetailsScreen}
       />
       <ProfileStack.Screen name="ImagesScreen" component={ImagesScreen} />
       <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />

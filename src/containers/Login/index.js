@@ -28,8 +28,6 @@ const Login = ({navigation}) => {
         password: password,
       });
 
-      console.log('here');
-
       await AsyncStorageLib.setItem('@userId', user._id);
       await AsyncStorageLib.setItem('@user', JSON.stringify(user));
       handleLogin();

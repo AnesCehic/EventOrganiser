@@ -5,6 +5,8 @@ const UserContext = createContext({
   setAuthenticated: auth => {},
   chatForbiden: false,
   setChatForbiden: chat => {},
+  userData: {},
+  setUserData: userData => {},
 });
 
 export default UserContext;

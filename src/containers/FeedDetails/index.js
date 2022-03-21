@@ -67,7 +67,6 @@ const FeedDetails = ({navigation, route}) => {
     const destination = encodeURIComponent(address);
     const provider = Platform.OS === 'ios' ? 'apple' : 'google';
     const link = `http://maps.${provider}.com/?daddr=${destination}`;
-    console.log('LINK:', link);
 
     try {
       await Linking.openURL(link);
@@ -248,7 +247,6 @@ const FeedDetails = ({navigation, route}) => {
   const location2 = eventData.location.split(',').slice(1).join('');
   return (
     <View style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" />
       <ScrollView contentContainerStyle={styles.scrollViewStyle}>
         <Image
           style={styles.image}

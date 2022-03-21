@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
+import dayjs from 'dayjs';
 
 import {PostsService} from '@services/apiClient';
 import {Styles} from '@common';
@@ -7,12 +8,23 @@ import {Styles} from '@common';
 import styles from './styles';
 
 const PostDetails = ({navigation, route}) => {
-  const [post, setPost] = useState(null);
+  const width = Dimensions.get('window').width;
+  const customStyle = {
+    width: width,
+    height: 224,
+  };
+  const resizeModeStyle = {
+    resizeMode: 'cover',
+  };
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [post, setPost] = useState({});
   const loadPost = async () => {
     try {
       const res = await PostsService.get(route.params.id);
       console.log(res);
-      setPost(res);
+      const images = res.upload.files.map(i => i.signedURL);
+      setPost({...res, images: images});
       navigation.setOptions({
         headerShown: true,
         headerTitleStyle: {
@@ -32,16 +44,54 @@ const PostDetails = ({navigation, route}) => {
     loadPost();
   }, []);
 
+  const changeActiveIndex = ({nativeEvent}) => {
+    const slide = Math.ceil(
+      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
+    );
+
+    console.log(slide, nativeEvent);
+    if (slide !== activeIndex) {
+      setActiveIndex(slide);
+    }
+  };
+
+  const renderActiveDots = () => {
+    return (
+      <View style={styles.dotsContainer}>
+        {post.images &&
+          post.images.map((e, index) => (
+            <View
+              style={[
+                styles.dots,
+                index === activeIndex ? null : styles.inactiveStyle,
+              ]}
+            />
+          ))}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.imageGallery}>
-        <Image
-          resizeMode="cover"
-          style={styles.image}
-          source={{
-            uri: post?.upload.files[0].signedURL,
-          }}
-        />
+      <View style={customStyle}>
+        <ScrollView
+          pagingEnabled
+          horizontal={true}
+          style={customStyle}
+          onScroll={changeActiveIndex}
+          showsHorizontalScrollIndicator={false}>
+          {post.images &&
+            post.images.map(e => (
+              <Image
+                resizeMode="contain"
+                source={{
+                  uri: e,
+                }}
+                style={[customStyle, resizeModeStyle]}
+              />
+            ))}
+        </ScrollView>
+        {renderActiveDots()}
       </View>
       <View style={styles.ownerAndTimeInfo}>
         <View style={styles.ownerData}>
@@ -49,9 +99,9 @@ const PostDetails = ({navigation, route}) => {
           <Text
             style={
               styles.ownerName
-            }>{`${post?.owner.firstName} ${post?.owner.lastName}`}</Text>
+            }>{`${post?.owner?.firstName} ${post?.owner?.lastName}`}</Text>
         </View>
-        <Text>5d ago</Text>
+        <Text>{post.createdAt ? dayjs(post.createdAt).fromNow() : null}</Text>
       </View>
       <Text style={styles.postBody}>{post?.body}</Text>
     </View>
