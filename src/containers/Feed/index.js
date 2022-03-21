@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, ImageBackground} from 'react-native';
 import dayjs from 'dayjs';
 
@@ -8,11 +8,13 @@ import {PostsList, LoadingIndicator} from '@components';
 import {useEvents} from '../../hooks';
 
 import {PostsService} from '../../services/apiClient';
+import {UserContext} from '@contexts';
 
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import styles from './styles';
 
 const Feed = ({navigation}) => {
+  const {userData} = useContext(UserContext);
   const {events, eventsError, eventsLoading, refetch} = useEvents();
   const [refreshing, setRefreshing] = useState(false);
   const [user, setUser] = useState(true);
@@ -26,21 +28,7 @@ const Feed = ({navigation}) => {
     }
   };
 
-  const loadUser = async () => {
-    try {
-      const user = await AsyncStorageLib.getItem('@user');
-      if (typeof user !== 'undefined') {
-        setUser(JSON.parse(user));
-      } else {
-        setUser({firstName: 'Valued Member'});
-      }
-    } catch (e) {
-      setUser({firstName: 'Valued Member'});
-    }
-  };
-
   useEffect(() => {
-    loadUser();
     loadPosts();
   }, []);
 
@@ -98,7 +86,8 @@ const Feed = ({navigation}) => {
             fontWeight: '600',
             paddingLeft: 16,
           }}>
-          Welcome Back {'\n'}Anes
+          Welcome Back {'\n'}
+          {userData.firstName}
         </Text>
       </ImageBackground>
       {/* {renderFeaturedPosts()} */}
