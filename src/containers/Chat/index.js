@@ -113,7 +113,6 @@ const Chat = ({navigation}) => {
   };
 
   const renderMessageGroups = () => {
-    console.log(messageGroups);
     return (
       <FlatList
         data={messageGroups}

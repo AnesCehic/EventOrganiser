@@ -12,7 +12,6 @@ const SubmitButton = ({
   isLoading,
   googleLogo,
 }) => {
-  console.log(googleLogo);
   return (
     <TouchableOpacity
       onPress={onPress}

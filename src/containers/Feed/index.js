@@ -20,10 +20,7 @@ const Feed = ({navigation}) => {
 
   const loadPosts = async () => {
     try {
-      const res = await PostsService.find();
-      console.log('posts', res, res.data[0]._id);
-      const res2 = await PostsService.get(res.data[0]._id);
-      console.log('posts2', res2);
+      await PostsService.find();
     } catch (error) {
       console.log('[Error loading posts]', error);
     }
@@ -32,7 +29,7 @@ const Feed = ({navigation}) => {
   const loadUser = async () => {
     try {
       const user = await AsyncStorageLib.getItem('@user');
-      if (typeof user !== "undefined") {
+      if (typeof user !== 'undefined') {
         setUser(JSON.parse(user));
       } else {
         setUser({firstName: 'Valued Member'});
@@ -45,7 +42,6 @@ const Feed = ({navigation}) => {
   useEffect(() => {
     loadUser();
     loadPosts();
-    console.log(events);
   }, []);
 
   useEffect(() => {
@@ -84,7 +80,7 @@ const Feed = ({navigation}) => {
   if (eventsLoading) {
     return <LoadingIndicator />;
   }
-  
+
   return (
     <View style={styles.container}>
       <ImageBackground
