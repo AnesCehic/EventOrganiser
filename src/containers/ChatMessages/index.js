@@ -8,7 +8,6 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const ChatMessages = ({navigation, route}) => {
-
   const [messages, setMessages] = useState([]);
   const [userId, setUserId] = useState(null);
   const [textMessage, setTextMessage] = useState('');

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     padding: 18,
+    paddingTop: 48,
     width: '100%',
     backgroundColor: Styles.Colors.gold,
   },
