@@ -184,6 +184,10 @@ const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={handleRefresh} />
         }
+        onScroll={e => {
+          const scrollOffset = e.nativeEvent.contentOffset.y;
+          console.log('scroll off', scrollOffset);
+        }}
       />
     );
   };

@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   loginButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Styles.Colors.primaryBlue,
+    backgroundColor: Styles.Colors.gold,
     width: '80%',
     height: 50,
     borderRadius: 9,
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: 'white',
+    color: '#000',
   },
   logo: {
     marginRight: 5,

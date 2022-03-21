@@ -1,5 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View, Linking, Platform} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  Linking,
+  Platform,
+} from 'react-native';
 import {Icon} from 'react-native-elements';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
@@ -51,16 +59,15 @@ const FeedDetails = ({navigation, route}) => {
     }
   };
 
-  const openMap = async (address) => {
-    const destination = encodeURIComponent(address); 
-    const provider = Platform.OS === 'ios' ? 'apple' : 'google'
+  const openMap = async address => {
+    const destination = encodeURIComponent(address);
+    const provider = Platform.OS === 'ios' ? 'apple' : 'google';
     const link = `http://maps.${provider}.com/?daddr=${destination}`;
-    console.log('LINK:', link);
 
     try {
-        await Linking.openURL(link);
+      await Linking.openURL(link);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
@@ -177,7 +184,10 @@ const FeedDetails = ({navigation, route}) => {
               text2={`${eventData.startTime} - ${eventData.endTime}`}
               bold
             />
-            <TouchableOpacity onPress={() => { openMap(eventData.location); }}>
+            <TouchableOpacity
+              onPress={() => {
+                openMap(eventData.location);
+              }}>
               <DateAndPlace
                 icon="location-pin"
                 text1={location1}
