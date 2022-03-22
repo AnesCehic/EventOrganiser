@@ -4,7 +4,7 @@ import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
   },
   postTextInput: {
     paddingBottom: 68,
@@ -48,6 +48,18 @@ const styles = StyleSheet.create({
   },
   createPostButtonDisabled: {
     opacity: 0.4,
+  },
+  loadedImage: {
+    width: 88,
+    height: 88,
+    borderRadius: 8,
+    margin: 7,
+  },
+  deleteButton: {
+    position: 'absolute',
+    top: -5,
+    right: 0,
+    backgroundColor: 'gold',
   },
 });
 
