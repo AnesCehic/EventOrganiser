@@ -1,15 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, ImageBackground, Image} from 'react-native';
+import dayjs from 'dayjs';
+
+import Search from '@components/SearchInput';
 
 import {PostsList, LoadingIndicator} from '@components';
 import {useEvents} from '../../hooks';
 
 import {PostsService} from '../../services/apiClient';
+import {UserContext} from '@contexts';
 
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import styles from './styles';
 
 const Feed = ({navigation}) => {
+  const {userData} = useContext(UserContext);
   const {events, eventsError, eventsLoading, refetch} = useEvents();
   const [refreshing, setRefreshing] = useState(false);
   const [user, setUser] = useState(true);
@@ -38,21 +43,7 @@ const Feed = ({navigation}) => {
     }
   };
 
-  const loadUser = async () => {
-    try {
-      const user = await AsyncStorageLib.getItem('@user');
-      if (typeof user !== 'undefined') {
-        setUser(JSON.parse(user));
-      } else {
-        setUser({firstName: 'Valued Member'});
-      }
-    } catch (e) {
-      setUser({firstName: 'Valued Member'});
-    }
-  };
-
   useEffect(() => {
-    loadUser();
     loadPosts();
   }, []);
 
@@ -93,7 +84,10 @@ const Feed = ({navigation}) => {
           source={require('../../assets/Home/white.png')}
           style={styles.headerLogo}
         />
-        <Text style={styles.welcomeBack}>Welcome Back,{'\n'}Anes</Text>
+        <Text style={styles.welcomeBack}>
+          Welcome Back,{'\n'}
+          {userData.firstName}
+        </Text>
       </ImageBackground>
       {renderPosts()}
     </View>
