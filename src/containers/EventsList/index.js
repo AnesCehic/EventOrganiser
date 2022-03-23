@@ -1,18 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState, useContext} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ImageBackground,
+  Image,
+  RefreshControl,
+} from 'react-native';
+import Icon from 'react-native-remix-icon';
+import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
-import {Agenda} from 'react-native-calendars';
 
-import {LoadingIndicator} from '@components';
-import {Constants} from '@common';
+import {LoadingIndicator, BottomSheetModal} from '@components';
+import {Constants, Styles} from '@common';
+import {UserContext} from '@contexts';
+import {toast} from '@utils';
+
+import EventsCalendar from './EventsCalendar';
 
 import {EventService} from '@services/apiClient';
 import styles from './styles';
 
 const EventsList = ({navigation}) => {
+  const {userData} = useContext(UserContext);
+  // console.log('user da', userData);
+
   const [isLoading, setIsLoading] = useState(false);
   const [events, setEvents] = useState([]);
-  // const {events, eventsError, eventsLoading, refetch} = useEvents();
+  const [eventsFromToday, setEventsFromToday] = useState([]);
+  const [myEventsCount, setMyEventsCount] = useState(0);
+  const [showAgenda, setShowAgenda] = useState(false);
 
   useEffect(() => {
     getEvents();
@@ -21,140 +39,147 @@ const EventsList = ({navigation}) => {
   const getEvents = async () => {
     try {
       setIsLoading(true);
-      const res = await EventService.find();
-      setEvents(res.data);
+      const allEvents = await EventService.find();
+      const eventsToShow = await EventService.find({
+        query: {
+          start: {
+            $gte: new Date(),
+          },
+        },
+      });
+
+      console.log('Events to show', eventsToShow);
+      // ownerId: "620471fee097e159cbccec8a"
+
+      // const myEventsRes = await EventService.find({
+      //   query: {
+      //     ownerId: userData._id,
+      //   },
+      // });
+
+      const showMyEvents = eventsToShow.data.filter(
+        ev => ev.ownerId === userData._id,
+      ).length;
+      setMyEventsCount(showMyEvents);
+      setEvents(allEvents.data);
+      setEventsFromToday(eventsToShow.data);
+      // setMyEvents(myEventsRes.data);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error get events]', error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const renderEventsList = () => {
+    console.log('events', events);
+    return (
+      <FlatList
+        data={eventsFromToday}
+        keyExtractor={item => item._id}
+        renderItem={renderItem}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+        }
+        showsVerticalScrollIndicator={false}
+        onEndReached={() => console.log('reached')}
+      />
+    );
+  };
+
+  const renderItem = ({item: event}) => {
+    const startDate = dayjs(event.start).format('MMM DD');
+    const endDate = dayjs(event.end).format('MMM DD');
+    const startTime = dayjs(event.start).format('hh A');
+    const location = event.location;
+    const imageUrl = event?.upload?.files[0]?.signedURL;
+    const source = {
+      html: `<section>${event.description}</section>`,
+    };
+    return (
+      <TouchableOpacity
+        style={styles.eventsListItemContainer}
+        onPress={() => {
+          navigation.navigate('FeedDetails', {
+            id: event._id,
+          });
+        }}>
+        <View style={styles.eventsListItemImageWrapper}>
+          <Image
+            source={{uri: imageUrl}}
+            style={styles.eventsListItemImage}
+            resizeMode="cover"
+          />
+        </View>
+        <View style={styles.eventsListItemTopWrapper}>
+          <Text style={styles.eventListItemTitle}>{event.title}</Text>
+          <RenderHTML contentWidth={10} source={source} />
+        </View>
+        <View style={styles.eventListItemDateAndTimeWrapper}>
+          <View style={styles.eventListItemDateAndTime}>
+            <Icon name="ri-time-line" color="#BFBB85" size={22} />
+            <Text style={styles.eventListDateAndTimeText}>
+              {startDate} - {endDate} • {startTime}
+            </Text>
+          </View>
+          <View style={styles.eventListItemDateAndTime}>
+            <Icon name="ri-map-pin-2-line" color="#BFBB85" size={22} />
+            <Text style={styles.eventListDateAndTimeText}>{location}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderMyEventsButton = () => {
+    return (
+      <TouchableOpacity style={styles.myEventsButtonContainer}>
+        <Text>My Events</Text>
+        <View style={styles.myEventsButtonCount}>
+          <Text style={styles.myEventsButtonText}>
+            {/* {myEventsCount} */}1
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const handleRefresh = () => {
+    getEvents();
+  };
+
   const navigateToEvent = id => {
+    setShowAgenda(false);
     navigation.navigate('FeedDetails', {
       id: id,
     });
   };
 
-  const renderItem = item => {
-    return (
-      <TouchableOpacity
-        onPress={() => navigateToEvent(item.id)}
-        style={styles.eventItem}>
-        <Text style={styles.eventItemText}>{item.title}</Text>
-      </TouchableOpacity>
-    );
+  const navigateToMonth = date => {
+    setShowAgenda(false);
+    navigation.navigate('EventsOnMonthScreen', {
+      date: date,
+    });
   };
 
   const renderAgenda = () => {
-    const today = dayjs().format('YYYY-MM-DD');
-    const markedDates = {};
-    const eventDates = events.reduce((acc, value) => {
-      const key = dayjs(value.start).format('YYYY-MM-DD');
-      acc[key] = [
-        {
-          id: value._id,
-          title: value.title,
-        },
-      ];
-      markedDates[key] = {
-        marked: true,
-      };
-      return acc;
-    }, {});
-
     return (
-      <Agenda
-        // The list of items that have to be displayed in agenda. If you want to render item as empty date
-        // the value of date key has to be an empty array []. If there exists no value for date key it is
-        // considered that the date in question is not yet loaded
-        items={eventDates}
-        // Callback that gets called when items for a certain month should be loaded (month became visible)
-        loadItemsForMonth={month => {}}
-        // Callback that fires when the calendar is opened or closed
-        onCalendarToggled={calendarOpened => {}}
-        // Callback that gets called on day press
-        onDayPress={day => {}}
-        // Callback that gets called when day changes while scrolling agenda list
-        onDayChange={day => {}}
-        // Initially selected day
-        selected={today}
-        // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-        minDate={today}
-        // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-        maxDate={'2032-05-30'}
-        // Max amount of months allowed to scroll to the past. Default = 50
-        pastScrollRange={6}
-        // Max amount of months allowed to scroll to the future. Default = 50
-        futureScrollRange={12}
-        // Specify how each item should be rendered in agenda
-        renderItem={renderItem}
-        // Specify how each date should be rendered. day can be undefined if the item is not first in that day
-        // renderDay={(day, item) => {}}
-        // Specify how empty date content with no items should be rendered
-        renderEmptyDate={() => {
-          return <View />;
-        }}
-        // Specify how agenda knob should look like
-        // renderKnob={}
-        // Specify what should be rendered instead of ActivityIndicator
-        renderEmptyData={() => {
-          return (
-            <View style={styles.calendarEmptyData}>
-              <Text style={styles.calendarEmptyDataText}>
-                No events on selected date
-              </Text>
-            </View>
-          );
-        }}
-        // Specify your item comparison function for increased performance
-        rowHasChanged={(r1, r2) => {
-          return r1.text !== r2.text;
-        }}
-        // Hide knob button.
-        hideKnob={false}
-        // When `true` and `hideKnob` prop is `false`, the knob will always be visible and the user will be able to drag the knob up and close the calendar.
-        showClosingKnob={true}
-        // By default, agenda dates are marked if they have at least one item, but you can override this if needed
-        markedDates={markedDates}
-        // If disabledByDefault={true} dates flagged as not disabled will be enabled.
-        disabledByDefault={false}
-        // If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the refreshing prop correctly
-        onRefresh={null}
-        // Set this true while waiting for new data from a refresh
-        refreshing={false}
-        refreshControl={null}
-        // Agenda theme
-        theme={{
-          agendaKnobColor: '#e1e1e1',
-        }}
-        // Agenda container style
-        style={{}}
-        renderHeader={(date, i) => {
-          return (
-            <View style={styles.header}>
-              <Text style={{fontSize: 16, fontWeight: '700'}}>
-                {`${dayjs(date['0']).format('MMMM')}, ${dayjs(date['0']).format(
-                  'YYYY',
-                )}`}
-              </Text>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: '#F5F6F7',
-                  padding: 11,
-                  borderRadius: 50,
-                }}
-                onPress={() => {
-                  navigation.navigate('EventsOnMonthScreen', {
-                    date: dayjs(date['0']).format(),
-                  });
-                }}>
-                <Text style={styles.headerText}>Show entire month</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }}
-      />
+      <BottomSheetModal
+        contentContainerStyle={{flex: 1, marginTop: 50, padding: 125}}
+        isVisible={showAgenda}
+        closeModal={() => setShowAgenda(false)}>
+        <TouchableOpacity
+          style={styles.showAgendaBtn}
+          onPress={() => setShowAgenda(false)}>
+          <Icon name="ri-close-line" />
+        </TouchableOpacity>
+        <EventsCalendar
+          events={events}
+          navigateToEvent={navigateToEvent}
+          navigateToMonth={navigateToMonth}
+        />
+      </BottomSheetModal>
     );
   };
 
@@ -162,7 +187,44 @@ const EventsList = ({navigation}) => {
     return <LoadingIndicator />;
   }
 
-  return <View style={styles.container}>{renderAgenda()}</View>;
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        style={styles.topImage}
+        source={require('../../assets/headerBackground.png')}
+        resizeMode="cover">
+        <View style={styles.topImageContent}>
+          <Text style={styles.headerText}>Events</Text>
+          <TouchableOpacity
+            style={{
+              borderRadius: 20,
+              backgroundColor: 'white',
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+            onPress={() => setShowAgenda(true)}>
+            <Icon name="ri-calendar-todo-fill" size={18} />
+            <Text
+              style={{
+                marginLeft: 5,
+                fontWeight: '600',
+                // color: 'white',
+              }}>
+              {dayjs().format('MMMM')}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {/* {renderMyEventsButton()} */}
+      </ImageBackground>
+      <View style={[styles.eventsListContainer, {marginTop: -60}]}>
+        {renderEventsList()}
+      </View>
+
+      {renderAgenda()}
+    </View>
+  );
 };
 
 export default EventsList;
