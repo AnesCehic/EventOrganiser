@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {Image} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-remix-icon';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -64,13 +65,19 @@ const BottomTabNavigation = () => {
         name="Feed"
         options={{
           headerShown: false,
-          tabBarIcon: () => <Image source={require('../assets/Home.png')} />,
+          // tabBarIcon: () => <Image source={require('../assets/Home.png')} />,
+          tabBarIcon: props => {
+            const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
+            return <Icon name={'ri-home-line'} size={24} color={iconColor} />;
+          },
           tabBarLabel: 'Home',
           unmountOnBlur: true,
         }}
         component={FeedNavigation}
       />
       <BottomTab.Screen
+        activeColor="#f0edf6"
+        inactiveColor="#3e2465"
         name="Calendar"
         options={{
           tabBarIcon: () => <Image source={require('../assets/Shape.png')} />,

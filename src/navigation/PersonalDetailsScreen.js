@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Text} from 'react-native';
 
 import {PersonalDetails} from '@containers';
+import {HeaderBack} from '@components';
 
 const PersonalDetailsScreen = ({navigation, route}) => {
   useEffect(() => {
@@ -9,6 +10,7 @@ const PersonalDetailsScreen = ({navigation, route}) => {
       headerTitle: () => <Text />,
       headerTintColor: '#fff',
       headerTransparent: true,
+      //headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
     });
   }, []);
 
