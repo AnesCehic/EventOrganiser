@@ -48,7 +48,6 @@ const Profile = ({navigation, route}) => {
       }
 
       const resData = await PostsService.find();
-      console.log('req', resData)
       const postsData = resData.data.map(e => {
         console.log(e.owner);
         return {
@@ -181,9 +180,7 @@ const Profile = ({navigation, route}) => {
     const time = dayjs(dayjs().subtract(5, 'hour'));
     const timeFromNow = time.fromNow(); // for testing time ago
 
-    console.log('123', posts)
-
-    return <PostsList navigation={navigation} data={posts} />;
+    return <PostsList route={route} navigation={navigation} data={posts} />;
   };
 
   const renderImages = () => {

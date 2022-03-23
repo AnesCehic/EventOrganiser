@@ -25,8 +25,8 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 const MenuItems = [
   {
     id: 1,
-    menuText: 'Profile',
-    menuScreen: Constants.NavigationScreens.ProfileScreen,
+    menuText: 'Edit info',
+    menuScreen: Constants.NavigationScreens.PersonalDetailsScreen,
   },
   {
     id: 6,
@@ -98,12 +98,9 @@ const EditProfile = ({navigation}) => {
       <TouchableOpacity
         style={styles.user}
         onPress={() => {
-          navigation.navigate(
-            Constants.NavigationScreens.PersonalDetailsScreen,
-            {
-              userData: data,
-            },
-          );
+          navigation.navigate(Constants.NavigationScreens.ProfileScreen, {
+            hideListHeader: true,
+          });
         }}>
         <Avatar
           size={70}
@@ -170,6 +167,7 @@ const EditProfile = ({navigation}) => {
                   menuItem.menuScreen
                     ? navigation.navigate(menuItem.menuScreen, {
                         userId: data._id,
+                        userData: data,
                         hideSendMessage: true,
                       })
                     : menuItem?.menuPressHandle

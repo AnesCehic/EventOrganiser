@@ -11,7 +11,14 @@ import dayjs from 'dayjs';
 
 import {PostItem} from '@components';
 
-const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
+const PostsList = ({
+  data,
+  navigation,
+  headerData,
+  handleRefresh,
+  style,
+  route,
+}) => {
   const renderFeaturedPosts = () => {
     return (
       <View>
@@ -77,7 +84,9 @@ const PostsList = ({data, navigation, headerData, handleRefresh, style}) => {
   const renderList = () => {
     return (
       <FlatList
-        ListHeaderComponent={renderFeaturedPosts}
+        ListHeaderComponent={
+          route?.params?.hideListHeader ? null : renderFeaturedPosts
+        }
         data={data}
         style={style}
         renderItem={renderItem}

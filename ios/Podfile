@@ -19,6 +19,8 @@ target 'LincolnApp' do
 
   pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'LincolnAppTests' do
     inherit! :complete
     # Pods for testing
