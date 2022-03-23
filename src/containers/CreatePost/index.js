@@ -1,5 +1,5 @@
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
-import React, {useEffect, useState, useLayoutEffect} from 'react';
+import React, {useEffect, useState, useLayoutEffect, useContext} from 'react';
 import {
   Text,
   View,
@@ -11,12 +11,14 @@ import {
 } from 'react-native';
 
 import {PostsService} from '@services/apiClient';
+import {UserContext} from '@contexts';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 
 import styles from './styles';
 
 const CreatePost = ({navigation}) => {
+  const {userData} = useContext(UserContext);
   const [loadedImages, setLoadedImages] = useState([]);
   const [postData, setPostData] = useState('');
 
@@ -141,7 +143,7 @@ const CreatePost = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.userData}>
-        <Text style="username">Anes Cehic</Text>
+        <Text style="username">{`${userData.firstName} ${userData.lastName}`}</Text>
       </View>
       <TextInput
         style={styles.postTextInput}
