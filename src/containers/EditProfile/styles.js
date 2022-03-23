@@ -71,10 +71,13 @@ const styles = StyleSheet.create({
   },
 
   settings: {
-    marginVertical: 25,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
     paddingLeft: 20,
   },
   settingsText: {
+    marginLeft: 5,
     color: Styles.Colors.grayText,
   },
 
@@ -86,14 +89,20 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     backgroundColor: Styles.Colors.white,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     flexDirection: 'row',
-    paddingVertical: 20,
+    paddingVertical: 15,
     borderBottomColor: Styles.Colors.grayBorder,
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  leftContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   menuItemText: {
-    fontSize: 18,
+    marginLeft: 7,
+    fontSize: 16,
   },
   arrowIcon: {},
 
@@ -102,7 +111,7 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.grayBorder,
     marginTop: 20,
     borderRadius: 10,
-    marginBottom: 20,
+    // marginBottom: 20,
   },
 });
 

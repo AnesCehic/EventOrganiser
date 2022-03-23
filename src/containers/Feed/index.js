@@ -87,7 +87,7 @@ const Feed = ({navigation}) => {
         />
         <Text style={styles.welcomeBack}>
           Welcome Back,{'\n'}
-          {userData.firstName}, {userData.lastName}
+          {userData.firstName} {userData.lastName}
         </Text>
       </ImageBackground>
       {renderPosts()}

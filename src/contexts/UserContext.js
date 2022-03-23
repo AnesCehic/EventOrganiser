@@ -3,10 +3,12 @@ import {createContext} from 'react';
 const UserContext = createContext({
   authenticated: false,
   setAuthenticated: auth => {},
-  chatForbiden: false,
-  setChatForbiden: chat => {},
+  allowMessaging: false,
+  setAllowMessaging: chat => {},
   userData: {},
   setUserData: userData => {},
+  darkMode: false,
+  setDarkMode: darkMode => {},
 });
 
 export default UserContext;
