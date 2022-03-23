@@ -248,7 +248,7 @@ const EditProfile = ({navigation}) => {
         style={styles.topImage}
         source={require('../../assets/headerBackground.png')}
         resizeMode="cover">
-        <Text style={styles.headerText}>Edit profile</Text>
+        <Text style={styles.headerText}>My account</Text>
       </ImageBackground>
       <View style={styles.content}>
         {renderUser()}
