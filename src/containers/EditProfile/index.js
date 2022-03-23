@@ -298,7 +298,7 @@ const EditProfile = ({navigation}) => {
         </View>
         <TouchableOpacity
           onPress={() => logout()}
-          style={[styles.menuItem, styles.logoutItem]}>
+          style={[styles.menuItem, styles.logoutItem, {marginBottom: 16}]}>
           <View style={styles.leftContent}>
             <Icon
               name="ri-logout-circle-r-line"
