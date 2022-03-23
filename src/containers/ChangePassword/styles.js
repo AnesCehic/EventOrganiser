@@ -36,13 +36,23 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 
-  validateErrorWrapper: {
-    marginTop: 10,
-    minHeight: 50,
+  errorWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    fontSize: 12,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
+    borderColor: 'red',
   },
-  validateErrorText: {
-    color: Styles.Colors.error,
-    fontSize: 14,
+  errorText: {
+    marginLeft: 5,
+    fontSize: 12,
+    color: 'red',
   },
 
   submitButton: {

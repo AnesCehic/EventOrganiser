@@ -9,6 +9,7 @@ import {useEvents} from '../../hooks';
 
 import {PostsService} from '../../services/apiClient';
 import {UserContext} from '@contexts';
+import {Styles} from '@common';
 
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import styles from './styles';
@@ -53,15 +54,26 @@ const Feed = ({navigation}) => {
       img: post.upload.files,
     }));
     return (
-      <PostsList
-        handleRefresh={handleRefresh}
-        headerData={events}
-        data={eventsData}
+      <View
         style={{
-          marginTop: -50,
-        }}
-        navigation={navigation}
-      />
+          marginTop: -70,
+        }}>
+        <Text
+          style={{
+            color: '#f2f2f2',
+            fontSize: 14,
+            fontWeight: '600',
+            marginLeft: 16,
+          }}>
+          Your Picks
+        </Text>
+        <PostsList
+          handleRefresh={handleRefresh}
+          headerData={events}
+          data={eventsData}
+          navigation={navigation}
+        />
+      </View>
     );
   };
 
@@ -74,7 +86,7 @@ const Feed = ({navigation}) => {
       <ImageBackground
         style={{
           justifyContent: 'center',
-          height: 250,
+          height: 300,
           width: '100%',
           backgroundColor: 'lightblue',
         }}
@@ -85,6 +97,7 @@ const Feed = ({navigation}) => {
             fontSize: 28,
             fontWeight: '600',
             paddingLeft: 16,
+            color: '#fff',
           }}>
           Welcome Back {'\n'}
           {userData.firstName}

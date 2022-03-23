@@ -15,7 +15,7 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import {Avatar, SearchBar} from 'react-native-elements';
 
 const Chat = ({navigation}) => {
-  const {chatForbiden} = useContext(UserContext);
+  const {allowMessaging} = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [messageGroups, setMessageGroups] = useState([]);
   const [search, setSearch] = useState('');
@@ -122,7 +122,7 @@ const Chat = ({navigation}) => {
     );
   };
 
-  if (chatForbiden) {
+  if (!allowMessaging) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{fontSize: 26}}>Forbiden!</Text>

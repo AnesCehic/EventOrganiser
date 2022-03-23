@@ -28,7 +28,7 @@ const Profile = ({navigation, route}) => {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
-  const {chatForbiden} = useContext(UserContext);
+  const {allowMessaging} = useContext(UserContext);
 
   const fetchUserData = async () => {
     try {
@@ -90,31 +90,6 @@ const Profile = ({navigation, route}) => {
           Member Since {dayjs(userData.createdAt).format('YYYY')} ·{' '}
           {userData.email}
         </Text>
-        {/* {chatForbiden || route?.params?.hideSendMessage ? null : (
-          <Button
-            onPress={() => {
-              if (route?.params?.userId) {
-                createMessageGroup();
-              } else {
-                navigation.navigate('EditPofileScreen');
-              }
-            }}
-            title={
-              !route?.params?.userId ? 'Go to profile' : 'New Conversation'
-            }
-            buttonStyle={styles.buttonStyle}
-            titleStyle={styles.buttonTitle}
-            icon={
-              <Icon
-                name="message"
-                style={styles.btnIcon}
-                size={22}
-                color={Styles.Colors.primaryBlue}
-              />
-            }
-            iconContainerStyle={styles.btnIcon}
-          />
-        )} */}
       </View>
     );
   };

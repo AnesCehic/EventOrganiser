@@ -68,13 +68,32 @@ const App = () => {
   // if needed put all states into one object state
   const [isLoading, setIsLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [chatForbiden, setChatForbiden] = useState(false);
+  const [allowMessaging, setAllowMessaging] = useState(false);
   const [userData, setUserData] = useState({});
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    setAnonymousMode();
     getUser();
+    setDarkModeAsync();
+    setAnonymousMode();
   }, []);
+
+  const setDarkModeAsync = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@darkMode');
+      let isDarkModeEnabled;
+      if (value) {
+        isDarkModeEnabled = value === 'enabled';
+      }
+      if (!value) {
+        await AsyncStorage.setItem('@darkMode', 'disabled');
+        isDarkModeEnabled = false;
+      }
+      setDarkMode(isDarkModeEnabled);
+    } catch (error) {
+      console.log('[Error set dark mode to storage]', error);
+    }
+  };
 
   const setAnonymousMode = async () => {
     try {
@@ -88,7 +107,7 @@ const App = () => {
         await AsyncStorage.setItem('@anonymousMode', 'disabled');
         isAnonEnabled = false;
       }
-      setChatForbiden(isAnonEnabled);
+      setAllowMessaging(isAnonEnabled);
     } catch (error) {
       console.log('[Error set anon mode to storage]', error);
     } finally {
@@ -124,10 +143,12 @@ const App = () => {
           value={{
             authenticated,
             setAuthenticated,
-            chatForbiden,
-            setChatForbiden,
+            allowMessaging,
+            setAllowMessaging,
             userData,
             setUserData,
+            darkMode,
+            setDarkMode,
           }}>
           <View style={styles.container}>
             <Navigation />

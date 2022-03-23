@@ -1,7 +1,9 @@
 import React, {useState, useRef} from 'react';
 import {Text, View, ImageBackground, Keyboard} from 'react-native';
+import Icon from 'react-native-remix-icon';
 
 import {TextInput, SubmitButton, LoadingIndicator} from '@components';
+import {Styles} from '@common';
 
 import {ForgotPasswordService} from '@services/apiClient';
 import {toast} from '@utils';
@@ -16,7 +18,8 @@ const ChangePassword = ({navigation}) => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [validateError, setValidateError] = useState(null);
+  const [currentPassErr, setCurrentPassErr] = useState(false);
+  const [newPassErr, setNewPassErr] = useState(false);
 
   const renderInputFields = () => {
     return (
@@ -24,7 +27,16 @@ const ChangePassword = ({navigation}) => {
         <View style={styles.fieldWrapper}>
           <Text style={styles.inputFieldLabel}>Current password</Text>
           <TextInput
-            style={styles.inputField}
+            style={[
+              styles.inputField,
+              currentPassErr
+                ? {
+                    borderColor: 'red',
+                    borderBottomLeftRadius: 0,
+                    borderBottomRightRadius: 0,
+                  }
+                : {},
+            ]}
             onChangeText={setCurrentPassword}
             value={currentPassword}
             placeholder="Type your current password"
@@ -35,11 +47,30 @@ const ChangePassword = ({navigation}) => {
             // secureTextEntry={true}
             autoCapitalize="none"
           />
+          {currentPassErr ? (
+            <View style={styles.errorWrapper}>
+              <Icon
+                name="ri-close-circle-line"
+                size={16}
+                color={Styles.Colors.error}
+              />
+              <Text style={styles.errorText}>Error</Text>
+            </View>
+          ) : null}
         </View>
         <View style={styles.fieldWrapper}>
           <Text style={styles.inputFieldLabel}>New password</Text>
           <TextInput
-            style={styles.inputField}
+            style={[
+              styles.inputField,
+              newPassErr
+                ? {
+                    borderColor: 'red',
+                    borderBottomLeftRadius: 0,
+                    borderBottomRightRadius: 0,
+                  }
+                : {},
+            ]}
             onChangeText={setNewPassword}
             value={newPassword}
             ref={newPassRef}
@@ -51,11 +82,30 @@ const ChangePassword = ({navigation}) => {
             // secureTextEntry={true}
             autoCapitalize="none"
           />
+          {newPassErr ? (
+            <View style={styles.errorWrapper}>
+              <Icon
+                name="ri-close-circle-line"
+                size={16}
+                color={Styles.Colors.error}
+              />
+              <Text style={styles.errorText}>Error</Text>
+            </View>
+          ) : null}
         </View>
         <View style={styles.fieldWrapper}>
           <Text style={styles.inputFieldLabel}>Confirm new password</Text>
           <TextInput
-            style={styles.inputField}
+            style={[
+              styles.inputField,
+              newPassErr
+                ? {
+                    borderColor: 'red',
+                    borderBottomLeftRadius: 0,
+                    borderBottomRightRadius: 0,
+                  }
+                : {},
+            ]}
             onChangeText={setConfirmNewPassword}
             value={confirmNewPassword}
             placeholder="Type new password here"
@@ -67,10 +117,15 @@ const ChangePassword = ({navigation}) => {
             // secureTextEntry={true}
             autoCapitalize="none"
           />
-        </View>
-        <View style={styles.validateErrorWrapper}>
-          {validateError ? (
-            <Text style={styles.validateErrorText}>{validateError}</Text>
+          {newPassErr ? (
+            <View style={styles.errorWrapper}>
+              <Icon
+                name="ri-close-circle-line"
+                size={16}
+                color={Styles.Colors.error}
+              />
+              <Text style={styles.errorText}>Error</Text>
+            </View>
           ) : null}
         </View>
       </View>
@@ -79,31 +134,41 @@ const ChangePassword = ({navigation}) => {
 
   const handleSubmit = async () => {
     try {
-      // if (
-      //   currentPassword === '' ||
-      //   newPassword === '' ||
-      //   confirmNewPassword === ''
-      // ) {
-      //   setValidateError('Fields should not be blank!');
-      //   return;
-      // } else if (newPassword !== confirmNewPassword) {
-      //   setValidateError('New password and confirm new pasword must be same!');
-      //   return;
-      // } else {
-      //   setValidateError(null);
-      // }
+      if (!currentPassword) {
+        setCurrentPassErr(true);
+        console.log('returned,1');
+      } else {
+        setCurrentPassErr(false);
+      }
+      if (
+        !newPassword ||
+        !confirmNewPassword ||
+        newPassword.length < 5 ||
+        confirmNewPassword.length < 5 ||
+        newPassword !== confirmNewPassword
+      ) {
+        setNewPassErr(true);
+      } else {
+        setNewPassErr(false);
+      }
+      if (currentPassErr || newPassErr) {
+        return;
+      }
 
-      //620a9de1c8ec5100103aca38
       setIsLoading(true);
-      const res = await ForgotPasswordService.find('620a9de1c8ec5100103aca38');
-      // const res2 = await ForgotPasswordService.update(
+
+      // const res = await ForgotPasswordService.update(
       //   '620a9de1c8ec5100103aca38',
       //   {
       //     password: newPassword,
       //   },
       // );
-      console.log('res 12', res);
+      // const res = ForgotPasswordService.create({
+      //   password: newPassword
+      // })
 
+      // setCurrentPassErr(false);
+      // setNewPassErr(false);
       // toast('success', 'Success', 'Password changed!');
       // navigation.goBack();
     } catch (error) {
@@ -113,21 +178,6 @@ const ChangePassword = ({navigation}) => {
       setIsLoading(false);
     }
   };
-
-  // const resetPassword = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const res = await ForgotPasswordService.create({
-  //       email: 'anes.cehic@gmail.com',
-  //     });
-  //     console.log(res);
-  //   } catch (error) {
-  //     toast('error', 'Error', error.message);
-  //     console.log('[Error forgot password reset]', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   if (isLoading) {
     return <LoadingIndicator />;

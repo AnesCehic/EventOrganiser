@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import {Text} from 'react-native';
 
-import {ChangePassword} from '../containers';
+import {ChangePassword} from '@containers';
+import {HeaderBack} from '@components';
 
 const ChangePasswordScreen = ({navigation}) => {
   useEffect(() => {
@@ -9,6 +10,7 @@ const ChangePasswordScreen = ({navigation}) => {
       headerTitle: () => <Text />,
       headerTintColor: '#fff',
       headerTransparent: true,
+      headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
     });
   }, []);
 
