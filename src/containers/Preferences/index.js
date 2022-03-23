@@ -12,7 +12,7 @@ import {Styles} from '@common';
 import styles from './styles';
 
 const Preferences = () => {
-  const {chatForbiden, setChatForbiden} = useContext(UserContext);
+  const {allowMessaging, setAllowMessaging} = useContext(UserContext);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
   const [allowMsgEnabled, setAllowMsgEnabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,7 @@ const Preferences = () => {
     try {
       const anonymousMode = value ? 'enabled' : 'disabled';
       await AsyncStorage.setItem('@anonymousMode', anonymousMode);
-      setChatForbiden(value);
+      setAllowMessaging(value);
     } catch (error) {
       console.log('[Error set switch anon mode]', error);
     }
@@ -84,7 +84,7 @@ const Preferences = () => {
           thumbColor={Styles.Colors.white}
           ios_backgroundColor={Styles.Colors.darkGrayBg}
           onValueChange={anonModeToggle}
-          value={chatForbiden}
+          value={allowMessaging}
         />
       </View>
     );

@@ -34,9 +34,11 @@ const Profile = ({navigation, route}) => {
   const [activeSwitch, setActiveSwitch] = useState(0);
   const {chatForbiden} = useContext(UserContext);
   const [posts, setPosts] = useState([]);
+  const {allowMessaging} = useContext(UserContext);
 
   const fetchUserData = async () => {
     try {
+      console.log('Fetch user data');
       setIsLoading(true);
       if (!route?.params?.userId) {
         const uId = await AsyncStorageLib.getItem('@userId');
@@ -47,7 +49,12 @@ const Profile = ({navigation, route}) => {
         setUserData(res);
       }
 
-      const resData = await PostsService.find();
+      const resData = await PostsService.find({
+        query: {
+          email: userData.email,
+        },
+      });
+      console.log('res', resData)
       const postsData = resData.data.map(e => {
         console.log(e.owner);
         return {
@@ -108,31 +115,6 @@ const Profile = ({navigation, route}) => {
           Member Since {dayjs(userData.createdAt).format('YYYY')} ·{' '}
           {userData.email}
         </Text>
-        {/* {chatForbiden || route?.params?.hideSendMessage ? null : (
-          <Button
-            onPress={() => {
-              if (route?.params?.userId) {
-                createMessageGroup();
-              } else {
-                navigation.navigate('EditPofileScreen');
-              }
-            }}
-            title={
-              !route?.params?.userId ? 'Go to profile' : 'New Conversation'
-            }
-            buttonStyle={styles.buttonStyle}
-            titleStyle={styles.buttonTitle}
-            icon={
-              <Icon
-                name="message"
-                style={styles.btnIcon}
-                size={22}
-                color={Styles.Colors.primaryBlue}
-              />
-            }
-            iconContainerStyle={styles.btnIcon}
-          />
-        )} */}
       </View>
     );
   };

@@ -7,22 +7,35 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
+  Switch,
 } from 'react-native';
-import {Avatar, Icon} from 'react-native-elements';
+import {Avatar} from 'react-native-elements';
+import Icon from 'react-native-remix-icon';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
-import {UsersService} from '@services/apiClient';
 import {UserContext} from '@contexts';
 import {toast} from '@utils';
 
-import {client, ChangeEmail} from '@services/apiClient';
+import {client, ChangeEmail, UsersService} from '@services/apiClient';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 // Add menuScreen from Constants.NavigationScreens when ready
 const MenuItems = [
+  // {
+  //   id: 1,
+  //   menuText: 'Profile',
+  //   menuScreen: Constants.NavigationScreens.ProfileScreen,
+  // },
+  // {
+  //   id: 6,
+  //   menuText: 'Create post',
+  //   menuScreen: Constants.NavigationScreens.CreatePostScreen,
+  // },
   {
     id: 1,
     menuText: 'Edit info',
@@ -34,14 +47,34 @@ const MenuItems = [
     menuScreen: Constants.NavigationScreens.CreatePostScreen,
   },
   {
+    id: 12,
+    menuText: 'Password',
+    menuScreen: Constants.NavigationScreens.ChangePasswordScreen,
+    icon: <Ionicons name="eye-outline" size={22} color={Styles.Colors.gold} />,
+  },
+  {
     id: 2,
     menuText: 'Notifications',
     menuScreen: null,
+    icon: (
+      <MaterialCommunityIcons
+        name="bell-outline"
+        size={22}
+        color={Styles.Colors.gold}
+      />
+    ),
   },
   {
     id: 3,
     menuText: 'Chat',
     menuScreen: 'Messages',
+    icon: (
+      <Ionicons
+        name="chatbubbles-outline"
+        size={22}
+        color={Styles.Colors.gold}
+      />
+    ),
   },
   {
     id: 4,
@@ -51,10 +84,15 @@ const MenuItems = [
 ];
 
 const EditProfile = ({navigation}) => {
-  const {setAuthenticated, userData} = useContext(UserContext);
-  const handleLogout = () => setAuthenticated(false);
+  const {
+    setAuthenticated,
+    userData,
+    allowMessaging,
+    setAllowMessaging,
+    darkMode,
+    setDarkMode,
+  } = useContext(UserContext);
 
-  // const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [data, setUserData] = useState({
     firstName: 'Bruce',
@@ -67,6 +105,34 @@ const EditProfile = ({navigation}) => {
   useEffect(() => {
     getUser();
   }, []);
+
+  const [allowMessagingState, setAllowMessagingState] =
+    useState(allowMessaging);
+  const [darkModeState, setDarkModeState] = useState(darkMode);
+
+  const handleLogout = () => setAuthenticated(false);
+
+  const setAllowMessagingAsync = async value => {
+    try {
+      const isAnonMode = value ? 'enabled' : 'disabled';
+      await AsyncStorageLib.setItem('@anonymousMode', isAnonMode);
+      setAllowMessagingState(value);
+      setAllowMessaging(value);
+    } catch (error) {
+      console.log('[Error set allow messaging / anonomous mode]', error);
+    }
+  };
+
+  const setDarkModeAsync = async value => {
+    try {
+      const isDarkMode = value ? 'enabled' : 'disabled';
+      await AsyncStorageLib.setItem('@darkMode', isDarkMode);
+      setDarkModeState(value);
+      setDarkMode(value);
+    } catch (error) {
+      console.log('[Error set dark mode]', error);
+    }
+  };
 
   const getUser = async () => {
     try {
@@ -122,7 +188,7 @@ const EditProfile = ({navigation}) => {
           <Text style={styles.userEmail}>{data.email}</Text>
         </View>
         <Icon
-          name="keyboard-arrow-right"
+          name="ri-arrow-right-s-line"
           size={34}
           style={styles.userArrowIcon}
           color="#000"
@@ -174,9 +240,12 @@ const EditProfile = ({navigation}) => {
                     ? handleMenuItemPress(menuItem.menuPressHandle)
                     : null;
                 }}>
-                <Text style={styles.menuItemText}>{menuItem.menuText}</Text>
+                <View style={styles.leftContent}>
+                  {menuItem.icon}
+                  <Text style={styles.menuItemText}>{menuItem.menuText}</Text>
+                </View>
                 <Icon
-                  name="keyboard-arrow-right"
+                  name="ri-arrow-right-s-line"
                   size={24}
                   color={Styles.Colors.grayText}
                   style={styles.arrowIcon}
@@ -185,12 +254,61 @@ const EditProfile = ({navigation}) => {
             );
           })}
         </View>
+        <View style={[styles.menuItem, styles.logoutItem]}>
+          <View style={styles.leftContent}>
+            <Ionicons
+              name="chatbubbles-outline"
+              size={22}
+              // color={Styles.Colors.gold}
+            />
+            <Text style={styles.menuItemText}>Allow messaging</Text>
+          </View>
+          <Switch
+            trackColor={{
+              false: Styles.Colors.darkGrayBg,
+              true: Styles.Colors.success,
+            }}
+            thumbColor={Styles.Colors.white}
+            ios_backgroundColor={Styles.Colors.darkGrayBg}
+            onValueChange={setAllowMessagingAsync}
+            value={allowMessagingState}
+            style={{transform: [{scaleX: 0.9}, {scaleY: 0.9}]}}
+          />
+        </View>
+        <View style={[styles.menuItem, styles.logoutItem]}>
+          <View style={styles.leftContent}>
+            <Ionicons
+              name="chatbubbles-outline"
+              size={22}
+              // color={Styles.Colors.gold}
+            />
+            <Text style={styles.menuItemText}>Dark mode</Text>
+          </View>
+          <Switch
+            trackColor={{
+              false: Styles.Colors.darkGrayBg,
+              true: Styles.Colors.success,
+            }}
+            thumbColor={Styles.Colors.white}
+            ios_backgroundColor={Styles.Colors.darkGrayBg}
+            onValueChange={setDarkModeAsync}
+            value={darkModeState}
+            style={{transform: [{scaleX: 0.9}, {scaleY: 0.9}]}}
+          />
+        </View>
         <TouchableOpacity
           onPress={() => logout()}
           style={[styles.menuItem, styles.logoutItem]}>
-          <Text style={styles.menuItemText}>Log out</Text>
+          <View style={styles.leftContent}>
+            <Icon
+              name="ri-logout-circle-r-line"
+              size={22}
+              color={Styles.Colors.error}
+            />
+            <Text style={styles.menuItemText}>Log out</Text>
+          </View>
           <Icon
-            name="keyboard-arrow-right"
+            name="ri-arrow-right-s-line"
             size={24}
             color={Styles.Colors.grayText}
             style={styles.arrowIcon}
@@ -251,6 +369,7 @@ const EditProfile = ({navigation}) => {
       <View style={styles.content}>
         {renderUser()}
         <View style={styles.settings}>
+          <Icon name="ri-sound-module-line" size={16} />
           <Text style={styles.settingsText}>Settings</Text>
         </View>
         {renderMenu()}
