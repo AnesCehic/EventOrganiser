@@ -9,6 +9,7 @@ import {useEvents} from '../../hooks';
 
 import {PostsService} from '../../services/apiClient';
 import {UserContext} from '@contexts';
+import {Styles} from '@common';
 
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import styles from './styles';
@@ -86,7 +87,7 @@ const Feed = ({navigation}) => {
         />
         <Text style={styles.welcomeBack}>
           Welcome Back,{'\n'}
-          {userData.firstName}
+          {userData.firstName}, {userData.lastName}
         </Text>
       </ImageBackground>
       {renderPosts()}

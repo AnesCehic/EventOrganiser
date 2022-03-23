@@ -6,6 +6,7 @@ import {MessagesService} from '@services/apiClient';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
+import dayjs from 'dayjs';
 
 const ChatMessages = ({navigation, route}) => {
   const [messages, setMessages] = useState([]);
@@ -74,15 +75,18 @@ const ChatMessages = ({navigation, route}) => {
             }>
             {item.text}
           </Text>
+          <Text style={styles.messageDateTime}>
+            {dayjs(item.createdAt).format('MM, DD HH:mm')}
+          </Text>
         </View>
-        <View
+        {/* <View
           style={[
             styles.triangle,
             item.ownerId === userId
               ? styles.triangleRight
               : styles.triangleLeft,
           ]}
-        />
+        /> */}
       </View>
     );
   };
@@ -91,6 +95,7 @@ const ChatMessages = ({navigation, route}) => {
     return (
       <FlatList
         contentContainerStyle={{alignItems: 'stretch'}}
+        style={{marginBottom: 16}}
         data={messages}
         keyExtractor={item => item._id}
         renderItem={renderItem}

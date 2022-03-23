@@ -8,14 +8,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   messageContainer: {
-    padding: 15,
-    borderRadius: 10,
-    marginTop: 8,
+    padding: 8,
+    marginTop: 2,
+    marginRight: 5,
+    width: 100,
+    borderRadius: 18,
   },
   userMessageContainer: {
-    backgroundColor: Styles.Colors.primaryBlue,
+    backgroundColor: Styles.Colors.gold,
     alignSelf: 'flex-end',
-    borderBottomRightRadius: 0,
+  },
+  messageDateTime: {
+    textAlign: 'right',
+    fontSize: 12,
   },
   userMessageContainerText: {
     color: Styles.Colors.white,
@@ -23,7 +28,6 @@ const styles = StyleSheet.create({
   friendMessageContainer: {
     backgroundColor: Styles.Colors.lightGrayBg,
     alignSelf: 'flex-start',
-    borderBottomLeftRadius: 0,
   },
   friendMessageContainerText: {
     color: Styles.Colors.grayText,

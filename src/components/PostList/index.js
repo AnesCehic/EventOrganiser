@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import Icon from 'react-native-remix-icon';
 import dayjs from 'dayjs';
 
 import {PostItem} from '@components';
@@ -47,10 +48,13 @@ const PostsList = ({
         }}>
         <View style={styles.featuredItemTop}>
           <View style={styles.featuredItemTopDate}>
-            <Text>{dayjs(item.start).format('DD')}</Text>
-            <Text>{dayjs(item.start).format('MMM').toUpperCase()}</Text>
+            <Text style={styles.day}>{dayjs(item.start).format('DD')}</Text>
+            <Text style={styles.month}>
+              {dayjs(item.start).format('MMM').toUpperCase()}
+            </Text>
           </View>
           <View style={styles.featuredItemTopTime}>
+            <Icon name="ri-time-fill" color="#684BA6" size={20} />
             <Text style={styles.featuredItemTopTimeText}>
               {dayjs(item.start).format('HH mm A')}
             </Text>
@@ -95,10 +99,10 @@ const PostsList = ({
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={handleRefresh} />
         }
-        onScroll={e => {
-          const scrollOffset = e.nativeEvent.contentOffset.y;
-          console.log('scroll off', scrollOffset);
-        }}
+        // onScroll={e => {
+        //   const scrollOffset = e.nativeEvent.contentOffset.y;
+        //   console.log('scroll off', scrollOffset);
+        // }}
       />
     );
   };
@@ -134,6 +138,7 @@ const styles = StyleSheet.create({
     borderColor: '#E6EBF0',
   },
   featuredItemTopTime: {
+    flexDirection: 'row',
     width: 122,
     height: 53,
     justifyContent: 'center',
@@ -144,9 +149,18 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   featuredItemTopTimeText: {
+    marginLeft: 7,
     color: '#684BA6',
     fontWeight: '700',
     fontSize: 13,
+  },
+  day: {
+    fontWeight: '700',
+    fontSize: 18,
+  },
+  month: {
+    fontSize: 12,
+    color: '#684BA6',
   },
   featuredItemBottom: {
     flex: 1,
