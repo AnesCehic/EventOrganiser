@@ -61,6 +61,7 @@ const PostDetails = ({navigation, route}) => {
         {post.images &&
           post.images.map((e, index) => (
             <View
+              key={index}
               style={[
                 styles.dots,
                 index === activeIndex ? null : styles.inactiveStyle,
@@ -81,8 +82,9 @@ const PostDetails = ({navigation, route}) => {
           onScroll={changeActiveIndex}
           showsHorizontalScrollIndicator={false}>
           {post.images &&
-            post.images.map(e => (
+            post.images.map((e, index) => (
               <Image
+                key={index}
                 resizeMode="contain"
                 source={{
                   uri: e,
