@@ -15,27 +15,26 @@ import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-const EventsOnMonth = ({route, navigation}) => {
-  const date = route?.params?.date;
+const EventsOnDay = ({route, navigation}) => {
+  const day = route?.params?.day;
 
   const [isLoading, setIsLoading] = useState(false);
   const [events, setEvents] = useState([]);
-
+  console.log('day', day);
   useEffect(() => {
-    getEventsOnMonth();
+    getEventsOnDay();
   }, []);
 
-  const getEventsOnMonth = async () => {
+  const getEventsOnDay = async () => {
     try {
       setIsLoading(true);
-      const monthGte = dayjs(date).startOf('month').format();
-      const monthLte = dayjs(date).endOf('month').format();
-
+      const dayGt = dayjs(day).subtract(1, 'day').format();
+      const dayLt = dayjs(day).add(1, 'day').format();
       const res = await EventService.find({
         query: {
           start: {
-            $gte: monthGte,
-            $lte: monthLte,
+            $gt: dayGt,
+            $lt: dayLt,
           },
         },
       });
@@ -92,7 +91,7 @@ const EventsOnMonth = ({route, navigation}) => {
   };
 
   const handleRefresh = () => {
-    getEventsOnMonth();
+    getEventsOnDay();
   };
 
   if (isLoading) {
@@ -103,7 +102,7 @@ const EventsOnMonth = ({route, navigation}) => {
     return (
       <View style={styles.noEvents}>
         <Text style={styles.noEventsText}>
-          No events in {dayjs(date).format('MMMM')}
+          No events in {dayjs(day).format('MMMM')}
         </Text>
       </View>
     );
@@ -115,9 +114,9 @@ const EventsOnMonth = ({route, navigation}) => {
         style={styles.topImage}
         source={require('../../assets/headerBackground.png')}
         resizeMode="cover">
-        <Text style={styles.headerText}>{`${dayjs(date).format(
-          'MMMM',
-        )} events`}</Text>
+        <Text style={styles.headerText}>{`${dayjs(day).format(
+          'MMMM DD',
+        )}, Events`}</Text>
       </ImageBackground>
       <View
         style={{
@@ -130,4 +129,4 @@ const EventsOnMonth = ({route, navigation}) => {
   );
 };
 
-export default EventsOnMonth;
+export default EventsOnDay;

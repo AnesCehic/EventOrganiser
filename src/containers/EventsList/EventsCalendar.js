@@ -1,123 +1,114 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import dayjs from 'dayjs';
-import {Agenda} from 'react-native-calendars';
+import {CalendarList} from 'react-native-calendars';
+import Icon from 'react-native-remix-icon';
+
+import {Styles} from '@common';
+
+import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-const EventsCalendar = ({events, navigateToEvent, navigateToMonth}) => {
+const EventsCalendar = ({navigateToEvent, navigateToMonth, navigateToDay}) => {
   const today = dayjs().format('YYYY-MM-DD');
-  const markedDates = {};
-  const eventDates = events.reduce((acc, value) => {
-    const key = dayjs(value.start).format('YYYY-MM-DD');
-    acc[key] = [
-      {
+
+  const [events, setEvents] = useState([]);
+  const [eventsMonths, setEventsMonths] = useState([]);
+
+  const eventDates = events.reduce(
+    (acc, value) => {
+      const key = dayjs(value.start).format('YYYY-MM-DD');
+      acc[key] = {
         id: value._id,
         title: value.title,
-      },
-    ];
-    markedDates[key] = {
-      marked: true,
-    };
-    return acc;
-  }, {});
+        marked: true,
+        dotColor: Styles.Colors.gold,
+      };
+      return acc;
+    },
+    {[today]: {selected: true, selectedColor: Styles.Colors.gold}},
+  );
 
-  const renderItem = item => {
-    return (
-      <TouchableOpacity
-        onPress={() => navigateToEvent(item.id)}
-        style={styles.eventItem}>
-        <Text style={styles.eventItemText}>{item.title}</Text>
-      </TouchableOpacity>
-    );
+  useEffect(() => {
+    getEvents(eventsMonths);
+  }, [eventsMonths]);
+
+  // add error handling
+  const getEvents = async months => {
+    try {
+      const mDataGTE = months.map(m => {
+        return dayjs(m.dateString).startOf('month').format();
+      });
+      const mDataLTE = months.map(m => {
+        return dayjs(m.dateString).endOf('month').format();
+      });
+
+      const eventsToShow = await EventService.find({
+        query: {
+          start: {
+            $gte: mDataGTE[0],
+            $lte: mDataLTE[mDataLTE.length - 1],
+          },
+        },
+      });
+      setEvents(eventsToShow.data);
+    } catch (error) {
+      console.log('err', error);
+    }
   };
 
   return (
-    <View style={{flex: 1}}>
-      <Agenda
-        // The list of items that have to be displayed in agenda. If you want to render item as empty date
-        // the value of date key has to be an empty array []. If there exists no value for date key it is
-        // considered that the date in question is not yet loaded
-        items={eventDates}
-        // Callback that gets called when items for a certain month should be loaded (month became visible)
-        loadItemsForMonth={month => {}}
-        // Callback that fires when the calendar is opened or closed
-        onCalendarToggled={calendarOpened => {}}
-        // Callback that gets called on day press
-        onDayPress={day => {}}
-        // Callback that gets called when day changes while scrolling agenda list
-        onDayChange={day => {}}
-        // Initially selected day
-        selected={today}
-        // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-        // minDate={today}
-        // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-        maxDate={'2032-05-30'}
-        // Max amount of months allowed to scroll to the past. Default = 50
-        pastScrollRange={100}
-        // Max amount of months allowed to scroll to the future. Default = 50
-        futureScrollRange={100}
-        // Specify how each item should be rendered in agenda
-        renderItem={renderItem}
-        // Specify how each date should be rendered. day can be undefined if the item is not first in that day
-        // renderDay={(day, item) => {}}
-        // Specify how empty date content with no items should be rendered
-        renderEmptyDate={() => {
-          return <View />;
-        }}
-        // Specify how agenda knob should look like
-        // renderKnob={}
-        // Specify what should be rendered instead of ActivityIndicator
-        renderEmptyData={() => {
-          return (
-            <View style={styles.calendarEmptyData}>
-              <Text style={styles.calendarEmptyDataText}>
-                No events on selected date
+    <CalendarList
+      // current={today}
+      // selected={today}
+      onDayPress={day => {
+        const selectedDay = Object.keys(eventDates).find(key => {
+          if (eventDates[key].marked) {
+            return key === day.dateString;
+          }
+        });
+        if (selectedDay) {
+          navigateToDay(selectedDay);
+        }
+      }}
+      onVisibleMonthsChange={months => {
+        setEventsMonths(months);
+      }}
+      // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+      monthFormat={'yyyy MM'}
+      hideArrows={true}
+      hideExtraDays={true}
+      disableMonthChange={true}
+      firstDay={1}
+      hideDayNames={false}
+      showWeekNumbers={false}
+      disableAllTouchEventsForDisabledDays={true}
+      renderHeader={date => {
+        const month = dayjs(date).format('MMMM YYYY');
+        return (
+          <View style={styles.header}>
+            <Text style={styles.calendarHeaderText}>{month}</Text>
+            <TouchableOpacity
+              style={styles.headerBtn}
+              onPress={() => {
+                navigateToMonth(month);
+              }}>
+              <Icon name="ri-calendar-todo-fill" size={18} />
+              <Text
+                style={[
+                  styles.calendarHeaderText,
+                  styles.calendarHeaderTextMonth,
+                ]}>
+                Show entire month
               </Text>
-            </View>
-          );
-        }}
-        // Specify your item comparison function for increased performance
-        rowHasChanged={(r1, r2) => {
-          return r1.text !== r2.text;
-        }}
-        // Hide knob button.
-        hideKnob={false}
-        // When `true` and `hideKnob` prop is `false`, the knob will always be visible and the user will be able to drag the knob up and close the calendar.
-        showClosingKnob={true}
-        // By default, agenda dates are marked if they have at least one item, but you can override this if needed
-        markedDates={markedDates}
-        // If disabledByDefault={true} dates flagged as not disabled will be enabled.
-        disabledByDefault={false}
-        // If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the refreshing prop correctly
-        onRefresh={null}
-        // Set this true while waiting for new data from a refresh
-        refreshing={false}
-        refreshControl={null}
-        // Agenda theme
-        theme={{
-          agendaKnobColor: '#e1e1e1',
-        }}
-        // Agenda container style
-        style={{}}
-        renderHeader={(date, i) => {
-          return (
-            <View style={styles.header}>
-              <Text>{dayjs(date['0']).format('MMMM')}</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigateToMonth(dayjs(date['0']).format());
-                  // navigation.navigate('EventsOnMonthScreen', {
-                  //   date: dayjs(date['0']).format(),
-                  // });
-                }}>
-                <Text style={styles.headerText}>Show entire month</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }}
-      />
-    </View>
+            </TouchableOpacity>
+          </View>
+        );
+      }}
+      enableSwipeMonths={false}
+      markedDates={eventDates}
+    />
   );
 };
 

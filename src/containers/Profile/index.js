@@ -54,7 +54,7 @@ const Profile = ({navigation, route}) => {
           email: userData.email,
         },
       });
-      console.log('res', resData)
+
       const postsData = resData.data.map(e => {
         console.log(e.owner);
         return {

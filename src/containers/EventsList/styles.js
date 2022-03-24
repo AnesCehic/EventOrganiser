@@ -87,16 +87,6 @@ const styles = StyleSheet.create({
   },
 
   // calendar agenda
-  eventItem: {
-    backgroundColor: 'white',
-    margin: 5,
-    borderRadius: 15,
-    justifyContent: 'center',
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-  },
-  eventItemText: {fontSize: 18},
   calendarEmptyData: {
     flex: 1,
     justifyContent: 'center',
@@ -110,11 +100,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 3,
-    marginTop: 20,
+    marginBottom: 5,
   },
-  showAgendaBtn: {
-    alignItems: 'flex-end',
+  headerBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Styles.Colors.lightGrayBg,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 20,
+  },
+  calendarHeaderText: {
+    fontWeight: '600',
+  },
+  calendarHeaderTextMonth: {
+    fontSize: 12,
+    marginLeft: 5,
   },
 });
 

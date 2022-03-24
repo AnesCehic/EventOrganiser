@@ -2,10 +2,10 @@ import React, {useEffect} from 'react';
 import {Text} from 'react-native';
 import dayjs from 'dayjs';
 
-import {EventsOnMonth} from '@containers';
+import {EventsOnDay} from '@containers';
 import {HeaderBack} from '@components';
 
-const EventsOnMonthScreen = ({route, navigation}) => {
+const EventsOnDayScreen = ({route, navigation}) => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: () => <Text />,
@@ -14,7 +14,7 @@ const EventsOnMonthScreen = ({route, navigation}) => {
       headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
     });
   }, []);
-  return <EventsOnMonth navigation={navigation} route={route} />;
+  return <EventsOnDay navigation={navigation} route={route} />;
 };
 
-export default EventsOnMonthScreen;
+export default EventsOnDayScreen;
