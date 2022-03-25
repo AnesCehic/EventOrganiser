@@ -16,6 +16,8 @@ const Styles = {
     grayBorder: '#E7ECF3',
     gold: '#BFBB85',
     grayButtonBackground: '#2D2B0D',
+    grayBorderPost: '#E7E7E7',
+    addPhotoBorder: '#E6EBF0',
   },
   Sizes: {
     avatar: 140,

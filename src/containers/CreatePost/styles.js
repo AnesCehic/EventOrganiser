@@ -5,6 +5,7 @@ import {Styles} from '@common';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Styles.Colors.white,
   },
   postTextInput: {
     paddingBottom: 68,
@@ -20,17 +21,24 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   floatingUploadImageButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: Styles.Colors.white,
     position: 'absolute',
     bottom: 16,
     left: 16,
     padding: 12,
     borderWidth: 1,
-    borderColor: '#E6EBF0',
+    borderColor: Styles.Colors.addPhotoBorder,
     borderRadius: 99,
   },
   uploadPhotoText: {
     fontSize: 12,
     fontWeight: '600',
+  },
+  imageMargin: {
+    marginRight: 5,
   },
   username: {
     height: '90%',
@@ -59,7 +67,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -5,
     right: 0,
-    backgroundColor: 'gold',
+    backgroundColor: Styles.Colors.gold,
+    borderRadius: 100,
+    padding: 5,
+    borderWidth: 3,
+    borderColor: Styles.Colors.white,
   },
 });
 

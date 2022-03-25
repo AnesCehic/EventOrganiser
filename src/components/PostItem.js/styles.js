@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     marginVertical: 5,
     borderWidth: 1,
-    borderColor: '#E7E7E7',
+    borderColor: Styles.Colors.grayBorderPost,
     elevation: 3,
     borderRadius: 8,
     padding: 12,
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   ownerName: {
     marginLeft: 7,
     fontWeight: '800',
+    color: Styles.Colors.black,
   },
   ownerAndTimeInfo: {
     marginTop: 13,

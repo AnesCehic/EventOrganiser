@@ -4,7 +4,7 @@ import {Styles} from '@common';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Styles.Colors.white,
   },
   headerLogo: {
     position: 'absolute',
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 250,
     width: '100%',
-    backgroundColor: 'lightblue',
+    backgroundColor: Styles.Colors.gold,
   },
   welcomeBack: {
     fontSize: 28,

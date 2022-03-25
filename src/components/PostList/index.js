@@ -11,6 +11,7 @@ import Icon from 'react-native-remix-icon';
 import dayjs from 'dayjs';
 
 import {PostItem} from '@components';
+import {Styles} from '@common';
 
 const PostsList = ({
   data,
@@ -114,9 +115,8 @@ const styles = StyleSheet.create({
   headerList: {
     margin: 8,
   },
-
   featuredItemContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: Styles.Colors.white,
     borderRadius: 8,
     borderWidth: 1,
     elevation: 3,

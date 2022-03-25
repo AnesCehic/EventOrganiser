@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
     color: Styles.Colors.white,
     fontSize: 14,
   },
+  lincolnImage: {
+    marginLeft: 30,
+    marginTop: 60,
+  },
 });
 
 export default styles;

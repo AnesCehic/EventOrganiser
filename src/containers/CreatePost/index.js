@@ -14,6 +14,8 @@ import {PostsService} from '@services/apiClient';
 import {UserContext} from '@contexts';
 
 import {launchImageLibrary} from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/AntDesign';
+import IconFa from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
 
@@ -126,7 +128,7 @@ const CreatePost = ({navigation}) => {
                 <TouchableOpacity
                   onPress={() => removeImage(index)}
                   style={styles.deleteButton}>
-                  <Text>Delete</Text>
+                  <Icon name="close" size={16} />
                 </TouchableOpacity>
               </View>
             );
@@ -147,7 +149,7 @@ const CreatePost = ({navigation}) => {
       </View>
       <TextInput
         style={styles.postTextInput}
-        placeholder="Post text"
+        placeholder="Write something to share"
         onChangeText={text => setPostData(text)}
         value={postData}
         multiline
@@ -158,6 +160,7 @@ const CreatePost = ({navigation}) => {
       <TouchableOpacity
         onPress={loadImages}
         style={styles.floatingUploadImageButton}>
+        <IconFa name="image" size={16} style={styles.imageMargin} />
         <Text style={styles.uploadPhotoText}>Add a photo</Text>
       </TouchableOpacity>
     </View>

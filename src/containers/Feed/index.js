@@ -77,10 +77,7 @@ const Feed = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.imageBackground}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
+      <View style={styles.imageBackground}>
         <Image
           source={require('../../assets/Home/white.png')}
           style={styles.headerLogo}
@@ -89,7 +86,7 @@ const Feed = ({navigation}) => {
           Welcome Back,{'\n'}
           {userData.firstName} {userData.lastName}
         </Text>
-      </ImageBackground>
+      </View>
       {renderPosts()}
     </View>
   );

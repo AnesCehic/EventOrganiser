@@ -1,24 +1,11 @@
-import React, {useEffect} from 'react';
-import {Text, Image, View, ImageBackground, StatusBar} from 'react-native';
+import React from 'react';
+import {Text, Image, View, ImageBackground} from 'react-native';
 
 import {SubmitButton, BottomStartScreenButton} from '@components';
 
 import styles from './styles';
-import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Start = ({navigation}) => {
-  useEffect(() => {
-    getJwtToken();
-  }, []);
-
-  const getJwtToken = async () => {
-    try {
-      const res = await AsyncStorageLib.getItem('feathers-jwt');
-    } catch (error) {
-      console.log('[Error get jwt token]', error);
-    }
-  };
-
   return (
     <ImageBackground
       source={require('../../assets/background-video.png')}
@@ -26,7 +13,7 @@ const Start = ({navigation}) => {
       style={styles.mainContainer}>
       <Image
         source={require('../../assets/Home/white.png')}
-        style={{marginLeft: 30, marginTop: 60}}
+        style={styles.lincolnImage}
       />
       <View style={styles.headerContainer}>
         <Text style={styles.headers}>Welcome to{'\n'}Lincoln Club</Text>

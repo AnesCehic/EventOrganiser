@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 
   user: {
-    backgroundColor: 'white',
+    backgroundColor: Styles.Colors.white,
     borderRadius: 10,
     padding: 10,
     borderWidth: 1,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     right: -5,
   },
   userArrowIcon: {
-    color: '#000',
+    color: Styles.Colors.black,
   },
 
   userInfo: {
