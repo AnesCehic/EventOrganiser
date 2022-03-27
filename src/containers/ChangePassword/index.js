@@ -1,9 +1,11 @@
-import React, {useState, useRef} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState, useRef, useContext} from 'react';
 import {Text, View, ImageBackground, Keyboard} from 'react-native';
 import Icon from 'react-native-remix-icon';
 
 import {TextInput, SubmitButton, LoadingIndicator} from '@components';
 import {Styles} from '@common';
+import {UserContext} from '@contexts';
 
 import {ForgotPasswordService} from '@services/apiClient';
 import {toast} from '@utils';
@@ -11,53 +13,19 @@ import {toast} from '@utils';
 import styles from './styles';
 
 const ChangePassword = ({navigation}) => {
+  const {userData} = useContext(UserContext);
+
   const newPassRef = useRef(null);
   const confirmNewPassRef = useRef(null);
 
-  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [currentPassErr, setCurrentPassErr] = useState(false);
   const [newPassErr, setNewPassErr] = useState(false);
 
   const renderInputFields = () => {
     return (
       <View style={styles.inputFieldsContainer}>
-        <View style={styles.fieldWrapper}>
-          <Text style={styles.inputFieldLabel}>Current password</Text>
-          <TextInput
-            style={[
-              styles.inputField,
-              currentPassErr
-                ? {
-                    borderColor: 'red',
-                    borderBottomLeftRadius: 0,
-                    borderBottomRightRadius: 0,
-                  }
-                : {},
-            ]}
-            onChangeText={setCurrentPassword}
-            value={currentPassword}
-            placeholder="Type your current password"
-            onSubmitEditing={() => {
-              newPassRef.current.focus();
-            }}
-            blurOnSubmit={false}
-            // secureTextEntry={true}
-            autoCapitalize="none"
-          />
-          {currentPassErr ? (
-            <View style={styles.errorWrapper}>
-              <Icon
-                name="ri-close-circle-line"
-                size={16}
-                color={Styles.Colors.error}
-              />
-              <Text style={styles.errorText}>Error</Text>
-            </View>
-          ) : null}
-        </View>
         <View style={styles.fieldWrapper}>
           <Text style={styles.inputFieldLabel}>New password</Text>
           <TextInput
@@ -134,27 +102,6 @@ const ChangePassword = ({navigation}) => {
 
   const handleSubmit = async () => {
     try {
-      if (!currentPassword) {
-        setCurrentPassErr(true);
-        console.log('returned,1');
-      } else {
-        setCurrentPassErr(false);
-      }
-      if (
-        !newPassword ||
-        !confirmNewPassword ||
-        newPassword.length < 5 ||
-        confirmNewPassword.length < 5 ||
-        newPassword !== confirmNewPassword
-      ) {
-        setNewPassErr(true);
-      } else {
-        setNewPassErr(false);
-      }
-      if (currentPassErr || newPassErr) {
-        return;
-      }
-
       setIsLoading(true);
 
       // const res = await ForgotPasswordService.update(
@@ -163,9 +110,9 @@ const ChangePassword = ({navigation}) => {
       //     password: newPassword,
       //   },
       // );
-      // const res = ForgotPasswordService.create({
-      //   password: newPassword
-      // })
+      // const res = await ForgotPasswordService.create({
+      //   password: newPassword,
+      // });
 
       // setCurrentPassErr(false);
       // setNewPassErr(false);
