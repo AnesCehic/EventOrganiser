@@ -25,7 +25,7 @@ import ExpensesScreen from './ExpensesScreen';
 import ChatMessagesScreen from './ChatMessagesScreen';
 import PreferencesScreen from './PreferencesScreen';
 import InsightsScreen from './InsightsScreen';
-import EventsOnDayScreen from './EventsOnMonthScreen';
+import EventsOnDayScreen from './EventsOnDayScreen';
 import GroupMembersScreen from './GroupMembersScreen';
 import VerifyAccountScreen from './VerifyAccountScreen';
 import ChangePasswordScreen from './ChangePasswordScreen';
@@ -34,6 +34,7 @@ import UpdateUserFormScreen from './UpdateUserFormScreen';
 import CreatePostScreen from './CreatePostScreen';
 import PostDetailsSCreen from './PostsDetailsScreen';
 import PersonalDetailsScreen from './PersonalDetailsScreen';
+import MyEventsScreen from './MyEventsScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -223,6 +224,7 @@ const MainNavigation = () => {
               name="EventsOnDayScreen"
               component={EventsOnDayScreen}
             />
+            <Stack.Screen name="MyEventsScreen" component={MyEventsScreen} />
             <Stack.Screen
               name="UpdateUserForm"
               component={UpdateUserFormScreen}

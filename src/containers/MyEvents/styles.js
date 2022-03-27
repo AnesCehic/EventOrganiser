@@ -2,6 +2,23 @@ import {StyleSheet} from 'react-native';
 import {Styles} from '@common';
 
 const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  topImage: {
+    justifyContent: 'center',
+    height: 200,
+    width: '100%',
+  },
+  headerText: {
+    fontSize: 26,
+    marginTop: 40,
+    color: 'white',
+    marginLeft: 20,
+  },
+
   eventsListItemContainer: {
     backgroundColor: Styles.Colors.white,
     borderWidth: 1,

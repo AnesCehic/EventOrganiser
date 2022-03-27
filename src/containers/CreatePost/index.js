@@ -26,11 +26,9 @@ const CreatePost = ({navigation}) => {
 
   useEffect(() => {
     // hasAndroidPermission();
-    console.log(postData);
   }, [postData]);
 
   const createPostMethod = async () => {
-    console.log(loadedImages, postData);
     try {
       const token = await AsyncStorageLib.getItem('feathers-jwt');
 
@@ -57,8 +55,6 @@ const CreatePost = ({navigation}) => {
         body: postData,
         uploadId: upload._id,
       });
-
-      console.log('Post created', res);
     } catch (error) {
       console.log('[Error creating post]', error);
     }
@@ -103,8 +99,6 @@ const CreatePost = ({navigation}) => {
       const res = await launchImageLibrary({
         mediaType: 'photo',
       });
-
-      console.log('Assets', res.assets, loadedImages);
 
       if (!res.assets) {
         throw new Error('Image is not selected');

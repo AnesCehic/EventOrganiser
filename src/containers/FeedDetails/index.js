@@ -45,7 +45,7 @@ const FeedDetails = ({navigation, route}) => {
     try {
       setIsLoading(true);
       const res = await EventService.get(route.params.id);
-      console.log(res);
+
       let image = res.upload.files[0].signedURL;
       setEventData({
         ...res,
@@ -80,7 +80,6 @@ const FeedDetails = ({navigation, route}) => {
   }, []);
 
   const setNoteText = text => {
-    console.log(text);
     setNote(text);
   };
 

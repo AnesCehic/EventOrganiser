@@ -24,9 +24,8 @@ const Feed = ({navigation}) => {
   const loadPosts = async () => {
     try {
       const {data} = await PostsService.find();
-      console.log(data);
+
       const postsData = data.map(e => {
-        console.log(e.owner);
         return {
           id: e._id,
           headline: e.title,
