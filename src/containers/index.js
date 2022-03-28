@@ -19,6 +19,7 @@ import _CreatePost from './CreatePost';
 import _PostDetails from './PostDetails';
 import _PersonalDetails from './PersonalDetails';
 import _MyEvents from './MyEvents';
+import _ForgotPassword from './ForgotPassword';
 
 export const EventsList = _EventsList;
 export const Start = _Start;
@@ -41,3 +42,4 @@ export const PostDetails = _PostDetails;
 export const PersonalDetails = _PersonalDetails;
 export const MyEvents = _MyEvents;
 export const EventsOnDay = _EventsOnDay;
+export const ForgotPassword = _ForgotPassword;

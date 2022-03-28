@@ -1,61 +1,48 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, ImageBackground, Image} from 'react-native';
-import dayjs from 'dayjs';
-
-import Search from '@components/SearchInput';
 
 import {PostsList, LoadingIndicator} from '@components';
-import {useEvents} from '../../hooks';
-
-import {PostsService} from '../../services/apiClient';
 import {UserContext} from '@contexts';
-import {Styles} from '@common';
 
-import AsyncStorageLib from '@react-native-async-storage/async-storage';
+import {EventService, PostsService} from '@services/apiClient';
+import {toast} from '@utils';
+
 import styles from './styles';
 
 const Feed = ({navigation}) => {
   const {userData} = useContext(UserContext);
-  const {events, eventsError, eventsLoading, refetch} = useEvents();
-  const [refreshing, setRefreshing] = useState(false);
-  const [user, setUser] = useState(true);
+  const [events, setEvents] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const loadPosts = async () => {
+  useEffect(() => {
+    getPostsAndEvents();
+  }, []);
+
+  const getPostsAndEvents = async () => {
     try {
+      setIsLoading(true);
       const {data} = await PostsService.find();
-
-      const postsData = data.map(e => {
-        return {
-          id: e._id,
-          headline: e.title,
-          content: e.body,
-          img: e.upload?.files,
-          owner: e.owner,
-          createdAt: e.createdAt,
-        };
+      setPosts(data);
+      const eventsToShow = await EventService.find({
+        query: {
+          start: {
+            $gte: new Date(),
+          },
+        },
       });
-      setPosts(postsData);
-      // const res2 = await PostsService.get(res.data[0]._id);
-      // console.log('posts2', res2);
+      setEvents(eventsToShow.data);
     } catch (error) {
-      console.log('[Error loading posts]', error);
+      toast('error', 'Error', error.message);
+      console.log('[Error loading posts and events home screen]', error);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    loadPosts();
-  }, []);
-
-  useEffect(() => {
-    if (refreshing) {
-      setRefreshing(false);
-    }
-  }, [refreshing]);
-
   const handleRefresh = () => {
-    refetch({});
-    loadPosts();
+    getPostsAndEvents();
   };
 
   const renderPosts = () => {
@@ -70,7 +57,7 @@ const Feed = ({navigation}) => {
     );
   };
 
-  if (eventsLoading) {
+  if (isLoading) {
     return <LoadingIndicator />;
   }
 
