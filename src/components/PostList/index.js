@@ -73,12 +73,12 @@ const PostsList = ({
       <PostItem
         onPress={() =>
           navigation.navigate('PostDetails', {
-            id: post.id,
+            id: post._id,
           })
         }
-        img={post.img}
+        img={post.upload?.files}
         time={post.time}
-        content={post.content}
+        content={post.body}
         owner={post.owner}
         createdAt={post.createdAt}
       />

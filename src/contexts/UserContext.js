@@ -7,8 +7,6 @@ const UserContext = createContext({
   setAllowMessaging: chat => {},
   userData: {},
   setUserData: userData => {},
-  darkMode: false,
-  setDarkMode: darkMode => {},
 });
 
 export default UserContext;

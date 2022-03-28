@@ -47,7 +47,7 @@ const ChangePassword = ({navigation}) => {
             onSubmitEditing={() => {
               confirmNewPassRef.current.focus();
             }}
-            // secureTextEntry={true}
+            secureTextEntry={true}
             autoCapitalize="none"
           />
           {newPassErr ? (
@@ -82,7 +82,7 @@ const ChangePassword = ({navigation}) => {
               Keyboard.dismiss();
             }}
             ref={confirmNewPassRef}
-            // secureTextEntry={true}
+            secureTextEntry={true}
             autoCapitalize="none"
           />
           {newPassErr ? (
@@ -103,21 +103,6 @@ const ChangePassword = ({navigation}) => {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-
-      // const res = await ForgotPasswordService.update(
-      //   '620a9de1c8ec5100103aca38',
-      //   {
-      //     password: newPassword,
-      //   },
-      // );
-      // const res = await ForgotPasswordService.create({
-      //   password: newPassword,
-      // });
-
-      // setCurrentPassErr(false);
-      // setNewPassErr(false);
-      // toast('success', 'Success', 'Password changed!');
-      // navigation.goBack();
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error reset password]', error);
