@@ -24,18 +24,7 @@ import {client, ChangeEmail, UsersService} from '@services/apiClient';
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
-// Add menuScreen from Constants.NavigationScreens when ready
 const MenuItems = [
-  // {
-  //   id: 1,
-  //   menuText: 'Profile',
-  //   menuScreen: Constants.NavigationScreens.ProfileScreen,
-  // },
-  // {
-  //   id: 6,
-  //   menuText: 'Create post',
-  //   menuScreen: Constants.NavigationScreens.CreatePostScreen,
-  // },
   {
     id: 1,
     menuText: 'Edit info',
@@ -84,14 +73,8 @@ const MenuItems = [
 ];
 
 const EditProfile = ({navigation}) => {
-  const {
-    setAuthenticated,
-    userData,
-    allowMessaging,
-    setAllowMessaging,
-    darkMode,
-    setDarkMode,
-  } = useContext(UserContext);
+  const {setAuthenticated, allowMessaging, setAllowMessaging} =
+    useContext(UserContext);
 
   const [isLoading, setIsLoading] = useState(false);
   const [data, setUserData] = useState({
@@ -104,11 +87,13 @@ const EditProfile = ({navigation}) => {
 
   useEffect(() => {
     getUser();
+    return () => {
+      setIsLoading(false);
+    };
   }, []);
 
   const [allowMessagingState, setAllowMessagingState] =
     useState(allowMessaging);
-  const [darkModeState, setDarkModeState] = useState(darkMode);
 
   const handleLogout = () => setAuthenticated(false);
 
@@ -120,17 +105,6 @@ const EditProfile = ({navigation}) => {
       setAllowMessaging(value);
     } catch (error) {
       console.log('[Error set allow messaging / anonomous mode]', error);
-    }
-  };
-
-  const setDarkModeAsync = async value => {
-    try {
-      const isDarkMode = value ? 'enabled' : 'disabled';
-      await AsyncStorageLib.setItem('@darkMode', isDarkMode);
-      setDarkModeState(value);
-      setDarkMode(value);
-    } catch (error) {
-      console.log('[Error set dark mode]', error);
     }
   };
 
@@ -256,11 +230,7 @@ const EditProfile = ({navigation}) => {
         </View>
         <View style={[styles.menuItem, styles.logoutItem]}>
           <View style={styles.leftContent}>
-            <Ionicons
-              name="chatbubbles-outline"
-              size={22}
-              // color={Styles.Colors.gold}
-            />
+            <Ionicons name="chatbubbles-outline" size={22} />
             <Text style={styles.menuItemText}>Allow messaging</Text>
           </View>
           <Switch
@@ -272,27 +242,6 @@ const EditProfile = ({navigation}) => {
             ios_backgroundColor={Styles.Colors.darkGrayBg}
             onValueChange={setAllowMessagingAsync}
             value={allowMessagingState}
-            style={{transform: [{scaleX: 0.9}, {scaleY: 0.9}]}}
-          />
-        </View>
-        <View style={[styles.menuItem, styles.logoutItem]}>
-          <View style={styles.leftContent}>
-            <Ionicons
-              name="chatbubbles-outline"
-              size={22}
-              // color={Styles.Colors.gold}
-            />
-            <Text style={styles.menuItemText}>Dark mode</Text>
-          </View>
-          <Switch
-            trackColor={{
-              false: Styles.Colors.darkGrayBg,
-              true: Styles.Colors.success,
-            }}
-            thumbColor={Styles.Colors.white}
-            ios_backgroundColor={Styles.Colors.darkGrayBg}
-            onValueChange={setDarkModeAsync}
-            value={darkModeState}
             style={{transform: [{scaleX: 0.9}, {scaleY: 0.9}]}}
           />
         </View>

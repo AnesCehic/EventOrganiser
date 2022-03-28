@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 import styles from './styles';
 
-const Form = ({submitLogin, isLoading}) => {
+const Form = ({navigation, submitLogin, isLoading}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
@@ -28,6 +28,7 @@ const Form = ({submitLogin, isLoading}) => {
         style={stylesHelper.shadow}
         setUsername={setUsername}
         onChangeValue={value => setUsername(value)}
+        autoCapitalize="none"
       />
       <View style={styles.passwordWrapper}>
         <TextInput
@@ -37,6 +38,7 @@ const Form = ({submitLogin, isLoading}) => {
           secureTextEntry={passwordHidden}
           value={password}
           onChangeValue={value => setPassword(value)}
+          autoCapitalize="none"
         />
         <Icon
           style={styles.passwordHiddenIcon}
@@ -59,7 +61,10 @@ const Form = ({submitLogin, isLoading}) => {
       />
 
       <TouchableOpacity
-        onPress={() => null}
+        onPress={() => {
+          console.log('asd');
+          navigation.navigate('ForgotPasswordScreen');
+        }}
         style={stylesHelper.forgotPassword}>
         <Text>Forgot your password?</Text>
       </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {Image, TouchableOpacity} from 'react-native';
+import {Image} from 'react-native';
 import Icon from 'react-native-remix-icon';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -35,6 +35,7 @@ import CreatePostScreen from './CreatePostScreen';
 import PostDetailsSCreen from './PostsDetailsScreen';
 import PersonalDetailsScreen from './PersonalDetailsScreen';
 import MyEventsScreen from './MyEventsScreen';
+import ForgotPasswordScreen from './ForgotPasswordScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -157,7 +158,8 @@ const ProfileNavigation = () => {
 
 const MainNavigation = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const {authenticated, setAuthenticated} = useContext(UserContext);
+  const {authenticated, setAuthenticated, setUserData} =
+    useContext(UserContext);
 
   useEffect(() => {
     getAuth();
@@ -166,8 +168,15 @@ const MainNavigation = () => {
   const getAuth = async () => {
     try {
       setIsLoading(true);
-      await client.reAuthenticate();
-
+      const {user} = await client.reAuthenticate();
+      setUserData({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        _id: user._id,
+        avatarImg:
+          'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f',
+      });
       setAuthenticated(true);
     } catch (error) {
       console.log('[Error get is signed in navigation index]', error);
@@ -189,6 +198,10 @@ const MainNavigation = () => {
             <Stack.Screen name="Start" component={StartScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen
+              name="ForgotPasswordScreen"
+              component={ForgotPasswordScreen}
+            />
             <Stack.Screen
               name="VerifyAccount"
               component={VerifyAccountScreen}

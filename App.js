@@ -1,6 +1,12 @@
 /* eslint-disable */
 import React, {useEffect, useState} from 'react';
-import {View, StatusBar, StyleSheet, Appearance, useColorScheme} from 'react-native';
+import {
+  View,
+  StatusBar,
+  StyleSheet,
+  Appearance,
+  useColorScheme,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
 
@@ -70,33 +76,12 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [allowMessaging, setAllowMessaging] = useState(false);
   const [userData, setUserData] = useState({});
-  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     setAnonymousMode();
     const colorScheme = Appearance.getColorScheme();
-    console.log('Color Scheme', colorScheme)
-    getUser();
-    setDarkModeAsync();
-    setAnonymousMode();
+    console.log('Color Scheme', colorScheme);
   }, []);
-
-  const setDarkModeAsync = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@darkMode');
-      let isDarkModeEnabled;
-      if (value) {
-        isDarkModeEnabled = value === 'enabled';
-      }
-      if (!value) {
-        await AsyncStorage.setItem('@darkMode', 'disabled');
-        isDarkModeEnabled = false;
-      }
-      setDarkMode(isDarkModeEnabled);
-    } catch (error) {
-      console.log('[Error set dark mode to storage]', error);
-    }
-  };
 
   const setAnonymousMode = async () => {
     try {
@@ -118,23 +103,6 @@ const App = () => {
     }
   };
 
-  const getUser = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('@userId');
-      const {firstName, lastName, email, _id} = await UsersService.get(userId);
-      setUserData({
-        firstName,
-        lastName,
-        email,
-        _id,
-        avatarImg:
-          'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f',
-      });
-    } catch (error) {
-      console.log('[Error get user data app]', error);
-    }
-  };
-
   if (isLoading) {
     return <LoadingIndicator />;
   }
@@ -150,8 +118,6 @@ const App = () => {
             setAllowMessaging,
             userData,
             setUserData,
-            darkMode,
-            setDarkMode,
           }}>
           <View style={styles.container}>
             <StatusBar translucent backgroundColor="transparent" />

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -13,8 +13,6 @@ import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 
 import {LoadingIndicator, BottomSheetModal} from '@components';
-import {Constants, Styles} from '@common';
-import {UserContext} from '@contexts';
 import {toast} from '@utils';
 
 import EventsCalendar from './EventsCalendar';
@@ -23,8 +21,6 @@ import {EventService} from '@services/apiClient';
 import styles from './styles';
 
 const EventsList = ({navigation}) => {
-  const {userData} = useContext(UserContext);
-
   const [isLoading, setIsLoading] = useState(false);
   const [events, setEvents] = useState([]);
   const [eventsFromToday, setEventsFromToday] = useState([]);
@@ -72,7 +68,6 @@ const EventsList = ({navigation}) => {
   };
 
   const renderEventsList = () => {
-    console.log('events', events);
     return (
       <FlatList
         data={eventsFromToday}
