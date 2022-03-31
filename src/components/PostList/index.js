@@ -26,15 +26,19 @@ const PostsList = ({
   const renderFeaturedPosts = () => {
     return (
       <View>
-        <Text style={styles.latestUpdate}>Your picks</Text>
-        <FlatList
-          style={styles.headerList}
-          data={headerData}
-          keyExtractor={item => item.id}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          renderItem={renderFeaturedItem}
-        />
+        {headerData.length !== 0 ? (
+          <View>
+            <Text style={styles.latestUpdate}>Your picks</Text>
+            <FlatList
+              style={styles.headerList}
+              data={headerData}
+              keyExtractor={item => item.id}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              renderItem={renderFeaturedItem}
+            />
+          </View>
+        ) : null}
         <Text style={styles.latestUpdate}>Latest updates</Text>
       </View>
     );
