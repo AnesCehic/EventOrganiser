@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {Image} from 'react-native';
-import Icon from 'react-native-remix-icon';
+import {Image, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+// import IconRemix from 'react-native-remix-icon';
+import IconFeather from 'react-native-vector-icons/Feather';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -36,6 +38,7 @@ import PostDetailsSCreen from './PostsDetailsScreen';
 import PersonalDetailsScreen from './PersonalDetailsScreen';
 import MyEventsScreen from './MyEventsScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
+import GoogleLogin from './GoogleLogin';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -70,7 +73,7 @@ const BottomTabNavigation = () => {
           // tabBarIcon: () => <Image source={require('../assets/Home.png')} />,
           tabBarIcon: props => {
             const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
-            return <Icon name={'ri-home-line'} size={24} color={iconColor} />;
+            return <IconFeather name={'home'} size={24} color={iconColor} />;
           },
           tabBarLabel: 'Home',
           unmountOnBlur: true,
@@ -82,7 +85,12 @@ const BottomTabNavigation = () => {
         inactiveColor="#3e2465"
         name="Calendar"
         options={{
-          tabBarIcon: () => <Image source={require('../assets/Shape.png')} />,
+          tabBarIcon: props => {
+            const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
+            return (
+              <IconFeather name={'calendar'} size={24} color={iconColor} />
+            );
+          },
           tabBarLabel: 'Events',
           unmountOnBlur: true,
         }}
@@ -92,7 +100,12 @@ const BottomTabNavigation = () => {
         name="Messages"
         options={{
           headerShown: false,
-          tabBarIcon: () => <Image source={require('../assets/Chat.png')} />,
+          tabBarIcon: props => {
+            const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
+            return (
+              <Icon name={'chatbubbles-outline'} size={24} color={iconColor} />
+            );
+          },
           tabBarLabel: 'Chat',
           unmountOnBlur: true,
         }}
@@ -102,7 +115,10 @@ const BottomTabNavigation = () => {
         name="Profile"
         options={{
           headerShown: false,
-          tabBarIcon: () => <Image source={require('../assets/Profile.png')} />,
+          tabBarIcon: props => {
+            const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
+            return <IconFeather name={'user'} size={24} color={iconColor} />;
+          },
           tabBarLabel: 'Account',
           unmountOnBlur: true,
         }}
@@ -165,6 +181,8 @@ const MainNavigation = () => {
     getAuth();
   }, []);
 
+  // cannot update
+
   const getAuth = async () => {
     try {
       setIsLoading(true);
@@ -190,8 +208,28 @@ const MainNavigation = () => {
     return <LoadingIndicator />;
   }
 
+  const linking = {
+    prefixes: ['lincolnapp://'],
+    config: {
+      screens: {
+        Login: {
+          path: 'sign-in',
+          exact: true,
+        },
+        Start: {
+          path: 'email-verified',
+          exact: true,
+        },
+        GoogleLogin: {
+          path: 'oauth/:result',
+          exact: true,
+        },
+      },
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator initialRouteName="Start">
         {!authenticated ? (
           <>
@@ -206,6 +244,7 @@ const MainNavigation = () => {
               name="VerifyAccount"
               component={VerifyAccountScreen}
             />
+            <Stack.Screen name="GoogleLogin" component={GoogleLogin} />
           </>
         ) : (
           <>
