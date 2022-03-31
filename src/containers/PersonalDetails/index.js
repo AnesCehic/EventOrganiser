@@ -175,12 +175,9 @@ const PersonalDetails = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
+      <View style={styles.topImage}>
         <Text style={styles.headerText}>Personal details</Text>
-      </ImageBackground>
+      </View>
       {renderAvatar()}
       {renderInputFields()}
     </View>

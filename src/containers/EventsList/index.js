@@ -4,7 +4,7 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
-  ImageBackground,
+  Appearance,
   Image,
   RefreshControl,
 } from 'react-native';
@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 
 import {LoadingIndicator, BottomSheetModal} from '@components';
 import {toast} from '@utils';
+import {Styles} from '@common';
 
 import EventsCalendar from './EventsCalendar';
 
@@ -21,6 +22,7 @@ import {EventService} from '@services/apiClient';
 import styles from './styles';
 
 const EventsList = ({navigation}) => {
+  const colorScheme = Appearance.getColorScheme();
   const [isLoading, setIsLoading] = useState(false);
   const [events, setEvents] = useState([]);
   const [eventsFromToday, setEventsFromToday] = useState([]);
@@ -179,7 +181,10 @@ const EventsList = ({navigation}) => {
         <TouchableOpacity
           style={styles.showAgendaBtn}
           onPress={() => setShowAgenda(false)}>
-          <Icon name="ri-close-line" />
+          <Icon
+            name="ri-close-line"
+            color={colorScheme === 'light' ? '#000' : Styles.Colors.gold}
+          />
         </TouchableOpacity>
         <EventsCalendar
           // events={events}
@@ -203,7 +208,11 @@ const EventsList = ({navigation}) => {
           <TouchableOpacity
             style={styles.topMonthTouch}
             onPress={() => setShowAgenda(true)}>
-            <Icon name="ri-calendar-todo-fill" size={18} />
+            <Icon
+              name="ri-calendar-todo-fill"
+              size={18}
+              color={colorScheme === 'light' ? '#000' : Styles.Colors.gold}
+            />
             <Text
               style={{
                 marginLeft: 5,
@@ -215,9 +224,15 @@ const EventsList = ({navigation}) => {
         </View>
         {/* {renderMyEventsButton()} */}
       </View>
-      <View style={[styles.eventsListContainer, {marginTop: -60}]}>
-        {renderEventsList()}
-      </View>
+      {eventsFromToday.length > 0 ? (
+        <View style={[styles.eventsListContainer, {marginTop: -60}]}>
+          {renderEventsList()}
+        </View>
+      ) : (
+        <View>
+          <Text>No future events...</Text>
+        </View>
+      )}
 
       {renderAgenda()}
     </View>

@@ -219,11 +219,7 @@ const Profile = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover"
-      />
+      <View style={styles.topImage} />
       <View style={styles.contentContainer}>
         <View style={styles.userWrapper}>
           <View>

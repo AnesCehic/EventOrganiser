@@ -1,4 +1,6 @@
 import {StyleSheet} from 'react-native';
+import {Appearance} from 'react-native';
+const colorScheme = Appearance.getColorScheme();
 
 import {Styles} from '@common';
 
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   userMessageContainer: {
-    backgroundColor: Styles.Colors.gold,
+    backgroundColor: colorScheme === 'light' ? Styles.Colors.gold : '#1C2329',
     alignSelf: 'flex-end',
   },
   messageDateTime: {
@@ -26,7 +28,8 @@ const styles = StyleSheet.create({
     color: Styles.Colors.white,
   },
   friendMessageContainer: {
-    backgroundColor: Styles.Colors.lightGrayBg,
+    backgroundColor:
+      colorScheme === 'light' ? Styles.Colors.lightGrayBg : '#4C5761',
     alignSelf: 'flex-start',
   },
   friendMessageContainerText: {

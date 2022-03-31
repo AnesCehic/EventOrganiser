@@ -8,7 +8,7 @@ const ChatMessagesScreen = ({navigation, route}) => {
     // const parent = navigation.getParent();
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: Styles.Colors.gold,
+        backgroundColor: Styles.Colors.topBackground,
       },
     });
     // parent.setOptions({
