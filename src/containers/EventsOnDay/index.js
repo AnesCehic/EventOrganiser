@@ -110,14 +110,14 @@ const EventsOnDay = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
+      <View
         style={styles.topImage}
         source={require('../../assets/headerBackground.png')}
         resizeMode="cover">
         <Text style={styles.headerText}>{`${dayjs(day).format(
           'MMMM DD',
         )}, Events`}</Text>
-      </ImageBackground>
+      </View>
       <View
         style={{
           padding: 10,

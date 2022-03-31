@@ -31,7 +31,7 @@ const PostDetails = ({navigation, route}) => {
           alignSelf: 'center',
         },
         headerStyle: {
-          backgroundColor: Styles.Colors.gold,
+          backgroundColor: Styles.Colors.topBackground,
         },
         title: `${res.owner.firstName} ${res.owner.lastName}'s post`,
       });
@@ -103,7 +103,9 @@ const PostDetails = ({navigation, route}) => {
               styles.ownerName
             }>{`${post?.owner?.firstName} ${post?.owner?.lastName}`}</Text>
         </View>
-        <Text>{post.createdAt ? dayjs(post.createdAt).fromNow() : null}</Text>
+        <Text>
+          {post.createdAt ? dayjs(post.createdAt).format('MMM D, YYYY') : null}
+        </Text>
       </View>
       <Text style={styles.postBody}>{post?.body}</Text>
     </View>

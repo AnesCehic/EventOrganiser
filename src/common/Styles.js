@@ -1,3 +1,6 @@
+import {Appearance, useColorScheme} from 'react-native';
+const colorScheme = Appearance.getColorScheme();
+
 const Styles = {
   Colors: {
     white: '#fff',
@@ -16,6 +19,12 @@ const Styles = {
     grayBorder: '#E7ECF3',
     gold: '#BFBB85',
     grayButtonBackground: '#2D2B0D',
+
+    topBackground: colorScheme === 'dark' ? '#BFBB85' : '##fff',
+    darkBgLight: colorScheme === 'dark' ? '#1C2329' : '#fff',
+    darkBgLight2: colorScheme === 'dark' ? '#4C5761' : '#fff',
+    purple: '#684BA6',
+    iconGray: colorScheme === 'dark' ? 'gray' : '#fff',
   },
   Sizes: {
     avatar: 140,

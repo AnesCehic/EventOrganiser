@@ -21,12 +21,20 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
   },
+  topMonthTouch: {
+    borderRadius: 20,
+    backgroundColor: Styles.Colors.darkBgLight2,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   eventsListContainer: {
     paddingHorizontal: 10,
     flex: 1,
   },
   eventsListItemContainer: {
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.darkBgLight,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: Styles.Colors.grayBorder,

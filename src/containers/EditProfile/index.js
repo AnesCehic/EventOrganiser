@@ -6,7 +6,6 @@ import {
   Alert,
   ScrollView,
   TouchableOpacity,
-  ImageBackground,
   Switch,
 } from 'react-native';
 import {Avatar} from 'react-native-elements';
@@ -306,19 +305,20 @@ const EditProfile = ({navigation}) => {
   if (isLoading) {
     return <LoadingIndicator />;
   }
-
+  console.log('asdasdasd', Styles.Colors.iconGray);
   return (
     <ScrollView style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
+      <View style={styles.topImage}>
         <Text style={styles.headerText}>My account</Text>
-      </ImageBackground>
+      </View>
       <View style={styles.content}>
         {renderUser()}
         <View style={styles.settings}>
-          <Icon name="ri-sound-module-line" size={16} />
+          <Icon
+            name="ri-sound-module-line"
+            size={16}
+            color={Styles.Colors.iconGray}
+          />
           <Text style={styles.settingsText}>Settings</Text>
         </View>
         {renderMenu()}

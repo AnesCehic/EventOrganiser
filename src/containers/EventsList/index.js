@@ -197,35 +197,24 @@ const EventsList = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
+      <View style={styles.topImage}>
         <View style={styles.topImageContent}>
           <Text style={styles.headerText}>Events</Text>
           <TouchableOpacity
-            style={{
-              borderRadius: 20,
-              backgroundColor: 'white',
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
+            style={styles.topMonthTouch}
             onPress={() => setShowAgenda(true)}>
             <Icon name="ri-calendar-todo-fill" size={18} />
             <Text
               style={{
                 marginLeft: 5,
                 fontWeight: '600',
-                // color: 'white',
               }}>
               {dayjs().format('MMMM')}
             </Text>
           </TouchableOpacity>
         </View>
         {/* {renderMyEventsButton()} */}
-      </ImageBackground>
+      </View>
       <View style={[styles.eventsListContainer, {marginTop: -60}]}>
         {renderEventsList()}
       </View>
