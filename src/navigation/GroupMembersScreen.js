@@ -7,7 +7,7 @@ const GroupMembersScreen = ({navigation, route}) => {
   useEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: Styles.Colors.gold,
+        backgroundColor: Styles.Colors.topBackground,
       },
       headerTitleAlign: 'center',
     });
