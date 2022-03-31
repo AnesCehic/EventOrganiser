@@ -1,4 +1,4 @@
-import {Appearance, useColorScheme} from 'react-native';
+import {Appearance} from 'react-native';
 const colorScheme = Appearance.getColorScheme();
 
 const Styles = {

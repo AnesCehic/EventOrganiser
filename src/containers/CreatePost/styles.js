@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     height: '60%',
     padding: 16,
     textAlignVertical: 'top',
+    backgroundColor: Styles.Colors.darkBgLight,
   },
   userData: {
     height: '10%',
@@ -19,6 +20,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 16,
     width: '100%',
+    backgroundColor: Styles.Colors.darkBgLight,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
   },
   floatingUploadImageButton: {
     flexDirection: 'row',
