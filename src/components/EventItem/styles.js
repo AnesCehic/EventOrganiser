@@ -3,7 +3,7 @@ import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   eventsListItemContainer: {
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.darkBgLight,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: Styles.Colors.grayBorder,

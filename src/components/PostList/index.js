@@ -20,6 +20,8 @@ const PostsList = ({
   handleRefresh,
   style,
   route,
+  hasMore,
+  onEndReached,
 }) => {
   const renderFeaturedPosts = () => {
     return (
@@ -72,14 +74,15 @@ const PostsList = ({
   const renderItem = ({item: post}) => {
     return (
       <PostItem
+        key={post._id}
         onPress={() =>
           navigation.navigate('PostDetails', {
-            id: post._id,
+            id: post.id,
           })
         }
-        img={post.upload?.files}
+        img={post.img}
         time={post.time}
-        content={post.body}
+        content={post.content}
         owner={post.owner}
         createdAt={post.createdAt}
       />
@@ -95,6 +98,7 @@ const PostsList = ({
         data={data}
         style={style}
         renderItem={renderItem}
+        onEndReached={onEndReached}
         keyExtractor={item => item.id}
         refreshing={false}
         refreshControl={
@@ -116,7 +120,7 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   featuredItemContainer: {
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.darkBgLight,
     borderRadius: 8,
     borderWidth: 1,
     elevation: 3,
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
   },
   featuredItemTopTimeText: {
     marginLeft: 7,
-    color: '#684BA6',
+    color: Styles.Colors.purple,
     fontWeight: '700',
     fontSize: 13,
   },
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
   },
   month: {
     fontSize: 12,
-    color: '#684BA6',
+    color: Styles.Colors.purple,
   },
   featuredItemBottom: {
     flex: 1,

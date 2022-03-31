@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     color: Styles.Colors.error,
   },
   submitButton: {
-    marginTop: 20,
-    alignSelf: 'center',
+    marginTop: 10,
+    width: '100%',
   },
 });
 

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   logo: {
-    marginRight: 5,
+    marginRight: 10,
   },
 });
 

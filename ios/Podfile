@@ -21,6 +21,8 @@ target 'LincolnApp' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
   target 'LincolnAppTests' do
     inherit! :complete
     # Pods for testing

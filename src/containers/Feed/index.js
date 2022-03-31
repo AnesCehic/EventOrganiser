@@ -12,26 +12,68 @@ import styles from './styles';
 const Feed = ({navigation}) => {
   const {userData} = useContext(UserContext);
   const [events, setEvents] = useState([]);
-  const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // ----------------------------
+
+  //const {events, eventsError, eventsLoading, refetch} = useEvents();
+  const [refreshing, setRefreshing] = useState(false);
+  const [user, setUser] = useState(true);
+  const [posts, setPosts] = useState({
+    isLoading: false,
+    data: [],
+    page: 1,
+    limit: 5,
+    total: 10,
+  });
+
   useEffect(() => {
-    getPostsAndEvents();
+    loadPosts();
   }, []);
 
-  const getPostsAndEvents = async () => {
+  const loadPosts = async () => {
     try {
-      setIsLoading(true);
-      const {data} = await PostsService.find();
-      setPosts(data);
-      const eventsToShow = await EventService.find({
+      // const {data} = await PostsService.find();
+      // setPosts(data);
+      // const eventsToShow = await EventService.find({
+      //   query: {
+      //     start: {
+      //       $gte: new Date(),
+      //     },
+      //   },
+      // });
+      // setEvents(eventsToShow.data);
+
+      // ----------------------
+      if ((posts.page - 1) * 5 > posts.total) {
+        return;
+      }
+      const res = await PostsService.find({
         query: {
-          start: {
-            $gte: new Date(),
-          },
+          $limit: 5,
+          $skip: (posts.page - 1) * 5,
         },
       });
-      setEvents(eventsToShow.data);
+      console.log(res);
+      const postsData = res.data.map(e => {
+        console.log(e.owner);
+        return {
+          id: e._id,
+          headline: e.title,
+          content: e.body,
+          img: e.upload?.files,
+          owner: e.owner,
+          createdAt: e.createdAt,
+        };
+      });
+      setPosts({
+        isLoading: false,
+        data: [...posts.data, ...postsData],
+        total: res.total,
+        page: posts.page + 1,
+      });
+      // const res2 = await PostsService.get(res.data[0]._id);
+      // console.log('posts2', res2);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error loading posts and events home screen]', error);
@@ -42,7 +84,19 @@ const Feed = ({navigation}) => {
   };
 
   const handleRefresh = () => {
-    getPostsAndEvents();
+    //getPostsAndEvents();loadPosts
+
+    // --------
+
+    //refetch({});
+    setPosts({
+      isLoading: false,
+      data: [],
+      page: 1,
+      limit: 5,
+      total: 10,
+    });
+    loadPosts();
   };
 
   const renderPosts = () => {
@@ -50,14 +104,16 @@ const Feed = ({navigation}) => {
       <PostsList
         handleRefresh={handleRefresh}
         headerData={events}
-        data={posts}
+        onEndReached={loadPosts}
+        hasMore={posts.data.length < posts.total}
+        data={posts.data}
         style={styles.postList}
         navigation={navigation}
       />
     );
   };
 
-  if (isLoading) {
+  if (posts.isLoading) {
     return <LoadingIndicator />;
   }
 

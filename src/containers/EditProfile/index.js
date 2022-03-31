@@ -6,7 +6,6 @@ import {
   Alert,
   ScrollView,
   TouchableOpacity,
-  ImageBackground,
   Switch,
 } from 'react-native';
 import {Avatar} from 'react-native-elements';
@@ -23,6 +22,8 @@ import {client, ChangeEmail, UsersService} from '@services/apiClient';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
+import {launchCamera} from 'react-native-image-picker';
+import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const MenuItems = [
   {
@@ -124,6 +125,7 @@ const EditProfile = ({navigation}) => {
         _id,
         email,
         avatarImg,
+        ...res,
       });
     } catch (error) {
       toast('error', 'Error', error.message);
@@ -146,14 +148,16 @@ const EditProfile = ({navigation}) => {
           size={70}
           rounded
           containerStyle={{}}
-          source={data.avatarImg ? {uri: data.avatarImg} : {}}>
-          <Avatar.Accessory
-            onPress={() => console.log('edit profile pic')}
+          source={
+            data.avatarImg ? {uri: data.upload?.files[0]?.signedURL} : {}
+          }>
+          {/* <Avatar.Accessory
+            onPress={loadCamera}
             size={20}
             style={styles.avatarIcon}
             name="vertical-align-top"
             color="white"
-          />
+          /> */}
         </Avatar>
         <View style={styles.userInfo}>
           <Text style={styles.userName}>
@@ -306,19 +310,20 @@ const EditProfile = ({navigation}) => {
   if (isLoading) {
     return <LoadingIndicator />;
   }
-
+  console.log('asdasdasd', Styles.Colors.iconGray);
   return (
     <ScrollView style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
+      <View style={styles.topImage}>
         <Text style={styles.headerText}>My account</Text>
-      </ImageBackground>
+      </View>
       <View style={styles.content}>
         {renderUser()}
         <View style={styles.settings}>
-          <Icon name="ri-sound-module-line" size={16} />
+          <Icon
+            name="ri-sound-module-line"
+            size={16}
+            color={Styles.Colors.iconGray}
+          />
           <Text style={styles.settingsText}>Settings</Text>
         </View>
         {renderMenu()}

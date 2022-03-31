@@ -6,6 +6,7 @@ import {MessagesService} from '@services/apiClient';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
 
 const ChatMessages = ({navigation, route}) => {
@@ -59,7 +60,13 @@ const ChatMessages = ({navigation, route}) => {
 
   const renderItem = ({item}) => {
     return (
-      <View>
+      <View
+      // style={{
+      //   flexDirection: 'row',
+      //   justifyContent: 'flex-end',
+      //   alignItems: 'flex-end',
+      // }}
+      >
         <View
           style={[
             styles.messageContainer,
@@ -79,14 +86,7 @@ const ChatMessages = ({navigation, route}) => {
             {dayjs(item.createdAt).format('MM, DD HH:mm')}
           </Text>
         </View>
-        {/* <View
-          style={[
-            styles.triangle,
-            item.ownerId === userId
-              ? styles.triangleRight
-              : styles.triangleLeft,
-          ]}
-        /> */}
+        {/* <Icon name="checkmark-circle-outline" size={20} /> */}
       </View>
     );
   };

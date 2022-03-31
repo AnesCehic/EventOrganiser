@@ -1,6 +1,8 @@
 import React, {useState, useLayoutEffect, useContext} from 'react';
 import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import {Avatar} from 'react-native-elements';
+import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {LoadingIndicator, TextInput} from '@components';
 import {toast} from '@utils';
@@ -9,6 +11,7 @@ import {UserContext} from '@contexts';
 import {UsersService} from '@services/apiClient';
 
 import styles from './styles';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const PersonalDetails = ({navigation, route}) => {
   const {userData, setUserData} = useContext(UserContext);
@@ -16,8 +19,61 @@ const PersonalDetails = ({navigation, route}) => {
   const [firstName, setFirstName] = useState(userData.firstName);
   const [lastName, setLastName] = useState(userData.lastName);
   const [isLoading, setIsLoading] = useState(false);
+  const [upload, setUpload] = useState({});
+
+  const hasPermission = async () => {
+    try {
+      let res = await check(PERMISSIONS.ANDROID.CAMERA);
+
+      if (!res) {
+        throw new Error('You do not have permissions to use camera!');
+      }
+
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loadCamera = async () => {
+    try {
+      // await hasPermission();
+      const token = await AsyncStorageLib.getItem('feathers-jwt');
+      console.log(token);
+      const res = await launchImageLibrary();
+
+      console.log(res);
+      setUserData({
+        ...userData,
+        avatarImg: res.assets[0].uri,
+      });
+
+      const formData = new FormData();
+
+      const {fileName, type, uri} = res.assets[0];
+      formData.append('profile_1', {
+        name: fileName,
+        type: type,
+        uri: uri,
+      });
+
+      const uploadRes = await fetch('https://api.lincolnclub.app/uploads', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+        // eslint-disable-next-line no-shadow
+      });
+      setUpload(uploadRes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useLayoutEffect(() => {
+    console.log('User data', userData);
     navigation.setOptions({
       headerRight: () => {
         return (
@@ -36,6 +92,7 @@ const PersonalDetails = ({navigation, route}) => {
       const newUserData = await UsersService.patch(userId, {
         firstName,
         lastName,
+        uploadId: upload?._id,
       });
       setUserData({
         ...userData,
@@ -60,7 +117,7 @@ const PersonalDetails = ({navigation, route}) => {
           containerStyle={{}}
           source={userData.avatarImg ? {uri: userData.avatarImg} : {}}>
           <Avatar.Accessory
-            onPress={() => console.log('edit profile pic')}
+            onPress={() => loadCamera()}
             size={20}
             style={styles.avatarIcon}
             name="vertical-align-top"
