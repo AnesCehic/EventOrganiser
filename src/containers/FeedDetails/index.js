@@ -8,9 +8,9 @@ import {
   Linking,
   Platform,
   Dimensions,
-  StatusBar,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
+import * as AddToCalendarEvent from 'react-native-add-calendar-event';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 
@@ -94,6 +94,20 @@ const FeedDetails = ({navigation, route}) => {
         {renderDateAndPlaceLocation()} */}
       </View>
     );
+  };
+
+  const addEventToCalendar = () => {
+    AddToCalendarEvent.presentEventCreatingDialog({
+      title: eventData.title,
+      location: eventData.location,
+    })
+      .then(eventInfo => {
+        console.log(eventInfo);
+      })
+      .catch(err => {
+        console.log('[Error adding calendar to event]', err);
+      });
+    setIsConfirmRSVPModalVisible(false);
   };
 
   const renderRSVPModal = () => {
@@ -185,7 +199,7 @@ const FeedDetails = ({navigation, route}) => {
             <SubmitButton
               style={[styles.modalConfirmBtn, {marginBottom: 0}]}
               title="Add to calendar"
-              onPress={() => setIsConfirmRSVPModalVisible(false)}
+              onPress={addEventToCalendar}
             />
             <SubmitButton
               style={[
@@ -221,7 +235,7 @@ const FeedDetails = ({navigation, route}) => {
   };
 
   const renderRSVP = () => {
-    if (eventData.canRSVP) {
+    if (!eventData.canRSVP) {
       return null;
     }
 

@@ -23,6 +23,8 @@ target 'LincolnApp' do
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
+  pod 'react-native-add-calendar-event', :path => '../node_modules/react-native-add-calendar-event'
+
   target 'LincolnAppTests' do
     inherit! :complete
     # Pods for testing
