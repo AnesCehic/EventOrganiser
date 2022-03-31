@@ -37,9 +37,82 @@ const styles = StyleSheet.create({
     elevation: 5,
     backgroundColor: 'white',
   },
-
-  menu: {
-    marginTop: 30,
+  groupContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '95%',
+    backgroundColor: Styles.Colors.white,
+    borderColor: Styles.Colors.lightGrayBg,
+    borderWidth: 1,
+    margin: 5,
+    elevation: 5,
+    padding: 16,
+    marginBottom: 16,
+    borderRadius: 8,
+  },
+  groupName: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: Styles.Colors.grey,
+  },
+  groupMembers: {
+    color: Styles.Colors.grey,
+    fontSize: 11,
+    paddingTop: 5,
+  },
+  joinGroupButton: {
+    backgroundColor: Styles.Colors.gold,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 13,
+    paddingBottom: 13,
+    paddingRight: 13,
+    paddingLeft: 13,
+  },
+  joinGroupText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  allGroupsText: {
+    marginTop: 10,
+    paddingLeft: 5,
+    paddingBottom: 16,
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  myGroupInfo: {
+    width: 160,
+    height: 160,
+    margin: 5,
+    backgroundColor: Styles.Colors.white,
+    borderRadius: 12,
+    elevation: 5,
+  },
+  halfContainer: {
+    flex: 2,
+  },
+  myGroupData: {
+    alignItems: 'center',
+  },
+  groupNameLogo: {
+    width: 64,
+    height: 64,
+    margin: -32,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 40,
+    fontWeight: '700',
+    backgroundColor: Styles.Colors.white,
+    borderWidth: 4,
+    borderColor: Styles.Colors.gold,
+    borderRadius: 12,
+  },
+  privateOpacity: {
+    opacity: 0.3,
+  },
+  myGroupName: {
+    marginTop: 45,
   },
 });
 
