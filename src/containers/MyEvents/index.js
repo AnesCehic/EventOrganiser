@@ -130,10 +130,7 @@ const MyEvents = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
+      <ImageBackground style={styles.topImage}>
         <Text style={styles.headerText}>My events</Text>
       </ImageBackground>
       <View

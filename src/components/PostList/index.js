@@ -11,6 +11,7 @@ import Icon from 'react-native-remix-icon';
 import dayjs from 'dayjs';
 
 import {PostItem} from '@components';
+import {Styles} from '@common';
 
 const PostsList = ({
   data,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   },
 
   featuredItemContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: Styles.Colors.darkBgLight,
     borderRadius: 8,
     borderWidth: 1,
     elevation: 3,
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
   },
   featuredItemTopTimeText: {
     marginLeft: 7,
-    color: '#684BA6',
+    color: Styles.Colors.purple,
     fontWeight: '700',
     fontSize: 13,
   },
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
   },
   month: {
     fontSize: 12,
-    color: '#684BA6',
+    color: Styles.Colors.purple,
   },
   featuredItemBottom: {
     flex: 1,

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 250,
     width: '100%',
-    backgroundColor: 'lightblue',
+    backgroundColor: Styles.Colors.topBackground,
   },
   welcomeBack: {
     fontSize: 28,

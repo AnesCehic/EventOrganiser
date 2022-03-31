@@ -3,7 +3,7 @@ import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.darkBgLight,
     marginHorizontal: 12,
     marginVertical: 5,
     borderWidth: 1,
