@@ -54,23 +54,6 @@ const MenuItems = [
       />
     ),
   },
-  {
-    id: 3,
-    menuText: 'Chat',
-    menuScreen: 'Messages',
-    icon: (
-      <Ionicons
-        name="chatbubbles-outline"
-        size={22}
-        color={Styles.Colors.gold}
-      />
-    ),
-  },
-  {
-    id: 4,
-    menuText: 'Groups',
-    menuScreen: 'GroupsScreen',
-  },
 ];
 
 const EditProfile = ({navigation}) => {

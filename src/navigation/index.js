@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 // import IconRemix from 'react-native-remix-icon';
 import IconFeather from 'react-native-vector-icons/Feather';
 import {NavigationContainer} from '@react-navigation/native';
@@ -45,6 +46,7 @@ const BottomTab = createBottomTabNavigator();
 const FeedStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 const ChatStack = createNativeStackNavigator();
+const GroupsStack = createNativeStackNavigator();
 
 const ChatNavigation = () => {
   return (
@@ -63,6 +65,15 @@ const ChatNavigation = () => {
   );
 };
 
+const GroupsNavigation = () => {
+  return (
+    <GroupsStack.Navigator>
+      <GroupsStack.Screen name="GroupsScreen" component={GroupsScreen} />
+      <ProfileStack.Screen name="GroupMembers" component={GroupMembersScreen} />
+    </GroupsStack.Navigator>
+  );
+};
+
 const BottomTabNavigation = () => {
   return (
     <BottomTab.Navigator>
@@ -72,7 +83,7 @@ const BottomTabNavigation = () => {
           headerShown: false,
           // tabBarIcon: () => <Image source={require('../assets/Home.png')} />,
           tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
+            const iconColor = props.focused ? Styles.Colors.gold : '';
             return <IconFeather name={'home'} size={24} color={iconColor} />;
           },
           tabBarLabel: 'Home',
@@ -86,7 +97,7 @@ const BottomTabNavigation = () => {
         name="Calendar"
         options={{
           tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
+            const iconColor = props.focused ? Styles.Colors.gold : '';
             return (
               <IconFeather name={'calendar'} size={24} color={iconColor} />
             );
@@ -101,7 +112,7 @@ const BottomTabNavigation = () => {
         options={{
           headerShown: false,
           tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
+            const iconColor = props.focused ? Styles.Colors.gold : '';
             return (
               <Icon name={'chatbubbles-outline'} size={24} color={iconColor} />
             );
@@ -112,11 +123,24 @@ const BottomTabNavigation = () => {
         component={ChatNavigation}
       />
       <BottomTab.Screen
+        name="Groups"
+        options={{
+          headerShown: false,
+          tabBarIcon: props => {
+            const iconColor = props.focused ? Styles.Colors.gold : '';
+            return <MaterialIcon name={'groups'} size={24} color={iconColor} />;
+          },
+          tabBarLabel: 'Groups',
+          unmountOnBlur: true,
+        }}
+        component={GroupsNavigation}
+      />
+      <BottomTab.Screen
         name="Profile"
         options={{
           headerShown: false,
           tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.primaryBlue : '';
+            const iconColor = props.focused ? Styles.Colors.gold : '';
             return <IconFeather name={'user'} size={24} color={iconColor} />;
           },
           tabBarLabel: 'Account',
@@ -138,6 +162,7 @@ const FeedNavigation = () => {
   );
 };
 
+
 const ProfileNavigation = () => {
   return (
     <ProfileStack.Navigator
@@ -157,13 +182,11 @@ const ProfileNavigation = () => {
         component={PersonalDetailsScreen}
       />
       <ProfileStack.Screen name="ImagesScreen" component={ImagesScreen} />
-      <ProfileStack.Screen name="GroupsScreen" component={GroupsScreen} />
       <ProfileStack.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
       />
       <ProfileStack.Screen name="CreatePost" component={CreatePostScreen} />
-      <ProfileStack.Screen name="GroupMembers" component={GroupMembersScreen} />
       <ProfileStack.Screen
         name="PreferencesScreen"
         component={PreferencesScreen}
