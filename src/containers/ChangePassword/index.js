@@ -2,12 +2,13 @@
 import React, {useState, useRef, useContext} from 'react';
 import {Text, View, ImageBackground, Keyboard} from 'react-native';
 import Icon from 'react-native-remix-icon';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 import {TextInput, SubmitButton, LoadingIndicator} from '@components';
 import {Styles} from '@common';
 import {UserContext} from '@contexts';
 
-import {ForgotPasswordService} from '@services/apiClient';
+import {UsersService} from '@services/apiClient';
 import {toast} from '@utils';
 
 import styles from './styles';
@@ -18,6 +19,7 @@ const ChangePassword = ({navigation}) => {
   const newPassRef = useRef(null);
   const confirmNewPassRef = useRef(null);
 
+  const [passwordHidden, setPasswordHidden] = useState(true);
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +49,7 @@ const ChangePassword = ({navigation}) => {
             onSubmitEditing={() => {
               confirmNewPassRef.current.focus();
             }}
-            secureTextEntry={true}
+            secureTextEntry={passwordHidden}
             autoCapitalize="none"
           />
           {newPassErr ? (
@@ -57,7 +59,7 @@ const ChangePassword = ({navigation}) => {
                 size={16}
                 color={Styles.Colors.error}
               />
-              <Text style={styles.errorText}>Error</Text>
+              <Text style={styles.errorText}>Fields must match</Text>
             </View>
           ) : null}
         </View>
@@ -82,7 +84,7 @@ const ChangePassword = ({navigation}) => {
               Keyboard.dismiss();
             }}
             ref={confirmNewPassRef}
-            secureTextEntry={true}
+            secureTextEntry={passwordHidden}
             autoCapitalize="none"
           />
           {newPassErr ? (
@@ -92,22 +94,40 @@ const ChangePassword = ({navigation}) => {
                 size={16}
                 color={Styles.Colors.error}
               />
-              <Text style={styles.errorText}>Error</Text>
+              <Text style={styles.errorText}>Fields must match</Text>
             </View>
           ) : null}
         </View>
+        <AntDesignIcon
+          style={styles.passwordHiddenIcon}
+          name={passwordHidden ? 'eyeo' : 'eye'}
+          size={20}
+          onPress={() => {
+            setPasswordHidden(!passwordHidden);
+          }}
+        />
       </View>
     );
   };
 
   const handleSubmit = async () => {
     try {
+      if (newPassword !== confirmNewPassword) {
+        setNewPassErr(true);
+        return;
+      }
       setIsLoading(true);
+      await UsersService.patch(userData._id, {
+        password: newPassword,
+      });
+      setNewPassErr(false);
+      setIsLoading(false);
+      toast('success', 'Success', 'Password changed successfully!');
+      navigation.goBack();
     } catch (error) {
+      setIsLoading(false);
       toast('error', 'Error', error.message);
       console.log('[Error reset password]', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 

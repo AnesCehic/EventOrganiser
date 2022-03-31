@@ -35,6 +35,9 @@ const styles = StyleSheet.create({
     margin: 0,
     marginTop: 5,
   },
+  passwordHiddenIcon: {
+    marginTop: 5,
+  },
 
   errorWrapper: {
     flexDirection: 'row',
