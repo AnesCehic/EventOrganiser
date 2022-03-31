@@ -1,5 +1,11 @@
 import React, {useState, useContext} from 'react';
-import {View, ImageBackground, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  Appearance,
+} from 'react-native';
 
 import {client} from '@services/apiClient';
 import {UserContext} from '@contexts';
@@ -14,6 +20,7 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
+  const colorScheme = Appearance.getColorScheme();
   const [isLoading, setIsLoading] = useState(false);
 
   const {setAuthenticated, setUserData} = useContext(UserContext);
@@ -47,35 +54,82 @@ const Login = ({navigation}) => {
     }
   };
 
-  return (
-    <ImageBackground
-      resizeMode="cover"
-      source={require('../../assets/background-video.png')}
-      style={styles.container}>
-      <Form navigation={navigation} submitLogin={login} isLoading={isLoading} />
+  const render = () => {
+    return colorScheme === 'light' ? (
+      <ImageBackground
+        resizeMode="cover"
+        source={require('../../assets/background-video.png')}
+        style={styles.container}>
+        {renderChildren()}
+      </ImageBackground>
+    ) : (
+      <View style={styles.container}>{renderChildren()}</View>
+    );
+  };
 
-      <View style={{width: '100%', alignItems: 'center'}}>
-        <SubmitButton
-          googleLogo
-          onPress={() => null}
-          style={{
-            ...stylesStart.googleButton,
-            ...styles.logInWithGoogle,
-            marginBottom: 20,
-          }}
-          titleStyle={{
-            ...stylesStart.googleTextStyle,
-            ...styles.logInWithGoogleText,
-          }}
-          title="Sign in with Google instead"
+  const renderChildren = () => {
+    return (
+      <>
+        <Form
+          navigation={navigation}
+          submitLogin={login}
+          isLoading={isLoading}
         />
-        <TouchableOpacity
-          style={styles.registerButton}
-          onPress={() => navigation.navigate('Register')}>
-          <Text>Sign up for an account</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+        <View style={{width: '100%', alignItems: 'center'}}>
+          <SubmitButton
+            googleLogo
+            onPress={() => null}
+            style={{
+              ...stylesStart.googleButton,
+              ...styles.logInWithGoogle,
+              marginBottom: 20,
+            }}
+            titleStyle={{
+              ...stylesStart.googleTextStyle,
+              ...styles.logInWithGoogleText,
+            }}
+            title="Sign in with Google instead"
+          />
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={() => navigation.navigate('Register')}>
+            <Text>Sign up for an account</Text>
+          </TouchableOpacity>
+        </View>
+      </>
+    );
+  };
+
+  return (
+    // <ImageBackground
+    //   resizeMode="cover"
+    //   source={require('../../assets/background-video.png')}
+    //   style={styles.container}>
+    //   <Form navigation={navigation} submitLogin={login} isLoading={isLoading} />
+
+    //   <View style={{width: '100%', alignItems: 'center'}}>
+    //     <SubmitButton
+    //       googleLogo
+    //       onPress={() => null}
+    //       style={{
+    //         ...stylesStart.googleButton,
+    //         ...styles.logInWithGoogle,
+    //         marginBottom: 20,
+    //       }}
+    //       titleStyle={{
+    //         ...stylesStart.googleTextStyle,
+    //         ...styles.logInWithGoogleText,
+    //       }}
+    //       title="Sign in with Google instead"
+    //     />
+    //     <TouchableOpacity
+    //       style={styles.registerButton}
+    //       onPress={() => navigation.navigate('Register')}>
+    //       <Text>Sign up for an account</Text>
+    //     </TouchableOpacity>
+    //   </View>
+    // </ImageBackground>
+    <>{render()}</>
   );
 };
 

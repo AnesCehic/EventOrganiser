@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 200,
     width: '100%',
+    backgroundColor: Styles.Colors.topBackground,
   },
   topImageContent: {
     paddingHorizontal: 30,

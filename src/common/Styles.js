@@ -1,4 +1,4 @@
-import {Appearance, useColorScheme} from 'react-native';
+import {Appearance} from 'react-native';
 const colorScheme = Appearance.getColorScheme();
 
 const Styles = {
@@ -22,7 +22,7 @@ const Styles = {
     grayBorderPost: '#E7E7E7',
     addPhotoBorder: '#E6EBF0',
 
-    topBackground: colorScheme === 'dark' ? '#BFBB85' : '##fff',
+    topBackground: colorScheme === 'dark' ? '#fff' : '#BFBB85',
     darkBgLight: colorScheme === 'dark' ? '#1C2329' : '#fff',
     darkBgLight2: colorScheme === 'dark' ? '#4C5761' : '#fff',
     purple: '#684BA6',

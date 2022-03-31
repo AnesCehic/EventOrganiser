@@ -162,7 +162,6 @@ const FeedNavigation = () => {
   );
 };
 
-
 const ProfileNavigation = () => {
   return (
     <ProfileStack.Navigator
@@ -219,10 +218,10 @@ const MainNavigation = () => {
           'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f',
       });
       setAuthenticated(true);
+      setIsLoading(false);
     } catch (error) {
       console.log('[Error get is signed in navigation index]', error);
       setAuthenticated(false);
-    } finally {
       setIsLoading(false);
     }
   };

@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 130,
     width: '100%',
+    backgroundColor: Styles.Colors.topBackground,
   },
   settingsIcon: {
     backgroundColor: '#00000075',

@@ -12,6 +12,7 @@ import {
 
 import {PostsService} from '@services/apiClient';
 import {UserContext} from '@contexts';
+import {Styles} from '@common';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -65,7 +66,7 @@ const CreatePost = ({navigation}) => {
       headerTitleAlign: 'center',
       title: 'New post',
       headerStyle: {
-        backgroundColor: '#BFBB85',
+        backgroundColor: Styles.Colors.topBackground,
       },
       headerRight: () => {
         return (

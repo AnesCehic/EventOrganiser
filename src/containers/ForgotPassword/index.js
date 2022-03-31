@@ -55,12 +55,9 @@ const ForgotPassword = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
+      <View style={styles.topImage}>
         <Text style={styles.headerText}>Reset password</Text>
-      </ImageBackground>
+      </View>
       <View style={styles.formWrapper}>
         <View style={styles.fieldWrapper}>
           <Text style={styles.inputFieldLabel}>Email</Text>

@@ -137,12 +137,9 @@ const ChangePassword = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.topImage}
-        source={require('../../assets/headerBackground.png')}
-        resizeMode="cover">
+      <View style={styles.topImage}>
         <Text style={styles.headerText}>Password</Text>
-      </ImageBackground>
+      </View>
       {renderInputFields()}
       <SubmitButton
         style={styles.submitButton}

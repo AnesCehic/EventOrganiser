@@ -152,7 +152,7 @@ const EditProfile = ({navigation}) => {
           name="ri-arrow-right-s-line"
           size={34}
           style={styles.userArrowIcon}
-          color="#000"
+          color={Styles.Colors.iconGray}
         />
       </TouchableOpacity>
     );
