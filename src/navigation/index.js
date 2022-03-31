@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 // import IconRemix from 'react-native-remix-icon';
@@ -69,7 +68,7 @@ const GroupsNavigation = () => {
   return (
     <GroupsStack.Navigator>
       <GroupsStack.Screen name="GroupsScreen" component={GroupsScreen} />
-      <ProfileStack.Screen name="GroupMembers" component={GroupMembersScreen} />
+      <GroupsStack.Screen name="GroupMembers" component={GroupMembersScreen} />
     </GroupsStack.Navigator>
   );
 };
@@ -281,8 +280,6 @@ const MainNavigation = () => {
               name="EventsListScreen"
               component={EventsListScreen}
             />
-            <Stack.Screen name="Message" component={ChatMessagesScreen} />
-
             <Stack.Screen
               name="EventsOnMonthScreen"
               component={EventsOnMonthScreen}

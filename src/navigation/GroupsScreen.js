@@ -13,6 +13,7 @@ const GroupsScreen = ({navigation}) => {
       headerStyle: {
         backgroundColor: headerBg,
       },
+      title: 'Groups',
     });
   }, []);
 
