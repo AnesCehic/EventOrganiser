@@ -9,6 +9,7 @@ const GroupMembersScreen = ({navigation, route}) => {
       headerStyle: {
         backgroundColor: Styles.Colors.gold,
       },
+      headerTitleAlign: 'center',
     });
   }, []);
   return <GroupMembers navigation={navigation} route={route} />;

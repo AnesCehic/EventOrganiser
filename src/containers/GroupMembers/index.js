@@ -58,6 +58,9 @@ const GroupMembers = ({navigation, route}) => {
 
   useEffect(() => {
     fetchGroupMembers();
+    navigation.setOptions({
+      title: route.params.name,
+    });
   }, []);
 
   if (isLoading) {
