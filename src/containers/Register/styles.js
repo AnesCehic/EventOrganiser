@@ -50,6 +50,15 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 5,
   },
+
+  textInput: {
+    shadowColor: '#707070',
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.6,
+  },
 });
 
 export default styles;

@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.white,
     margin: 5,
     padding: 16,
+    shadowColor: '#b8b8b8',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
   },
 });
 
