@@ -36,6 +36,7 @@ const Form = ({navigation}) => {
         value={firstName}
         setUsername={setFirstName}
         onChangeValue={value => setFirstName(value)}
+        style={styles.textInput}
       />
       <TextInput
         name="lastName"
@@ -43,6 +44,7 @@ const Form = ({navigation}) => {
         value={lastName}
         setUsername={setLastName}
         onChangeValue={value => setLastName(value)}
+        style={styles.textInput}
       />
 
       <TextInput
@@ -52,6 +54,7 @@ const Form = ({navigation}) => {
         onChangeValue={value => setEmail(value)}
         keyboardType="email-address"
         autoCapitalize="none"
+        style={styles.textInput}
       />
 
       <TextInput
@@ -60,6 +63,7 @@ const Form = ({navigation}) => {
         secureTextEntry
         value={password}
         onChangeValue={value => setPassword(value)}
+        style={styles.textInput}
       />
 
       <View style={styles.checkbox}>
