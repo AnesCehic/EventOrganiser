@@ -25,6 +25,12 @@ target 'LincolnApp' do
 
   pod 'react-native-add-calendar-event', :path => '../node_modules/react-native-add-calendar-event'
 
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    . . . // other subspecs
+    'RCTLinkingIOS',
+    . . .
+  ]
+
   target 'LincolnAppTests' do
     inherit! :complete
     # Pods for testing
