@@ -25,7 +25,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
         name="username"
         placeholder="Username"
         value={username}
-        style={stylesHelper.shadow}
+        style={[stylesHelper.shadow, stylesHelper.inputShadow]}
         setUsername={setUsername}
         onChangeValue={value => setUsername(value)}
         autoCapitalize="none"
@@ -33,7 +33,11 @@ const Form = ({navigation, submitLogin, isLoading}) => {
       />
       <View style={styles.passwordWrapper}>
         <TextInput
-          style={[styles.passwordInput, stylesHelper.shadow]}
+          style={[
+            styles.passwordInput,
+            stylesHelper.shadow,
+            stylesHelper.inputShadow,
+          ]}
           name="password"
           placeholder="Password"
           secureTextEntry={passwordHidden}
@@ -94,6 +98,15 @@ const stylesHelper = StyleSheet.create({
     width: '80%',
     alignItems: 'flex-start',
     marginBottom: 30,
+  },
+
+  inputShadow: {
+    shadowColor: '#707070',
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.6,
   },
 });
 
