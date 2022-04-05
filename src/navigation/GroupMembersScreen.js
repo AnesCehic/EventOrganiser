@@ -6,10 +6,7 @@ import {Styles} from '@common';
 const GroupMembersScreen = ({navigation, route}) => {
   useEffect(() => {
     navigation.setOptions({
-      headerStyle: {
-        backgroundColor: Styles.Colors.topBackground,
-      },
-      headerTitleAlign: 'center',
+      headerShown: false,
     });
   }, []);
   return <GroupMembers navigation={navigation} route={route} />;

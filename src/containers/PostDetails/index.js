@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import dayjs from 'dayjs';
 
 import {PostsService} from '@services/apiClient';
@@ -107,6 +114,23 @@ const PostDetails = ({navigation, route}) => {
           {post.createdAt ? dayjs(post.createdAt).format('MMM D, YYYY') : null}
         </Text>
       </View>
+      <TouchableOpacity
+        style={{
+          position: 'absolute',
+          bottom: 16,
+          right: 16,
+          backgroundColor: Styles.Colors.gold,
+          paddingVertical: 6,
+          paddingHorizontal: 12,
+          borderRadius: 8,
+        }}
+        onPress={() => {
+          navigation.navigate('Comments', {
+            postId: route.params.id,
+          });
+        }}>
+        <Text>Comments</Text>
+      </TouchableOpacity>
       <Text style={styles.postBody}>{post?.body}</Text>
     </View>
   );
