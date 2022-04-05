@@ -30,31 +30,46 @@ const Groups = ({navigation}) => {
   const [groups, setGroups] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [limit, setLimit] = useState(10);
+  const [skip, setSkip] = useState(0);
+  const [total, setTotal] = useState(10);
+
   useEffect(() => {
     setGroups([]);
     fetchGroupsAll();
   }, []);
 
   const fetchGroupsAll = async () => {
-    const userId = await AsyncStorageLib.getItem('@userId');
+    // const userId = await AsyncStorageLib.getItem('@userId');
     try {
-      setIsLoading(true);
-      const {data} = await GroupService.find();
-      console.log(data);
-      const {data: personalGroups} = await GroupService.find({
+      // setIsLoading(true);
+      if (total < limit) {
+        return;
+      }
+      const res = await GroupService.find({
         query: {
-          members: userId,
+          $limit: limit,
+          $skip: skip,
         },
       });
+      setTotal(res.total);
+      setSkip(limit);
+      const limitCalc = limit * 2 > res.total ? res.total : limit * 2;
+      setLimit(limitCalc);
+      // const {data: personalGroups} = await GroupService.find({
+      //   query: {
+      //     members: userId,
+      //   },
+      // });
 
       // change this line to personalGroups
-      setMyGroups(data);
-      setGroups(data);
+      setMyGroups([...groups, ...res.data]);
+      setGroups([...myGroups, ...res.data]);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error fetching all groups]', error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
@@ -151,6 +166,10 @@ const Groups = ({navigation}) => {
     );
   };
 
+  const loadMore = () => {
+    fetchGroupsAll();
+  };
+
   const renderListHeader = () => {
     return (
       <View>
@@ -169,6 +188,7 @@ const Groups = ({navigation}) => {
         <FlatList
           ListHeaderComponent={renderListHeader}
           data={groups}
+          onEndReached={loadMore}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}
           renderItem={renderGroup}

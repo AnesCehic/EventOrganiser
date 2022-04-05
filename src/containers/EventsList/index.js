@@ -24,10 +24,13 @@ import styles from './styles';
 const EventsList = ({navigation}) => {
   const colorScheme = Appearance.getColorScheme();
   const [isLoading, setIsLoading] = useState(false);
-  const [events, setEvents] = useState([]);
   const [eventsFromToday, setEventsFromToday] = useState([]);
   const [myEventsCount, setMyEventsCount] = useState(0);
   const [showAgenda, setShowAgenda] = useState(false);
+
+  const [limit, setLimit] = useState(10);
+  const [skip, setSkip] = useState(0);
+  const [total, setTotal] = useState(10);
 
   useEffect(() => {
     getEvents();
@@ -35,15 +38,27 @@ const EventsList = ({navigation}) => {
 
   const getEvents = async () => {
     try {
-      setIsLoading(true);
-      const allEvents = await EventService.find();
+      // setIsLoading(true);
+      if (total < limit) {
+        return;
+      }
+
       const eventsToShow = await EventService.find({
         query: {
           start: {
             $gte: new Date(),
           },
+          $limit: limit,
+          $skip: skip,
         },
       });
+      setTotal(eventsToShow.total);
+      setSkip(limit);
+      const limitCalc =
+        limit * 2 > eventsToShow.total ? eventsToShow.total : limit * 2;
+      setLimit(limitCalc);
+
+      setEventsFromToday([...eventsFromToday, ...eventsToShow.data]);
 
       // ownerId: "620471fee097e159cbccec8a"
 
@@ -58,15 +73,21 @@ const EventsList = ({navigation}) => {
       // ).length;
 
       // setMyEventsCount(showMyEvents);
-      setEvents(allEvents.data);
-      setEventsFromToday(eventsToShow.data);
+      // setEvents(allEvents.data);
+      // setEventsFromToday(eventsToShow.data);
+
       // setMyEvents(myEventsRes.data);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error get events]', error);
-    } finally {
-      setIsLoading(false);
+      if (isLoading) {
+        setIsLoading(false);
+      }
     }
+  };
+
+  const loadMore = () => {
+    getEvents();
   };
 
   const renderEventsList = () => {
@@ -75,11 +96,11 @@ const EventsList = ({navigation}) => {
         data={eventsFromToday}
         keyExtractor={item => item._id}
         renderItem={renderItem}
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
-        }
+        onEndReached={loadMore}
+        // refreshControl={
+        //   <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+        // }
         showsVerticalScrollIndicator={false}
-        onEndReached={() => console.log('reached')}
       />
     );
   };
