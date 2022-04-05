@@ -54,9 +54,8 @@ const Feed = ({navigation}) => {
           $skip: (posts.page - 1) * 5,
         },
       });
-      console.log(res);
+
       const postsData = res.data.map(e => {
-        console.log(e.owner);
         return {
           id: e._id,
           headline: e.title,

@@ -87,6 +87,9 @@ const EventsCalendar = ({navigateToEvent, navigateToMonth, navigateToDay}) => {
       disableAllTouchEventsForDisabledDays={true}
       renderHeader={date => {
         const month = dayjs(date).format('MMMM YYYY');
+        // console.log('DATE FINAL', date);
+        // console.log('MONTH FINAL', month);
+        // console.log('YYEYYEYEYEYE', dayjs(date['0']).format());
         return (
           <View style={styles.header}>
             <Text style={styles.calendarHeaderText}>{month}</Text>

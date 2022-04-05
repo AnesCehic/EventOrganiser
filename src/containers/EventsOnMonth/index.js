@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  RefreshControl,
-  ImageBackground,
-} from 'react-native';
+import {View, Text, FlatList, RefreshControl} from 'react-native';
 import dayjs from 'dayjs';
 import RenderHTML from 'react-native-render-html';
 
 import {LoadingIndicator, EventItem} from '@components';
+import {toast} from '@utils';
 
 import {EventService} from '@services/apiClient';
 
@@ -21,29 +16,42 @@ const EventsOnMonth = ({route, navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [events, setEvents] = useState([]);
 
+  const [limit, setLimit] = useState(3);
+  const [skip, setSkip] = useState(0);
+  const [total, setTotal] = useState(3);
+
   useEffect(() => {
     getEventsOnMonth();
   }, []);
 
   const getEventsOnMonth = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
+      if (total < limit) {
+        return;
+      }
       const monthGte = dayjs(date).startOf('month').format();
       const monthLte = dayjs(date).endOf('month').format();
-
       const res = await EventService.find({
         query: {
           start: {
             $gte: monthGte,
             $lte: monthLte,
           },
+          $limit: limit,
+          $skip: skip,
         },
       });
-      setEvents(res.data);
+
+      setTotal(events.total);
+      setSkip(limit);
+      const limitCalc = limit * 2 > events.total ? events.total : limit * 2;
+      setLimit(limitCalc);
+
+      setEvents([...events, ...res.data]);
     } catch (error) {
+      toast('error', 'Error', error.message);
       console.log('[Error get events on month]', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -54,11 +62,17 @@ const EventsOnMonth = ({route, navigation}) => {
         data={events}
         renderItem={renderItem}
         keyExtractor={item => item._id}
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
-        }
+        onEndReached={loadMore}
+        // refreshControl={
+        //   <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+        // }
+        showsVerticalScrollIndicator={false}
       />
     );
+  };
+
+  const loadMore = () => {
+    getEventsOnMonth();
   };
 
   const renderItem = ({item: event}) => {
@@ -120,6 +134,7 @@ const EventsOnMonth = ({route, navigation}) => {
         style={{
           padding: 10,
           marginTop: -60,
+          flex: 1,
         }}>
         {renderEventsList()}
       </View>
