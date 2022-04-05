@@ -39,6 +39,7 @@ import PersonalDetailsScreen from './PersonalDetailsScreen';
 import MyEventsScreen from './MyEventsScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import GoogleLogin from './GoogleLogin';
+import CommentsScreen from './CommentsScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -75,7 +76,8 @@ const GroupsNavigation = () => {
 
 const BottomTabNavigation = () => {
   return (
-    <BottomTab.Navigator>
+    <BottomTab.Navigator
+      screenOptions={{tabBarActiveTintColor: Styles.Colors.gold}}>
       <BottomTab.Screen
         name="Feed"
         options={{
@@ -157,6 +159,7 @@ const FeedNavigation = () => {
       <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
       <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
       <FeedStack.Screen name="PostDetails" component={PostDetailsSCreen} />
+      <FeedStack.Screen name="Comments" component={CommentsScreen} />
     </FeedStack.Navigator>
   );
 };

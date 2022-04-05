@@ -29,6 +29,7 @@ const PostsService = client.service('posts');
 const MessageGroupsService = client.service('message-groups');
 const MessagesService = client.service('messages');
 const UploadsService = client.service('uploads');
+const CommentsService = client.service('comments');
 
 export {
   UsersService,
@@ -44,4 +45,5 @@ export {
   MessageGroupsService,
   MessagesService,
   UploadsService,
+  CommentsService,
 };

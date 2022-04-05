@@ -21,6 +21,7 @@ import _PersonalDetails from './PersonalDetails';
 import _MyEvents from './MyEvents';
 import _ForgotPassword from './ForgotPassword';
 import _GoogleLogin from './GoogleLogin';
+import _Comments from './Comments';
 
 export const EventsList = _EventsList;
 export const Start = _Start;
@@ -45,3 +46,4 @@ export const MyEvents = _MyEvents;
 export const EventsOnDay = _EventsOnDay;
 export const ForgotPassword = _ForgotPassword;
 export const GoogleLogin = _GoogleLogin;
+export const Comments = _Comments;
