@@ -80,11 +80,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 15,
     borderRadius: 5,
+    top: 20,
   },
   myEventsButtonCount: {
     width: 25,
     height: 25,
-    // padding: 5,
     borderRadius: 30,
     backgroundColor: '#000',
     justifyContent: 'center',

@@ -15,8 +15,6 @@ import {UsersService} from '@services/apiClient';
 
 import {LoadingIndicator} from '@components';
 
-import {Provider} from 'react-redux';
-
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
@@ -42,7 +40,6 @@ dayjs.updateLocale('en', {
 });
 
 import Navigation from './src/navigation';
-import store from './store';
 
 const toastConfig = {
   /* Success message toast config */
@@ -108,25 +105,23 @@ const App = () => {
   }
 
   return (
-    <Provider store={store}>
-      <>
-        <UserContext.Provider
-          value={{
-            authenticated,
-            setAuthenticated,
-            allowMessaging,
-            setAllowMessaging,
-            userData,
-            setUserData,
-          }}>
-          <View style={styles.container}>
-            <StatusBar translucent backgroundColor="transparent" />
-            <Navigation />
-          </View>
-        </UserContext.Provider>
-        <Toast config={toastConfig} />
-      </>
-    </Provider>
+    <>
+      <UserContext.Provider
+        value={{
+          authenticated,
+          setAuthenticated,
+          allowMessaging,
+          setAllowMessaging,
+          userData,
+          setUserData,
+        }}>
+        <View style={styles.container}>
+          <StatusBar translucent backgroundColor="transparent" />
+          <Navigation />
+        </View>
+      </UserContext.Provider>
+      <Toast config={toastConfig} />
+    </>
   );
 };
 

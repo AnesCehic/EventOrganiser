@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -12,16 +12,16 @@ import Icon from 'react-native-remix-icon';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 
-import {LoadingIndicator, BottomSheetModal} from '@components';
-import {Constants, Styles} from '@common';
-import {UserContext} from '@contexts';
+import {LoadingIndicator} from '@components';
 import {toast} from '@utils';
 
 import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-const MyEvents = ({navigation}) => {
+const MyEvents = ({navigation, route}) => {
+  const myEventIds = route.params?.ids;
+
   const [isLoading, setIsLoading] = useState(false);
   const [myEvents, setMyEvents] = useState([]);
 
@@ -32,22 +32,16 @@ const MyEvents = ({navigation}) => {
   const getMyEvents = async () => {
     try {
       setIsLoading(true);
-      //   const allEvents = await EventService.find();
       const eventsToShow = await EventService.find({
         query: {
           start: {
             $gte: new Date(),
           },
+          _id: {
+            $in: myEventIds,
+          },
         },
       });
-      // ownerId: "620471fee097e159cbccec8a"
-
-      // const myEventsRes = await EventService.find({
-      //   query: {
-      //     ownerId: userData._id,
-      //   },
-      // });
-
       setMyEvents(eventsToShow.data);
     } catch (error) {
       toast('error', 'Error', error.message);
@@ -137,6 +131,7 @@ const MyEvents = ({navigation}) => {
         style={{
           padding: 10,
           marginTop: -60,
+          flex: 1,
         }}>
         {renderEventsList()}
       </View>
