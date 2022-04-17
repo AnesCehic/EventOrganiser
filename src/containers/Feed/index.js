@@ -12,13 +12,12 @@ import styles from './styles';
 const Feed = ({navigation}) => {
   const {userData} = useContext(UserContext);
   const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   // ----------------------------
 
   //const {events, eventsError, eventsLoading, refetch} = useEvents();
-  const [refreshing, setRefreshing] = useState(false);
-  const [user, setUser] = useState(true);
+  // const [refreshing, setRefreshing] = useState(false);
+  // const [user, setUser] = useState(true);
   const [posts, setPosts] = useState({
     isLoading: false,
     data: [],
@@ -30,6 +29,10 @@ const Feed = ({navigation}) => {
   useEffect(() => {
     loadPosts();
   }, []);
+
+  useEffect(() => {
+    loadPosts();
+  }, [posts.isLoading]);
 
   const loadPosts = async () => {
     try {
@@ -76,9 +79,10 @@ const Feed = ({navigation}) => {
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error loading posts and events home screen]', error);
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
+      setPosts({
+        ...posts,
+        isLoading: false,
+      });
     }
   };
 
@@ -89,13 +93,12 @@ const Feed = ({navigation}) => {
 
     //refetch({});
     setPosts({
-      isLoading: false,
+      isLoading: true,
       data: [],
       page: 1,
       limit: 5,
       total: 10,
     });
-    loadPosts();
   };
 
   const renderPosts = () => {

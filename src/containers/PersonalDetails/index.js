@@ -40,7 +40,7 @@ const PersonalDetails = ({navigation, route}) => {
       // await hasPermission();
       const token = await AsyncStorageLib.getItem('feathers-jwt');
       console.log(token);
-      const res = await launchImageLibrary();
+      const res = await launchCamera();
 
       console.log(res);
       setUserData({

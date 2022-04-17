@@ -3,8 +3,8 @@ import {Styles} from '@common';
 
 const userCardStyle = StyleSheet.create({
   container: {
-    elevation: 5,
-    borderColor: Styles.Colors.gray,
+    elevation: 2,
+    borderColor: Styles.Colors.lightGrayBg,
     backgroundColor: Styles.Colors.white,
     borderWidth: 1,
     borderRadius: 8,

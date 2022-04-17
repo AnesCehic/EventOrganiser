@@ -45,6 +45,7 @@ const FeedDetails = ({navigation, route}) => {
   const fetchEventData = async () => {
     try {
       setIsLoading(true);
+      console.log(route.params.id);
       const res = await EventService.get(route.params.id);
       let image = res.upload.files[0].signedURL;
 

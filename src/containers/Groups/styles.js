@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   groupNameLogo: {
     width: 64,
     height: 64,
-    margin: -32,
+    margin: -40,
     textAlign: 'center',
     textAlignVertical: 'center',
     fontSize: 40,

@@ -142,10 +142,23 @@ const Groups = ({navigation}) => {
       <TouchableOpacity
         style={styles.myGroupInfo}
         onPress={() => navigateToGroupDetails(item._id, item.name)}>
-        <View style={styles.halfContainer} />
+        <View
+          style={[
+            styles.halfContainer,
+            {
+              backgroundColor: '#F5F6F7',
+              borderTopRightRadius: 12,
+              borderTopLeftRadius: 12,
+            },
+          ]}
+        />
         <View style={[styles.halfContainer, styles.myGroupData]}>
           <Text style={styles.groupNameLogo}>{item.name[0]}</Text>
           <Text style={styles.myGroupName}>{item.name}</Text>
+          <Text style={{textAlign: 'center'}}>
+            <Icon name={'user'} size={14} style={styles.userIcon} />
+            {item.members.length} Members
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -186,12 +199,13 @@ const Groups = ({navigation}) => {
     return (
       <View>
         <FlatList
+          numColumns={2}
           ListHeaderComponent={renderListHeader}
           data={groups}
           onEndReached={loadMore}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}
-          renderItem={renderGroup}
+          renderItem={renderMyGroupInfo}
         />
       </View>
     );
