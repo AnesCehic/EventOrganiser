@@ -70,6 +70,12 @@
 				</array>
 			</dict>
 		</array>
+		<key>NSPhotoLibraryUsageDescription</key>
+  	<string>App wants to use image library.</string>
+		<key>NSCameraUsageDescription</key>
+  	<string>App wants to use camera.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>App wants to use microphone.</string>
 	</dict>
 </plist>
 	<key>NSLocationWhenInUseUsageDescription</key>

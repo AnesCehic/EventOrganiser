@@ -21,6 +21,7 @@ import EditProfileScreen from './EditProfileScreen';
 import ProfileScreen from './ProfileScreen';
 import StartScreen from './StartScreen';
 import ChatScreen from './ChatScreen';
+import CreateChatScreen from './CreateChatScreen';
 import ImagesScreen from './ImagesScreen';
 import GroupsScreen from './GroupsScreen';
 import ExpensesScreen from './ExpensesScreen';
@@ -56,6 +57,7 @@ const ChatNavigation = () => {
         name="Messages"
         component={ChatScreen}
       />
+      <ChatStack.Screen name="CreateChat" component={CreateChatScreen} />
       <ChatStack.Screen
         name="Message"
         component={ChatMessagesScreen}
