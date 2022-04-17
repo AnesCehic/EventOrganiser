@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -7,25 +7,30 @@ import {
   Appearance,
   Image,
   RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-remix-icon';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 
+import {UserContext} from '@contexts';
 import {LoadingIndicator, BottomSheetModal} from '@components';
 import {toast} from '@utils';
 import {Styles} from '@common';
 
 import EventsCalendar from './EventsCalendar';
 
-import {EventService} from '@services/apiClient';
+import {EventService, RSVPService} from '@services/apiClient';
 import styles from './styles';
 
 const EventsList = ({navigation}) => {
   const colorScheme = Appearance.getColorScheme();
+  const {userData} = useContext(UserContext);
+
   const [isLoading, setIsLoading] = useState(false);
   const [eventsFromToday, setEventsFromToday] = useState([]);
   const [myEventsCount, setMyEventsCount] = useState(0);
+  const [myEventsIds, setMyEventsIds] = useState([]);
   const [showAgenda, setShowAgenda] = useState(false);
 
   const [limit, setLimit] = useState(10);
@@ -33,8 +38,40 @@ const EventsList = ({navigation}) => {
   const [total, setTotal] = useState(10);
 
   useEffect(() => {
+    getNumberOfMyEvents();
     getEvents();
   }, []);
+
+  const getNumberOfMyEvents = async () => {
+    try {
+      // find event ids that i attend from RSVP service
+      const res = await RSVPService.find({
+        query: {
+          ownerId: userData._id,
+        },
+      });
+      const ids = res?.data?.map(ev => {
+        return ev.eventId;
+      });
+      // find count of event ids from event service
+      const myEventIdsFromToday = await EventService.find({
+        query: {
+          start: {
+            $gte: new Date(),
+          },
+          _id: {
+            $in: ids,
+          },
+        },
+      });
+
+      setMyEventsIds(ids);
+      setMyEventsCount(myEventIdsFromToday.total);
+    } catch (error) {
+      toast('error', 'Error', error.message);
+      console.log('[Error get events]', error);
+    }
+  };
 
   const getEvents = async () => {
     try {
@@ -59,24 +96,6 @@ const EventsList = ({navigation}) => {
       setLimit(limitCalc);
 
       setEventsFromToday([...eventsFromToday, ...eventsToShow.data]);
-
-      // ownerId: "620471fee097e159cbccec8a"
-
-      // const myEventsRes = await EventService.find({
-      //   query: {
-      //     ownerId: userData._id,
-      //   },
-      // });
-
-      // const showMyEvents = eventsToShow.data.filter(
-      //   ev => ev.ownerId === userData._id,
-      // ).length;
-
-      // setMyEventsCount(showMyEvents);
-      // setEvents(allEvents.data);
-      // setEventsFromToday(eventsToShow.data);
-
-      // setMyEvents(myEventsRes.data);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error get events]', error);
@@ -148,20 +167,18 @@ const EventsList = ({navigation}) => {
   };
 
   const renderMyEventsButton = () => {
-    return (
+    return myEventsCount > 0 ? (
       <TouchableOpacity
         style={styles.myEventsButtonContainer}
         onPress={() => {
-          navigation.navigate('MyEventsScreen');
+          navigateToMyEvents();
         }}>
         <Text>My Events</Text>
         <View style={styles.myEventsButtonCount}>
-          <Text style={styles.myEventsButtonText}>
-            {/* {myEventsCount} */}1
-          </Text>
+          <Text style={styles.myEventsButtonText}>{myEventsCount}</Text>
         </View>
       </TouchableOpacity>
-    );
+    ) : null;
   };
 
   const handleRefresh = () => {
@@ -193,6 +210,12 @@ const EventsList = ({navigation}) => {
     }, 300);
   };
 
+  const navigateToMyEvents = () => {
+    navigation.navigate('MyEventsScreen', {
+      ids: myEventsIds,
+    });
+  };
+
   const renderAgenda = () => {
     return (
       <BottomSheetModal
@@ -208,7 +231,6 @@ const EventsList = ({navigation}) => {
           />
         </TouchableOpacity>
         <EventsCalendar
-          // events={events}
           navigateToEvent={navigateToEvent}
           navigateToMonth={navigateToMonth}
           navigateToDay={navigateToDay}
@@ -228,7 +250,10 @@ const EventsList = ({navigation}) => {
           <Text style={styles.headerText}>Events</Text>
           <TouchableOpacity
             style={styles.topMonthTouch}
-            onPress={() => setShowAgenda(true)}>
+            onPress={() => {
+              console.log('asdasdas');
+              setShowAgenda(true);
+            }}>
             <Icon
               name="ri-calendar-todo-fill"
               size={18}
@@ -243,10 +268,15 @@ const EventsList = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        {/* {renderMyEventsButton()} */}
+        {renderMyEventsButton()}
       </View>
+
       {eventsFromToday.length > 0 ? (
-        <View style={[styles.eventsListContainer, {marginTop: -60}]}>
+        <View
+          style={[
+            styles.eventsListContainer,
+            {marginTop: myEventsCount > 0 ? -20 : -60},
+          ]}>
           {renderEventsList()}
         </View>
       ) : (

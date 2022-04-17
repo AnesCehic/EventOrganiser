@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
 
   modalContainer: {
     padding: 16,
-    height: '75%',
     borderTopRightRadius: 24,
     borderTopLeftRadius: 24,
     alignItems: 'center',
@@ -122,11 +121,26 @@ const styles = StyleSheet.create({
   rsvpInfo: {
     width: '100%',
     alignItems: 'flex-start',
+    paddingBottom: 10,
   },
   closeButton: {
     position: 'absolute',
     top: 20,
     right: 20,
+    zIndex: 99,
+  },
+  eventListItemDateAndTimeWrapper: {
+    marginTop: 10,
+  },
+  eventListItemDateAndTime: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  eventListDateAndTimeText: {
+    color: Styles.Colors.grayText,
+    fontSize: 12,
+    marginLeft: 5,
   },
 });
 

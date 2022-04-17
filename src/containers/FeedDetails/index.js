@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Image,
   ScrollView,
@@ -9,15 +10,16 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
 import * as AddToCalendarEvent from 'react-native-add-calendar-event';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
+import RemixIcon from 'react-native-remix-icon';
 
 import {BottomSheetModal, SubmitButton, LoadingIndicator} from '@components';
 import TextInput from '@components/TextInput';
 import {Styles} from '@common';
 import {toast} from '@utils';
+import {UserContext} from '@contexts';
 
 import {EventService, RSVPService} from '../../services/apiClient';
 
@@ -26,16 +28,15 @@ import DateAndPlace from './DateAndPlace';
 import styles from './styles';
 
 const FeedDetails = ({navigation, route}) => {
-  const [eventData, setEventData] = useState({
-    title: 'Test',
-    description: 'Description',
-    location: 'Location',
-  });
+  const {userData} = useContext(UserContext);
+  const [eventData, setEventData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isRSVPModalVisible, setIsRSVPModalVisible] = useState(false);
   const [isConfirmRSVPModalVisible, setIsConfirmRSVPModalVisible] =
     useState(false);
   const [note, setNote] = useState('');
+  // for patch RSVP event
+  const [localDidRSVP, setLocalDidRSVP] = useState(false);
 
   const toggleRSVPModal = () => {
     setIsRSVPModalVisible(!isRSVPModalVisible);
@@ -45,8 +46,8 @@ const FeedDetails = ({navigation, route}) => {
     try {
       setIsLoading(true);
       const res = await EventService.get(route.params.id);
-
       let image = res.upload.files[0].signedURL;
+
       setEventData({
         ...res,
         startDay: dayjs(res.start).format('MMMM DD'),
@@ -87,11 +88,8 @@ const FeedDetails = ({navigation, route}) => {
     return (
       <View style={styles.rsvpInfo}>
         <Text style={{fontSize: 16, marginBottom: 8}}>Event details</Text>
-        <Text style={{fontSize: 18, fontWeight: '800', marginBottom: 20}}>
-          {eventData.title}
-        </Text>
-        {/* {renderDateAndPlace()}
-        {renderDateAndPlaceLocation()} */}
+        <Text style={{fontSize: 18, fontWeight: '800'}}>{eventData.title}</Text>
+        {renderInformations()}
       </View>
     );
   };
@@ -122,7 +120,7 @@ const FeedDetails = ({navigation, route}) => {
         <TouchableOpacity
           style={styles.closeButton}
           onPress={() => setIsRSVPModalVisible(false)}>
-          <Text>X</Text>
+          <RemixIcon name="ri-close-line" />
         </TouchableOpacity>
         {renderModalEventDetails()}
         <View
@@ -153,45 +151,72 @@ const FeedDetails = ({navigation, route}) => {
         <SubmitButton
           style={styles.modalConfirmBtn}
           title="Confirm reservation"
-          onPress={async () => {
-            try {
-              const res = await RSVPService.create({
-                eventId: route.params.id,
-                notes: note,
-              });
-            } catch (error) {
-              console.log('[Error posting rsvp field]', error);
-            } finally {
-              setIsRSVPModalVisible(false);
-              // change this with async when api is set
-              setTimeout(() => {
-                setIsConfirmRSVPModalVisible(true);
-              }, 400);
-            }
-          }}
+          onPress={createRSVP}
         />
       </BottomSheetModal>
     );
   };
-  // checkcircle;
+
+  const createRSVP = async () => {
+    try {
+      if (!localDidRSVP) {
+        await RSVPService.create({
+          eventId: route.params.id,
+          notes: note,
+        });
+
+        setLocalDidRSVP(true);
+      } else {
+        await RSVPService.patch(route.params.id, {
+          notes: note,
+        });
+      }
+      setTimeout(() => {
+        setIsConfirmRSVPModalVisible(true);
+      }, 400);
+    } catch (error) {
+      toast('error', 'Error', error.message);
+      console.log('[Error posting rsvp field]', error);
+    } finally {
+      setIsRSVPModalVisible(false);
+    }
+  };
+
   const renderConfirmedRSVPModal = () => {
     if (!isRSVPModalVisible) {
       return (
         <BottomSheetModal
           isVisible={isConfirmRSVPModalVisible}
-          title="Reservation Confirmed!"
           closeModal={() => setIsConfirmRSVPModalVisible(false)}
           contentContainerStyle={[
             styles.modalContainer,
             {justifyContent: 'space-between'},
           ]}>
-          <Icon
-            style={styles.modalIcon}
-            name="checkcircle"
-            type="antdesign"
-            color={Styles.Colors.success}
-            size={70}
-          />
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => {
+              setIsConfirmRSVPModalVisible(false);
+            }}>
+            <RemixIcon name="ri-close-line" />
+          </TouchableOpacity>
+          <View
+            style={{
+              alignSelf: 'flex-start',
+              borderBottomWidth: 1,
+              borderBottomColor: Styles.Colors.grayBorder,
+              marginBottom: 10,
+              width: '100%',
+            }}>
+            <Image source={require('../../assets/accept.png')} />
+            <Text
+              style={{
+                fontSize: 30,
+                fontWeight: '600',
+                marginVertical: 25,
+              }}>
+              Reservation {'\n'} Confirmed
+            </Text>
+          </View>
 
           {renderModalEventDetails()}
 
@@ -204,17 +229,53 @@ const FeedDetails = ({navigation, route}) => {
             <SubmitButton
               style={[
                 styles.modalConfirmBtn,
-                {backgroundColor: Styles.Colors.grayBorder},
+                {
+                  backgroundColor: Styles.Colors.white,
+                  borderWidth: 1,
+                  borderColor: Styles.Colors.grayBorder,
+                },
               ]}
-              // eslint-disable-next-line react-native/no-inline-styles
               titleStyle={{color: '#5D6470'}}
               title="Update reservation"
-              onPress={() => console.log('UPDATE RSVP INFO')}
+              onPress={updateReservation}
+            />
+            <SubmitButton
+              style={styles.modalConfirmBtn}
+              title="OK"
+              onPress={() => setIsConfirmRSVPModalVisible(false)}
             />
           </View>
         </BottomSheetModal>
       );
     }
+  };
+
+  const updateReservation = () => {
+    setIsConfirmRSVPModalVisible(false);
+    setTimeout(() => {
+      setIsRSVPModalVisible(true);
+    }, 200);
+  };
+
+  const renderInformations = () => {
+    const startDate = dayjs(eventData.start).format('MMM DD');
+    const endDate = dayjs(eventData.end).format('MMM DD');
+    const startTime = dayjs(eventData.start).format('hh A');
+    const location = eventData.location;
+    return (
+      <View style={styles.eventListItemDateAndTimeWrapper}>
+        <View style={styles.eventListItemDateAndTime}>
+          <RemixIcon name="ri-time-line" color="#BFBB85" size={22} />
+          <Text style={styles.eventListDateAndTimeText}>
+            {startDate} - {endDate} • {startTime}
+          </Text>
+        </View>
+        <View style={styles.eventListItemDateAndTime}>
+          <RemixIcon name="ri-map-pin-2-line" color="#BFBB85" size={22} />
+          <Text style={styles.eventListDateAndTimeText}>{location}</Text>
+        </View>
+      </View>
+    );
   };
 
   const renderDateAndPlace = () => {
@@ -229,13 +290,15 @@ const FeedDetails = ({navigation, route}) => {
   };
 
   const renderDateAndPlaceLocation = () => {
+    const location1 = eventData?.location?.split(',')[0];
+    const location2 = eventData?.location?.split(',').slice(1).join('');
     return (
       <DateAndPlace icon="location-pin" text1={location1} text2={location2} />
     );
   };
 
   const renderRSVP = () => {
-    if (eventData.canRSVP) {
+    if (!eventData.canRSVP || eventData.didRSVP) {
       return null;
     }
 
@@ -256,8 +319,6 @@ const FeedDetails = ({navigation, route}) => {
     return <LoadingIndicator />;
   }
 
-  const location1 = eventData.location.split(',')[0];
-  const location2 = eventData.location.split(',').slice(1).join('');
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewStyle}>
