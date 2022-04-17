@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TextInput,
+  ScrollView,
   TouchableOpacity,
   TouchableHighlight,
   Image,
@@ -114,11 +115,11 @@ const CreatePost = ({navigation}) => {
 
   const renderImages = () => {
     return (
-      <View style={{flexDirection: 'row'}}>
+      <ScrollView horizontal style={{flexDirection: 'row'}}>
         {loadedImages &&
           loadedImages.map((image, index) => {
             return (
-              <View>
+              <View style={{paddingTop: 10}} key={index}>
                 <Image source={{uri: image.uri}} style={styles.loadedImage} />
                 <TouchableOpacity
                   onPress={() => removeImage(index)}
@@ -128,7 +129,7 @@ const CreatePost = ({navigation}) => {
               </View>
             );
           })}
-      </View>
+      </ScrollView>
     );
   };
 

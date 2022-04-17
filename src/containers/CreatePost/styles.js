@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.white,
   },
   postTextInput: {
-    paddingBottom: 68,
+    paddingBottom: 20,
     height: '60%',
     padding: 16,
     textAlignVertical: 'top',
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     position: 'absolute',
-    top: -5,
+    top: 0,
     right: 0,
     backgroundColor: Styles.Colors.gold,
     borderRadius: 100,
