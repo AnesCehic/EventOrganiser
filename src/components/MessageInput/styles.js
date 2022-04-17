@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,14 +20,25 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
   textInput: {
+    flexShrink: 1,
     flexGrow: 1,
-    paddingTop: 7,
-    paddingBottom: 7,
+    paddingVertical: 0,
     fontSize: 15,
     paddingLeft: 15,
     paddingRight: 15,
     backgroundColor: '#E6EBF0',
+    borderRadius: 9,
+  },
+  deleteButton: {
+    backgroundColor: Styles.Colors.gold,
     borderRadius: 50,
+    position: 'absolute',
+    borderWidth: 2,
+    borderColor: '#E6EBF0',
+    top: -5,
+    right: -5,
+    padding: 3,
+    zIndex: 10,
   },
 });
 

@@ -21,6 +21,7 @@ const Styles = {
     grayButtonBackground: '#2D2B0D',
     grayBorderPost: '#E7E7E7',
     addPhotoBorder: '#E6EBF0',
+    delete: '#FE3B30',
 
     topBackground: colorScheme === 'dark' ? '#fff' : '#BFBB85',
     darkBgLight: colorScheme === 'dark' ? '#1C2329' : '#fff',

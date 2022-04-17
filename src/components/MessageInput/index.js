@@ -1,25 +1,111 @@
-import React from 'react';
-import {View, TextInput, TouchableOpacity, Text, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, TextInput, TouchableOpacity, Text, Image, Platform} from 'react-native';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+
+import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
+
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import styles from './styles';
 
-const MessageInput = ({onPress, onTextChange, value}) => {
+const MessageInput = ({onPress, onTextChange, value, images, setImages}) => {
+  const loadCamera = async () => {
+    try {
+      let per;
+
+      if (Platform.OS === 'android') {
+        per = await request(PERMISSIONS.ANDROID.CAMERA);
+      }
+
+      if (per !== RESULTS.GRANTED) {
+        throw new Error('Permission not granted');
+      }
+
+      const res = await launchCamera();
+
+      setImages([...images, ...res.assets]);
+    } catch (error) {
+      console.log('[Error]', error);
+    }
+  };
+
+  const loadGallery = async () => {
+    try {
+      const res = await launchImageLibrary({
+        mediaType: 'photo',
+      });
+
+      setImages([...images, ...res.assets]);
+    } catch (error) {
+      console.log('[Error]', error);
+    }
+  };
+
+  const removePicture = index => {
+    setImages(images.filter((e, i) => i !== index));
+  };
+
+  const renderImages = () => {
+    if (images.length === 0) {
+      return null;
+    }
+
+    return images.map((img, index) => {
+      return (
+        <View key={index} style={{padding: 5}}>
+          <TouchableOpacity
+            onPress={() => removePicture(index)}
+            style={styles.deleteButton}>
+            <Icon name="close" size={16} />
+          </TouchableOpacity>
+          <Image
+            source={{uri: img.uri}}
+            style={{
+              width: 80,
+              height: 80,
+              backgroundColor: 'black',
+              borderRadius: 8,
+            }}
+          />
+        </View>
+      );
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => null} style={styles.imageLeft}>
+      <TouchableOpacity onPress={loadCamera} style={styles.imageLeft}>
         <Image source={require('../../assets/Camera.png')} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => null} style={styles.imageLeft}>
+      <TouchableOpacity onPress={loadGallery} style={styles.imageLeft}>
         <Image source={require('../../assets/Gallery.png')} />
       </TouchableOpacity>
-      <TextInput
-        onChangeText={onTextChange}
-        placeholder="Enter message"
-        value={value}
-        style={styles.textInput}
-      />
-      {value && value !== '' && value.trim() !== '' ? (
-        <TouchableOpacity style={{paddingLeft: 9}} onPress={onPress}>
+      <View
+        style={{
+          flexGrow: 1,
+          flexShrink: 1,
+          backgroundColor: '#E6EBF0',
+          borderRadius: 9,
+          paddingVertical: 5,
+        }}>
+        <TextInput
+          onChangeText={onTextChange}
+          multiline={true}
+          placeholder="Enter message"
+          value={value}
+          style={styles.textInput}
+        />
+        <View
+          style={{flexDirection: 'row', flexShrink: 1, paddingHorizontal: 10}}>
+          {renderImages()}
+        </View>
+      </View>
+      {(value && value !== '' && value.trim() !== '') || images.length !== 0 ? (
+        <TouchableOpacity
+          style={{paddingLeft: 9}}
+          onPress={() => {
+            onPress();
+          }}>
           <Image source={require('../../assets/SendMessage.png')} />
         </TouchableOpacity>
       ) : null}
