@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderColor: '#B7BFC7',
     padding: 10,
-    borderBottomWidth: 1,
   },
   infoContainer: {
     width: '80%',
@@ -47,6 +46,11 @@ const styles = StyleSheet.create({
   nameAndTime: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  separator: {
+    backgroundColor: 'black',
+    width: '100%',
+    height: 1,
   },
 });
 

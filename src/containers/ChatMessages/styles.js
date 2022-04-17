@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginTop: 2,
     marginRight: 5,
-    width: 100,
+    maxWidth: 240,
     borderRadius: 18,
   },
   userMessageContainer: {
