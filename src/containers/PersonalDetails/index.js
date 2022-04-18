@@ -1,5 +1,11 @@
 import React, {useState, useLayoutEffect, useContext} from 'react';
-import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import {Avatar} from 'react-native-elements';
 import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -21,25 +27,22 @@ const PersonalDetails = ({navigation, route}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [upload, setUpload] = useState({});
 
-  const hasPermission = async () => {
-    try {
-      let res = await check(PERMISSIONS.ANDROID.CAMERA);
-
-      if (!res) {
-        throw new Error('You do not have permissions to use camera!');
-      }
-
-      return res;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const loadCamera = async () => {
     try {
       // await hasPermission();
       const token = await AsyncStorageLib.getItem('feathers-jwt');
       console.log(token);
+
+      let per;
+
+      if (Platform.OS === 'android') {
+        per = await check(PERMISSIONS.ANDROID.CAMERA);
+      }
+
+      if (!per) {
+        throw new Error('You do not have permissions to use camera!');
+      }
+
       const res = await launchCamera();
 
       console.log(res);

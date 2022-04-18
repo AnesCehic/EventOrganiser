@@ -22,8 +22,6 @@ import {client, ChangeEmail, UsersService} from '@services/apiClient';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
-import {launchCamera} from 'react-native-image-picker';
-import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const MenuItems = [
   {
