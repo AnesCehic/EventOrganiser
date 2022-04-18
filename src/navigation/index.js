@@ -235,7 +235,7 @@ const MainNavigation = () => {
   }
 
   const linking = {
-    prefixes: ['lincolnapp://'],
+    prefixes: ['lincoln://'],
     config: {
       screens: {
         Login: {
