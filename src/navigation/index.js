@@ -159,6 +159,7 @@ const FeedNavigation = () => {
   return (
     <FeedStack.Navigator screenOptions={{headerShadowVisible: false}}>
       <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
+      <FeedStack.Screen name="CreatePost" component={CreatePostScreen} />
       <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
       <FeedStack.Screen name="PostDetails" component={PostDetailsSCreen} />
       <FeedStack.Screen name="Comments" component={CommentsScreen} />
@@ -189,7 +190,6 @@ const ProfileNavigation = () => {
         name="ChangePassword"
         component={ChangePasswordScreen}
       />
-      <ProfileStack.Screen name="CreatePost" component={CreatePostScreen} />
       <ProfileStack.Screen
         name="PreferencesScreen"
         component={PreferencesScreen}

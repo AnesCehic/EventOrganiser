@@ -30,11 +30,6 @@ const MenuItems = [
     menuScreen: Constants.NavigationScreens.PersonalDetailsScreen,
   },
   {
-    id: 6,
-    menuText: 'Create post',
-    menuScreen: Constants.NavigationScreens.CreatePostScreen,
-  },
-  {
     id: 12,
     menuText: 'Password',
     menuScreen: Constants.NavigationScreens.ChangePasswordScreen,

@@ -5,16 +5,16 @@ import dayjs from 'dayjs';
 import styles from './styles';
 
 const Comment = ({post}) => {
-  console.log('Post', post?.owner);
+  console.log(post)
   return (
     <View style={styles.commentContainer}>
-      {!post?.owner?.uploadId ? (
+      {/* {!post?.owner?.uploadId ? ( */}
         <View>
           <Text style={styles.userImageFallback}>
             {`${post?.owner?.firstName[0]}${post?.owner?.lastName[0]}`}
           </Text>
         </View>
-      ) : null}
+      {/* ) : null} */}
       <View style={{flexGrow: 1}}>
         <View style={styles.userNameAndDate}>
           <Text
