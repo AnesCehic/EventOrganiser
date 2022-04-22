@@ -118,7 +118,7 @@ const GroupMembers = ({navigation, route}) => {
         throw new Error('You cannot leave group!');
       }
     } catch (error) {
-      toast(error);
+      toast('error', 'Error', error.message);
     }
   };
 
