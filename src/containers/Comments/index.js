@@ -12,6 +12,7 @@ const Comments = ({navigation, route}) => {
     data: [],
     isLoading: false,
     total: 0,
+    page: 1,
   });
 
   useEffect(() => {
@@ -21,24 +22,23 @@ const Comments = ({navigation, route}) => {
       isLoading: true,
     });
 
-    // fix real time data
-    // CommentsService.on('created', handleCreatedComment);
+    CommentsService.on('created', handleCreatedComment);
 
-    // return () => {
-    //   CommentsService.off('created', handleCreatedComment);
-    // };
+    return () => {
+      CommentsService.off('created', handleCreatedComment);
+    };
   }, []);
 
-  // const handleCreatedComment = res => {
-  //   console.log(res);
-  //   if (res.postId === route.params.postId) {
-  //     setComments({
-  //       ...comments,
-  //       data: [...comments.data, res],
-  //       total: comments.total + 1,
-  //     });
-  //   }
-  // };
+  const handleCreatedComment = res => {
+    console.log(res, route.params.postId === res.postId);
+    if (res.postId === route.params.postId) {
+      setComments({
+        ...comments,
+        data: [...comments.data, res],
+        total: comments.total + 1,
+      });
+    }
+  };
 
   useEffect(() => {
     if (comments.isLoading) {
@@ -46,20 +46,24 @@ const Comments = ({navigation, route}) => {
     }
   }, [comments.isLoading]);
 
+  // Needs to be optimized
   const loadCommentsForPost = async () => {
     try {
       const res = await CommentsService.find({
         query: {
           postId: route.params.postId,
+          $limit: 10,
+          $skip: (comments.page - 1) * 10,
         },
       });
 
-      console.log(res);
+      console.log("Res", res);
 
       setComments({
-        data: res.data,
+        data: [...comments.data, ...res.data],
         isLoading: false,
         total: res.total,
+        page: comments.page + 1,
       });
     } catch (error) {
       console.log(error);
@@ -73,11 +77,11 @@ const Comments = ({navigation, route}) => {
         text: commentInput,
       });
 
-      setComments({
-        ...comments,
-        data: [...comments.data, res],
-        total: comments.total + 1,
-      });
+      // setComments({
+      //   ...comments,
+      //   data: [...comments.data, res],
+      //   total: comments.total + 1,
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -118,6 +122,7 @@ const Comments = ({navigation, route}) => {
       <FlatList
         key={item => item.id}
         data={comments.data}
+        onEndReached={loadCommentsForPost}
         contentContainerStyle={{paddingBottom: 16}}
         renderItem={({item}) => <Comment post={item} />}
       />
