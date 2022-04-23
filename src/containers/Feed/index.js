@@ -31,7 +31,9 @@ const Feed = ({navigation}) => {
   }, []);
 
   useEffect(() => {
-    loadPosts();
+    if (posts.isLoading) {
+      loadPosts();
+    }
   }, [posts.isLoading]);
 
   const loadPosts = async () => {
