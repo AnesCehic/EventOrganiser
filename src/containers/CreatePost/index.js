@@ -14,6 +14,7 @@ import {
 import {PostsService} from '@services/apiClient';
 import {UserContext} from '@contexts';
 import {Styles} from '@common';
+import {toast} from '@utils';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -62,6 +63,8 @@ const CreatePost = ({navigation}) => {
         body: postData,
         uploadId: upload?._id,
       });
+
+      toast('success', 'Success', 'Post created!');
     } catch (error) {
       console.log('[Error creating post]', error);
     }
