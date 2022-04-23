@@ -30,7 +30,7 @@ const PostDetails = ({navigation, route}) => {
     try {
       const res = await PostsService.get(route.params.id);
       console.log(res);
-      const images = res.upload.files.map(i => i.signedURL);
+      const images = res?.upload?.files?.map(i => i.signedURL);
       setPost({...res, images: images});
       navigation.setOptions({
         headerShown: true,
@@ -79,29 +79,39 @@ const PostDetails = ({navigation, route}) => {
     );
   };
 
+  const renderPostImages = () => {
+    if (post?.images) {
+      return (
+        <View style={customStyle}>
+          <ScrollView
+            pagingEnabled
+            horizontal={true}
+            style={customStyle}
+            onScroll={changeActiveIndex}
+            showsHorizontalScrollIndicator={false}>
+            {post.images &&
+              post.images.map((e, index) => (
+                <Image
+                  key={index}
+                  resizeMode="contain"
+                  source={{
+                    uri: e,
+                  }}
+                  style={[customStyle, resizeModeStyle]}
+                />
+              ))}
+          </ScrollView>
+          {renderActiveDots()}
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={customStyle}>
-        <ScrollView
-          pagingEnabled
-          horizontal={true}
-          style={customStyle}
-          onScroll={changeActiveIndex}
-          showsHorizontalScrollIndicator={false}>
-          {post.images &&
-            post.images.map((e, index) => (
-              <Image
-                key={index}
-                resizeMode="contain"
-                source={{
-                  uri: e,
-                }}
-                style={[customStyle, resizeModeStyle]}
-              />
-            ))}
-        </ScrollView>
-        {renderActiveDots()}
-      </View>
+      {renderPostImages()}
       <View style={styles.ownerAndTimeInfo}>
         <View style={styles.ownerData}>
           <Image source={require('../../assets/data.png')} />
