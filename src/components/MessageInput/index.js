@@ -56,7 +56,7 @@ const MessageInput = ({onPress, onTextChange, value, images, setImages}) => {
           <TouchableOpacity
             onPress={() => removePicture(index)}
             style={styles.deleteButton}>
-            <Icon name="close" size={16} />
+            <Icon name="close" size={16} style={{color: '#fff'}} />
           </TouchableOpacity>
           <Image
             source={{uri: img.uri}}
