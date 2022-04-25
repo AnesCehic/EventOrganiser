@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   FlatList,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   RefreshControl,
+  Keyboard,
 } from 'react-native';
 import {CommentsService} from '../../services/apiClient';
 
@@ -21,6 +22,8 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
     total: 0,
     page: 1,
   });
+
+  const commentsList = useRef(null);
 
   useEffect(() => {
     setComments({
@@ -39,7 +42,7 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
     if (res.postId === postId) {
       setComments({
         ...comments,
-        data: [res, ...comments.data],
+        data: [...comments.data, res],
         total: comments.total + 1,
       });
     }
@@ -84,6 +87,8 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
       });
 
       setCommentInput('');
+      Keyboard.dismiss();
+      commentsList.current.scrollToEnd();
       // setComments({
       //   ...comments,
       //   data: [...comments.data, res],
@@ -133,6 +138,7 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
       <FlatList
         key={item => item.id}
         data={comments.data}
+        ref={commentsList}
         onEndReached={loadCommentsForPost}
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={handleRefresh} />
