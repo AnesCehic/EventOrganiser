@@ -49,6 +49,8 @@ const FeedDetails = ({navigation, route}) => {
       const res = await EventService.get(route.params.id);
       let image = res.upload.files[0].signedURL;
 
+      console.log("Event", res)
+
       setEventData({
         ...res,
         startDay: dayjs(res.start).format('MMMM DD'),
@@ -300,20 +302,20 @@ const FeedDetails = ({navigation, route}) => {
 
   const renderRSVP = () => {
     if (eventData.canRSVP && !eventData.didRsvp) {
-      return null;
+      return (
+        <View style={styles.rsvpContainer}>
+          <View>
+            <Text style={styles.joinText}>Want to join?</Text>
+            <Text>Seats still available</Text>
+          </View>
+          <TouchableOpacity style={styles.rsvpButton} onPress={toggleRSVPModal}>
+            <Text style={styles.rsvpText}>RSVP Now</Text>
+          </TouchableOpacity>
+        </View>
+      );
     }
 
-    return (
-      <View style={styles.rsvpContainer}>
-        <View>
-          <Text style={styles.joinText}>Want to join?</Text>
-          <Text>Seats still available</Text>
-        </View>
-        <TouchableOpacity style={styles.rsvpButton} onPress={toggleRSVPModal}>
-          <Text style={styles.rsvpText}>RSVP Now</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    return null;
   };
 
   if (isLoading) {
