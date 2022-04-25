@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   commentInput: {
     padding: 5,
     margin: 8,
-    minHeight: 48,
+    minHeight: 25,
     backgroundColor: '#E6EBF0',
     borderRadius: 50,
     flexDirection: 'row',
@@ -31,11 +31,10 @@ const styles = StyleSheet.create({
     paddingLeft: 11,
   },
   headline: {
-    paddingBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingVertical: 8,
   },
   commentsHeading: {
     fontSize: 14,

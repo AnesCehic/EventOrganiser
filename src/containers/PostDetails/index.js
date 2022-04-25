@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 import {PostsService} from '@services/apiClient';
 import {Styles} from '@common';
 
+import Comments from '../Comments';
+
 import styles from './styles';
 
 const PostDetails = ({navigation, route}) => {
@@ -31,7 +33,7 @@ const PostDetails = ({navigation, route}) => {
       const res = await PostsService.get(route.params.id);
       console.log(res);
       const images = res?.upload?.files?.map(i => i.signedURL);
-      setPost({...res, images: images});
+      setPost({...res, images: images, postLoaded: true});
       navigation.setOptions({
         headerShown: true,
         headerTitleStyle: {
@@ -124,7 +126,7 @@ const PostDetails = ({navigation, route}) => {
           {post.createdAt ? dayjs(post.createdAt).format('MMM D, YYYY') : null}
         </Text>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           position: 'absolute',
           bottom: 16,
@@ -140,8 +142,9 @@ const PostDetails = ({navigation, route}) => {
           });
         }}>
         <Text>Comments</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Text style={styles.postBody}>{post?.body}</Text>
+      <Comments postId={post._id} postLoaded={post.postLoaded} />
     </View>
   );
 };

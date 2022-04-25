@@ -1,12 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  RefreshControl,
+} from 'react-native';
 import {CommentsService} from '../../services/apiClient';
 
 import Comment from './Comment';
 
 import styles from './styles';
 
-const Comments = ({navigation, route}) => {
+const Comments = ({navigation, route, postId, postLoaded}) => {
   const [commentInput, setCommentInput] = useState('');
   const [comments, setComments] = useState({
     data: [],
@@ -16,7 +23,6 @@ const Comments = ({navigation, route}) => {
   });
 
   useEffect(() => {
-    console.log(route.params.postId);
     setComments({
       ...comments,
       isLoading: true,
@@ -30,34 +36,34 @@ const Comments = ({navigation, route}) => {
   }, []);
 
   const handleCreatedComment = res => {
-    console.log(res, route.params.postId === res.postId);
-    if (res.postId === route.params.postId) {
+    if (res.postId === postId) {
       setComments({
         ...comments,
-        data: [...comments.data, res],
+        data: [res, ...comments.data],
         total: comments.total + 1,
       });
     }
   };
 
   useEffect(() => {
-    if (comments.isLoading) {
+    if (comments.isLoading && postLoaded) {
       loadCommentsForPost();
     }
-  }, [comments.isLoading]);
+  }, [comments.isLoading, postLoaded]);
 
   // Needs to be optimized
   const loadCommentsForPost = async () => {
     try {
       const res = await CommentsService.find({
         query: {
-          postId: route.params.postId,
+          postId: postId,
           $limit: 10,
           $skip: (comments.page - 1) * 10,
+          // $sort: {
+          //   createdAt: -1,
+          // },
         },
       });
-
-      console.log("Res", res);
 
       setComments({
         data: [...comments.data, ...res.data],
@@ -73,7 +79,7 @@ const Comments = ({navigation, route}) => {
   const createPostComment = async () => {
     try {
       const res = await CommentsService.create({
-        postId: route.params.postId,
+        postId: postId,
         text: commentInput,
       });
 
@@ -85,6 +91,10 @@ const Comments = ({navigation, route}) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleRefresh = () => {
+    console.log('Refresh');
   };
 
   const renderHeadline = () => {
@@ -123,6 +133,9 @@ const Comments = ({navigation, route}) => {
         key={item => item.id}
         data={comments.data}
         onEndReached={loadCommentsForPost}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
+        }
         contentContainerStyle={{paddingBottom: 16}}
         renderItem={({item}) => <Comment post={item} />}
       />
