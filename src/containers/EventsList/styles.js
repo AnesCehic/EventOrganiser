@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.topBackground,
   },
   topImageContent: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -125,6 +125,23 @@ const styles = StyleSheet.create({
   calendarHeaderTextMonth: {
     fontSize: 12,
     marginLeft: 5,
+  },
+  monthSelected: {
+    marginLeft: 5,
+    fontWeight: '600',
+  },
+  eventsHeaderIcon: {
+    marginRight: 16,
+    color: Styles.Colors.white,
+  },
+  eventsHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sheetContainer: {
+    flex: 1,
+    marginTop: 50,
+    padding: 125,
   },
 });
 
