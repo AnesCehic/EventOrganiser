@@ -299,7 +299,7 @@ const FeedDetails = ({navigation, route}) => {
   };
 
   const renderRSVP = () => {
-    if (eventData.didRSVP || !eventData.canRSVP) {
+    if (eventData.canRSVP && !eventData.didRsvp) {
       return null;
     }
 
