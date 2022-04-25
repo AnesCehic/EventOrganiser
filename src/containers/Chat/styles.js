@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '600',
     fontSize: 28,
+    color: Styles.Colors.white,
   },
   createMessageIcon: {
     padding: 8,
@@ -49,6 +50,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     width: '100%',
     height: 1,
+  },
+  eventsHeaderIcon: {
+    marginRight: 16,
+    color: Styles.Colors.white,
   },
 });
 

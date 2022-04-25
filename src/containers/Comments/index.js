@@ -42,7 +42,8 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
     if (res.postId === postId) {
       setComments({
         ...comments,
-        data: [...comments.data, res],
+        // FIXME
+        data: [res, ...comments.data],
         total: comments.total + 1,
       });
     }
@@ -62,9 +63,9 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
           postId: postId,
           $limit: 10,
           $skip: (comments.page - 1) * 10,
-          // $sort: {
-          //   createdAt: -1,
-          // },
+          $sort: {
+            createdAt: -1,
+          },
         },
       });
 

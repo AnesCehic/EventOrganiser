@@ -44,7 +44,8 @@ const Chat = ({navigation}) => {
     return (
       <View style={styles.headerContainer}>
         <View style={styles.headerTitle}>
-          <View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <IonCons name="grid" size={25} style={styles.eventsHeaderIcon} />
             <Text style={styles.title}>Chat</Text>
           </View>
           <TouchableOpacity
@@ -102,6 +103,7 @@ const Chat = ({navigation}) => {
   useEffect(() => {
     getAllMessages();
 
+    // FIXME
     const refetchChatGroups = navigation.addListener('focus', () => {
       getAllMessages();
     });
