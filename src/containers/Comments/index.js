@@ -83,6 +83,7 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
         text: commentInput,
       });
 
+      setCommentInput('');
       // setComments({
       //   ...comments,
       //   data: [...comments.data, res],
