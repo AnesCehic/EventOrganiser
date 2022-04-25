@@ -13,7 +13,7 @@ import {UsersService, MessageGroupsService} from '@services/apiClient';
 
 import styles from './styles';
 
-const CreateChat = () => {
+const CreateChat = ({navigation}) => {
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -58,12 +58,7 @@ const CreateChat = () => {
         type: 0,
         participants: ['6205894ff3414900114b9cd8'],
       });
-      // navigation.dispatch(
-      //   StackActions.push('Messages', {
-      //     groupId: res._id,
-      //   }),
-      // );
-      console.log(res)
+      navigation.goBack();
     } catch (error) {
       console.log('[Error creating message group]', error);
     }

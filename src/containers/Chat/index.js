@@ -101,6 +101,12 @@ const Chat = ({navigation}) => {
 
   useEffect(() => {
     getAllMessages();
+
+    const refetchChatGroups = navigation.addListener('focus', () => {
+      getAllMessages();
+    });
+
+    return refetchChatGroups;
   }, []);
 
   const deleteChat = async id => {

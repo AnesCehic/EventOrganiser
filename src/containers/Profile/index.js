@@ -38,7 +38,7 @@ const Profile = ({navigation, route}) => {
 
   const fetchUserData = async () => {
     try {
-      console.log('Fetch user data');
+      console.log('Fetch user data', route);
       setIsLoading(true);
       if (!route?.params?.userId) {
         const uId = await AsyncStorageLib.getItem('@userId');
@@ -54,6 +54,8 @@ const Profile = ({navigation, route}) => {
           email: userData.email,
         },
       });
+
+      console.log(resData);
 
       const postsData = resData.data.map(e => {
         console.log(e.owner);

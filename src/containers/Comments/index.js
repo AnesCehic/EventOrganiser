@@ -88,7 +88,6 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
 
       setCommentInput('');
       Keyboard.dismiss();
-      commentsList.current.scrollToEnd();
       // setComments({
       //   ...comments,
       //   data: [...comments.data, res],

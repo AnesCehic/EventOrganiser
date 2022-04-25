@@ -10,7 +10,7 @@ const MyEventsScreen = ({navigation, route}) => {
       headerTitle: () => <Text />,
       headerTintColor: '#fff',
       headerTransparent: true,
-      //headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
+      // headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
     });
   }, []);
 
