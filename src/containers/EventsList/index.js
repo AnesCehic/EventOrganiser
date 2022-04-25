@@ -275,7 +275,7 @@ const EventsList = ({navigation}) => {
         <View
           style={[
             styles.eventsListContainer,
-            {marginTop: myEventsCount > 0 ? -20 : -60},
+            {marginTop: myEventsCount > 0 ? -20 : -60, marginBottom: 16},
           ]}>
           {renderEventsList()}
         </View>
