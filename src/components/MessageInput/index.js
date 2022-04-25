@@ -84,9 +84,12 @@ const MessageInput = ({onPress, onTextChange, value, images, setImages}) => {
         style={{
           flexGrow: 1,
           flexShrink: 1,
-          backgroundColor: '#E6EBF0',
-          borderRadius: 9,
+          backgroundColor: '#F5F6F7',
+          borderRadius: 100,
           paddingVertical: 5,
+          borderColor: '#E6EBF0',
+          borderWidth: 1,
+          overflow: 'hidden'
         }}>
         <TextInput
           onChangeText={onTextChange}

@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingLeft: 15,
     paddingRight: 15,
-    backgroundColor: '#E6EBF0',
-    borderRadius: 9,
+    backgroundColor: '#F5F6F7',
   },
   deleteButton: {
     backgroundColor: Styles.Colors.gold,
