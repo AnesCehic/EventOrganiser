@@ -52,7 +52,11 @@ const Chat = ({navigation}) => {
             onPress={() => {
               navigation.navigate('CreateChat');
             }}>
-            <Image source={require('../../assets/CreateMessage.png')} />
+            <IonCons
+              name={'create-outline'}
+              size={20}
+              style={{color: Styles.Colors.white}}
+            />
           </TouchableOpacity>
         </View>
         {/* <View

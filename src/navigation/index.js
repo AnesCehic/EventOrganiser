@@ -79,7 +79,14 @@ const GroupsNavigation = () => {
 const BottomTabNavigation = () => {
   return (
     <BottomTab.Navigator
-      screenOptions={{tabBarActiveTintColor: Styles.Colors.gold}}>
+      screenOptions={{
+        tabBarActiveTintColor: Styles.Colors.gold,
+        tabBarStyle: {
+          height: 60,
+          paddingBottom: 6,
+          paddingTop: 6,
+        },
+      }}>
       <BottomTab.Screen
         name="Feed"
         options={{

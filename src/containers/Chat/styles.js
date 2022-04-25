@@ -23,9 +23,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   createMessageIcon: {
-    width: 40,
-    height: 40,
-    padding: 12,
+    padding: 8,
     borderRadius: 100,
     backgroundColor: 'rgb(45, 43, 13)',
   },
