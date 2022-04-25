@@ -57,6 +57,7 @@ const Feed = ({navigation}) => {
         query: {
           $limit: 5,
           $skip: (posts.page - 1) * 5,
+          $sort: { createdAt: -1 }
         },
       });
 
