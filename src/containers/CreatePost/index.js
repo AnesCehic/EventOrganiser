@@ -65,6 +65,7 @@ const CreatePost = ({navigation}) => {
       });
 
       toast('success', 'Success', 'Post created!');
+      navigation.goBack();
     } catch (error) {
       console.log('[Error creating post]', error);
     }

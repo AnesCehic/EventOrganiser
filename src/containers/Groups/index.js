@@ -56,7 +56,7 @@ const Groups = ({navigation}) => {
           members: userData._id,
         },
       });
-      setMyGroups([...res.data])
+      setMyGroups([...res.data]);
     } catch (error) {
       console.log('[Error loading my groups]', error);
     }
