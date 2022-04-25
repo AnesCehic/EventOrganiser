@@ -21,8 +21,6 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     width: '100%',
     backgroundColor: Styles.Colors.darkBgLight,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
   },
   floatingUploadImageButton: {
     flexDirection: 'row',
