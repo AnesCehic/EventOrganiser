@@ -50,19 +50,12 @@ const MenuItems = [
 ];
 
 const EditProfile = ({navigation}) => {
-  const {
-    setAuthenticated,
-    allowMessaging,
-    setAllowMessaging,
-    userData,
-    setUserData,
-  } = useContext(UserContext);
+  const {setAuthenticated, allowMessaging, setAllowMessaging, userData} =
+    useContext(UserContext);
 
   const [isLoading, setIsLoading] = useState(false);
-  // const [data, setUserData] = useState({});
 
   useEffect(() => {
-    // getUser();
     return () => {
       setIsLoading(false);
     };
@@ -84,29 +77,6 @@ const EditProfile = ({navigation}) => {
     }
   };
 
-  // const getUser = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const userId = await AsyncStorageLib.getItem('@userId');
-  //     const {firstName, lastName, email, _id, ...res} = await UsersService.get(
-  //       userId,
-  //     );
-  //     console.log('RES USER', res);
-  //     setUserData({
-  //       firstName,
-  //       lastName,
-  //       _id,
-  //       email,
-  //       avatarImg: res?.upload?.files[0]?.signedURL,
-  //       ...res,
-  //     });
-  //   } catch (error) {
-  //     toast('error', 'Error', error.message);
-  //     console.log('[Error logout]', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   const renderUser = () => {
     return (
