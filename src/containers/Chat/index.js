@@ -179,7 +179,7 @@ const Chat = ({navigation}) => {
               <Text style={styles.label}>{item.label}</Text>
             </View>
             <View>
-              <Text>Should we grab some food</Text>
+              <Text>{item.lastMessage}</Text>
             </View>
           </View>
         </TouchableOpacity>
