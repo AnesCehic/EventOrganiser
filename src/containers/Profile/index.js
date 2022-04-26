@@ -29,7 +29,7 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation, route}) => {
-  const [userData, setUserData] = useState({});
+  const {userData, setUserData} = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
   const {chatForbiden} = useContext(UserContext);
@@ -38,7 +38,6 @@ const Profile = ({navigation, route}) => {
 
   const fetchUserData = async () => {
     try {
-      console.log('Fetch user data');
       setIsLoading(true);
       let user;
       if (!route?.params?.userId) {
@@ -55,7 +54,7 @@ const Profile = ({navigation, route}) => {
           ownerId: user._id,
         },
       });
-     console.log(resData);
+      console.log(resData);
       const postsData = resData.data.map(e => {
         console.log(e.owner);
         return {
@@ -84,7 +83,7 @@ const Profile = ({navigation, route}) => {
       <Avatar
         size={140}
         rounded
-        source={data.avatarImg ? {uri: data.avatarImg} : {}}
+        source={{uri: userData.avatarImg}}
         containerStyle={styles.avatar}
       />
     );
