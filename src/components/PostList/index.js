@@ -31,7 +31,7 @@ const PostsList = ({
       <View>
         {headerData?.length !== 0 ? (
           <View>
-            <Text style={styles.latestUpdate}>Your picks</Text>
+            <Text style={styles.latestUpdate}>Upcoming Events</Text>
             <FlatList
               style={styles.headerList}
               data={headerData}
@@ -83,7 +83,7 @@ const PostsList = ({
           <View style={styles.featuredItemTopTime}>
             <Icon name="ri-time-fill" color="#684BA6" size={20} />
             <Text style={styles.featuredItemTopTimeText}>
-              {dayjs(item.start).format('HH mm A')}
+              {dayjs(item.start).format('hh:mm A')}
             </Text>
           </View>
         </View>
