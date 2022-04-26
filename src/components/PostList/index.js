@@ -46,10 +46,12 @@ const PostsList = ({
         <TouchableOpacity
           style={styles.createPost}
           onPress={() => navigation.navigate('CreatePost')}>
-          <Image
-            source={{uri: userData.avatarImg}}
-            style={styles.createPostImage}
-          />
+          {userData?.avatarImg ? (
+            <Image
+              source={{uri: userData.avatarImg}}
+              style={styles.createPostImage}
+            />
+          ) : null}
           <View style={styles.createPostText}>
             <Text>Create a new post</Text>
             <View style={styles.imageContainer}>
@@ -96,6 +98,7 @@ const PostsList = ({
   };
 
   const renderItem = ({item: post}) => {
+    console.log('post owner', post);
     return (
       <PostItem
         key={post._id}
