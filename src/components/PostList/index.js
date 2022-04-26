@@ -29,7 +29,7 @@ const PostsList = ({
       <View>
         {headerData.length !== 0 ? (
           <View>
-            <Text style={styles.latestUpdate}>Your picks</Text>
+            <Text style={styles.latestUpdate}>Upcoming Events</Text>
             <FlatList
               style={styles.headerList}
               data={headerData}
