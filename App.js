@@ -75,9 +75,8 @@ const App = () => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    getUser();
     setAnonymousMode();
-    console.log('userDataApp', userData);
+    const colorScheme = Appearance.getColorScheme();
   }, []);
 
   const setAnonymousMode = async () => {
@@ -97,25 +96,6 @@ const App = () => {
       console.log('[Error set anon mode to storage]', error);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const getUser = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('@userId');
-      const {firstName, lastName, email, _id, ...res} = await UsersService.get(
-        userId,
-      );
-      // setUserData({
-      //   firstName,
-      //   lastName,
-      //   _id,
-      //   email,
-      //   avatarImg: res?.upload?.files[0]?.signedURL,
-      //   ...res,
-      // });
-    } catch (error) {
-      console.log('[Error logout]', error);
     }
   };
 
