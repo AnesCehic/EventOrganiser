@@ -42,7 +42,7 @@ const PersonalDetails = ({navigation, route}) => {
         throw new Error('You do not have permissions to use camera!');
       }
 
-      const res = await launchCamera();
+      const res = await launchImageLibrary();
       setUserData({
         ...userData,
         avatarImg: res.assets[0].uri,
