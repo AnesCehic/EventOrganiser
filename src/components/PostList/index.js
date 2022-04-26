@@ -77,7 +77,7 @@ const PostsList = ({
           <View style={styles.featuredItemTopTime}>
             <Icon name="ri-time-fill" color="#684BA6" size={20} />
             <Text style={styles.featuredItemTopTimeText}>
-              {dayjs(item.start).format('HH mm A')}
+              {dayjs(item.start).format('hh:mm A')}
             </Text>
           </View>
         </View>
