@@ -8,6 +8,7 @@ import {EventService, PostsService} from '@services/apiClient';
 import {toast} from '@utils';
 
 import styles from './styles';
+import dayjs from 'dayjs';
 
 const Feed = ({navigation}) => {
   const {userData} = useContext(UserContext);
@@ -38,16 +39,16 @@ const Feed = ({navigation}) => {
 
   const loadPosts = async () => {
     try {
-      // const {data} = await PostsService.find();
-      // setPosts(data);
-      // const eventsToShow = await EventService.find({
-      //   query: {
-      //     start: {
-      //       $gte: new Date(),
-      //     },
-      //   },
-      // });
-      // setEvents(eventsToShow.data);
+      const monthLte = dayjs().add(30, 'day').format();
+      const eventsToShow = await EventService.find({
+        query: {
+          start: {
+            $gte: new Date(),
+            $lte: monthLte,
+          },
+        },
+      });
+      setEvents(eventsToShow.data);
 
       // ----------------------
       if ((posts.page - 1) * 5 > posts.total) {
@@ -57,7 +58,7 @@ const Feed = ({navigation}) => {
         query: {
           $limit: 5,
           $skip: (posts.page - 1) * 5,
-          $sort: { createdAt: -1 }
+          $sort: {createdAt: -1},
         },
       });
 
