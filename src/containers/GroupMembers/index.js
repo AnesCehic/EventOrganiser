@@ -8,7 +8,7 @@ import {Avatar} from 'react-native-elements';
 import {LoadingIndicator, HeaderBack} from '@components';
 import {GroupService, UsersService} from '@services/apiClient';
 import {toast} from '@utils';
-import {Styles} from '@common';
+import {Styles, Constants} from '@common';
 import {UserContext} from '@contexts';
 
 import styles from '../Groups/styles';
@@ -63,7 +63,16 @@ const GroupMembers = ({navigation, route}) => {
   const renderGroupMember = ({item: member}) => {
     const firstName = `${member.firstName} ${member.lastName}`;
     return (
-      <View style={userCardStyle.container}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Profile', {
+            screen: 'ProfileScreen',
+            params: {
+              userId: member._id,
+            },
+          });
+        }}
+        style={userCardStyle.container}>
         <View style={userCardStyle.userInfo}>
           <Avatar
             source={{
@@ -94,7 +103,7 @@ const GroupMembers = ({navigation, route}) => {
           }}
           menuText={`${member.firstName} ${member.lastName}`}
         /> */}
-      </View>
+      </TouchableOpacity>
     );
   };
 
