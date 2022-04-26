@@ -55,20 +55,19 @@ const MenuItems = [
 ];
 
 const EditProfile = ({navigation}) => {
-  const {setAuthenticated, allowMessaging, setAllowMessaging} =
-    useContext(UserContext);
+  const {
+    setAuthenticated,
+    allowMessaging,
+    setAllowMessaging,
+    userData,
+    setUserData,
+  } = useContext(UserContext);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setUserData] = useState({
-    firstName: 'Bruce',
-    lastName: 'Dickinson',
-    email: 'example@gmail.com',
-    avatarImg:
-      'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f',
-  });
+  // const [data, setUserData] = useState({});
 
   useEffect(() => {
-    getUser();
+    // getUser();
     return () => {
       setIsLoading(false);
     };
@@ -90,31 +89,29 @@ const EditProfile = ({navigation}) => {
     }
   };
 
-  const getUser = async () => {
-    try {
-      setIsLoading(true);
-      const userId = await AsyncStorageLib.getItem('@userId');
-      const {firstName, lastName, email, _id, ...res} = await UsersService.get(
-        userId,
-      );
-
-      const avatarImg =
-        'https://i.guim.co.uk/img/media/e77ac13b8aceb59e21b20e8d1fd4e618e74f51cb/0_432_2806_1682/master/2806.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=2040fdb94c9c37bc139c8f55c61cc67f';
-      setUserData({
-        firstName,
-        lastName,
-        _id,
-        email,
-        avatarImg,
-        ...res,
-      });
-    } catch (error) {
-      toast('error', 'Error', error.message);
-      console.log('[Error logout]', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const getUser = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const userId = await AsyncStorageLib.getItem('@userId');
+  //     const {firstName, lastName, email, _id, ...res} = await UsersService.get(
+  //       userId,
+  //     );
+  //     console.log('RES USER', res);
+  //     setUserData({
+  //       firstName,
+  //       lastName,
+  //       _id,
+  //       email,
+  //       avatarImg: res?.upload?.files[0]?.signedURL,
+  //       ...res,
+  //     });
+  //   } catch (error) {
+  //     toast('error', 'Error', error.message);
+  //     console.log('[Error logout]', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const renderUser = () => {
     return (
@@ -129,9 +126,7 @@ const EditProfile = ({navigation}) => {
           size={70}
           rounded
           containerStyle={{}}
-          source={
-            data.avatarImg ? {uri: data.upload?.files[0]?.signedURL} : {}
-          }>
+          source={{uri: userData.avatarImg}}>
           {/* <Avatar.Accessory
             onPress={loadCamera}
             size={20}
@@ -142,9 +137,9 @@ const EditProfile = ({navigation}) => {
         </Avatar>
         <View style={styles.userInfo}>
           <Text style={styles.userName}>
-            {data.firstName} {data.lastName}
+            {userData.firstName} {userData.lastName}
           </Text>
-          <Text style={styles.userEmail}>{data.email}</Text>
+          <Text style={styles.userEmail}>{userData.email}</Text>
         </View>
         <Icon
           name="ri-arrow-right-s-line"
@@ -191,8 +186,8 @@ const EditProfile = ({navigation}) => {
                 onPress={() => {
                   menuItem.menuScreen
                     ? navigation.navigate(menuItem.menuScreen, {
-                        userId: data._id,
-                        userData: data,
+                        userId: userData._id,
+                        userData: userData,
                         hideSendMessage: true,
                       })
                     : menuItem?.menuPressHandle

@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useContext} from 'react';
+import React, {useState, useLayoutEffect, useContext, useEffect} from 'react';
 import {
   View,
   Text,
@@ -27,11 +27,24 @@ const PersonalDetails = ({navigation, route}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [upload, setUpload] = useState({});
 
+  const getU = async () => {
+    try {
+      const data = await UsersService.get(userData._id);
+      console.log('OJHA DATA LSAT', data);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  useEffect(() => {
+    getU();
+    // console.log('USER DARTA', userData);
+  }, []);
+
   const loadCamera = async () => {
     try {
       // await hasPermission();
       const token = await AsyncStorageLib.getItem('feathers-jwt');
-      console.log(token);
 
       let per;
 
@@ -44,8 +57,6 @@ const PersonalDetails = ({navigation, route}) => {
       }
 
       const res = await launchCamera();
-
-      console.log(res);
       setUserData({
         ...userData,
         avatarImg: res.assets[0].uri,
@@ -59,7 +70,6 @@ const PersonalDetails = ({navigation, route}) => {
         type: type,
         uri: uri,
       });
-
       const uploadRes = await fetch('https://api.lincolnclub.app/uploads', {
         method: 'POST',
         headers: {
@@ -71,12 +81,12 @@ const PersonalDetails = ({navigation, route}) => {
       });
       setUpload(uploadRes);
     } catch (error) {
-      console.log(error);
+      toast('error', 'Error', error.message);
+      console.log('[Error load camera]', error);
     }
   };
 
   useLayoutEffect(() => {
-    console.log('User data', userData);
     navigation.setOptions({
       headerRight: () => {
         return (
@@ -95,12 +105,14 @@ const PersonalDetails = ({navigation, route}) => {
       const newUserData = await UsersService.patch(userId, {
         firstName,
         lastName,
-        uploadId: upload?._id,
+        uploadId: JSON.parse(upload?._bodyInit)._id,
       });
+      console.log('NEW US DATA', newUserData);
       setUserData({
         ...userData,
         firstName: newUserData.firstName,
         lastName: newUserData.lastName,
+        avatarImg: newUserData?.upload?.files[0]?.signedURL,
       });
       toast('success', 'Success', 'User data changed');
     } catch (error) {
@@ -118,7 +130,7 @@ const PersonalDetails = ({navigation, route}) => {
           size={90}
           rounded
           containerStyle={{}}
-          source={userData.avatarImg ? {uri: userData.avatarImg} : {}}>
+          source={{uri: userData.avatarImg}}>
           <Avatar.Accessory
             onPress={() => loadCamera()}
             size={20}

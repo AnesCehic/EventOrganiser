@@ -29,7 +29,7 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation, route}) => {
-  const [userData, setUserData] = useState({});
+  const {userData, setUserData} = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
   const {chatForbiden} = useContext(UserContext);
@@ -38,15 +38,15 @@ const Profile = ({navigation, route}) => {
 
   const fetchUserData = async () => {
     try {
-      console.log('Fetch user data');
       setIsLoading(true);
       if (!route?.params?.userId) {
-        const uId = await AsyncStorageLib.getItem('@userId');
-        const res = await UsersService.get(uId);
-        setUserData(res);
-      } else {
-        const res = await UsersService.get(route.params.userId);
-        setUserData(res);
+        //   const uId = await AsyncStorageLib.getItem('@userId');
+        //   const res = await UsersService.get(uId);
+        //   console.log('RES', res);
+        //   setUserData(res);
+        // } else {
+        //   const res = await UsersService.get(route.params.userId);
+        //   setUserData(res);
       }
 
       const resData = await PostsService.find({
@@ -83,7 +83,7 @@ const Profile = ({navigation, route}) => {
       <Avatar
         size={140}
         rounded
-        source={data.avatarImg ? {uri: data.avatarImg} : {}}
+        source={{uri: userData.avatarImg}}
         containerStyle={styles.avatar}
       />
     );
