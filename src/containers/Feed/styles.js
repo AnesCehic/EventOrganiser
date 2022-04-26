@@ -4,7 +4,7 @@ import {Styles} from '@common';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.lightGrayBg,
   },
   headerLogo: {
     position: 'absolute',
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   welcomeBack: {
     fontSize: 28,
     fontWeight: '600',
+    fontFamily: Styles.Fonts.header,
     paddingLeft: 16,
     color: Styles.Colors.white,
   },
