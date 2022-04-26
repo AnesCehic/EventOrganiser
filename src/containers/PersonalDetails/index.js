@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useContext, useEffect} from 'react';
+import React, {useState, useLayoutEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -26,20 +26,6 @@ const PersonalDetails = ({navigation, route}) => {
   const [lastName, setLastName] = useState(userData.lastName);
   const [isLoading, setIsLoading] = useState(false);
   const [upload, setUpload] = useState({});
-
-  const getU = async () => {
-    try {
-      const data = await UsersService.get(userData._id);
-      console.log('OJHA DATA LSAT', data);
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
-
-  useEffect(() => {
-    getU();
-    // console.log('USER DARTA', userData);
-  }, []);
 
   const loadCamera = async () => {
     try {
@@ -78,11 +64,11 @@ const PersonalDetails = ({navigation, route}) => {
         },
         body: formData,
         // eslint-disable-next-line no-shadow
-      });
+      }).then(res => res.json());
       setUpload(uploadRes);
     } catch (error) {
       toast('error', 'Error', error.message);
-      console.log('[Error load camera]', error);
+      console.log(error);
     }
   };
 
@@ -96,7 +82,7 @@ const PersonalDetails = ({navigation, route}) => {
         );
       },
     });
-  }, [firstName, lastName]);
+  }, [firstName, lastName, upload]);
 
   const saveUserData = async () => {
     try {
@@ -105,9 +91,8 @@ const PersonalDetails = ({navigation, route}) => {
       const newUserData = await UsersService.patch(userId, {
         firstName,
         lastName,
-        uploadId: JSON.parse(upload?._bodyInit)._id,
+        uploadId: upload?._id,
       });
-      console.log('NEW US DATA', newUserData);
       setUserData({
         ...userData,
         firstName: newUserData.firstName,
