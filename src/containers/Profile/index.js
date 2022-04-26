@@ -40,21 +40,22 @@ const Profile = ({navigation, route}) => {
     try {
       console.log('Fetch user data');
       setIsLoading(true);
+      let user;
       if (!route?.params?.userId) {
-        const uId = await AsyncStorageLib.getItem('@userId');
-        const res = await UsersService.get(uId);
-        setUserData(res);
+        user = JSON.parse(await AsyncStorageLib.getItem('@user'));
       } else {
-        const res = await UsersService.get(route.params.userId);
-        setUserData(res);
+        user = await UsersService.get(route.params.userId);
       }
-
+      console.log('This returns the user:', user);
+      setUserData(user);
+      console.log('This does not:', userData);
+      console.log('wtf...');
       const resData = await PostsService.find({
         query: {
-          email: userData.email,
+          ownerId: user._id,
         },
       });
-
+     console.log(resData);
       const postsData = resData.data.map(e => {
         console.log(e.owner);
         return {
