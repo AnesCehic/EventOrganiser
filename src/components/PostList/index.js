@@ -21,13 +21,15 @@ const PostsList = ({
   handleRefresh,
   style,
   route,
+  hideHeaderContent,
   hasMore,
   onEndReached,
+  userData,
 }) => {
   const renderFeaturedPosts = () => {
     return (
       <View>
-        {headerData.length !== 0 ? (
+        {headerData?.length !== 0 ? (
           <View>
             <Text style={styles.latestUpdate}>Your picks</Text>
             <FlatList
@@ -41,10 +43,14 @@ const PostsList = ({
           </View>
         ) : null}
         <Text style={styles.latestUpdate}>Latest updates</Text>
-        <View style={styles.createPost}>
-          <TouchableOpacity
-            style={styles.createPostText}
-            onPress={() => navigation.navigate('CreatePost')}>
+        <TouchableOpacity
+          style={styles.createPost}
+          onPress={() => navigation.navigate('CreatePost')}>
+          <Image
+            source={{uri: userData.avatarImg}}
+            style={styles.createPostImage}
+          />
+          <View style={styles.createPostText}>
             <Text>Create a new post</Text>
             <View style={styles.imageContainer}>
               <Image
@@ -52,8 +58,8 @@ const PostsList = ({
                 source={require('../../assets/Gallery.png')}
               />
             </View>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -110,9 +116,7 @@ const PostsList = ({
   const renderList = () => {
     return (
       <FlatList
-        ListHeaderComponent={
-          route?.params?.hideListHeader ? null : renderFeaturedPosts
-        }
+        ListHeaderComponent={hideHeaderContent ? null : renderFeaturedPosts}
         data={data}
         style={style}
         renderItem={renderItem}
@@ -201,6 +205,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   createPost: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: 12,
     marginVertical: 8,
     paddingHorizontal: 8,
@@ -214,11 +220,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexGrow: 1,
     borderRadius: 50,
     backgroundColor: '#F5F6F7',
     padding: 5,
     paddingLeft: 16,
     paddingHorizontal: 8,
+  },
+  createPostImage: {
+    width: 38,
+    height: 38,
+    marginRight: 6,
+    borderRadius: 50,
   },
   imageContainer: {
     backgroundColor: Styles.Colors.white,
