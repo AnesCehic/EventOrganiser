@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   headerLeftContainer: {},
@@ -11,6 +12,7 @@ const styles = StyleSheet.create({
   leftText: {},
   headerTitle: {
     fontWeight: '600',
+    fontFamily: Styles.Fonts.header
   },
   rightText: {},
 });

@@ -21,11 +21,10 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '600',
     fontSize: 28,
+    color: Styles.Colors.white,
   },
   createMessageIcon: {
-    width: 40,
-    height: 40,
-    padding: 12,
+    padding: 8,
     borderRadius: 100,
     backgroundColor: 'rgb(45, 43, 13)',
   },
@@ -51,6 +50,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     width: '100%',
     height: 1,
+  },
+  eventsHeaderIcon: {
+    marginRight: 16,
+    color: Styles.Colors.white,
   },
 });
 

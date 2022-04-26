@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-remix-icon';
 import dayjs from 'dayjs';
@@ -40,6 +41,19 @@ const PostsList = ({
           </View>
         ) : null}
         <Text style={styles.latestUpdate}>Latest updates</Text>
+        <View style={styles.createPost}>
+          <TouchableOpacity
+            style={styles.createPostText}
+            onPress={() => navigation.navigate('CreatePost')}>
+            <Text>Create a new post</Text>
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.image}
+                source={require('../../assets/Gallery.png')}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -185,6 +199,39 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     fontSize: 16,
     fontWeight: '700',
+  },
+  createPost: {
+    marginHorizontal: 12,
+    marginVertical: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 9,
+    borderColor: Styles.Colors.addPhotoBorder,
+    backgroundColor: Styles.Colors.white,
+    borderWidth: 1,
+  },
+  createPostText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: 50,
+    backgroundColor: '#F5F6F7',
+    padding: 5,
+    paddingLeft: 16,
+    paddingHorizontal: 8,
+  },
+  imageContainer: {
+    backgroundColor: Styles.Colors.white,
+    padding: 8,
+    borderRadius: 50,
+  },
+  image: {
+    height: 20,
+    width: 20,
+  },
+  userImage: {
+    width: 32,
+    height: 32,
   },
 });
 

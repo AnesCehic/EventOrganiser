@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
   },
   postBody: {
     padding: 16,
+    height: '40%',
   },
   ownerData: {
     flexDirection: 'row',

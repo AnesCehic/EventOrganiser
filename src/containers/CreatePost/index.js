@@ -14,6 +14,7 @@ import {
 import {PostsService} from '@services/apiClient';
 import {UserContext} from '@contexts';
 import {Styles} from '@common';
+import {toast} from '@utils';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -43,20 +44,28 @@ const CreatePost = ({navigation}) => {
           uri: image.uri,
         });
       }
-      const upload = await fetch('https://api.lincolnclub.app/uploads', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      }).then(res => res.json());
+
+      let upload;
+
+      if (loadImages.length !== 0) {
+        upload = await fetch('https://api.lincolnclub.app/uploads', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }).then(res => res.json());
+      }
 
       const res = await PostsService.create({
         title: 'Test',
         body: postData,
-        uploadId: upload._id,
+        uploadId: upload?._id,
       });
+
+      toast('success', 'Success', 'Post created!');
+      navigation.goBack();
     } catch (error) {
       console.log('[Error creating post]', error);
     }

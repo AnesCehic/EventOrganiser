@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-remix-icon';
+import IoniCons from 'react-native-vector-icons/Ionicons';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 
@@ -181,6 +182,7 @@ const EventsList = ({navigation}) => {
     ) : null;
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleRefresh = () => {
     getEvents();
   };
@@ -219,7 +221,7 @@ const EventsList = ({navigation}) => {
   const renderAgenda = () => {
     return (
       <BottomSheetModal
-        contentContainerStyle={{flex: 1, marginTop: 50, padding: 125}}
+        contentContainerStyle={styles.sheetContainer}
         isVisible={showAgenda}
         closeModal={() => setShowAgenda(false)}>
         <TouchableOpacity
@@ -247,25 +249,22 @@ const EventsList = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.topImage}>
         <View style={styles.topImageContent}>
-          <Text style={styles.headerText}>Events</Text>
+          <View style={styles.eventsHeaderContainer}>
+            <IoniCons name="grid" size={25} style={styles.eventsHeaderIcon} />
+            <Text style={styles.headerText}>Events</Text>
+          </View>
           <TouchableOpacity
             style={styles.topMonthTouch}
             onPress={() => {
               console.log('asdasdas');
               setShowAgenda(true);
             }}>
-            <Icon
-              name="ri-calendar-todo-fill"
+            <IoniCons
+              name="calendar"
               size={18}
               color={colorScheme === 'light' ? '#000' : Styles.Colors.gold}
             />
-            <Text
-              style={{
-                marginLeft: 5,
-                fontWeight: '600',
-              }}>
-              {dayjs().format('MMMM')}
-            </Text>
+            <Text style={styles.monthSelected}>{dayjs().format('MMMM')}</Text>
           </TouchableOpacity>
         </View>
         {renderMyEventsButton()}
@@ -275,7 +274,7 @@ const EventsList = ({navigation}) => {
         <View
           style={[
             styles.eventsListContainer,
-            {marginTop: myEventsCount > 0 ? -20 : -60},
+            {marginTop: myEventsCount > 0 ? -20 : -60, marginBottom: 16},
           ]}>
           {renderEventsList()}
         </View>

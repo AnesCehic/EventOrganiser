@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {FlatList, View, Text, Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-remix-icon';
 import IconFeathers from 'react-native-vector-icons/Feather';
@@ -8,20 +8,26 @@ import {Avatar} from 'react-native-elements';
 import {LoadingIndicator, HeaderBack} from '@components';
 import {GroupService, UsersService} from '@services/apiClient';
 import {toast} from '@utils';
-import {Styles} from '@common';
+import {Styles, Constants} from '@common';
+import {UserContext} from '@contexts';
 
 import styles from '../Groups/styles';
 import userCardStyle from './styles';
 
 const GroupMembers = ({navigation, route}) => {
+  const {userData} = useContext(UserContext);
+
   const [groupMembers, setGroupMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [groupData, setGroupData] = useState({});
 
   const fetchGroupMembers = async () => {
     try {
       setIsLoading(true);
       let group = await GroupService.get(route.params.id);
+      setGroupData(group);
+      console.log(group);
       let {data} = await UsersService.find({
         query: {
           _id: {
@@ -45,9 +51,28 @@ const GroupMembers = ({navigation, route}) => {
     }
   }, [refreshing]);
 
+  const joinGroup = async () => {
+    try {
+      const res = await GroupService.update(route.params.id, {});
+      fetchGroupMembers();
+    } catch (error) {
+      console.log('[Error joining group]', error);
+    }
+  };
+
   const renderGroupMember = ({item: member}) => {
+    const firstName = `${member.firstName} ${member.lastName}`;
     return (
-      <View style={userCardStyle.container}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Profile', {
+            screen: 'ProfileScreen',
+            params: {
+              userId: member._id,
+            },
+          });
+        }}
+        style={userCardStyle.container}>
         <View style={userCardStyle.userInfo}>
           <Avatar
             source={{
@@ -57,8 +82,8 @@ const GroupMembers = ({navigation, route}) => {
             size={48}
           />
           <View style={{marginLeft: 14}}>
-            <Text style={userCardStyle.name}>{member.text}</Text>
-            <Text style={userCardStyle.email}>{member.text}</Text>
+            <Text style={userCardStyle.name}>{firstName}</Text>
+            <Text style={userCardStyle.email}>{member.email}</Text>
           </View>
         </View>
 
@@ -78,7 +103,7 @@ const GroupMembers = ({navigation, route}) => {
           }}
           menuText={`${member.firstName} ${member.lastName}`}
         /> */}
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -89,7 +114,26 @@ const GroupMembers = ({navigation, route}) => {
     });
   }, []);
 
+  const leaveGroup = async () => {
+    try {
+      if (groupData.leavable) {
+        const res = await GroupService.update(route.params.id, {
+          leave: true,
+        });
+
+        console.log(res);
+        fetchGroupMembers();
+      } else {
+        throw new Error('You cannot leave group!');
+      }
+    } catch (error) {
+      toast('error', 'Error', error.message);
+    }
+  };
+
   const renderHeader = () => {
+    const isUserInGroup = groupData?.members?.includes(userData._id);
+    console.log(isUserInGroup, userData._id);
     return (
       <View
         style={{
@@ -103,7 +147,13 @@ const GroupMembers = ({navigation, route}) => {
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <HeaderBack onPress={() => navigation.goBack()} />
             <TouchableOpacity
-              onPress={() => null}
+              onPress={() => {
+                if (isUserInGroup) {
+                  leaveGroup();
+                } else {
+                  joinGroup();
+                }
+              }}
               style={{
                 backgroundColor: Styles.Colors.white,
                 borderRadius: 50,
@@ -123,15 +173,19 @@ const GroupMembers = ({navigation, route}) => {
                   fontSize: 15,
                   fontWeight: '700',
                 }}>
-                Joined
+                {isUserInGroup ? 'Joined' : 'Join'}
               </Text>
             </TouchableOpacity>
           </View>
           <View style={{marginTop: 16}}>
-            <Text style={{fontSize: 28, fontWeight: '700'}}>Lincoln 2022</Text>
+            <Text style={{fontSize: 28, fontWeight: '700'}}>
+              {groupData.name}
+            </Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <IconFeathers name="user" size={13} style={{marginRight: 6}} />
-              <Text style={{fontSize: 13, fontWeight: '400'}}>71,000</Text>
+              <Text style={{fontSize: 13, fontWeight: '400'}}>
+                {groupMembers.length}
+              </Text>
             </View>
           </View>
         </View>
@@ -145,12 +199,9 @@ const GroupMembers = ({navigation, route}) => {
 
   return (
     <View style={[styles.container, userCardStyle.paddingOverride]}>
+      {renderHeader()}
       <FlatList
-        ListHeaderComponent={renderHeader}
-        data={[
-          {id: 1, text: '123'},
-          {id: 2, text: '345'},
-        ]}
+        data={groupMembers}
         keyExtractor={item => item._id}
         renderItem={renderGroupMember}
         refreshing={refreshing}

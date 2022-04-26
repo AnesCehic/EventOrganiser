@@ -8,28 +8,31 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    marginTop: -73,
+    marginTop: -50,
   },
   topImage: {
     justifyContent: 'center',
-    height: 130,
+    height: 100,
     width: '100%',
     backgroundColor: Styles.Colors.topBackground,
   },
   settingsIcon: {
     backgroundColor: '#00000075',
     borderRadius: 50,
-    padding: 10,
+    padding: 10
   },
 
   userWrapper: {
     paddingHorizontal: 20,
     flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   avatar: {
-    padding: 6,
+    padding: 3,
     backgroundColor: 'white',
     borderRadius: 100,
+    width: 100,
+    height: 100
   },
   userInfo: {
     width: '100%',

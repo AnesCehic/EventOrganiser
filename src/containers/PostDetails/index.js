@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 import {PostsService} from '@services/apiClient';
 import {Styles} from '@common';
 
+import Comments from '../Comments';
+
 import styles from './styles';
 
 const PostDetails = ({navigation, route}) => {
@@ -30,8 +32,8 @@ const PostDetails = ({navigation, route}) => {
     try {
       const res = await PostsService.get(route.params.id);
       console.log(res);
-      const images = res.upload.files.map(i => i.signedURL);
-      setPost({...res, images: images});
+      const images = res?.upload?.files?.map(i => i.signedURL);
+      setPost({...res, images: images, postLoaded: true});
       navigation.setOptions({
         headerShown: true,
         headerTitleStyle: {
@@ -79,29 +81,39 @@ const PostDetails = ({navigation, route}) => {
     );
   };
 
+  const renderPostImages = () => {
+    if (post?.images) {
+      return (
+        <View style={customStyle}>
+          <ScrollView
+            pagingEnabled
+            horizontal={true}
+            style={customStyle}
+            onScroll={changeActiveIndex}
+            showsHorizontalScrollIndicator={false}>
+            {post.images &&
+              post.images.map((e, index) => (
+                <Image
+                  key={index}
+                  resizeMode="contain"
+                  source={{
+                    uri: e,
+                  }}
+                  style={[customStyle, resizeModeStyle]}
+                />
+              ))}
+          </ScrollView>
+          {renderActiveDots()}
+        </View>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={customStyle}>
-        <ScrollView
-          pagingEnabled
-          horizontal={true}
-          style={customStyle}
-          onScroll={changeActiveIndex}
-          showsHorizontalScrollIndicator={false}>
-          {post.images &&
-            post.images.map((e, index) => (
-              <Image
-                key={index}
-                resizeMode="contain"
-                source={{
-                  uri: e,
-                }}
-                style={[customStyle, resizeModeStyle]}
-              />
-            ))}
-        </ScrollView>
-        {renderActiveDots()}
-      </View>
+      {renderPostImages()}
       <View style={styles.ownerAndTimeInfo}>
         <View style={styles.ownerData}>
           <Image source={require('../../assets/data.png')} />
@@ -114,7 +126,7 @@ const PostDetails = ({navigation, route}) => {
           {post.createdAt ? dayjs(post.createdAt).format('MMM D, YYYY') : null}
         </Text>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           position: 'absolute',
           bottom: 16,
@@ -130,8 +142,9 @@ const PostDetails = ({navigation, route}) => {
           });
         }}>
         <Text>Comments</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Text style={styles.postBody}>{post?.body}</Text>
+      <Comments postId={post._id} postLoaded={post.postLoaded} />
     </View>
   );
 };

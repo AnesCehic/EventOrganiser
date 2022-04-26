@@ -56,7 +56,7 @@ const MessageInput = ({onPress, onTextChange, value, images, setImages}) => {
           <TouchableOpacity
             onPress={() => removePicture(index)}
             style={styles.deleteButton}>
-            <Icon name="close" size={16} />
+            <Icon name="close" size={16} style={{color: '#fff'}} />
           </TouchableOpacity>
           <Image
             source={{uri: img.uri}}
@@ -73,42 +73,47 @@ const MessageInput = ({onPress, onTextChange, value, images, setImages}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={loadCamera} style={styles.imageLeft}>
-        <Image source={require('../../assets/Camera.png')} />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={loadGallery} style={styles.imageLeft}>
-        <Image source={require('../../assets/Gallery.png')} />
-      </TouchableOpacity>
-      <View
-        style={{
-          flexGrow: 1,
-          flexShrink: 1,
-          backgroundColor: '#E6EBF0',
-          borderRadius: 9,
-          paddingVertical: 5,
-        }}>
-        <TextInput
-          onChangeText={onTextChange}
-          multiline={true}
-          placeholder="Enter message"
-          value={value}
-          style={styles.textInput}
-        />
+    <View>
         <View
           style={{flexDirection: 'row', flexShrink: 1, paddingHorizontal: 10}}>
           {renderImages()}
         </View>
-      </View>
-      {(value && value !== '' && value.trim() !== '') || images.length !== 0 ? (
-        <TouchableOpacity
-          style={{paddingLeft: 9}}
-          onPress={() => {
-            onPress();
-          }}>
-          <Image source={require('../../assets/SendMessage.png')} />
-        </TouchableOpacity>
-      ) : null}
+        <View style={styles.container}>
+          <TouchableOpacity onPress={loadCamera} style={styles.imageLeft}>
+            <Image source={require('../../assets/Camera.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={loadGallery} style={styles.imageLeft}>
+            <Image source={require('../../assets/Gallery.png')} />
+          </TouchableOpacity>
+          <View
+            style={{
+              flexGrow: 1,
+              flexShrink: 1,
+              backgroundColor: '#F5F6F7',
+              borderRadius: 100,
+              paddingVertical: 5,
+              borderColor: '#E6EBF0',
+              borderWidth: 1,
+              overflow: 'hidden'
+            }}>
+            <TextInput
+              onChangeText={onTextChange}
+              multiline={true}
+              placeholder="Enter message"
+              value={value}
+              style={styles.textInput}
+            />
+          </View>
+          {(value && value !== '' && value.trim() !== '') || images.length !== 0 ? (
+            <TouchableOpacity
+              style={{paddingLeft: 9}}
+              onPress={() => {
+                onPress();
+              }}>
+              <Image source={require('../../assets/SendMessage.png')} />
+            </TouchableOpacity>
+          ) : null}
+        </View>
     </View>
   );
 };

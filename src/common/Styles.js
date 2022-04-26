@@ -29,6 +29,9 @@ const Styles = {
     purple: '#684BA6',
     iconGray: colorScheme === 'dark' ? 'gray' : '#fff',
   },
+  Fonts: {
+    header: 'IBM Plex Serif'
+  },
   Sizes: {
     avatar: 140,
     avatarMedium: 60,

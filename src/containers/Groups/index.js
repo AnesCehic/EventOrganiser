@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -6,6 +6,7 @@ import {LoadingIndicator} from '@components';
 // import {Styles} from '@common';
 import {GroupService} from '@services/apiClient';
 import {toast} from '@utils';
+import {UserContext} from '@contexts';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
@@ -24,6 +25,7 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 // Add menuScreen from Constants.NavigationScreens when ready
 
 const Groups = ({navigation}) => {
+  const {userData} = useContext(UserContext);
   // const [activeIndex, setActiveIndex] = useState(1);
   // const [isAllGroupsSelected, setIsAllGroupsSelected] = useState(false);
   const [myGroups, setMyGroups] = useState([]);
@@ -36,8 +38,29 @@ const Groups = ({navigation}) => {
 
   useEffect(() => {
     setGroups([]);
+    fetchJoinedGroups();
     fetchGroupsAll();
-  }, []);
+
+    const refetchGroups = navigation.addListener('focus', () => {
+      fetchJoinedGroups();
+      fetchGroupsAll();
+    });
+
+    return refetchGroups;
+  }, [navigation]);
+
+  const fetchJoinedGroups = async () => {
+    try {
+      const res = await GroupService.find({
+        query: {
+          members: userData._id,
+        },
+      });
+      setMyGroups([...res.data]);
+    } catch (error) {
+      console.log('[Error loading my groups]', error);
+    }
+  };
 
   const fetchGroupsAll = async () => {
     // const userId = await AsyncStorageLib.getItem('@userId');
@@ -63,8 +86,8 @@ const Groups = ({navigation}) => {
       // });
 
       // change this line to personalGroups
-      setMyGroups([...groups, ...res.data]);
-      setGroups([...myGroups, ...res.data]);
+      // setMyGroups([...myGroups, ...res.data]);
+      setGroups([...groups, ...res.data]);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error fetching all groups]', error);
@@ -168,7 +191,7 @@ const Groups = ({navigation}) => {
     return (
       <View>
         <FlatList
-          data={groups}
+          data={myGroups}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}
           horizontal

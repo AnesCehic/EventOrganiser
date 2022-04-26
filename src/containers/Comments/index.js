@@ -1,65 +1,79 @@
-import React, {useState, useEffect} from 'react';
-import {FlatList, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {
+  FlatList,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  RefreshControl,
+  Keyboard,
+} from 'react-native';
 import {CommentsService} from '../../services/apiClient';
 
 import Comment from './Comment';
 
 import styles from './styles';
 
-const Comments = ({navigation, route}) => {
+const Comments = ({navigation, route, postId, postLoaded}) => {
   const [commentInput, setCommentInput] = useState('');
   const [comments, setComments] = useState({
     data: [],
     isLoading: false,
     total: 0,
+    page: 1,
   });
 
+  const commentsList = useRef(null);
+
   useEffect(() => {
-    console.log(route.params.postId);
     setComments({
       ...comments,
       isLoading: true,
     });
 
-    // fix real time data
-    // CommentsService.on('created', handleCreatedComment);
+    CommentsService.on('created', handleCreatedComment);
 
-    // return () => {
-    //   CommentsService.off('created', handleCreatedComment);
-    // };
+    return () => {
+      CommentsService.off('created', handleCreatedComment);
+    };
   }, []);
 
-  // const handleCreatedComment = res => {
-  //   console.log(res);
-  //   if (res.postId === route.params.postId) {
-  //     setComments({
-  //       ...comments,
-  //       data: [...comments.data, res],
-  //       total: comments.total + 1,
-  //     });
-  //   }
-  // };
+  const handleCreatedComment = res => {
+    if (res.postId === postId) {
+      setComments({
+        ...comments,
+        // FIXME
+        data: [res, ...comments.data],
+        total: comments.total + 1,
+      });
+    }
+  };
 
   useEffect(() => {
-    if (comments.isLoading) {
+    if (comments.isLoading && postLoaded) {
       loadCommentsForPost();
     }
-  }, [comments.isLoading]);
+  }, [comments.isLoading, postLoaded]);
 
+  // Needs to be optimized
   const loadCommentsForPost = async () => {
     try {
       const res = await CommentsService.find({
         query: {
-          postId: route.params.postId,
+          postId: postId,
+          $limit: 10,
+          $skip: (comments.page - 1) * 10,
+          $sort: {
+            createdAt: -1,
+          },
         },
       });
 
-      console.log(res);
-
       setComments({
-        data: res.data,
+        data: [...comments.data, ...res.data],
         isLoading: false,
         total: res.total,
+        page: comments.page + 1,
       });
     } catch (error) {
       console.log(error);
@@ -69,18 +83,24 @@ const Comments = ({navigation, route}) => {
   const createPostComment = async () => {
     try {
       const res = await CommentsService.create({
-        postId: route.params.postId,
+        postId: postId,
         text: commentInput,
       });
 
-      setComments({
-        ...comments,
-        data: [...comments.data, res],
-        total: comments.total + 1,
-      });
+      setCommentInput('');
+      Keyboard.dismiss();
+      // setComments({
+      //   ...comments,
+      //   data: [...comments.data, res],
+      //   total: comments.total + 1,
+      // });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleRefresh = () => {
+    console.log('Refresh');
   };
 
   const renderHeadline = () => {
@@ -118,6 +138,11 @@ const Comments = ({navigation, route}) => {
       <FlatList
         key={item => item.id}
         data={comments.data}
+        ref={commentsList}
+        onEndReached={loadCommentsForPost}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
+        }
         contentContainerStyle={{paddingBottom: 16}}
         renderItem={({item}) => <Comment post={item} />}
       />

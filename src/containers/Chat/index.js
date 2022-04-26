@@ -44,7 +44,8 @@ const Chat = ({navigation}) => {
     return (
       <View style={styles.headerContainer}>
         <View style={styles.headerTitle}>
-          <View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <IonCons name="grid" size={25} style={styles.eventsHeaderIcon} />
             <Text style={styles.title}>Chat</Text>
           </View>
           <TouchableOpacity
@@ -52,7 +53,11 @@ const Chat = ({navigation}) => {
             onPress={() => {
               navigation.navigate('CreateChat');
             }}>
-            <Image source={require('../../assets/CreateMessage.png')} />
+            <IonCons
+              name={'create-outline'}
+              size={20}
+              style={{color: Styles.Colors.white}}
+            />
           </TouchableOpacity>
         </View>
         {/* <View
@@ -97,6 +102,13 @@ const Chat = ({navigation}) => {
 
   useEffect(() => {
     getAllMessages();
+
+    // FIXME
+    const refetchChatGroups = navigation.addListener('focus', () => {
+      getAllMessages();
+    });
+
+    return refetchChatGroups;
   }, []);
 
   const deleteChat = async id => {
@@ -167,7 +179,7 @@ const Chat = ({navigation}) => {
               <Text style={styles.label}>{item.label}</Text>
             </View>
             <View>
-              <Text>Should we grab some food</Text>
+              <Text>{item.lastMessage}</Text>
             </View>
           </View>
         </TouchableOpacity>

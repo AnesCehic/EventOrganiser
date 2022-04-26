@@ -10,6 +10,7 @@ const ChatMessagesScreen = ({navigation, route}) => {
       headerStyle: {
         backgroundColor: Styles.Colors.topBackground,
       },
+      headerTintColor: Styles.Colors.white,
     });
     // parent.setOptions({
     //   tabBarStyle: {
