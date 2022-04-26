@@ -301,7 +301,7 @@ const FeedDetails = ({navigation, route}) => {
   };
 
   const renderRSVP = () => {
-    if (eventData.canRSVP && !eventData.didRsvp) {
+    if (eventData.canRSVP && !eventData.didRSVP) {
       return (
         <View style={styles.rsvpContainer}>
           <View>
