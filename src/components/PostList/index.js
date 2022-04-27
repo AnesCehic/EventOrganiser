@@ -84,7 +84,7 @@ const PostsList = ({
             </Text>
           </View>
           <View style={styles.featuredItemTopTime}>
-            <Icon name="ri-time-fill" color="#684BA6" size={20} />
+            <Icon name="ri-time-fill" color="#684BA6" size={13} />
             <Text style={styles.featuredItemTopTimeText}>
               {dayjs(item.start).format('hh:mm A')}
             </Text>
@@ -184,15 +184,15 @@ const styles = StyleSheet.create({
     marginLeft: 7,
     color: Styles.Colors.purple,
     fontWeight: '700',
-    fontSize: 13,
+    fontSize: 10,
   },
   day: {
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 16,
     color: Styles.Colors.black
   },
   month: {
-    fontSize: 12,
+    fontSize: 9,
     color: Styles.Colors.purple,
   },
   featuredItemBottom: {
