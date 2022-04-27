@@ -31,7 +31,7 @@ const PostsList = ({
       <View>
         {headerData?.length !== 0 ? (
           <View>
-            <Text style={styles.latestUpdate}>Upcoming Events</Text>
+            <Text style={styles.featuredItemHeader}>Upcoming Events</Text>
             <FlatList
               style={styles.headerList}
               data={headerData}
@@ -206,10 +206,19 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Styles.Colors.black
   },
+  featuredItemHeader: {
+    paddingLeft: 16,
+    fontSize: 16,
+    fontWeight: '700',
+    color: Styles.Colors.white,
+    fontFamily: Styles.Fonts.header
+  },
   latestUpdate: {
     paddingLeft: 16,
     fontSize: 16,
     fontWeight: '700',
+    color: '#273038',
+    fontFamily: Styles.Fonts.header
   },
   createPost: {
     flexDirection: 'row',
