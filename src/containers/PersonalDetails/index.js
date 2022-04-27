@@ -13,6 +13,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {LoadingIndicator, TextInput} from '@components';
 import {toast} from '@utils';
 import {UserContext} from '@contexts';
+import UserIcon from '@assets/ImageComponents/UserIcon';
 
 import {UsersService} from '@services/apiClient';
 
@@ -109,23 +110,43 @@ const PersonalDetails = ({navigation, route}) => {
   };
 
   const renderAvatar = () => {
-    return (
-      <View style={styles.avatarContainer}>
-        <Avatar
-          size={90}
-          rounded
-          containerStyle={{}}
-          source={{uri: userData.avatarImg}}>
-          <Avatar.Accessory
-            onPress={() => loadCamera()}
-            size={20}
-            style={styles.avatarIcon}
-            name="vertical-align-top"
-            color="white"
-          />
-        </Avatar>
-      </View>
-    );
+    if (userData.avatarImg) {
+      return (
+        <View style={styles.avatarContainer}>
+          <Avatar
+            size={90}
+            rounded
+            containerStyle={{}}
+            source={{uri: userData.avatarImg}}>
+            <Avatar.Accessory
+              onPress={() => loadCamera()}
+              size={20}
+              style={styles.avatarIcon}
+              name="vertical-align-top"
+              color="white"
+            />
+          </Avatar>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.avatarContainer}>
+          <Avatar
+            size={90}
+            rounded
+            containerStyle={{}}
+            renderPlaceholderContent={() => <UserIcon />}>
+            <Avatar.Accessory
+              onPress={() => loadCamera()}
+              size={20}
+              style={styles.avatarIcon}
+              name="vertical-align-top"
+              color="white"
+            />
+          </Avatar>
+        </View>
+      );
+    }
   };
 
   const renderInputFields = () => {
