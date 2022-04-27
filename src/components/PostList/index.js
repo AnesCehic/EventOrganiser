@@ -202,7 +202,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingHorizontal: 10,
     fontSize: 16,
+    fontFamily: Styles.Fonts.header,
     fontWeight: '700',
+    color: Styles.Colors.black
   },
   latestUpdate: {
     paddingLeft: 16,
