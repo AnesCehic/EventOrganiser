@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 
 import {PostItem} from '@components';
 import {Styles} from '@common';
+import UserIcon from '@assets/ImageComponents/UserIcon';
 
 const PostsList = ({
   data,
@@ -51,7 +52,9 @@ const PostsList = ({
               source={{uri: userData.upload.files[0].signedURL}}
               style={styles.createPostImage}
             />
-          ) : null}
+          ) : (
+            <UserIcon style={styles.createPostImage} />
+          )}
           <View style={styles.createPostText}>
             <Text>Create a new post</Text>
             <View style={styles.imageContainer}>
@@ -187,7 +190,7 @@ const styles = StyleSheet.create({
   day: {
     fontWeight: '700',
     fontSize: 16,
-    color: Styles.Colors.black
+    color: Styles.Colors.black,
   },
   month: {
     fontSize: 9,
@@ -204,21 +207,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: Styles.Fonts.header,
     fontWeight: '700',
-    color: Styles.Colors.black
+    color: Styles.Colors.black,
   },
   featuredItemHeader: {
     paddingLeft: 16,
     fontSize: 16,
     fontWeight: '700',
     color: Styles.Colors.white,
-    fontFamily: Styles.Fonts.header
+    fontFamily: Styles.Fonts.header,
   },
   latestUpdate: {
     paddingLeft: 16,
     fontSize: 16,
     fontWeight: '700',
     color: '#273038',
-    fontFamily: Styles.Fonts.header
+    fontFamily: Styles.Fonts.header,
   },
   createPost: {
     flexDirection: 'row',

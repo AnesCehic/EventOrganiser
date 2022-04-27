@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   ownerImageContainer: {
     borderRadius: 100,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   ownerImage: {
     width: 24,

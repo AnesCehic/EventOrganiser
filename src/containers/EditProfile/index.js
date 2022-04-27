@@ -17,6 +17,7 @@ import {LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UserContext} from '@contexts';
 import {toast} from '@utils';
+import UserIcon from '@assets/ImageComponents/UserIcon';
 
 import {client, ChangeEmail, UsersService} from '@services/apiClient';
 
@@ -77,7 +78,6 @@ const EditProfile = ({navigation}) => {
     }
   };
 
-
   const renderUser = () => {
     return (
       <TouchableOpacity
@@ -87,19 +87,27 @@ const EditProfile = ({navigation}) => {
             hideListHeader: true,
           });
         }}>
-        <Avatar
-          size={70}
-          rounded
-          containerStyle={{}}
-          source={{uri: userData.avatarImg}}>
-          {/* <Avatar.Accessory
-            onPress={loadCamera}
-            size={20}
-            style={styles.avatarIcon}
-            name="vertical-align-top"
-            color="white"
-          /> */}
-        </Avatar>
+        {userData.avatarImg ? (
+          <Avatar
+            size={70}
+            rounded
+            containerStyle={{}}
+            source={{uri: userData.avatarImg}}>
+            {/* <Avatar.Accessory
+              onPress={loadCamera}
+              size={20}
+              style={styles.avatarIcon}
+              name="vertical-align-top"
+              color="white"
+            /> */}
+          </Avatar>
+        ) : (
+          <Avatar
+            size={70}
+            rounded
+            renderPlaceholderContent={() => <UserIcon />}
+          />
+        )}
         <View style={styles.userInfo}>
           <Text style={styles.userName}>
             {userData.firstName} {userData.lastName}
