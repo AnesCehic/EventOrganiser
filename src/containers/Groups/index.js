@@ -177,7 +177,7 @@ const Groups = ({navigation}) => {
         />
         <View style={[styles.halfContainer, styles.myGroupData]}>
           <Text style={styles.groupNameLogo}>{item.name[0]}</Text>
-          <Text style={styles.myGroupName}>{item.name}</Text>
+          <Text style={styles.myGroupName}>{item.name.substring(0, 20)}{item.name.length > 20 ? '...' : ''}</Text>
           <Text style={{textAlign: 'center'}}>
             <Icon name={'user'} size={14} style={styles.userIcon} />
             {item.members.length} Members
