@@ -46,9 +46,9 @@ const PostsList = ({
         <TouchableOpacity
           style={styles.createPost}
           onPress={() => navigation.navigate('CreatePost')}>
-          {userData?.avatarImg ? (
+          {userData?.upload ? (
             <Image
-              source={{uri: userData.avatarImg}}
+              source={{uri: userData.upload.files[0].signedURL}}
               style={styles.createPostImage}
             />
           ) : null}
@@ -67,6 +67,7 @@ const PostsList = ({
   };
 
   const renderFeaturedItem = ({item}) => {
+    console.log(item);
     return (
       <TouchableOpacity
         style={styles.featuredItemContainer}

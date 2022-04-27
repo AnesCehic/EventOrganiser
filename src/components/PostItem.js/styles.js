@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.grayBorderPost,
     borderRadius: 8,
     boxShadow: '0px 4px 10px rgba(0, 0, 0, .04)',
-    padding: 12,
+    padding: 16,
     maxHeight: 300,
   },
   imageContainer: {
@@ -30,14 +30,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ownerName: {
+    fontSize: 12,
     marginLeft: 7,
     fontWeight: '800',
     color: Styles.Colors.black,
   },
   ownerAndTimeInfo: {
-    marginTop: 13,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  ownerImageContainer: {
+    borderRadius: 100,
+    overflow: 'hidden'
+  },
+  ownerImage: {
+    width: 24,
+    height: 24,
   },
   time: {
     textAlign: 'right',
@@ -49,8 +57,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   content: {
-    paddingTop: 16,
-    paddingBottom: 6,
+    paddingTop: 12,
   },
 });
 
