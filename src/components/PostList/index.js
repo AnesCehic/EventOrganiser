@@ -3,6 +3,7 @@ import {
   FlatList,
   StyleSheet,
   RefreshControl,
+  ImageBackground,
   Text,
   TouchableOpacity,
   View,
@@ -70,7 +71,6 @@ const PostsList = ({
   };
 
   const renderFeaturedItem = ({item}) => {
-    console.log(item);
     return (
       <TouchableOpacity
         style={styles.featuredItemContainer}
@@ -86,12 +86,15 @@ const PostsList = ({
               {dayjs(item.start).format('MMM').toUpperCase()}
             </Text>
           </View>
-          <View style={styles.featuredItemTopTime}>
+          <ImageBackground
+            imageStyle={{opacity: 0.08}}
+            source={{uri: item.upload?.files[0]?.signedURL}}
+            style={styles.featuredItemTopTime}>
             <Icon name="ri-time-fill" color="#684BA6" size={13} />
             <Text style={styles.featuredItemTopTimeText}>
               {dayjs(item.start).format('hh:mm A')}
             </Text>
-          </View>
+          </ImageBackground>
         </View>
 
         <View style={styles.featuredItemBottom}>
