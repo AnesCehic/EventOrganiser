@@ -150,7 +150,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     elevation: 3,
+    shadowRadius: 10,
     borderColor: '#E6EBF0',
+    shadowColor: 'rgba(0,0,0,0.3)',
     padding: 12,
     margin: 4,
     minHeight: 100,
@@ -187,6 +189,7 @@ const styles = StyleSheet.create({
   day: {
     fontWeight: '700',
     fontSize: 18,
+    color: Styles.Colors.black
   },
   month: {
     fontSize: 12,
