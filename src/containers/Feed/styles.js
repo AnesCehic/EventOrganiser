@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     color: Styles.Colors.white,
   },
   postList: {
-    marginTop: -50
+    marginTop: -50,
   },
 });
 
