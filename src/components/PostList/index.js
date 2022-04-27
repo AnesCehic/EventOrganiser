@@ -142,9 +142,6 @@ const PostsList = ({
 };
 
 const styles = StyleSheet.create({
-  headerList: {
-    margin: 8,
-  },
   featuredItemContainer: {
     backgroundColor: Styles.Colors.darkBgLight,
     borderRadius: 8,
@@ -154,8 +151,9 @@ const styles = StyleSheet.create({
     borderColor: '#E6EBF0',
     shadowColor: 'rgba(0,0,0,0.3)',
     padding: 12,
-    margin: 4,
+    marginRight: 8,
     minHeight: 100,
+    margin: 12,
   },
   featuredItemTop: {
     flexDirection: 'row',
