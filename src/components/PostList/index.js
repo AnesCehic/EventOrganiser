@@ -151,14 +151,12 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.darkBgLight,
     borderRadius: 8,
     borderWidth: 1,
-    elevation: 3,
-    shadowRadius: 10,
     borderColor: '#E6EBF0',
-    shadowColor: 'rgba(0,0,0,0.3)',
     padding: 12,
     marginRight: 8,
     minHeight: 100,
     margin: 12,
+    ...Styles.Shadows.textBox,
   },
   featuredItemTop: {
     flexDirection: 'row',
@@ -236,6 +234,7 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.addPhotoBorder,
     backgroundColor: Styles.Colors.white,
     borderWidth: 1,
+    ...Styles.Shadows.textBox
   },
   createPostText: {
     flexDirection: 'row',
@@ -249,10 +248,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   createPostImage: {
-    width: 38,
-    height: 38,
+    width: 32,
+    height: 32,
     marginRight: 6,
     borderRadius: 50,
+    padding: 10
+  },
+  postAvatarImage: {
+    width: 24,
+    height: 24 
   },
   imageContainer: {
     backgroundColor: Styles.Colors.white,

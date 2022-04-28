@@ -87,8 +87,8 @@ const FeedDetails = ({navigation, route}) => {
   const renderModalEventDetails = () => {
     return (
       <View style={styles.rsvpInfo}>
-        <Text style={{fontSize: 16, marginBottom: 8}}>Event details</Text>
-        <Text style={{fontSize: 18, fontWeight: '800'}}>{eventData.title}</Text>
+        <Text style={{fontSize: 16, marginBottom: 8, fontWeight: '400'}}>Event details</Text>
+        <Text style={{color: '#000', fontSize: 18, fontWeight: '700'}}>{eventData.title}</Text>
         {renderInformations()}
       </View>
     );
@@ -137,6 +137,7 @@ const FeedDetails = ({navigation, route}) => {
             marginBottom: 8,
             width: '100%',
             textAlign: 'left',
+            color: '#6B7680'
           }}>
           Enter any special dietary restrictions
         </Text>

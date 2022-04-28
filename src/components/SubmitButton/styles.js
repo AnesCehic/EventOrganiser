@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: '#000',
+    color: '#373517',
+    fontWeight: '600',
   },
   logo: {
     marginRight: 10,

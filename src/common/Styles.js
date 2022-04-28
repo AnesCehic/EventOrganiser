@@ -36,6 +36,14 @@ const Styles = {
     avatar: 140,
     avatarMedium: 60,
   },
+  Shadows: {
+    textBox: {
+      elevation: 3,
+      shadowColor: 'rgba(0,0,0,0.2)',
+      shadowOffset: {width: -2, height: 4},
+      shadowRadius: 3
+    }
+  }
 };
 
 export default Styles;
