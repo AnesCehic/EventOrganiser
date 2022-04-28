@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.addPhotoBorder,
     backgroundColor: Styles.Colors.white,
     padding: 12,
-    elevation: 3,
     ontSize: 12,
     fontWeight: '400',
+    ...Styles.Shadows.textBox
   },
   userImageFallback: {
     padding: 6,
