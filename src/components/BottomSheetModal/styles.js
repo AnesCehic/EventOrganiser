@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,8 +23,10 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 16,
+    fontWeight: '700',
     marginBottom: 20,
+    color: Styles.Colors.black
   },
 });
 

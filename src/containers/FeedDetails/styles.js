@@ -107,16 +107,17 @@ const styles = StyleSheet.create({
   modalTextAraea: {
     width: '100%',
     height: 100,
-    elevation: 2,
+    textAlignVertical: 'top',
+    ...Styles.Shadows.textBox
   },
   modalTextInput: {
     width: '100%',
+    ...Styles.Shadows.textBox
   },
   modalConfirmBtn: {
     marginTop: 10,
     width: '100%',
     marginBottom: 18,
-    backgroundColor: Styles.Colors.gold,
   },
   modalIcon: {
     margin: 20,
