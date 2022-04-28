@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   rsvpText: {
     fontSize: 14,
-    color: Styles.Colors.black,
+    color: '#413F21',
     fontWeight: '600',
   },
 
@@ -62,13 +62,18 @@ const styles = StyleSheet.create({
     paddingRight: 14,
     marginVertical: 5,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 8,
     borderColor: Styles.Colors.grayBorder,
+    backgroundColor: Styles.Colors.white,
+    ...Styles.Shadows.textBox
   },
   centeredIconVertically: {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  datePlaceIcon: {
+    color: '#684BA6'
+  }, 
   dateTextContainer: {
     flex: 1,
     justifyContent: 'space-between',
@@ -76,10 +81,12 @@ const styles = StyleSheet.create({
   dateText: {
     marginLeft: 14,
     fontSize: 14,
+    color: '#273038'
   },
   dateTextBigger: {
     fontWeight: '600',
-    fontSize: 17,
+    fontSize: 14,
+    color: '#273038'
   },
   dateText2: {},
   header: {
@@ -117,6 +124,7 @@ const styles = StyleSheet.create({
   joinText: {
     fontWeight: '700',
     fontSize: 16,
+    color: '#413F21'
   },
   rsvpInfo: {
     width: '100%',

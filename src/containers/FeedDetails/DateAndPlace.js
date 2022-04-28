@@ -8,7 +8,7 @@ const Date = ({icon, text1, text2, bold}) => {
   return (
     <View style={styles.dateContainer}>
       <View style={styles.centeredIconVertically}>
-        <Icon name={icon} size={20} />
+        <Icon name={icon} size={20} style={styles.datePlaceIcon} />
       </View>
       <View style={styles.dateTextContainer}>
         <Text style={[styles.dateText, bold ? styles.dateTextBigger : {}]}>

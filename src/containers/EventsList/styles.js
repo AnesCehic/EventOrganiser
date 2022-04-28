@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.grayBorder,
     marginTop: 5,
     padding: 10,
+    ...Styles.Shadows.textBox
   },
   eventsListItemImageWrapper: {
     maxHeight: 150,
