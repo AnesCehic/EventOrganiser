@@ -100,6 +100,7 @@ const PersonalDetails = ({navigation, route}) => {
         lastName: newUserData.lastName,
         avatarImg: newUserData?.upload?.files[0]?.signedURL,
       });
+      await AsyncStorageLib.setItem('@user', JSON.stringify(newUserData));
       toast('success', 'Success', 'User data changed');
     } catch (error) {
       toast('error', 'Error', error.message);
