@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Styles.Colors.grayBorderPost,
     borderRadius: 8,
-    boxShadow: '0px 4px 10px rgba(0, 0, 0, .04)',
     padding: 16,
     maxHeight: 300,
+    ...Styles.Shadows.textBox
   },
   imageContainer: {
     borderRadius: 8,

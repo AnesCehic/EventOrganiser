@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.addPhotoBorder,
     backgroundColor: Styles.Colors.white,
     borderWidth: 1,
+    ...Styles.Shadows.textBox
   },
   createPostText: {
     flexDirection: 'row',
