@@ -35,6 +35,7 @@ const Styles = {
   Sizes: {
     avatar: 140,
     avatarMedium: 60,
+    avatarSmall: 32,
   },
   Shadows: {
     textBox: {
