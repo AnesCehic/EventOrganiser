@@ -27,7 +27,7 @@ const PostsList = ({
   const renderFeaturedPosts = () => {
     return (
       <View>
-        {headerData.length !== 0 ? (
+        {headerData?.length !== 0 ? (
           <View>
             <Text style={styles.latestUpdate}>Your picks</Text>
             <FlatList

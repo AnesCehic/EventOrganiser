@@ -32,9 +32,7 @@ const Profile = ({navigation, route}) => {
   const {userData, setUserData} = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
-  const {chatForbiden} = useContext(UserContext);
   const [posts, setPosts] = useState([]);
-  const {allowMessaging} = useContext(UserContext);
 
   const fetchUserData = async () => {
     try {
@@ -54,9 +52,8 @@ const Profile = ({navigation, route}) => {
           ownerId: user._id,
         },
       });
-      console.log(resData);
+
       const postsData = resData.data.map(e => {
-        console.log(e.owner);
         return {
           id: e._id,
           headline: e.title,
@@ -159,9 +156,6 @@ const Profile = ({navigation, route}) => {
   };
 
   const renderPosts = () => {
-    const time = dayjs(dayjs().subtract(5, 'hour'));
-    const timeFromNow = time.fromNow(); // for testing time ago
-
     return <PostsList route={route} navigation={navigation} data={posts} />;
   };
 

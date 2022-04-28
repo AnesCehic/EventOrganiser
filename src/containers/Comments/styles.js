@@ -1,10 +1,9 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Styles.Colors.white,
-    flex: 1,
   },
   userImage: {
     padding: 16,
