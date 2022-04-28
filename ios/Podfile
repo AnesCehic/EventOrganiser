@@ -25,9 +25,9 @@ target 'LincolnApp' do
 
   pod 'react-native-add-calendar-event', :path => '../node_modules/react-native-add-calendar-event'
 
-  # pod 'React', :path => '../node_modules/react-native', :subspecs => [
-  #   'RCTLinkingIOS'
-  # ]
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'RCTLinkingIOS'
+  ]
   permissions_path = '../node_modules/react-native-permissions/ios'
 
   pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
