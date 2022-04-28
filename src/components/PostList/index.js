@@ -105,7 +105,6 @@ const PostsList = ({
   };
 
   const renderItem = ({item: post}) => {
-    console.log('post owner', post);
     return (
       <PostItem
         key={post._id}
