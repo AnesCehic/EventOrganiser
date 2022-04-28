@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   postBody: {
     padding: 16,
     borderColor: '#e7e7e7',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   ownerData: {
     flexDirection: 'row',
@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
   },
   inactiveStyle: {
     opacity: 0.6,
+  },
+  userImage: {
+    width: 32,
+    height: 32,
+    borderRadius: 50,
   },
 });
 

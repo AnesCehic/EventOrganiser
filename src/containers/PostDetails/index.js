@@ -116,7 +116,10 @@ const PostDetails = ({navigation, route}) => {
       <View style={styles.ownerAndTimeInfo}>
         <View style={styles.ownerData}>
           {post?.owner?.upload?.files[0].signedURL ? (
-            <Image source={{uri: post?.owner?.upload?.files[0].signedURL}} />
+            <Image
+              style={styles.userImage}
+              source={{uri: post?.owner?.upload?.files[0].signedURL}}
+            />
           ) : null}
           <Text
             style={
