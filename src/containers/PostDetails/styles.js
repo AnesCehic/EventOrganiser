@@ -10,20 +10,30 @@ const styles = StyleSheet.create({
     padding: 16,
     borderColor: '#e7e7e7',
     borderBottomWidth: 1,
+    color: '#273038',
+    fontSize: 14,
+    fontWeight: '400',
   },
   ownerData: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   ownerName: {
+    color: Styles.Colors.black,
     marginLeft: 7,
-    fontWeight: '800',
+    fontSize: 14,
+    fontWeight: '500',
   },
   ownerAndTimeInfo: {
     padding: 16,
     paddingBottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  postedDate: {
+    color: '#879099',
+    fontSize: 12,
+    fontWeight: '400'
   },
   dotsContainer: {
     flexDirection: 'row',
