@@ -42,6 +42,9 @@ const ChatMessages = ({navigation, route}) => {
 
     setOptions({
       headerTitleAlign: 'center',
+      headerRight: () => {
+        return route.params.component;
+      },
     });
   }, []);
 
