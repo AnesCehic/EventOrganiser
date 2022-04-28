@@ -133,7 +133,7 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
         <TouchableOpacity
           style={styles.postSubmitButton}
           onPress={createPostComment}>
-          <Text>Post</Text>
+          <Text style={styles.postSubmitButtonText}>Post</Text>
         </TouchableOpacity>
       </View>
     );

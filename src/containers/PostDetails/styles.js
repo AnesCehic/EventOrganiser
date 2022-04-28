@@ -4,9 +4,12 @@ import {Styles} from '@common';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Styles.Colors.white,
   },
   postBody: {
     padding: 16,
+    borderColor: '#e7e7e7',
+    borderBottomWidth: 1
   },
   ownerData: {
     flexDirection: 'row',
