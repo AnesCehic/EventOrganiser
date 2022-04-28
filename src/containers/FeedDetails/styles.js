@@ -90,8 +90,10 @@ const styles = StyleSheet.create({
   },
   dateText2: {},
   header: {
-    fontSize: 35,
+    fontSize: 28,
+    lineHeight: 42,
     marginVertical: 10,
+    color: Styles.Colors.black
   },
   description: {
     padding: 15,
