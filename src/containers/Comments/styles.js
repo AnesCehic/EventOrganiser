@@ -3,7 +3,7 @@ import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: '#fbfbfb',
     flex: 1,
   },
   userImage: {
@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 8,
     minHeight: 25,
-    backgroundColor: '#E6EBF0',
     borderRadius: 50,
     flexDirection: 'row',
+    backgroundColor: Styles.Colors.textInputGrayBg
   },
   postSubmitButton: {
     paddingHorizontal: 16,
@@ -24,11 +24,15 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.gold,
     borderRadius: 50,
   },
+  postSubmitButtonText: {
+    color: Styles.Colors.white,
+    fontWeight: '700'
+  },
   inputField: {
     flexGrow: 1,
     padding: 0,
     flexShrink: 1,
-    paddingLeft: 11,
+    paddingLeft: 11
   },
   headline: {
     flexDirection: 'row',
@@ -39,6 +43,7 @@ const styles = StyleSheet.create({
   commentsHeading: {
     fontSize: 14,
     fontWeight: '500',
+    color: Styles.Colors.darkGrayText
   },
   commentsCount: {
     fontSize: 14,
@@ -47,9 +52,10 @@ const styles = StyleSheet.create({
     height: 24,
     textAlign: 'center',
     textAlignVertical: 'center',
-    backgroundColor: '#F2F3F7',
+    backgroundColor: '#F2F3F6',
     borderRadius: 50,
     marginLeft: 8,
+    color: Styles.Colors.darkGrayText
   },
   commentContainer: {
     width: '100%',
