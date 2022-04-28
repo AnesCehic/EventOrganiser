@@ -48,9 +48,6 @@ const FeedDetails = ({navigation, route}) => {
       console.log(route.params.id);
       const res = await EventService.get(route.params.id);
       let image = res.upload.files[0].signedURL;
-
-      console.log("Event", res)
-
       setEventData({
         ...res,
         startDay: dayjs(res.start).format('MMMM DD'),

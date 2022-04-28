@@ -5,27 +5,18 @@ import {Styles} from '@common';
 
 const ChatMessagesScreen = ({navigation, route}) => {
   useEffect(() => {
-    // const parent = navigation.getParent();
+    navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+
     navigation.setOptions({
       headerStyle: {
         backgroundColor: Styles.Colors.topBackground,
       },
       headerTintColor: Styles.Colors.white,
     });
-    // parent.setOptions({
-    //   tabBarStyle: {
-    //     display: 'none',
-    //   },
-    // });
 
-    // return () => {
-    //   console.log('tu');
-    //   parent.setOptions({
-    //     tabBarStyle: {
-    //       display: 'flex',
-    //     },
-    //   });
-    // };
+    return () => {
+      navigation.getParent()?.setOptions({tabBarStyle: undefined});
+    };
   }, []);
 
   return <ChatMessages navigation={navigation} route={route} />;

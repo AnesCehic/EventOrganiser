@@ -33,9 +33,7 @@ const Profile = ({navigation, route}) => {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
-  const {chatForbiden} = useContext(UserContext);
   const [posts, setPosts] = useState([]);
-  const {allowMessaging} = useContext(UserContext);
 
   const fetchUserData = async () => {
     try {
@@ -169,17 +167,7 @@ const Profile = ({navigation, route}) => {
   };
 
   const renderPosts = () => {
-    const time = dayjs(dayjs().subtract(5, 'hour'));
-    const timeFromNow = time.fromNow(); // for testing time ago
-
-    return (
-      <PostsList
-        route={route}
-        hideHeaderContent={true}
-        navigation={navigation}
-        data={posts}
-      />
-    );
+    return <PostsList route={route} navigation={navigation} data={posts} />;
   };
 
   const renderImages = () => {
