@@ -18,7 +18,6 @@ const PostItem = ({
 }) => {
   const timeFromNow = dayjs(createdAt).fromNow();
   const postAvatar = owner?.upload?.files[0]?.signedURL || 'default-uri';
-  console.log('POST AVATAR:', postAvatar);
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       {img && img[0]?.signedURL ? (
@@ -52,7 +51,9 @@ const PostItem = ({
               styles.ownerName
             }>{`${owner.firstName} ${owner.lastName}`}</Text>
         </View>
-        <Text>{timeFromNow}</Text>
+        <View style={styles.timeFromNowContainer}>
+          <Text style={styles.timeFromNow}>{timeFromNow}</Text>
+        </View>
       </View>
       {content ? (
         <Text style={styles.content} numberOfLines={2}>
