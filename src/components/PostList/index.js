@@ -250,10 +250,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   createPostImage: {
-    width: 38,
-    height: 38,
+    width: 32,
+    height: 32,
     marginRight: 6,
     borderRadius: 50,
+    padding: 10
+  },
+  postAvatarImage: {
+    width: 24,
+    height: 24 
   },
   imageContainer: {
     backgroundColor: Styles.Colors.white,
