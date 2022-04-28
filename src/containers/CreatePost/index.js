@@ -47,7 +47,7 @@ const CreatePost = ({navigation}) => {
 
       let upload;
 
-      if (loadImages.length !== 0) {
+      if (loadedImages.length !== 0) {
         upload = await fetch('https://api.lincolnclub.app/uploads', {
           method: 'POST',
           headers: {
