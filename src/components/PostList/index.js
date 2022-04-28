@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E6EBF0',
     backgroundColor: '#fff',
-    ...Styles.Shadows.textBox
+    ...Styles.Shadows.textBox,
   },
   featuredItemTopTime: {
     flexDirection: 'row',
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.addPhotoBorder,
     backgroundColor: Styles.Colors.white,
     borderWidth: 1,
-    ...Styles.Shadows.textBox
+    ...Styles.Shadows.textBox,
   },
   createPostText: {
     flexDirection: 'row',
@@ -255,11 +255,11 @@ const styles = StyleSheet.create({
     height: 32,
     marginRight: 6,
     borderRadius: 50,
-    padding: 10
+    padding: 10,
   },
   postAvatarImage: {
     width: 24,
-    height: 24 
+    height: 24,
   },
   imageContainer: {
     backgroundColor: Styles.Colors.white,
