@@ -52,7 +52,9 @@ const PostItem = ({
               styles.ownerName
             }>{`${owner.firstName} ${owner.lastName}`}</Text>
         </View>
-        <Text>{timeFromNow}</Text>
+        <View style={styles.timeFromNowContainer}>
+          <Text style={styles.timeFromNow}>{timeFromNow}</Text>
+        </View>
       </View>
       {content ? (
         <Text style={styles.content} numberOfLines={2}>
