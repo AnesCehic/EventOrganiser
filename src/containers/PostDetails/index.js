@@ -123,7 +123,7 @@ const PostDetails = ({navigation, route}) => {
               styles.ownerName
             }>{`${post?.owner?.firstName} ${post?.owner?.lastName}`}</Text>
         </View>
-        <Text>
+        <Text style={styles.postedDate}>
           {post.createdAt ? dayjs(post.createdAt).format('MMM D, YYYY') : null}
         </Text>
       </View>
