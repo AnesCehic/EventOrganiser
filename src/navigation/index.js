@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 // import IconRemix from 'react-native-remix-icon';
@@ -219,11 +220,18 @@ const MainNavigation = () => {
     getAuth();
   }, []);
 
-  // cannot update
+  const isTokenExpired = token =>
+    Date.now() >= JSON.parse(atob(token.split('.')[1])).exp * 1000;
 
   const getAuth = async () => {
     try {
       setIsLoading(true);
+      const token = await AsyncStorage.getItem('feathers-jwt');
+      if (isTokenExpired(token)) {
+        setAuthenticated(false);
+        setIsLoading(false);
+        return;
+      }
       const {user} = await client.reAuthenticate();
       setUserData({
         firstName: user.firstName,
