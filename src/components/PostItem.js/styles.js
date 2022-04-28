@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   ownerAndTimeInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 16
   },
   ownerImageContainer: {
     borderRadius: 100,
@@ -46,6 +47,13 @@ const styles = StyleSheet.create({
   ownerImage: {
     width: 24,
     height: 24,
+  },
+  timeFromNow: {
+    fontSize: 11,
+    color: Styles.Colors.darkGrayText
+  },
+  timeFromNowContainer: {
+    paddingTop: 4
   },
   time: {
     textAlign: 'right',

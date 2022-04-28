@@ -30,7 +30,7 @@ const Styles = {
     iconGray: colorScheme === 'dark' ? 'gray' : '#fff',
   },
   Fonts: {
-    header: 'IBM Plex Serif'
+    header: 'IBM Plex Serif',
   },
   Sizes: {
     avatar: 140,
@@ -41,9 +41,9 @@ const Styles = {
       elevation: 3,
       shadowColor: 'rgba(0,0,0,0.2)',
       shadowOffset: {width: -2, height: 4},
-      shadowRadius: 3
-    }
-  }
+      shadowRadius: 3,
+    },
+  },
 };
 
 export default Styles;
