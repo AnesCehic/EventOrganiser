@@ -28,15 +28,16 @@ import {RectButton} from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 const Chat = ({navigation}) => {
-  const {allowMessaging} = useContext(UserContext);
+  const {allowMessaging, userData} = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [messageGroups, setMessageGroups] = useState([]);
   const [search, setSearch] = useState('');
 
-  const navigateToMessages = (groupId, label) => {
+  const navigateToMessages = (groupId, label, component) => {
     navigation.navigate('Message', {
       groupId,
       label,
+      component,
     });
   };
 
@@ -158,6 +159,48 @@ const Chat = ({navigation}) => {
   };
 
   const renderGroup = ({item}) => {
+    let image;
+    let component = null;
+    let componentHeader = null;
+    if (item.type === 0) {
+      image = item.participantList.find(e => e._id !== userData._id);
+      if (image.upload?.files[0]?.signedURL) {
+        image = image.upload?.files[0]?.signedURL;
+        component = (
+          <Avatar
+            size={Styles.Sizes.avatarMedium}
+            rounded
+            source={{
+              uri: image.upload?.files[0]?.signedURL,
+            }}
+          />
+        );
+        componentHeader = (
+          <Avatar
+            size={Styles.Sizes.avatarSmall}
+            rounded
+            source={{
+              uri: image.upload?.files[0]?.signedURL,
+            }}
+          />
+        );
+      } else {
+        let name = image.firstName[0] + image.lastName[0];
+        component = <Text style={styles.userImageFallback}>{name}</Text>;
+        componentHeader = (
+          <Text
+            style={[
+              styles.userImageFallback,
+              {width: 32, height: 32, fontSize: 15},
+            ]}>
+            {name}
+          </Text>
+        );
+      }
+    } else {
+      component = <Text>Groups</Text>;
+    }
+
     return (
       <Swipeable
         friction={2}
@@ -165,15 +208,11 @@ const Chat = ({navigation}) => {
           renderRightActions(progress, dragX, item._id)
         }>
         <TouchableOpacity
-          onPress={() => navigateToMessages(item._id, item.label)}
+          onPress={() =>
+            navigateToMessages(item._id, item.label, componentHeader)
+          }
           style={styles.messageContainer}>
-          <Avatar
-            size={Styles.Sizes.avatarMedium}
-            rounded
-            source={{
-              uri: 'file:///data/user/0/com.lincolnapp.debug/cache/rn_image_picker_lib_temp_1c88e986-71f2-4539-bb8a-d55863efc05c.jpg',
-            }}
-          />
+          {component}
           <View style={styles.infoContainer}>
             <View style={styles.nameAndTime}>
               <Text style={styles.label}>{item.label}</Text>
