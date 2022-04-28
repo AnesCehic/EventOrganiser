@@ -18,7 +18,7 @@ const PostItem = ({
 }) => {
   const timeFromNow = dayjs(createdAt).fromNow();
   const postAvatar = owner?.upload?.files[0]?.signedURL || 'default-uri';
-  console.log('POST AVATAR:', postAvatar);
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       {img && img[0]?.signedURL ? (

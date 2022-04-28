@@ -44,10 +44,7 @@ const Profile = ({navigation, route}) => {
       } else {
         user = await UsersService.get(route.params.userId);
       }
-      console.log('This returns the user:', user);
       setUserData(user);
-      console.log('This does not:', userData);
-      console.log('wtf...');
       const resData = await PostsService.find({
         query: {
           ownerId: user._id,
@@ -220,7 +217,6 @@ const Profile = ({navigation, route}) => {
 
   const redirectToAction = () => {
     if (route?.params?.userId) {
-      console.log('message');
     } else {
       navigation.navigate('Feed', {
         screen: 'CreatePost',
@@ -242,7 +238,7 @@ const Profile = ({navigation, route}) => {
             {renderUserInfo()}
           </View>
           <TouchableOpacity onPress={redirectToAction}>
-            {route?.param?.userId ? (
+            {route?.params?.userId ? (
               <Text>Message</Text>
             ) : (
               <Text>Create post</Text>
