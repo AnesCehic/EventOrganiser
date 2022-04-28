@@ -3,7 +3,7 @@ import {Styles} from '@common';
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
   },
   postBody: {
     padding: 16,

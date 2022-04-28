@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     color: '#413F21',
     fontWeight: '600',
   },
-
   dateContainer: {
     flexDirection: 'row',
     padding: 9,
@@ -65,15 +64,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: Styles.Colors.grayBorder,
     backgroundColor: Styles.Colors.white,
-    ...Styles.Shadows.textBox
+    ...Styles.Shadows.textBox,
   },
   centeredIconVertically: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   datePlaceIcon: {
-    color: '#684BA6'
-  }, 
+    color: '#684BA6',
+  },
   dateTextContainer: {
     flex: 1,
     justifyContent: 'space-between',
@@ -81,19 +80,19 @@ const styles = StyleSheet.create({
   dateText: {
     marginLeft: 14,
     fontSize: 14,
-    color: '#273038'
+    color: '#273038',
   },
   dateTextBigger: {
     fontWeight: '600',
     fontSize: 14,
-    color: '#273038'
+    color: '#273038',
   },
   dateText2: {},
   header: {
     fontSize: 28,
     lineHeight: 42,
     marginVertical: 10,
-    color: Styles.Colors.black
+    color: Styles.Colors.black,
   },
   description: {
     padding: 15,
@@ -110,11 +109,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     textAlignVertical: 'top',
-    ...Styles.Shadows.textBox
+    ...Styles.Shadows.textBox,
   },
   modalTextInput: {
     width: '100%',
-    ...Styles.Shadows.textBox
+    ...Styles.Shadows.textBox,
   },
   modalConfirmBtn: {
     marginTop: 10,
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
   joinText: {
     fontWeight: '700',
     fontSize: 16,
-    color: '#413F21'
+    color: '#413F21',
   },
   rsvpInfo: {
     width: '100%',

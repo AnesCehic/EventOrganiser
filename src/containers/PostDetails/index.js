@@ -31,7 +31,6 @@ const PostDetails = ({navigation, route}) => {
   const loadPost = async () => {
     try {
       const res = await PostsService.get(route.params.id);
-      console.log(res);
       const images = res?.upload?.files?.map(i => i.signedURL);
       setPost({...res, images: images, postLoaded: true});
       navigation.setOptions({
@@ -116,7 +115,9 @@ const PostDetails = ({navigation, route}) => {
       {renderPostImages()}
       <View style={styles.ownerAndTimeInfo}>
         <View style={styles.ownerData}>
-          <Image source={require('../../assets/data.png')} />
+          {post?.owner?.upload?.files[0].signedURL ? (
+            <Image source={{uri: post?.owner?.upload?.files[0].signedURL}} />
+          ) : null}
           <Text
             style={
               styles.ownerName

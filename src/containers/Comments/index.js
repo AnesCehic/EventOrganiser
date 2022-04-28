@@ -11,6 +11,7 @@ import {
 import {CommentsService} from '../../services/apiClient';
 
 import Comment from './Comment';
+import {LoadingIndicator} from '@components';
 
 import styles from './styles';
 
@@ -31,11 +32,11 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
       isLoading: true,
     });
 
-    CommentsService.on('created', handleCreatedComment);
+    // CommentsService.on('created', handleCreatedComment);
 
-    return () => {
-      CommentsService.off('created', handleCreatedComment);
-    };
+    // return () => {
+    //   CommentsService.off('created', handleCreatedComment);
+    // };
   }, []);
 
   const handleCreatedComment = res => {
@@ -91,7 +92,7 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
       Keyboard.dismiss();
       // setComments({
       //   ...comments,
-      //   data: [...comments.data, res],
+      //   data: [res, ...comments.data],
       //   total: comments.total + 1,
       // });
     } catch (error) {
@@ -100,7 +101,13 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
   };
 
   const handleRefresh = () => {
-    console.log('Refresh');
+    // FIXME
+    setComments({
+      data: [],
+      isLoading: true,
+      total: 0,
+      page: 1,
+    });
   };
 
   const renderHeadline = () => {
@@ -131,6 +138,10 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
       </View>
     );
   };
+
+  if (comments.isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <View style={styles.container}>
