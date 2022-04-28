@@ -41,6 +41,7 @@ import MyEventsScreen from './MyEventsScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import GoogleLogin from './GoogleLogin';
 import CommentsScreen from './CommentsScreen';
+import GroupMembersScreenInfo from './GroupMembersInfoScreen';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -72,6 +73,10 @@ const GroupsNavigation = () => {
     <GroupsStack.Navigator>
       <GroupsStack.Screen name="GroupsScreen" component={GroupsScreen} />
       <GroupsStack.Screen name="GroupMembers" component={GroupMembersScreen} />
+      <GroupsStack.Screen
+        name="GroupMemberInfo"
+        component={GroupMembersScreenInfo}
+      />
     </GroupsStack.Navigator>
   );
 };

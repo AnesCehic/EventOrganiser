@@ -3,6 +3,7 @@ import {View, Text, ImageBackground, Image} from 'react-native';
 
 import {PostsList, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
+import SvgComponent from './LincolnImage';
 
 import {EventService, PostsService} from '@services/apiClient';
 import {toast} from '@utils';
@@ -115,6 +116,7 @@ const Feed = ({navigation}) => {
         data={posts.data}
         style={styles.postList}
         navigation={navigation}
+        userData={userData}
       />
     );
   };
@@ -134,6 +136,9 @@ const Feed = ({navigation}) => {
           Welcome Back,{'\n'}
           {userData.firstName} {userData.lastName}
         </Text>
+        <SvgComponent
+          style={{position: 'absolute', top: 0, right: 0, height: '100%'}}
+        />
       </View>
       {renderPosts()}
     </View>

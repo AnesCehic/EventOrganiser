@@ -10,6 +10,7 @@ import {GroupService, UsersService} from '@services/apiClient';
 import {toast} from '@utils';
 import {Styles, Constants} from '@common';
 import {UserContext} from '@contexts';
+import UserIcon from '@assets/ImageComponents/UserIcon';
 
 import styles from '../Groups/styles';
 import userCardStyle from './styles';
@@ -65,22 +66,27 @@ const GroupMembers = ({navigation, route}) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Profile', {
-            screen: 'ProfileScreen',
-            params: {
-              userId: member._id,
-            },
+          navigation.navigate('GroupMemberInfo', {
+            userId: member._id,
           });
         }}
         style={userCardStyle.container}>
         <View style={userCardStyle.userInfo}>
-          <Avatar
-            source={{
-              uri: 'https://api.uifaces.co/our-content/donated/KtCFjlD4.jpg',
-            }}
-            rounded
-            size={48}
-          />
+          {member.upload?.files[0]?.signedURL ? (
+            <Avatar
+              source={{
+                uri: member.upload?.files[0]?.signedURL,
+              }}
+              rounded
+              size={48}
+            />
+          ) : (
+            <Avatar
+              size={48}
+              rounded
+              renderPlaceholderContent={() => <UserIcon />}
+            />
+          )}
           <View style={{marginLeft: 14}}>
             <Text style={userCardStyle.name}>{firstName}</Text>
             <Text style={userCardStyle.email}>{member.email}</Text>
@@ -133,7 +139,6 @@ const GroupMembers = ({navigation, route}) => {
 
   const renderHeader = () => {
     const isUserInGroup = groupData?.members?.includes(userData._id);
-    console.log(isUserInGroup, userData._id);
     return (
       <View
         style={{

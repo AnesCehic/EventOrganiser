@@ -3,6 +3,7 @@ import {
   FlatList,
   StyleSheet,
   RefreshControl,
+  ImageBackground,
   Text,
   TouchableOpacity,
   View,
@@ -13,6 +14,7 @@ import dayjs from 'dayjs';
 
 import {PostItem} from '@components';
 import {Styles} from '@common';
+import UserIcon from '@assets/ImageComponents/UserIcon';
 
 const PostsList = ({
   data,
@@ -21,15 +23,17 @@ const PostsList = ({
   handleRefresh,
   style,
   route,
+  hideHeaderContent,
   hasMore,
   onEndReached,
+  userData,
 }) => {
   const renderFeaturedPosts = () => {
     return (
       <View>
         {headerData?.length !== 0 ? (
           <View>
-            <Text style={styles.latestUpdate}>Your picks</Text>
+            <Text style={styles.featuredItemHeader}>Upcoming Events</Text>
             <FlatList
               style={styles.headerList}
               data={headerData}
@@ -41,10 +45,18 @@ const PostsList = ({
           </View>
         ) : null}
         <Text style={styles.latestUpdate}>Latest updates</Text>
-        <View style={styles.createPost}>
-          <TouchableOpacity
-            style={styles.createPostText}
-            onPress={() => navigation.navigate('CreatePost')}>
+        <TouchableOpacity
+          style={styles.createPost}
+          onPress={() => navigation.navigate('CreatePost')}>
+          {userData?.upload ? (
+            <Image
+              source={{uri: userData.upload.files[0].signedURL}}
+              style={styles.createPostImage}
+            />
+          ) : (
+            <UserIcon style={styles.createPostImage} />
+          )}
+          <View style={styles.createPostText}>
             <Text>Create a new post</Text>
             <View style={styles.imageContainer}>
               <Image
@@ -52,8 +64,8 @@ const PostsList = ({
                 source={require('../../assets/Gallery.png')}
               />
             </View>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -74,12 +86,15 @@ const PostsList = ({
               {dayjs(item.start).format('MMM').toUpperCase()}
             </Text>
           </View>
-          <View style={styles.featuredItemTopTime}>
-            <Icon name="ri-time-fill" color="#684BA6" size={20} />
+          <ImageBackground
+            imageStyle={{opacity: 0.08}}
+            source={{uri: item.upload?.files[0]?.signedURL}}
+            style={styles.featuredItemTopTime}>
+            <Icon name="ri-time-fill" color="#684BA6" size={13} />
             <Text style={styles.featuredItemTopTimeText}>
-              {dayjs(item.start).format('HH mm A')}
+              {dayjs(item.start).format('hh:mm A')}
             </Text>
-          </View>
+          </ImageBackground>
         </View>
 
         <View style={styles.featuredItemBottom}>
@@ -90,6 +105,7 @@ const PostsList = ({
   };
 
   const renderItem = ({item: post}) => {
+    console.log('post owner', post);
     return (
       <PostItem
         key={post._id}
@@ -110,9 +126,7 @@ const PostsList = ({
   const renderList = () => {
     return (
       <FlatList
-        ListHeaderComponent={
-          route?.params?.hideListHeader ? null : renderFeaturedPosts
-        }
+        ListHeaderComponent={hideHeaderContent ? null : renderFeaturedPosts}
         data={data}
         style={style}
         renderItem={renderItem}
@@ -134,18 +148,18 @@ const PostsList = ({
 };
 
 const styles = StyleSheet.create({
-  headerList: {
-    margin: 8,
-  },
   featuredItemContainer: {
     backgroundColor: Styles.Colors.darkBgLight,
     borderRadius: 8,
     borderWidth: 1,
     elevation: 3,
+    shadowRadius: 10,
     borderColor: '#E6EBF0',
+    shadowColor: 'rgba(0,0,0,0.3)',
     padding: 12,
-    margin: 4,
+    marginRight: 8,
     minHeight: 100,
+    margin: 12,
   },
   featuredItemTop: {
     flexDirection: 'row',
@@ -174,14 +188,15 @@ const styles = StyleSheet.create({
     marginLeft: 7,
     color: Styles.Colors.purple,
     fontWeight: '700',
-    fontSize: 13,
+    fontSize: 10,
   },
   day: {
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 16,
+    color: Styles.Colors.black,
   },
   month: {
-    fontSize: 12,
+    fontSize: 9,
     color: Styles.Colors.purple,
   },
   featuredItemBottom: {
@@ -193,14 +208,27 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingHorizontal: 10,
     fontSize: 16,
+    fontFamily: Styles.Fonts.header,
     fontWeight: '700',
+    color: Styles.Colors.black,
+  },
+  featuredItemHeader: {
+    paddingLeft: 16,
+    fontSize: 16,
+    fontWeight: '700',
+    color: Styles.Colors.white,
+    fontFamily: Styles.Fonts.header,
   },
   latestUpdate: {
     paddingLeft: 16,
     fontSize: 16,
     fontWeight: '700',
+    color: '#273038',
+    fontFamily: Styles.Fonts.header,
   },
   createPost: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: 12,
     marginVertical: 8,
     paddingHorizontal: 8,
@@ -214,11 +242,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexGrow: 1,
     borderRadius: 50,
     backgroundColor: '#F5F6F7',
     padding: 5,
     paddingLeft: 16,
     paddingHorizontal: 8,
+  },
+  createPostImage: {
+    width: 38,
+    height: 38,
+    marginRight: 6,
+    borderRadius: 50,
   },
   imageContainer: {
     backgroundColor: Styles.Colors.white,

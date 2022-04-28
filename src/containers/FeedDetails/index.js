@@ -159,7 +159,7 @@ const FeedDetails = ({navigation, route}) => {
 
   const createRSVP = async () => {
     try {
-      if (!localDidRSVP) {
+      if (!localDidRSVP || eventData.didRSVP) {
         await RSVPService.create({
           eventId: route.params.id,
           notes: note,
@@ -298,7 +298,19 @@ const FeedDetails = ({navigation, route}) => {
   };
 
   const renderRSVP = () => {
-    if (eventData.canRSVP && !eventData.didRSVP) {
+    if (eventData.didRSVP || localDidRSVP) {
+      return (
+        <View style={styles.rsvpContainer}>
+          <View>
+            <Text style={styles.joinText}>Already attending!</Text>
+            <Text>We saved a seat for you</Text>
+          </View>
+          <TouchableOpacity style={styles.rsvpButton} onPress={toggleRSVPModal}>
+            <Text style={styles.rsvpText}>Update RSVP</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    } else if (eventData.canRSVP) {
       return (
         <View style={styles.rsvpContainer}>
           <View>

@@ -15,6 +15,7 @@ import {PostsList, LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UserContext} from '@contexts';
 import {toast} from '@utils';
+import UserIcon from '@assets/ImageComponents/UserIcon';
 
 import {
   UsersService,
@@ -29,7 +30,7 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation, route}) => {
-  const {userData, setUserData} = useContext(UserContext);
+  const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
   const [posts, setPosts] = useState([]);
@@ -52,7 +53,6 @@ const Profile = ({navigation, route}) => {
           ownerId: user._id,
         },
       });
-
       const postsData = resData.data.map(e => {
         return {
           id: e._id,
@@ -76,14 +76,25 @@ const Profile = ({navigation, route}) => {
   }, []);
 
   const renderAvatar = () => {
-    return (
-      <Avatar
-        size={140}
-        rounded
-        source={{uri: userData.avatarImg}}
-        containerStyle={styles.avatar}
-      />
-    );
+    if (userData.upload?.files[0].signedURL) {
+      return (
+        <Avatar
+          size={140}
+          rounded
+          source={{uri: userData.upload?.files[0].signedURL}}
+          containerStyle={styles.avatar}
+        />
+      );
+    } else {
+      return (
+        <Avatar
+          size={140}
+          rounded
+          renderPlaceholderContent={() => <UserIcon />}
+          containerStyle={styles.avatar}
+        />
+      );
+    }
   };
 
   const createMessageGroup = async () => {
@@ -207,6 +218,16 @@ const Profile = ({navigation, route}) => {
     navigation.navigate('EditProfileScreen');
   };
 
+  const redirectToAction = () => {
+    if (route?.params?.userId) {
+      console.log('message');
+    } else {
+      navigation.navigate('Feed', {
+        screen: 'CreatePost',
+      });
+    }
+  };
+
   if (isLoading) {
     return <LoadingIndicator />;
   }
@@ -220,13 +241,13 @@ const Profile = ({navigation, route}) => {
             {renderAvatar()}
             {renderUserInfo()}
           </View>
-          <Icon
-            name="settings"
-            color="#fff"
-            size={30}
-            style={styles.settingsIcon}
-            onPress={goToEditProfile}
-          />
+          <TouchableOpacity onPress={redirectToAction}>
+            {route?.param?.userId ? (
+              <Text>Message</Text>
+            ) : (
+              <Text>Create post</Text>
+            )}
+          </TouchableOpacity>
         </View>
         {/* {renderSwitch()} */}
         {renderContent()}

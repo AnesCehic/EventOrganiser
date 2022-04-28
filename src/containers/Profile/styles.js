@@ -19,20 +19,25 @@ const styles = StyleSheet.create({
   settingsIcon: {
     backgroundColor: '#00000075',
     borderRadius: 50,
-    padding: 10
+    padding: 10,
   },
 
   userWrapper: {
     paddingHorizontal: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   avatar: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 3,
-    backgroundColor: 'white',
     borderRadius: 100,
     width: 100,
-    height: 100
+    height: 100,
+    backgroundColor: '#EDF1F5',
+    borderWidth: 5,
+    borderColor: 'white',
   },
   userInfo: {
     width: '100%',
