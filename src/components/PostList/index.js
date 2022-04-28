@@ -170,6 +170,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     borderColor: '#E6EBF0',
+    backgroundColor: '#fff',
+    ...Styles.Shadows.textBox
   },
   featuredItemTopTime: {
     flexDirection: 'row',
@@ -178,6 +180,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 6,
+    overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#E6EBF0',
     marginLeft: 12,
