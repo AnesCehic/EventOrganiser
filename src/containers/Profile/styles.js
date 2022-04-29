@@ -102,6 +102,20 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 8,
   },
+  topRightImage: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: 50,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    backgroundColor: Styles.Colors.white,
+  },
+  topRightImageText: {
+    fontWeight: '600',
+    fontSize: 12,
+    paddingLeft: 10,
+  },
 });
 
 export default styles;

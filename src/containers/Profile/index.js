@@ -1,19 +1,12 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  ImageBackground,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {StackActions} from '@react-navigation/native';
-import {Avatar, Button, Icon} from 'react-native-elements';
+import {Avatar} from 'react-native-elements';
 import dayjs from 'dayjs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {PostsList, LoadingIndicator} from '@components';
-import {Constants, Styles} from '@common';
-import {UserContext} from '@contexts';
+import {Styles} from '@common';
 import {toast} from '@utils';
 import UserIcon from '@assets/ImageComponents/UserIcon';
 
@@ -23,7 +16,6 @@ import {
   PostsService,
 } from '@services/apiClient';
 
-import data from './data';
 import imageData from './imageData';
 
 import styles from './styles';
@@ -237,11 +229,23 @@ const Profile = ({navigation, route}) => {
             {renderAvatar()}
             {renderUserInfo()}
           </View>
-          <TouchableOpacity onPress={redirectToAction}>
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 20,
+            }}
+            onPress={redirectToAction}>
             {route?.params?.userId ? (
-              <Text>Message</Text>
+              <View style={styles.topRightImage}>
+                <Ionicons name={'chatbubbles-outline'} size={24} />
+                <Text style={styles.topRightImageText}>Message</Text>
+              </View>
             ) : (
-              <Text>Create post</Text>
+              <View style={styles.topRightImage}>
+                <Ionicons name={'chatbubbles-outline'} size={24} />
+                <Text style={styles.topRightImageText}>CreatePost</Text>
+              </View>
             )}
           </TouchableOpacity>
         </View>
