@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, ImageBackground, Image} from 'react-native';
 
-import {PostsList, LoadingIndicator} from '@components';
+import {PostsList, LoadingIndicator, InfiniteLoader} from '@components';
 import {UserContext} from '@contexts';
 import SvgComponent from './LincolnImage';
 
@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 const Feed = ({navigation}) => {
   const {userData} = useContext(UserContext);
   const [events, setEvents] = useState([]);
+  const [infiniteScrollLoader, setInfiniteScrollLoader] = useState(false);
 
   // ----------------------------
 
@@ -53,6 +54,7 @@ const Feed = ({navigation}) => {
 
       // ----------------------
       if ((posts.page - 1) * 5 > posts.total) {
+        setInfiniteScrollLoader(false);
         return;
       }
       const res = await PostsService.find({
@@ -79,6 +81,7 @@ const Feed = ({navigation}) => {
         total: res.total,
         page: posts.page + 1,
       });
+      setInfiniteScrollLoader(false);
       // const res2 = await PostsService.get(res.data[0]._id);
       // console.log('posts2', res2);
     } catch (error) {
@@ -90,6 +93,16 @@ const Feed = ({navigation}) => {
       });
     }
   };
+
+  const loadPostsBefore = () => {
+    setInfiniteScrollLoader(true);
+  };
+
+  useEffect(() => {
+    if (infiniteScrollLoader) {
+      loadPosts();
+    }
+  }, [infiniteScrollLoader]);
 
   const handleRefresh = () => {
     //getPostsAndEvents();loadPosts
@@ -111,7 +124,7 @@ const Feed = ({navigation}) => {
       <PostsList
         handleRefresh={handleRefresh}
         headerData={events}
-        onEndReached={loadPosts}
+        onEndReached={loadPostsBefore}
         hasMore={posts.data.length < posts.total}
         data={posts.data}
         style={styles.postList}
@@ -124,6 +137,8 @@ const Feed = ({navigation}) => {
   if (posts.isLoading) {
     return <LoadingIndicator />;
   }
+
+  const hasMore = (posts.page - 1) * 5 < posts.total;
 
   return (
     <View style={styles.container}>
@@ -141,6 +156,7 @@ const Feed = ({navigation}) => {
         />
       </View>
       {renderPosts()}
+      {infiniteScrollLoader && hasMore ? <InfiniteLoader /> : null}
     </View>
   );
 };

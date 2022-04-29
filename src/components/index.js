@@ -14,6 +14,7 @@ import _LoadingIndicator from './LoadingIndicator';
 import _TextInput from './TextInput';
 import _BottomStartScreeButton from './BottomStartScreenButton';
 import _HeaderBack from './HeaderBack';
+import _InfiniteLoader from './InfiniteLoader';
 
 export const EventItem = _EventItem;
 export const Header = _Header;
@@ -31,3 +32,4 @@ export const LoadingIndicator = _LoadingIndicator;
 export const TextInput = _TextInput;
 export const BottomStartScreenButton = _BottomStartScreeButton;
 export const HeaderBack = _HeaderBack;
+export const InfiniteLoader = _InfiniteLoader;

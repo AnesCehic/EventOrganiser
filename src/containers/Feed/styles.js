@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   postList: {
     marginTop: -50,
-  }
+  },
 });
 
 export default styles;
