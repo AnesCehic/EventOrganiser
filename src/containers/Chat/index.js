@@ -103,14 +103,15 @@ const Chat = ({navigation}) => {
 
   useEffect(() => {
     getAllMessages();
+  }, []);
 
-    // FIXME
+  useEffect(() => {
     const refetchChatGroups = navigation.addListener('focus', () => {
       getAllMessages();
     });
 
     return refetchChatGroups;
-  }, []);
+  }, [navigation]);
 
   const deleteChat = async id => {
     try {

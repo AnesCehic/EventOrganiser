@@ -13,6 +13,7 @@ import {
 
 import {PostsService} from '@services/apiClient';
 import {UserContext} from '@contexts';
+import {HeaderBack} from '@components';
 import {Styles} from '@common';
 import {toast} from '@utils';
 
@@ -90,6 +91,15 @@ const CreatePost = ({navigation}) => {
           </TouchableHighlight>
         );
       },
+      headerLeft: () => (
+        <HeaderBack
+          onPress={() => {
+            navigation.goBack({
+              shouldRefresh: false,
+            });
+          }}
+        />
+      ),
     });
   }, [loadedImages, postData]);
 
