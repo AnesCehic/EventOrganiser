@@ -34,6 +34,14 @@ const Feed = ({navigation}) => {
   }, []);
 
   useEffect(() => {
+    const focusEvent = navigation.addListener('focus', () => {
+      handleRefresh();
+    });
+
+    return focusEvent;
+  }, [navigation]);
+
+  useEffect(() => {
     if (posts.isLoading) {
       loadPosts();
     }
