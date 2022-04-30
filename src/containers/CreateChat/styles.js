@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   userItemText: {
+    flexGrow: 1,
     marginLeft: 16,
     fontSize: 16,
     fontWeight: '500',
@@ -41,12 +42,26 @@ const styles = StyleSheet.create({
   },
   selectedUser: {
     alignItems: 'center',
+    justifyContent: 'center',
     padding: 5,
+    flexDirection: 'row',
+    borderRadius: 6,
+    margin: 4,
     minWidth: 100,
     backgroundColor: Styles.Colors.white,
-    borderWidth: 1,
-    borderColor: Styles.Colors.black,
+    // borderWidth: 1,
+    // borderColor: Styles.Colors.black,
     elevation: 1,
+  },
+  createChatButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: Styles.Colors.white,
+    borderRadius: 50,
+  },
+  createChatButtonText: {
+    fontWeight: '700',
+    fontSize: 14,
   },
 });
 
