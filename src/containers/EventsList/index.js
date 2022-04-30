@@ -15,7 +15,7 @@ import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 
 import {UserContext} from '@contexts';
-import {LoadingIndicator, BottomSheetModal} from '@components';
+import {LoadingIndicator, BottomSheetModal, InfiniteLoader} from '@components';
 import {toast} from '@utils';
 import {Styles} from '@common';
 
@@ -29,19 +29,27 @@ const EventsList = ({navigation}) => {
   const {userData} = useContext(UserContext);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingInfinite, setIsLoadingInfinite] = useState(false);
   const [eventsFromToday, setEventsFromToday] = useState([]);
   const [myEventsCount, setMyEventsCount] = useState(0);
   const [myEventsIds, setMyEventsIds] = useState([]);
   const [showAgenda, setShowAgenda] = useState(false);
 
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(10);
 
   useEffect(() => {
+    setIsLoading(true);
     getNumberOfMyEvents();
-    getEvents();
   }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      getEvents();
+      getNumberOfMyEvents();
+    }
+  }, [isLoading]);
 
   const getNumberOfMyEvents = async () => {
     try {
@@ -81,6 +89,11 @@ const EventsList = ({navigation}) => {
         return;
       }
 
+      if (eventsFromToday.length >= total) {
+        setIsLoadingInfinite(false);
+        return;
+      }
+
       const eventsToShow = await EventService.find({
         query: {
           start: {
@@ -97,6 +110,9 @@ const EventsList = ({navigation}) => {
       setLimit(limitCalc);
 
       setEventsFromToday([...eventsFromToday, ...eventsToShow.data]);
+
+      setIsLoading(false);
+      setIsLoadingInfinite(false);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error get events]', error);
@@ -105,6 +121,12 @@ const EventsList = ({navigation}) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (isLoadingInfinite) {
+      loadMore();
+    }
+  }, [isLoadingInfinite]);
 
   const loadMore = () => {
     getEvents();
@@ -116,7 +138,13 @@ const EventsList = ({navigation}) => {
         data={eventsFromToday}
         keyExtractor={item => item._id}
         renderItem={renderItem}
-        onEndReached={loadMore}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
+        }
+        onEndReached={() => {
+          setIsLoadingInfinite(true);
+          loadMore();
+        }}
         // refreshControl={
         //   <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
         // }
@@ -133,7 +161,9 @@ const EventsList = ({navigation}) => {
     const imageUrl = event?.upload?.files[0]?.signedURL;
     const source = {
       html: `<section>${event.description}</section>`,
-      text: event.description.replace(/(<([^>]+)>)/gi, "").replace(/&([^;]+);/gi, "")
+      text: event.description
+        .replace(/(<([^>]+)>)/gi, '')
+        .replace(/&([^;]+);/gi, ''),
     };
     return (
       <TouchableOpacity
@@ -150,7 +180,7 @@ const EventsList = ({navigation}) => {
         </View>
         <View style={styles.eventsListItemTopWrapper}>
           <Text style={styles.eventListItemTitle}>{event.title}</Text>
-          <Text>{source.text.substring(0,85)}...</Text>
+          <Text>{source.text.substring(0, 85)}...</Text>
         </View>
         <View style={styles.eventListItemDateAndTimeWrapper}>
           <View style={styles.eventListItemDateAndTime}>
@@ -185,7 +215,11 @@ const EventsList = ({navigation}) => {
 
   // eslint-disable-next-line no-unused-vars
   const handleRefresh = () => {
-    getEvents();
+    setLimit(5);
+    setSkip(0);
+    setTotal(10);
+    setEventsFromToday([]);
+    setIsLoading(true);
   };
 
   const navigateToEvent = id => {
@@ -284,6 +318,10 @@ const EventsList = ({navigation}) => {
           <Text>No future events...</Text>
         </View>
       )}
+
+      {isLoadingInfinite && eventsFromToday.length < total ? (
+        <InfiniteLoader />
+      ) : null}
 
       {renderAgenda()}
     </View>
