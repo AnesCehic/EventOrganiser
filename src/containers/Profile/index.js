@@ -5,7 +5,7 @@ import {Avatar} from 'react-native-elements';
 import dayjs from 'dayjs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {PostsList, LoadingIndicator} from '@components';
+import {PostsList, LoadingIndicator, InfiniteLoader} from '@components';
 import {Styles} from '@common';
 import {toast} from '@utils';
 import UserIcon from '@assets/ImageComponents/UserIcon';
@@ -25,23 +25,31 @@ const Profile = ({navigation, route}) => {
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
-  const [posts, setPosts] = useState([]);
+  const [isInfiniteLoading, setIsInfiniteLoading] = useState(false);
+  const [posts, setPosts] = useState({
+    data: [],
+    total: 0,
+    limit: 5,
+    page: 1,
+  });
 
-  const fetchUserData = async () => {
+  const fetchPosts = async () => {
     try {
-      setIsLoading(true);
-      let user;
-      if (!route?.params?.userId) {
-        user = JSON.parse(await AsyncStorageLib.getItem('@user'));
-      } else {
-        user = await UsersService.get(route.params.userId);
+      if ((posts.page - 1) * 5 > posts.total) {
+        setIsInfiniteLoading(false);
+        return;
       }
-      setUserData(user);
       const resData = await PostsService.find({
         query: {
-          ownerId: user._id,
+          ownerId: userData._id,
+          $limit: 5,
+          $skip: (posts.page - 1) * 5,
+          $sort: {
+            createdAt: -1,
+          },
         },
       });
+
       const postsData = resData.data.map(e => {
         return {
           id: e._id,
@@ -51,7 +59,27 @@ const Profile = ({navigation, route}) => {
           owner: e.owner,
         };
       });
-      setPosts(postsData);
+      setPosts({
+        ...posts,
+        data: [...posts.data, ...postsData],
+        total: resData.total,
+        page: posts.page + 1,
+      });
+      setIsInfiniteLoading(false);
+    } catch (error) {
+      console.log('[Error loading posts]', error);
+    }
+  };
+
+  const fetchUserData = async () => {
+    try {
+      let user;
+      if (!route?.params?.userId) {
+        user = JSON.parse(await AsyncStorageLib.getItem('@user'));
+      } else {
+        user = await UsersService.get(route.params.userId);
+      }
+      setUserData(user);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error loading user data]:', error);
@@ -61,8 +89,32 @@ const Profile = ({navigation, route}) => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    if (isLoading) {
+      fetchUserData();
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    setIsLoading(true);
   }, []);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [userData]);
+
+  useEffect(() => {
+    let refetchPosts = null;
+    if (route?.params?.userId) {
+      // FIXME (update for otgher users profile)
+      return;
+    } else {
+      refetchPosts = navigation.addListener('focus', () => {
+        handleRefresh();
+      });
+    }
+
+    return refetchPosts;
+  }, [navigation]);
 
   const renderAvatar = () => {
     if (userData.upload?.files[0].signedURL) {
@@ -155,8 +207,38 @@ const Profile = ({navigation, route}) => {
     );
   };
 
+  const loadMore = () => {
+    setIsInfiniteLoading(true);
+  };
+
+  useEffect(() => {
+    if (isInfiniteLoading) {
+      fetchPosts();
+    }
+  }, [isInfiniteLoading]);
+
+  const handleRefresh = () => {
+    setPosts({
+      ...posts,
+      data: [],
+      total: 0,
+      limit: 5,
+      page: 1,
+    });
+    setIsLoading(true);
+  };
+
   const renderPosts = () => {
-    return <PostsList route={route} navigation={navigation} data={posts} />;
+    return (
+      <PostsList
+        handleRefresh={handleRefresh}
+        onEndReached={loadMore}
+        // hasMore
+        route={route}
+        navigation={navigation}
+        data={posts.data}
+      />
+    );
   };
 
   const renderImages = () => {
@@ -210,15 +292,15 @@ const Profile = ({navigation, route}) => {
   const redirectToAction = () => {
     if (route?.params?.userId) {
     } else {
-      navigation.navigate('Feed', {
-        screen: 'CreatePost',
-      });
+      navigation.navigate('UserAccountCreatePost');
     }
   };
 
   if (isLoading) {
     return <LoadingIndicator />;
   }
+
+  const hasMore = (posts.page - 1) * 5 > posts.total;
 
   return (
     <View style={styles.container}>
@@ -244,13 +326,14 @@ const Profile = ({navigation, route}) => {
             ) : (
               <View style={styles.topRightImage}>
                 <Ionicons name={'chatbubbles-outline'} size={24} />
-                <Text style={styles.topRightImageText}>CreatePost</Text>
+                <Text style={styles.topRightImageText}>Create Post</Text>
               </View>
             )}
           </TouchableOpacity>
         </View>
         {/* {renderSwitch()} */}
-        {renderContent()}
+        {renderPosts()}
+        {isInfiniteLoading && !hasMore ? <InfiniteLoader /> : null}
       </View>
     </View>
   );
