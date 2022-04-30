@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Octicons';
 import {UserContext} from '@contexts';
 import {UsersService, MessageGroupsService} from '@services/apiClient';
 import {Styles} from '@common';
+import {HeaderBack} from '@components';
 
 import styles from './styles';
 
@@ -84,12 +85,14 @@ const CreateChat = ({navigation}) => {
       headerStyle: {
         backgroundColor: Styles.Colors.gold,
       },
+      headerTitleAlign: 'center',
       title: 'New message',
       headerRight: () => (
         <TouchableOpacity style={styles.createChatButton} onPress={createChat}>
           <Text style={styles.createChatButtonText}>Create</Text>
         </TouchableOpacity>
       ),
+      headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
     });
   }, [selectedUsers]);
 

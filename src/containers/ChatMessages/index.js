@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {FlatList, Text, View, Image, TouchableOpacity} from 'react-native';
-import {MessageInput} from '@components';
+import {MessageInput, HeaderBack} from '@components';
 
 import {MessagesService} from '@services/apiClient';
 import {Styles} from '@common';
@@ -45,6 +45,7 @@ const ChatMessages = ({navigation, route}) => {
       headerRight: () => {
         return route.params.component;
       },
+      headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
     });
   }, []);
 
