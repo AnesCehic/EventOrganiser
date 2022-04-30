@@ -207,6 +207,10 @@ const ProfileNavigation = () => {
         name="PreferencesScreen"
         component={PreferencesScreen}
       />
+      <ProfileStack.Screen
+        name="UserAccountCreatePost"
+        component={CreatePostScreen}
+      />
     </ProfileStack.Navigator>
   );
 };
