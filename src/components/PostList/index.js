@@ -98,7 +98,11 @@ const PostsList = ({
         </View>
 
         <View style={styles.featuredItemBottom}>
-          <Text style={styles.featuredItemBottomText}>{item.title}</Text>
+          <Text style={styles.featuredItemBottomText}>
+            {item.title.length > 18
+              ? `${item.title.slice(0, 18)}...`
+              : item.title}
+          </Text>
         </View>
       </TouchableOpacity>
     );
