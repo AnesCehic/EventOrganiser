@@ -252,7 +252,6 @@ const FeedDetails = ({navigation, route}) => {
 
   const createRSVP = async () => {
     console.log(selectedUsers);
-    return;
     try {
       if (!localDidRSVP || eventData.didRSVP) {
         await RSVPService.create({
