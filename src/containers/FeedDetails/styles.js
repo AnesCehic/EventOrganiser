@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   },
   modalTextInput: {
     width: '100%',
+    height: 150,
     ...Styles.Shadows.textBox,
   },
   modalConfirmBtn: {

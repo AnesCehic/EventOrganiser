@@ -14,6 +14,7 @@ import * as AddToCalendarEvent from 'react-native-add-calendar-event';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 import RemixIcon from 'react-native-remix-icon';
+import AutocompleteInput from 'react-native-autocomplete-input';
 
 import {BottomSheetModal, SubmitButton, LoadingIndicator} from '@components';
 import TextInput from '@components/TextInput';
@@ -21,7 +22,11 @@ import {Styles} from '@common';
 import {toast} from '@utils';
 import {UserContext} from '@contexts';
 
-import {EventService, RSVPService} from '../../services/apiClient';
+import {
+  EventService,
+  RSVPService,
+  UsersService,
+} from '../../services/apiClient';
 
 import DateAndPlace from './DateAndPlace';
 
@@ -37,6 +42,9 @@ const FeedDetails = ({navigation, route}) => {
   const [note, setNote] = useState('');
   // for patch RSVP event
   const [localDidRSVP, setLocalDidRSVP] = useState(false);
+  const [searchedUsers, setSearchedUsers] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
   const toggleRSVPModal = () => {
     setIsRSVPModalVisible(!isRSVPModalVisible);
@@ -112,6 +120,55 @@ const FeedDetails = ({navigation, route}) => {
     setIsConfirmRSVPModalVisible(false);
   };
 
+  useEffect(() => {
+    if (searchInput.trim() !== '') {
+      searchForUser(searchInput);
+    }
+  }, [searchInput]);
+
+  const searchForUser = async input => {
+    try {
+      const res = await UsersService.find({
+        query: {
+          $and: [
+            {
+              _id: {
+                $ne: userData._id,
+              },
+            },
+            {
+              $or: [
+                {
+                  email: {
+                    $regex: input.split(' ').join('|'),
+                  },
+                },
+                {
+                  firstName: {
+                    $regex: input.split(' ').join('|'),
+                  },
+                },
+                {
+                  lastName: {
+                    $regex: input.split(' ').join('|'),
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      });
+
+      setSearchedUsers(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setSearchInput('');
+  }, [selectedUsers]);
+
   const renderRSVPModal = () => {
     const screenWidth = Dimensions.get('screen').width;
 
@@ -152,7 +209,38 @@ const FeedDetails = ({navigation, route}) => {
           value={note}
           onChangeText={setNoteText}
         />
-        <TextInput placeholder="Guests" style={styles.modalTextInput} />
+        <View style={styles.modalTextInput}>
+          <AutocompleteInput
+            value={searchInput}
+            data={searchedUsers}
+            placeholder="Guests"
+            onChangeText={text => setSearchInput(text)}
+            listContainerStyle={{
+              marginBottom: 50,
+              borderRadius: 8,
+              borderColor: 'gray',
+            }}
+            style
+            inputContainerStyle={{
+              borderRadius: 6,
+              borderColor: 'black',
+              paddingHorizontal: 6,
+              borderWidth: 0,
+              elevation: 2,
+              backgroundColor: Styles.Colors.white,
+            }}
+            flatListProps={{
+              keyExtractor: (_, idx) => idx,
+              renderItem: ({item}) => (
+                <TouchableOpacity
+                  onPress={() => setSelectedUsers([...selectedUsers, item])}
+                  style={{padding: 4}}>
+                  <Text>{item.email}</Text>
+                </TouchableOpacity>
+              ),
+            }}
+          />
+        </View>
         <SubmitButton
           style={styles.modalConfirmBtn}
           title="Confirm reservation"
@@ -163,6 +251,8 @@ const FeedDetails = ({navigation, route}) => {
   };
 
   const createRSVP = async () => {
+    console.log(selectedUsers);
+    return;
     try {
       if (!localDidRSVP || eventData.didRSVP) {
         await RSVPService.create({
