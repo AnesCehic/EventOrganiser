@@ -12,6 +12,7 @@ import {
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import IonCons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {MenuItem, SubmitButton, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
@@ -172,7 +173,7 @@ const Chat = ({navigation}) => {
             size={Styles.Sizes.avatarMedium}
             rounded
             source={{
-              uri: image.upload?.files[0]?.signedURL,
+              uri: image,
             }}
           />
         );
@@ -181,7 +182,7 @@ const Chat = ({navigation}) => {
             size={Styles.Sizes.avatarSmall}
             rounded
             source={{
-              uri: image.upload?.files[0]?.signedURL,
+              uri: image,
             }}
           />
         );
@@ -199,7 +200,13 @@ const Chat = ({navigation}) => {
         );
       }
     } else {
-      component = <Text>Groups</Text>;
+      component = (
+        <MaterialIcons
+          name="groups"
+          style={styles.userImageFallback}
+          size={30}
+        />
+      );
     }
 
     return (
