@@ -9,6 +9,7 @@ import {
   Linking,
   Platform,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import * as AddToCalendarEvent from 'react-native-add-calendar-event';
 import RenderHTML from 'react-native-render-html';
@@ -233,11 +234,21 @@ const FeedDetails = ({navigation, route}) => {
               keyExtractor: (_, idx) => idx,
               renderItem: ({item}) => (
                 <TouchableOpacity
-                  onPress={() => setSelectedUsers([...selectedUsers, item])}
+                  onPress={() => {
+                    setSelectedUsers([...selectedUsers, item]);
+                    setSearchedUsers([]);
+                  }}
                   style={{padding: 4}}>
                   <Text>{item.email}</Text>
                 </TouchableOpacity>
               ),
+            }}
+          />
+          <FlatList
+            data={selectedUsers}
+            key={item => item._id}
+            renderItem={({item}) => {
+              return <Text>{item.firstName}</Text>;
             }}
           />
         </View>
