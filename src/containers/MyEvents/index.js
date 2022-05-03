@@ -12,7 +12,7 @@ import Icon from 'react-native-remix-icon';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 
-import {LoadingIndicator} from '@components';
+import {LoadingIndicator, InfiniteLoader} from '@components';
 import {toast} from '@utils';
 
 import {EventService} from '@services/apiClient';
@@ -23,15 +23,35 @@ const MyEvents = ({navigation, route}) => {
   const myEventIds = route.params?.ids;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingInfinite, setIsLoadingInfinite] = useState(false);
   const [myEvents, setMyEvents] = useState([]);
+
+  const [limit, setLimit] = useState(5);
+  const [skip, setSkip] = useState(0);
+  const [total, setTotal] = useState(10);
 
   useEffect(() => {
     getMyEvents();
   }, []);
 
+  useEffect(() => {
+    if (isLoading) {
+      getMyEvents();
+    }
+  }, [isLoading]);
+
   const getMyEvents = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
+      if (total < limit) {
+        return;
+      }
+
+      if (myEvents.length >= total) {
+        setIsLoadingInfinite(false);
+        return;
+      }
+
       const eventsToShow = await EventService.find({
         query: {
           start: {
@@ -40,14 +60,23 @@ const MyEvents = ({navigation, route}) => {
           _id: {
             $in: myEventIds,
           },
+          $limit: limit,
+          $skip: skip,
         },
       });
-      setMyEvents(eventsToShow.data);
+
+      setTotal(eventsToShow.total);
+      setSkip(limit);
+      const limitCalc =
+        limit * 2 > eventsToShow.total ? eventsToShow.total : limit * 2;
+      setLimit(limitCalc);
+
+      setMyEvents([...myEvents, ...eventsToShow.data]);
+      setIsLoading(false);
+      setIsLoadingInfinite(false);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error get events]', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -58,12 +87,19 @@ const MyEvents = ({navigation, route}) => {
         keyExtractor={item => item._id}
         renderItem={renderItem}
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
         }
         showsVerticalScrollIndicator={false}
-        onEndReached={() => console.log('reached')}
+        onEndReached={() => {
+          setIsLoadingInfinite(true);
+          loadMore();
+        }}
       />
     );
+  };
+
+  const loadMore = () => {
+    getMyEvents();
   };
 
   const renderItem = ({item: event}) => {
@@ -115,7 +151,11 @@ const MyEvents = ({navigation, route}) => {
   };
 
   const handleRefresh = () => {
-    getMyEvents();
+    setMyEvents([]);
+    setLimit(5);
+    setSkip(0);
+    setTotal(10);
+    setIsLoading(true);
   };
 
   if (isLoading) {
@@ -134,6 +174,14 @@ const MyEvents = ({navigation, route}) => {
           flex: 1,
         }}>
         {renderEventsList()}
+        {isLoadingInfinite && myEvents.length < total ? (
+          <View
+            style={{
+              marginBottom: 10,
+            }}>
+            <InfiniteLoader />
+          </View>
+        ) : null}
       </View>
     </View>
   );
