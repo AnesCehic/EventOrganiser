@@ -220,6 +220,7 @@ const FeedDetails = ({navigation, route}) => {
               marginBottom: 50,
               borderRadius: 8,
               borderColor: 'gray',
+              height: 100,
             }}
             style
             inputContainerStyle={{
@@ -244,14 +245,14 @@ const FeedDetails = ({navigation, route}) => {
               ),
             }}
           />
-          <FlatList
-            data={selectedUsers}
-            key={item => item._id}
-            renderItem={({item}) => {
-              return <Text>{item.firstName}</Text>;
-            }}
-          />
         </View>
+        <FlatList
+          data={selectedUsers}
+          key={item => item._id}
+          renderItem={({item}) => {
+            return <Text>{item.firstName}</Text>;
+          }}
+        />
         <SubmitButton
           style={styles.modalConfirmBtn}
           title="Confirm reservation"
@@ -262,12 +263,13 @@ const FeedDetails = ({navigation, route}) => {
   };
 
   const createRSVP = async () => {
-    console.log(selectedUsers);
+    let ids = selectedUsers.map(u => u._id);
     try {
       if (!localDidRSVP || eventData.didRSVP) {
         await RSVPService.create({
           eventId: route.params.id,
           notes: note,
+          guests: ids,
         });
 
         setLocalDidRSVP(true);
