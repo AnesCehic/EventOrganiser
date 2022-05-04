@@ -151,36 +151,40 @@ const GroupMembers = ({navigation, route}) => {
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <HeaderBack onPress={() => navigation.goBack()} />
-            <TouchableOpacity
-              onPress={() => {
-                if (isUserInGroup) {
-                  leaveGroup();
-                } else {
-                  joinGroup();
-                }
-              }}
-              style={{
-                backgroundColor: Styles.Colors.white,
-                borderRadius: 50,
-                height: 35,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingHorizontal: 16,
-              }}>
-              <IconMAC
-                name="checkbox-marked-circle-outline"
-                size={16}
-                style={{marginRight: 9}}
-              />
-              <Text
+            {groupData.private ? null : (
+              <TouchableOpacity
+                onPress={() => {
+                  if (isUserInGroup) {
+                    if (groupData.leavable) {
+                      leaveGroup();
+                    }
+                  } else {
+                    joinGroup();
+                  }
+                }}
                 style={{
-                  fontSize: 15,
-                  fontWeight: '700',
+                  backgroundColor: Styles.Colors.white,
+                  borderRadius: 50,
+                  height: 35,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingHorizontal: 16,
                 }}>
-                {isUserInGroup ? 'Joined' : 'Join'}
-              </Text>
-            </TouchableOpacity>
+                <IconMAC
+                  name="checkbox-marked-circle-outline"
+                  size={16}
+                  style={{marginRight: 9}}
+                />
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: '700',
+                  }}>
+                  {isUserInGroup ? 'Joined' : 'Join'}
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
           <View style={{marginTop: 16}}>
             <Text style={{fontSize: 28, fontWeight: '700'}}>
