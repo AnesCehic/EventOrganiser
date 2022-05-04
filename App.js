@@ -88,8 +88,8 @@ const App = () => {
         isAnonEnabled = value === 'enabled';
       }
       if (!value) {
-        await AsyncStorage.setItem('@anonymousMode', 'disabled');
-        isAnonEnabled = false;
+        await AsyncStorage.setItem('@anonymousMode', 'enabled');
+        isAnonEnabled = true;
       }
       setAllowMessaging(isAnonEnabled);
     } catch (error) {

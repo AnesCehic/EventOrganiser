@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     marginBottom: 20,
-    color: Styles.Colors.black
+    color: Styles.Colors.black,
   },
 });
 
