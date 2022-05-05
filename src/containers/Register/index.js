@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import BottomStartScreenButton from '../../components/BottomStartScreenButton';
 
+import {Styles} from '@common';
+
 import Form from './form';
 
 import styles from './styles';
@@ -64,6 +66,7 @@ const stylesHelper = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     fontSize: 30,
+    fontFamily: Styles.Fonts.headerMedium,
   },
   image: {
     width: '80%',

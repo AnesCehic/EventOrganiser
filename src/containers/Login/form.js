@@ -5,6 +5,7 @@ import {client} from '../../services/apiClient';
 
 import TextInput from '@components/TextInput';
 import {SubmitButton} from '@components';
+import {Styles} from '@common';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -62,6 +63,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
           stylesHelper.shadow,
           {marginTop: 16, backgroundColor: '#2D2B0D'},
         ]}
+        titleStyle={{color: 'white'}}
         isLoading={isLoading}
       />
 
@@ -93,6 +95,7 @@ const stylesHelper = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     fontSize: 30,
+    fontFamily: Styles.Fonts.headerMedium,
   },
   image: {
     width: '80%',

@@ -14,10 +14,10 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.topBackground,
   },
   headerText: {
-    fontSize: 26,
-    marginTop: 40,
+    fontSize: 32,
     color: 'white',
     marginLeft: 20,
+    fontFamily: Styles.Fonts.headerBold,
   },
 
   eventsListItemContainer: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   eventListItemTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: Styles.Fonts.headerBold,
   },
   eventListItemDateAndTimeWrapper: {
     marginTop: 10,

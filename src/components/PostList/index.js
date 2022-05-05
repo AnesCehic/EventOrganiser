@@ -212,8 +212,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingHorizontal: 10,
     fontSize: 16,
-    fontFamily: Styles.Fonts.header,
-    fontWeight: '700',
+    fontFamily: Styles.Fonts.headerBold,
     color: Styles.Colors.black,
   },
   featuredItemHeader: {
@@ -226,9 +225,8 @@ const styles = StyleSheet.create({
   latestUpdate: {
     paddingLeft: 16,
     fontSize: 16,
-    fontWeight: '700',
     color: '#273038',
-    fontFamily: Styles.Fonts.header,
+    fontFamily: Styles.Fonts.headerMedium,
   },
   createPost: {
     flexDirection: 'row',

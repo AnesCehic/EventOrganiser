@@ -99,7 +99,12 @@ const FeedDetails = ({navigation, route}) => {
         <Text style={{fontSize: 16, marginBottom: 8, fontWeight: '400'}}>
           Event details
         </Text>
-        <Text style={{color: '#000', fontSize: 18, fontWeight: '700'}}>
+        <Text
+          style={{
+            color: '#000',
+            fontSize: 18,
+            fontFamily: Styles.Fonts.headerBold,
+          }}>
           {eventData.title}
         </Text>
         {renderInformations()}
@@ -276,6 +281,7 @@ const FeedDetails = ({navigation, route}) => {
       } else {
         await RSVPService.patch(route.params.id, {
           notes: note,
+          guests: ids,
         });
       }
       setTimeout(() => {
@@ -318,8 +324,8 @@ const FeedDetails = ({navigation, route}) => {
             <Text
               style={{
                 fontSize: 30,
-                fontWeight: '600',
                 marginVertical: 25,
+                fontFamily: Styles.Fonts.headerBold,
               }}>
               Reservation {'\n'} Confirmed
             </Text>

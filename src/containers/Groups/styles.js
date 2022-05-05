@@ -113,6 +113,8 @@ const styles = StyleSheet.create({
   },
   myGroupName: {
     marginTop: 45,
+    fontSize: 16,
+    fontWeight: '700',
   },
 });
 
