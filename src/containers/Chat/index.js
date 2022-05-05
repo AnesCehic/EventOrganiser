@@ -228,7 +228,7 @@ const Chat = ({navigation}) => {
               <Text style={styles.label}>{item.label}</Text>
             </View>
             <View>
-              <Text style={{fontSize: 14}}>{item.lastMessage}</Text>
+              <Text style={{fontSize: 15}}>{item.lastMessage}</Text>
             </View>
           </View>
         </TouchableOpacity>
