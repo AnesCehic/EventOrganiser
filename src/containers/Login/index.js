@@ -19,6 +19,7 @@ import Form from './form';
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import Styles from '../../common/Styles';
+import {UploadsService} from '../../services/apiClient';
 
 const Login = ({navigation}) => {
   const colorScheme = Appearance.getColorScheme();
@@ -36,13 +37,15 @@ const Login = ({navigation}) => {
         password: password,
       });
 
+      const upload = await UploadsService.get(user.uploadId);
+
       const {firstName, lastName, email, _id} = user;
       setUserData({
         firstName,
         lastName,
         email,
         _id,
-        avatarImg: user?.upload?.files[0]?.signedURL,
+        avatarImg: upload.files[0]?.signedURL,
       });
       await AsyncStorageLib.setItem('@userId', user._id);
       await AsyncStorageLib.setItem('@user', JSON.stringify(user));
@@ -93,7 +96,9 @@ const Login = ({navigation}) => {
           <TouchableOpacity
             style={styles.registerButton}
             onPress={() => navigation.navigate('Register')}>
-            <Text style={{fontFamily: Styles.Fonts.header, fontWeight: '700'}}>Sign up for an account</Text>
+            <Text style={{fontFamily: Styles.Fonts.header, fontWeight: '700'}}>
+              Sign up for an account
+            </Text>
           </TouchableOpacity>
         </View>
       </>

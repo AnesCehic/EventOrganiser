@@ -48,9 +48,9 @@ const PostsList = ({
         <TouchableOpacity
           style={styles.createPost}
           onPress={() => navigation.navigate('CreatePost')}>
-          {userData?.upload ? (
+          {userData?.avatarImg ? (
             <Image
-              source={{uri: userData.upload.files[0].signedURL}}
+              source={{uri: userData.avatarImg}}
               style={styles.createPostImage}
             />
           ) : (
