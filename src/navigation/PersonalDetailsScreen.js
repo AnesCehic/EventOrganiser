@@ -9,6 +9,9 @@ const PersonalDetailsScreen = ({navigation, route}) => {
       title: '',
       headerTintColor: '#fff',
       headerTransparent: true,
+      headerStyle: {
+        height: '100',
+      },
       headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
     });
   }, []);

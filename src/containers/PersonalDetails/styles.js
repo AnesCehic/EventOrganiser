@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
   },
   topImage: {
     justifyContent: 'center',
-    height: 150,
+    height: 130,
     width: '100%',
     backgroundColor: Styles.Colors.topBackground,
   },
   headerText: {
     fontSize: 26,
-    marginTop: 70,
-    marginLeft: 30,
+    marginTop: 60,
+    marginLeft: 20,
     color: 'white',
     fontFamily: Styles.Fonts.headerBold,
   },
