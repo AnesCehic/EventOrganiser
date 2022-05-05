@@ -32,7 +32,9 @@ const Styles = {
     iconGray: colorScheme === 'dark' ? 'gray' : '#fff',
   },
   Fonts: {
-    header: 'IBM Plex Serif',
+    header: 'IBMPlexSerif-Light',
+    headerMedium: 'IBMPlexSerif-Medium',
+    headerBold: 'IBMPlexSerif-Bold',
   },
   Sizes: {
     avatar: 140,

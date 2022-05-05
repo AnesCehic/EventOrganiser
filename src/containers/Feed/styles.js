@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   welcomeBack: {
     fontSize: 28,
     fontWeight: '600',
-    fontFamily: Styles.Fonts.header,
+    fontFamily: 'IBMPlexSerif-Medium',
     paddingLeft: 16,
     color: Styles.Colors.white,
   },

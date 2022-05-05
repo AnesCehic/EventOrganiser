@@ -18,6 +18,7 @@ import Form from './form';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
+import Styles from '../../common/Styles';
 
 const Login = ({navigation}) => {
   const colorScheme = Appearance.getColorScheme();
@@ -92,7 +93,7 @@ const Login = ({navigation}) => {
           <TouchableOpacity
             style={styles.registerButton}
             onPress={() => navigation.navigate('Register')}>
-            <Text>Sign up for an account</Text>
+            <Text style={{fontFamily: Styles.Fonts.header, fontWeight: '700'}}>Sign up for an account</Text>
           </TouchableOpacity>
         </View>
       </>

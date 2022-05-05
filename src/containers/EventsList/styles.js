@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 30,
     color: 'white',
+    fontFamily: Styles.Fonts.headerMedium,
   },
   topMonthTouch: {
     borderRadius: 20,
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     borderColor: Styles.Colors.grayBorder,
     marginTop: 5,
     padding: 10,
-    ...Styles.Shadows.textBox
+    ...Styles.Shadows.textBox,
   },
   eventsListItemImageWrapper: {
     maxHeight: 150,
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   eventListItemTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontFamily: Styles.Fonts.headerBold,
   },
   eventListItemDateAndTimeWrapper: {
     marginTop: 10,

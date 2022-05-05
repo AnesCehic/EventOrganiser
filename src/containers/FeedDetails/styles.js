@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     lineHeight: 42,
     marginVertical: 10,
     color: Styles.Colors.black,
+    fontFamily: Styles.Fonts.headerBold,
   },
   description: {
     padding: 15,

@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     marginTop: 70,
     marginLeft: 30,
     color: 'white',
+    fontFamily: Styles.Fonts.headerBold,
   },
 
   inputFieldsContainer: {

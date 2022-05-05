@@ -44,8 +44,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   userName: {
-    fontSize: 32,
+    fontSize: 18,
     color: Styles.Colors.primaryText,
+    fontFamily: Styles.Fonts.headerMedium,
   },
   memberSince: {
     fontSize: 14,

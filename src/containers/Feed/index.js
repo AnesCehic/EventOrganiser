@@ -156,7 +156,7 @@ const Feed = ({navigation}) => {
           style={styles.headerLogo}
         />
         <Text style={styles.welcomeBack}>
-          Welcome Back,{'\n'}
+          Welcome back,{'\n'}
           {userData.firstName} {userData.lastName}
         </Text>
         <SvgComponent

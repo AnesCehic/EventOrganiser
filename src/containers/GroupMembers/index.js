@@ -187,7 +187,7 @@ const GroupMembers = ({navigation, route}) => {
             )}
           </View>
           <View style={{marginTop: 16}}>
-            <Text style={{fontSize: 28, fontWeight: '700'}}>
+            <Text style={{fontSize: 28, fontFamily: Styles.Fonts.headerBold}}>
               {groupData.name}
             </Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>

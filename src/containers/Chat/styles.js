@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 28,
     color: Styles.Colors.white,
+    fontFamily: Styles.Fonts.headerBold,
   },
   createMessageIcon: {
     padding: 8,

@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginLeft: 30,
     color: 'white',
+    fontFamily: Styles.Fonts.headerBold,
   },
 
   content: {
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 20,
     color: Styles.Colors.primaryText,
-    fontWeight: '600',
+    fontFamily: Styles.Fonts.headerMedium,
   },
   userEmail: {
     marginTop: 5,

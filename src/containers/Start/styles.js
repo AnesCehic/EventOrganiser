@@ -23,11 +23,13 @@ const styles = StyleSheet.create({
     color: Styles.Colors.white,
     width: '80%',
     fontSize: 44,
+    fontFamily: Styles.Fonts.headerMedium,
   },
   button: {
     backgroundColor: Styles.Colors.white,
     marginTop: 15,
     width: '100%',
+    fontFamily: Styles.Fonts.header,
   },
   googleButton: {
     marginTop: 15,
