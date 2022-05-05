@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   separator: {
-    backgroundColor: 'black',
+    backgroundColor: 'rgba(0, 0, 0, 0.12)',
     width: '100%',
     height: 1,
   },
