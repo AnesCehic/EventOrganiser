@@ -1,10 +1,18 @@
 import React, {useState} from 'react';
-import {View, TextInput, TouchableOpacity, Text, Image, Platform} from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  Image,
+  Platform,
+} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 import Icon from 'react-native-vector-icons/AntDesign';
+import {Photo as PhotoIcon, Galery as GaleryIcon} from '@assets/SvgIcons';
 
 import styles from './styles';
 
@@ -74,46 +82,47 @@ const MessageInput = ({onPress, onTextChange, value, images, setImages}) => {
 
   return (
     <View>
+      <View
+        style={{flexDirection: 'row', flexShrink: 1, paddingHorizontal: 10}}>
+        {renderImages()}
+      </View>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={loadCamera} style={styles.imageLeft}>
+          <PhotoIcon />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={loadGallery} style={styles.imageLeft}>
+          <GaleryIcon />
+        </TouchableOpacity>
         <View
-          style={{flexDirection: 'row', flexShrink: 1, paddingHorizontal: 10}}>
-          {renderImages()}
+          style={{
+            flexGrow: 1,
+            flexShrink: 1,
+            backgroundColor: '#F5F6F7',
+            borderRadius: 100,
+            paddingVertical: 5,
+            borderColor: '#E6EBF0',
+            borderWidth: 1,
+            overflow: 'hidden',
+          }}>
+          <TextInput
+            onChangeText={onTextChange}
+            multiline={true}
+            placeholder="Enter message"
+            value={value}
+            style={styles.textInput}
+          />
         </View>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={loadCamera} style={styles.imageLeft}>
-            <Image source={require('../../assets/Camera.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={loadGallery} style={styles.imageLeft}>
-            <Image source={require('../../assets/Gallery.png')} />
-          </TouchableOpacity>
-          <View
-            style={{
-              flexGrow: 1,
-              flexShrink: 1,
-              backgroundColor: '#F5F6F7',
-              borderRadius: 100,
-              paddingVertical: 5,
-              borderColor: '#E6EBF0',
-              borderWidth: 1,
-              overflow: 'hidden'
+        {(value && value !== '' && value.trim() !== '') ||
+        images.length !== 0 ? (
+          <TouchableOpacity
+            style={{paddingLeft: 9}}
+            onPress={() => {
+              onPress();
             }}>
-            <TextInput
-              onChangeText={onTextChange}
-              multiline={true}
-              placeholder="Enter message"
-              value={value}
-              style={styles.textInput}
-            />
-          </View>
-          {(value && value !== '' && value.trim() !== '') || images.length !== 0 ? (
-            <TouchableOpacity
-              style={{paddingLeft: 9}}
-              onPress={() => {
-                onPress();
-              }}>
-              <Image source={require('../../assets/SendMessage.png')} />
-            </TouchableOpacity>
-          ) : null}
-        </View>
+            <Image source={require('../../assets/SendMessage.png')} />
+          </TouchableOpacity>
+        ) : null}
+      </View>
     </View>
   );
 };

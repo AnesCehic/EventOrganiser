@@ -143,7 +143,7 @@ const CreatePost = ({navigation}) => {
                 <TouchableOpacity
                   onPress={() => removeImage(index)}
                   style={styles.deleteButton}>
-                  <Icon name="close" size={16} />
+                  <Icon name="close" size={16} color="white" />
                 </TouchableOpacity>
               </View>
             );
@@ -175,7 +175,12 @@ const CreatePost = ({navigation}) => {
       <TouchableOpacity
         onPress={loadImages}
         style={styles.floatingUploadImageButton}>
-        <IconFa name="image" size={16} style={styles.imageMargin} />
+        <IconFa
+          name="image"
+          size={16}
+          color={Styles.Colors.gold}
+          style={styles.imageMargin}
+        />
         <Text style={styles.uploadPhotoText}>Add a photo</Text>
       </TouchableOpacity>
     </View>

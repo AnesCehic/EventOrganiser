@@ -10,14 +10,18 @@ import {
 } from 'react-native';
 import {Avatar} from 'react-native-elements';
 import Icon from 'react-native-remix-icon';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {LoadingIndicator} from '@components';
 import {Constants, Styles} from '@common';
 import {UserContext} from '@contexts';
 import {toast} from '@utils';
 import UserIcon from '@assets/ImageComponents/UserIcon';
+import {
+  EditProfilePass,
+  Notification as NotificationIcon,
+  ChatBubblesMsg,
+  Logout as LogoutIcon,
+} from '@assets/SvgIcons';
 
 import {client, ChangeEmail, UsersService} from '@services/apiClient';
 
@@ -34,19 +38,13 @@ const MenuItems = [
     id: 12,
     menuText: 'Password',
     menuScreen: Constants.NavigationScreens.ChangePasswordScreen,
-    icon: <Ionicons name="eye-outline" size={22} color={Styles.Colors.gold} />,
+    icon: <EditProfilePass />,
   },
   {
     id: 2,
     menuText: 'Notifications',
     menuScreen: null,
-    icon: (
-      <MaterialCommunityIcons
-        name="bell-outline"
-        size={22}
-        color={Styles.Colors.gold}
-      />
-    ),
+    icon: <NotificationIcon />,
   },
 ];
 
@@ -183,7 +181,7 @@ const EditProfile = ({navigation}) => {
         </View>
         <View style={[styles.menuItem, styles.logoutItem]}>
           <View style={styles.leftContent}>
-            <Ionicons name="chatbubbles-outline" size={22} />
+            <ChatBubblesMsg width={18} height={18} viewBox="0 0 12 12" />
             <Text style={styles.menuItemText}>Allow messaging</Text>
           </View>
           <Switch
@@ -202,11 +200,7 @@ const EditProfile = ({navigation}) => {
           onPress={() => logout()}
           style={[styles.menuItem, styles.logoutItem, {marginBottom: 16}]}>
           <View style={styles.leftContent}>
-            <Icon
-              name="ri-logout-circle-r-line"
-              size={22}
-              color={Styles.Colors.error}
-            />
+            <LogoutIcon />
             <Text style={styles.menuItemText}>Log out</Text>
           </View>
           <Icon

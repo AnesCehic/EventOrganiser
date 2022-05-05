@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 import {client} from '../../services/apiClient';
@@ -49,6 +49,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
         <Icon
           style={styles.passwordHiddenIcon}
           name={passwordHidden ? 'eyeo' : 'eye'}
+          color={passwordHidden ? Styles.Colors.gold : null}
           size={20}
           onPress={() => {
             setPasswordHidden(!passwordHidden);
@@ -59,6 +60,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
       <SubmitButton
         onPress={() => submitLogin(username, password)}
         title="Sign in"
+        titleStyle={{color: 'white'}}
         style={[
           stylesHelper.shadow,
           {marginTop: 16, backgroundColor: '#2D2B0D'},
@@ -73,7 +75,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
           navigation.navigate('ForgotPasswordScreen');
         }}
         style={stylesHelper.forgotPassword}>
-        <Text>Forgot your password?</Text>
+        <Text style={{color: 'white'}}>Forgot your password?</Text>
       </TouchableOpacity>
     </View>
   );
@@ -95,6 +97,7 @@ const stylesHelper = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     fontSize: 30,
+    color: 'white',
     fontFamily: Styles.Fonts.headerMedium,
   },
   image: {

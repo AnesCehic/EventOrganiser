@@ -394,7 +394,7 @@ const FeedDetails = ({navigation, route}) => {
   const renderDateAndPlace = () => {
     return (
       <DateAndPlace
-        icon="calendar-today"
+        icon="time"
         text1={`${eventData.startDay} - ${eventData.endDay}`}
         text2={`${eventData.startTime} - ${eventData.endTime}`}
         bold
@@ -405,9 +405,7 @@ const FeedDetails = ({navigation, route}) => {
   const renderDateAndPlaceLocation = () => {
     const location1 = eventData?.location?.split(',')[0];
     const location2 = eventData?.location?.split(',').slice(1).join('');
-    return (
-      <DateAndPlace icon="location-pin" text1={location1} text2={location2} />
-    );
+    return <DateAndPlace icon="place" text1={location1} text2={location2} />;
   };
 
   const renderRSVP = () => {
