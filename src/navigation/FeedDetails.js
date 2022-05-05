@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import FeedDetails from '@containers/FeedDetails';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
 import {HeaderBack} from '@components';
 
@@ -8,10 +8,10 @@ const FeedDetailsScreen = ({navigation, route}) => {
   useEffect(() => {
     navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     navigation.setOptions({
-      headerTitle: () => <Text />,
+      title: '',
       headerTintColor: '#fff',
       headerTransparent: true,
-      //headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
+      headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
     });
 
     return () => {

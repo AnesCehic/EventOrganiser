@@ -1,7 +1,7 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import {Text} from 'react-native';
 
 import Feed from '@containers/Feed';
-import {Text} from 'react-native';
 
 const FeedScreen = ({navigation}) => {
   useEffect(() => {
