@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, Appearance} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import dayjs from 'dayjs';
 import {CalendarList} from 'react-native-calendars';
-import Icon from 'react-native-remix-icon';
 
 import {Styles} from '@common';
+import {Calendar as CalendarIcon} from '@assets/SvgIcons';
 
 import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-const EventsCalendar = ({navigateToEvent, navigateToMonth, navigateToDay}) => {
-  const colorScheme = Appearance.getColorScheme();
+const EventsCalendar = ({navigateToMonth, navigateToDay}) => {
   const today = dayjs().format('YYYY-MM-DD');
 
   const [events, setEvents] = useState([]);
@@ -87,9 +86,6 @@ const EventsCalendar = ({navigateToEvent, navigateToMonth, navigateToDay}) => {
       disableAllTouchEventsForDisabledDays={true}
       renderHeader={date => {
         const month = dayjs(date).format('MMMM YYYY');
-        // console.log('DATE FINAL', date);
-        // console.log('MONTH FINAL', month);
-        // console.log('YYEYYEYEYEYE', dayjs(date['0']).format());
         return (
           <View style={styles.header}>
             <Text style={styles.calendarHeaderText}>{month}</Text>
@@ -98,11 +94,7 @@ const EventsCalendar = ({navigateToEvent, navigateToMonth, navigateToDay}) => {
               onPress={() => {
                 navigateToMonth(date);
               }}>
-              <Icon
-                name="ri-calendar-todo-fill"
-                size={18}
-                color={colorScheme === 'light' ? '#000' : Styles.Colors.gold}
-              />
+              <CalendarIcon />
               <Text
                 style={[
                   styles.calendarHeaderText,

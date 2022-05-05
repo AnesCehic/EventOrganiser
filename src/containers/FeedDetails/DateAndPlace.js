@@ -1,14 +1,21 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Time, Place} from '@assets/SvgIcons';
 import styles from './styles';
 
 const Date = ({icon, text1, text2, bold}) => {
+  let renderIcon;
+  if (icon === 'time') {
+    renderIcon = <Time />;
+  }
+  if (icon === 'place') {
+    renderIcon = <Place />;
+  }
   return (
     <View style={styles.dateContainer}>
       <View style={styles.centeredIconVertically}>
-        <Icon name={icon} size={20} style={styles.datePlaceIcon} />
+        <View style={styles.datePlaceIcon}>{renderIcon}</View>
       </View>
       <View style={styles.dateTextContainer}>
         <Text style={[styles.dateText, bold ? styles.dateTextBigger : {}]}>

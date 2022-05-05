@@ -3,12 +3,12 @@ import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {StackActions} from '@react-navigation/native';
 import {Avatar} from 'react-native-elements';
 import dayjs from 'dayjs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {PostsList, LoadingIndicator, InfiniteLoader} from '@components';
 import {Styles} from '@common';
 import {toast} from '@utils';
 import UserIcon from '@assets/ImageComponents/UserIcon';
+import {ChatBubblesMsg} from '@assets/SvgIcons';
 
 import {
   UsersService,
@@ -320,12 +320,12 @@ const Profile = ({navigation, route}) => {
             onPress={redirectToAction}>
             {route?.params?.userId ? (
               <View style={styles.topRightImage}>
-                <Ionicons name={'chatbubbles-outline'} size={24} />
+                <ChatBubblesMsg />
                 <Text style={styles.topRightImageText}>Message</Text>
               </View>
             ) : (
               <View style={styles.topRightImage}>
-                <Ionicons name={'chatbubbles-outline'} size={24} />
+                <ChatBubblesMsg />
                 <Text style={styles.topRightImageText}>Create Post</Text>
               </View>
             )}

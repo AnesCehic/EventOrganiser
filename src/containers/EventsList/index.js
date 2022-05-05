@@ -7,17 +7,15 @@ import {
   Appearance,
   Image,
   RefreshControl,
-  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-remix-icon';
-import IoniCons from 'react-native-vector-icons/Ionicons';
-import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
 
 import {UserContext} from '@contexts';
 import {LoadingIndicator, BottomSheetModal, InfiniteLoader} from '@components';
 import {toast} from '@utils';
 import {Styles} from '@common';
+import {Calendar as CalendarIcon, Grid as GridIcon} from '@assets/SvgIcons';
 
 import EventsCalendar from './EventsCalendar';
 
@@ -285,18 +283,17 @@ const EventsList = ({navigation}) => {
       <View style={styles.topImage}>
         <View style={styles.topImageContent}>
           <View style={styles.eventsHeaderContainer}>
-            <IoniCons name="grid" size={25} style={styles.eventsHeaderIcon} />
+            <View style={styles.eventsHeaderIcon}>
+              <GridIcon />
+            </View>
             <Text style={styles.headerText}>Events</Text>
           </View>
           <TouchableOpacity
             style={styles.topMonthTouch}
             onPress={() => {
-              console.log('asdasdas');
               setShowAgenda(true);
             }}>
-            <IoniCons
-              name="calendar"
-              size={18}
+            <CalendarIcon
               color={colorScheme === 'light' ? '#000' : Styles.Colors.gold}
             />
             <Text style={styles.monthSelected}>{dayjs().format('MMMM')}</Text>

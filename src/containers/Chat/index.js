@@ -9,17 +9,17 @@ import {
   Animated,
 } from 'react-native';
 
-import dayjs from 'dayjs';
-import Icon from 'react-native-vector-icons/EvilIcons';
-import IonCons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {MenuItem, SubmitButton, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
 import {MessageGroupsService} from '@services/apiClient';
 import {Styles} from '@common';
-
-import data from './data';
+import {
+  Grid as GridIcon,
+  NewMessage as NewMessageIcon,
+  DeleteIconBig,
+} from '@assets/SvgIcons';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
@@ -47,7 +47,9 @@ const Chat = ({navigation}) => {
       <View style={styles.headerContainer}>
         <View style={styles.headerTitle}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <IonCons name="grid" size={25} style={styles.eventsHeaderIcon} />
+            <View style={styles.eventsHeaderIcon}>
+              <GridIcon />
+            </View>
             <Text style={styles.title}>Chat</Text>
           </View>
           <TouchableOpacity
@@ -55,11 +57,9 @@ const Chat = ({navigation}) => {
             onPress={() => {
               navigation.navigate('CreateChat');
             }}>
-            <IonCons
-              name={'create-outline'}
-              size={20}
-              style={{color: Styles.Colors.white}}
-            />
+            <View style={{color: Styles.Colors.white}}>
+              <NewMessageIcon />
+            </View>
           </TouchableOpacity>
         </View>
         {/* <View
@@ -137,24 +137,26 @@ const Chat = ({navigation}) => {
         <TouchableOpacity
           onPress={() => deleteChat(id)}
           style={{
+            flex: 1,
             width: 70,
             height: '100%',
           }}>
-          <Animated.Text
-            style={[
-              {
-                width: '100%',
-                height: '100%',
-                textAlign: 'center',
-                textAlignVertical: 'center',
-              },
-            ]}>
-            <IonCons
-              name="ios-trash-sharp"
-              size={25}
-              color={Styles.Colors.white}
-            />
-          </Animated.Text>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignContent: 'center',
+            }}>
+            <DeleteIconBig />
+            <Text
+              style={{
+                color: 'white',
+                marginTop: 3,
+              }}>
+              Delete
+            </Text>
+          </View>
         </TouchableOpacity>
       </Animated.View>
     );

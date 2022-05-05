@@ -9,12 +9,12 @@ import {
   View,
   Image,
 } from 'react-native';
-import Icon from 'react-native-remix-icon';
 import dayjs from 'dayjs';
 
 import {PostItem} from '@components';
 import {Styles} from '@common';
 import UserIcon from '@assets/ImageComponents/UserIcon';
+import {NewPost, TimeCircle} from '@assets/SvgIcons';
 
 const PostsList = ({
   data,
@@ -59,10 +59,11 @@ const PostsList = ({
           <View style={styles.createPostText}>
             <Text>Create a new post</Text>
             <View style={styles.imageContainer}>
-              <Image
+              <NewPost />
+              {/* <Image
                 style={styles.image}
                 source={require('../../assets/Gallery.png')}
-              />
+              /> */}
             </View>
           </View>
         </TouchableOpacity>
@@ -90,7 +91,8 @@ const PostsList = ({
             imageStyle={{opacity: 0.08}}
             source={{uri: item.upload?.files[0]?.signedURL}}
             style={styles.featuredItemTopTime}>
-            <Icon name="ri-time-fill" color="#684BA6" size={13} />
+            <TimeCircle />
+            {/* <Icon name="ri-time-fill" color="#684BA6" size={13} /> */}
             <Text style={styles.featuredItemTopTimeText}>
               {dayjs(item.start).format('hh:mm A')}
             </Text>

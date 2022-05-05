@@ -1,9 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/Ionicons';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-// import IconRemix from 'react-native-remix-icon';
-import IconFeather from 'react-native-vector-icons/Feather';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -43,6 +39,19 @@ import ForgotPasswordScreen from './ForgotPasswordScreen';
 import GoogleLogin from './GoogleLogin';
 import CommentsScreen from './CommentsScreen';
 import GroupMembersScreenInfo from './GroupMembersInfoScreen';
+
+import {
+  BottomHome,
+  BottomHomeActive,
+  BottomEvents,
+  BottomEventsActive,
+  BottomChat,
+  BottomChatActive,
+  BottomGroups,
+  BottomGroupsActive,
+  BottomAccount,
+  BottomAccountActive,
+} from '@assets/SvgIcons';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -97,10 +106,8 @@ const BottomTabNavigation = () => {
         name="Feed"
         options={{
           headerShown: false,
-          // tabBarIcon: () => <Image source={require('../assets/Home.png')} />,
-          tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.gold : '';
-            return <IconFeather name={'home'} size={24} color={iconColor} />;
+          tabBarIcon: ({focused}) => {
+            return focused ? <BottomHomeActive /> : <BottomHome />;
           },
           tabBarLabel: 'Home',
           unmountOnBlur: true,
@@ -112,11 +119,8 @@ const BottomTabNavigation = () => {
         inactiveColor="#3e2465"
         name="Calendar"
         options={{
-          tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.gold : '';
-            return (
-              <IconFeather name={'calendar'} size={24} color={iconColor} />
-            );
+          tabBarIcon: ({focused}) => {
+            return focused ? <BottomEventsActive /> : <BottomEvents />;
           },
           tabBarLabel: 'Events',
           unmountOnBlur: true,
@@ -127,11 +131,8 @@ const BottomTabNavigation = () => {
         name="Messages"
         options={{
           headerShown: false,
-          tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.gold : '';
-            return (
-              <Icon name={'chatbubbles-outline'} size={24} color={iconColor} />
-            );
+          tabBarIcon: ({focused}) => {
+            return focused ? <BottomChatActive /> : <BottomChat />;
           },
           tabBarLabel: 'Chat',
           unmountOnBlur: true,
@@ -142,9 +143,8 @@ const BottomTabNavigation = () => {
         name="Groups"
         options={{
           headerShown: false,
-          tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.gold : '';
-            return <MaterialIcon name={'groups'} size={24} color={iconColor} />;
+          tabBarIcon: ({focused}) => {
+            return focused ? <BottomGroupsActive /> : <BottomGroups />;
           },
           tabBarLabel: 'Groups',
           unmountOnBlur: true,
@@ -155,9 +155,8 @@ const BottomTabNavigation = () => {
         name="Profile"
         options={{
           headerShown: false,
-          tabBarIcon: props => {
-            const iconColor = props.focused ? Styles.Colors.gold : '';
-            return <IconFeather name={'user'} size={24} color={iconColor} />;
+          tabBarIcon: ({focused}) => {
+            return focused ? <BottomAccountActive /> : <BottomAccount />;
           },
           tabBarLabel: 'Account',
           unmountOnBlur: true,
