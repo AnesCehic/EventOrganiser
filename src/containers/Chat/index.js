@@ -205,7 +205,7 @@ const Chat = ({navigation}) => {
       component = (
         <MaterialIcons
           name="groups"
-          style={styles.userImageFallback}
+          style={[styles.userImageFallback, {fontSize: 30}]}
           size={30}
         />
       );
@@ -228,7 +228,7 @@ const Chat = ({navigation}) => {
               <Text style={styles.label}>{item.label}</Text>
             </View>
             <View>
-              <Text>{item.lastMessage}</Text>
+              <Text style={{fontSize: 14}}>{item.lastMessage}</Text>
             </View>
           </View>
         </TouchableOpacity>
