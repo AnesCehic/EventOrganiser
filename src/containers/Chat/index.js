@@ -47,10 +47,11 @@ const Chat = ({navigation}) => {
       <View style={styles.headerContainer}>
         <View style={styles.headerTitle}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={styles.eventsHeaderIcon}>
+            <Text style={styles.title}>
               <GridIcon />
-            </View>
-            <Text style={styles.title}>Chat</Text>
+              <Text> </Text>
+              Chat
+            </Text>
           </View>
           <TouchableOpacity
             style={styles.createMessageIcon}

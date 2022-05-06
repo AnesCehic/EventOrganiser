@@ -283,10 +283,11 @@ const EventsList = ({navigation}) => {
       <View style={styles.topImage}>
         <View style={styles.topImageContent}>
           <View style={styles.eventsHeaderContainer}>
-            <View style={styles.eventsHeaderIcon}>
+            <Text style={styles.headerText}>
               <GridIcon />
-            </View>
-            <Text style={styles.headerText}>Events</Text>
+              <Text> </Text>
+              Events
+            </Text>
           </View>
           <TouchableOpacity
             style={styles.topMonthTouch}
