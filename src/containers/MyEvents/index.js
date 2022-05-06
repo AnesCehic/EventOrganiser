@@ -165,7 +165,7 @@ const MyEvents = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.topImage}>
-        <Text style={styles.headerText}>My events</Text>
+        <Text style={styles.headerText}>My Events</Text>
       </ImageBackground>
       <View
         style={{
