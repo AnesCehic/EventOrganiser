@@ -6,6 +6,15 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
+  overlay: {
+    backgroundColor: Styles.Colors.gold,
+    opacity: 0.5,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-end',
