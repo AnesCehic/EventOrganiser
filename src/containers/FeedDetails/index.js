@@ -14,6 +14,7 @@ import {
 import * as AddToCalendarEvent from 'react-native-add-calendar-event';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
+import Icon from 'react-native-vector-icons/Octicons';
 import RemixIcon from 'react-native-remix-icon';
 import AutocompleteInput from 'react-native-autocomplete-input';
 
@@ -254,8 +255,32 @@ const FeedDetails = ({navigation, route}) => {
         <FlatList
           data={selectedUsers}
           key={item => item._id}
+          contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap'}}
           renderItem={({item}) => {
-            return <Text>{item.firstName}</Text>;
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedUsers(
+                    selectedUsers.filter(u => u._id !== item._id),
+                  );
+                }}
+                style={{
+                  paddingHorizontal: 5,
+                  paddingVertical: 3,
+                  borderRadius: 8,
+                  flexDirection: 'row',
+                  elevation: 1,
+                  backgroundColor: 'white',
+                  alignItems: 'center',
+                  margin: 3,
+                  justifyContent: 'center',
+                }}>
+                <Text>
+                  {item.firstName} {item.lastName}
+                </Text>
+                <Icon style={{marginLeft: 5}} name="x" size={20} color="red" />
+              </TouchableOpacity>
+            );
           }}
         />
         <SubmitButton
