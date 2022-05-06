@@ -256,7 +256,8 @@ const Chat = ({navigation}) => {
   if (!allowMessaging) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize: 26}}>Forbiden!</Text>
+        <Text style={{fontSize: 26}}>Disabled</Text>
+        <Text style={{fontSize: 14}}>You have chosen to disable chat in your account settings.</Text>
       </View>
     );
   }
