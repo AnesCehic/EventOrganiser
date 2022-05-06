@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     textAlign: 'center',
     textAlignVertical: 'center',
-    fontSize: 20,
+    fontSize: 25,
   },
 });
 

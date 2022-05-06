@@ -190,12 +190,14 @@ const Chat = ({navigation}) => {
         );
       } else {
         let name = image.firstName[0] + image.lastName[0];
-        component = <Text style={styles.userImageFallback}>{name}</Text>;
+        component = (
+          <Text style={styles.userImageFallback}>{name.toUpperCase()}</Text>
+        );
         componentHeader = (
           <Text
             style={[
               styles.userImageFallback,
-              {width: 32, height: 32, fontSize: 15},
+              {width: 32, height: 32, fontSize: 25},
             ]}>
             {name}
           </Text>
@@ -228,7 +230,7 @@ const Chat = ({navigation}) => {
               <Text style={styles.label}>{item.label}</Text>
             </View>
             <View>
-              <Text style={{fontSize: 15}}>{item.lastMessage}</Text>
+              <Text style={{fontSize: 14}}>{item.lastMessage}</Text>
             </View>
           </View>
         </TouchableOpacity>

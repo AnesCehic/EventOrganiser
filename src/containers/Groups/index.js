@@ -7,6 +7,7 @@ import {LoadingIndicator} from '@components';
 import {GroupService} from '@services/apiClient';
 import {toast} from '@utils';
 import {UserContext} from '@contexts';
+import {Grid} from '@assets/SvgIcons';
 
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
@@ -213,9 +214,11 @@ const Groups = ({navigation}) => {
     return (
       <View>
         {myGroups.length !== 0 ? (
-          <Text style={styles.allGroupsText}>My groups</Text>
+          <Text style={[styles.allGroupsText, {color: 'white'}]}>
+            My groups
+          </Text>
         ) : null}
-        {myGroups.length !== 0 ? renderMyGroups() : null}
+        <View>{myGroups.length !== 0 ? renderMyGroups() : null}</View>
         <Text style={styles.allGroupsText}>All groups</Text>
       </View>
     );
@@ -260,7 +263,11 @@ const Groups = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.topImage}>
-        <Text style={styles.headerText}>Groups</Text>
+        <Text style={styles.headerText}>
+          <Grid />
+          <Text> </Text>
+          <Text style={{marginLeft: 20}}>Groups</Text>
+        </Text>
       </View>
       {/* {renderSwitch()} */}
       <View

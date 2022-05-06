@@ -8,13 +8,13 @@ const styles = StyleSheet.create({
     backgroundColor: Styles.Colors.white,
   },
   topImage: {
-    justifyContent: 'center',
     height: 200,
     width: '100%',
     backgroundColor: Styles.Colors.topBackground,
   },
   headerText: {
     fontSize: 32,
+    marginTop: 40,
     color: 'white',
     marginLeft: 20,
     top: 0,
@@ -92,9 +92,9 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     fontSize: 14,
     fontWeight: '500',
-    color: 'white',
   },
   myGroupInfo: {
+    marginLeft: 20,
     width: 160,
     height: 160,
     margin: 5,
