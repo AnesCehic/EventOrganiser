@@ -259,8 +259,17 @@ const Groups = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.topImage}>
+        <Text style={styles.headerText}>Groups</Text>
+      </View>
       {/* {renderSwitch()} */}
-      {renderContent()}
+      <View
+        style={{
+          marginTop: -90,
+          flex: 1,
+        }}>
+        {renderContent()}
+      </View>
     </View>
   );
 };

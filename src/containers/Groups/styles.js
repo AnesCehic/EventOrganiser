@@ -6,7 +6,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Styles.Colors.white,
-    padding: 20,
+  },
+  topImage: {
+    justifyContent: 'center',
+    height: 200,
+    width: '100%',
+    backgroundColor: Styles.Colors.topBackground,
+  },
+  headerText: {
+    fontSize: 32,
+    color: 'white',
+    marginLeft: 20,
+    top: 0,
+    fontFamily: Styles.Fonts.headerBold,
   },
 
   switchContentContainer: {
@@ -76,10 +88,11 @@ const styles = StyleSheet.create({
   },
   allGroupsText: {
     marginTop: 10,
-    paddingLeft: 5,
+    paddingLeft: 25,
     paddingBottom: 16,
     fontSize: 14,
     fontWeight: '500',
+    color: 'white',
   },
   myGroupInfo: {
     width: 160,
