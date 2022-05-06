@@ -124,12 +124,27 @@ const CreateChat = ({navigation}) => {
             addToSelectedUsers(user);
           }
         }}>
-        <Image
-          source={{
-            uri: 'https://api.uifaces.co/our-content/donated/KtCFjlD4.jpg',
-          }}
-          style={styles.userItemImage}
-        />
+        {user.upload?.files[0]?.signedURL ? (
+          <Image
+            source={{
+              uri: user.upload?.files[0]?.signedURL,
+            }}
+            style={styles.userItemImage}
+          />
+        ) : (
+          <Text
+            style={[
+              styles.userItemImage,
+              {
+                backgroundColor: Styles.Colors.gray,
+                textAlignVertical: 'center',
+                textAlign: 'center',
+              },
+            ]}>
+            {user.firstName[0].toUpperCase()}
+            {user.lastName[0].toUpperCase()}
+          </Text>
+        )}
         <Text style={styles.userItemText}>
           {user.firstName} {user.lastName}
         </Text>
