@@ -3,6 +3,7 @@ import {TouchableHighlight, Text, View, Alert} from 'react-native';
 
 import TextInput from '@components/TextInput';
 import {SubmitButton, CustomCheckBox} from '@components';
+import {toast} from '@utils';
 
 import {UsersService} from '../../services/apiClient';
 
@@ -20,12 +21,13 @@ const Form = ({navigation}) => {
       lastName,
       email,
       password,
-    }).then(res => {
-      navigation.navigate('VerifyAccount', {
-        userId: res._id,
-        verificationKey: res.verificationKey,
+    })
+      .then(res => {
+        toast('success', 'Success', 'Successfully registered');
+      })
+      .catch(err => {
+        toast('error', 'Error', err.message);
       });
-    });
   };
 
   return (

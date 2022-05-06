@@ -37,7 +37,10 @@ const Login = ({navigation}) => {
         password: password,
       });
 
-      const upload = await UploadsService.get(user.uploadId);
+      let upload = null;
+      if (user.uploadId) {
+        upload = await UploadsService.get(user.uploadId);
+      }
 
       const {firstName, lastName, email, _id} = user;
       setUserData({
@@ -45,7 +48,7 @@ const Login = ({navigation}) => {
         lastName,
         email,
         _id,
-        avatarImg: upload.files[0]?.signedURL,
+        avatarImg: upload?.files[0]?.signedURL,
       });
       await AsyncStorageLib.setItem('@userId', user._id);
       await AsyncStorageLib.setItem('@user', JSON.stringify(user));

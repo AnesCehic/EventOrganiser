@@ -137,15 +137,22 @@ const ChatMessages = ({navigation, route}) => {
                 padding: 0,
                 margin: 0,
                 flexDirection: 'row',
-                justifyContent: 'flex-end',
                 flexWrap: 'wrap',
-                alignItems: 'flex-end',
                 overflow: 'hidden',
                 maxWidth: 250,
               },
               item.ownerId === userId
-                ? styles.userMessageContainer
-                : styles.friendMessageContainer,
+                ? {
+                    ...styles.userMessageContainer,
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-end',
+                  }
+                : {
+                    ...styles.friendMessageContainer,
+                    marginLeft: 5,
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                  },
               {backgroundColor: Styles.Colors.white, borderRadius: 8},
             ]}>
             {item.upload?.files.map((image, index) => {
