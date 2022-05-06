@@ -91,6 +91,27 @@ const GroupsNavigation = () => {
   );
 };
 
+const RenderChatBottomTab = () => {
+  const {allowMessaging, setUserData} =
+    useContext(UserContext);
+  if (allowMessaging) {
+    return (
+      <BottomTab.Screen
+        name="Messages"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => {
+            return focused ? <BottomChatActive /> : <BottomChat />;
+          },
+          tabBarLabel: 'Chat',
+          unmountOnBlur: true,
+        }}
+        component={ChatNavigation}
+      />
+    );
+  }
+};
+
 const BottomTabNavigation = () => {
   return (
     <BottomTab.Navigator
@@ -127,18 +148,7 @@ const BottomTabNavigation = () => {
         }}
         component={EventsListScreen}
       />
-      <BottomTab.Screen
-        name="Messages"
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) => {
-            return focused ? <BottomChatActive /> : <BottomChat />;
-          },
-          tabBarLabel: 'Chat',
-          unmountOnBlur: true,
-        }}
-        component={ChatNavigation}
-      />
+      {RenderChatBottomTab()}
       <BottomTab.Screen
         name="Groups"
         options={{
