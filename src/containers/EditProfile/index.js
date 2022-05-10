@@ -40,12 +40,6 @@ const MenuItems = [
     menuScreen: Constants.NavigationScreens.ChangePasswordScreen,
     icon: <EditProfilePass />,
   },
-  {
-    id: 2,
-    menuText: 'Notifications',
-    menuScreen: null,
-    icon: <NotificationIcon />,
-  },
 ];
 
 const EditProfile = ({navigation}) => {
