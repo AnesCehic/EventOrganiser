@@ -117,7 +117,9 @@ const Chat = ({navigation}) => {
 
   const deleteChat = async id => {
     try {
-      const res = await MessageGroupsService.remove(id);
+      const res = await MessageGroupsService.patch(id, {
+        hide: true,
+      });
       console.log(res);
       setMessageGroups(messageGroups.filter(item => item._id !== id));
     } catch (error) {
@@ -258,7 +260,9 @@ const Chat = ({navigation}) => {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{fontSize: 26}}>Disabled</Text>
-        <Text style={{fontSize: 14}}>You have chosen to disable chat in your account settings.</Text>
+        <Text style={{fontSize: 14}}>
+          You have chosen to disable chat in your account settings.
+        </Text>
       </View>
     );
   }
