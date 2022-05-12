@@ -49,13 +49,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>App wants to use camera.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>App wants to use microphone.</string>
+	<string>App allows users to take pictures for posts, messages and their profile photo.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App wants to use image library.</string>
+	<string>App allows users to pull photos from their phone to post, send in messages or use as a profile photo.</string>
 	<key>NSCalendarsUsageDescription</key>
-  <string>App wants to use calendar for storing events date</string>
+  <string>App allows users to stored RSVP event info in their personal calendar.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
