@@ -50,12 +50,12 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>App wants to use camera.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>App wants to use microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App wants to use image library.</string>
+	<key>NSCalendarsUsageDescription</key>
+  <string>App wants to use calendar for storing events date</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -103,11 +103,5 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App wants to use image library.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>App wants to use camera.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>App wants to use microphone.</string>
 </dict>
 </plist>
