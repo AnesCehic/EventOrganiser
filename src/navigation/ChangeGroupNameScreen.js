@@ -7,6 +7,7 @@ import {Styles} from '@common';
 const ChangeGroupNameScreen = ({navigation, route}) => {
   useEffect(() => {
     navigation.setOptions({
+      headerTitleAlign: 'center',
       title: 'Change group name',
       headerTintColor: '#fff',
       headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
