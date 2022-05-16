@@ -152,7 +152,7 @@ const Profile = ({navigation, route}) => {
         participants: [route.params.userId],
       });
 
-      const {componentHeader} = MainIcon(res, userDataCtx);
+      const {componentHeader} = MainIcon(res, userDataCtx, navigation);
 
       navigation.navigate('Message', {
         groupId: res._id,

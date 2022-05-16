@@ -154,7 +154,7 @@ const GroupMembers = ({navigation, route}) => {
       participants: [...members],
     });
 
-    const {componentHeader} = MainIcon(res, userData);
+    const {componentHeader} = MainIcon(res, userData, navigation);
 
     navigation.navigate('Message', {
       groupId: res._id,

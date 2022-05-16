@@ -1,12 +1,18 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Avatar} from 'react-native-elements';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {Styles} from '@common';
 
-const MainIcon = (item, userData) => {
+const MainIcon = (item, userData, navigation) => {
+  const redirectToChangeGroupName = () => {
+    navigation.navigate('ChangeGroupName', {
+      groupId: item._id,
+    });
+  };
+
   console.log(item, userData);
   let image;
   let component = null;
@@ -31,6 +37,7 @@ const MainIcon = (item, userData) => {
           source={{
             uri: image,
           }}
+          onPress={redirectToChangeGroupName}
         />
       );
     } else {
@@ -45,7 +52,8 @@ const MainIcon = (item, userData) => {
         </View>
       );
       componentHeader = (
-        <View
+        <TouchableOpacity
+          onPress={redirectToChangeGroupName}
           style={[
             styles.userImageFallback,
             {
@@ -56,7 +64,7 @@ const MainIcon = (item, userData) => {
             },
           ]}>
           <Text>{name}</Text>
-        </View>
+        </TouchableOpacity>
       );
     }
   } else {
@@ -70,7 +78,8 @@ const MainIcon = (item, userData) => {
       </View>
     );
     componentHeader = (
-      <View
+      <TouchableOpacity
+        onPress={redirectToChangeGroupName}
         style={[
           styles.userImageFallback,
           {
@@ -81,7 +90,7 @@ const MainIcon = (item, userData) => {
           },
         ]}>
         <MaterialIcons name="groups" size={25} />
-      </View>
+      </TouchableOpacity>
     );
   }
 

@@ -165,7 +165,7 @@ const Chat = ({navigation}) => {
   };
 
   const renderGroup = ({item}) => {
-    const {component, componentHeader} = MainIcon(item, userData);
+    const {component, componentHeader} = MainIcon(item, userData, navigation);
 
     return (
       <Swipeable
