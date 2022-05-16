@@ -37,14 +37,19 @@ const Groups = ({navigation}) => {
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(10);
 
+  const fetchGroupsCombined = async () => {
+    setIsLoading(true);
+    await fetchJoinedGroups();
+    await fetchGroupsAll();
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     setGroups([]);
-    fetchJoinedGroups();
-    fetchGroupsAll();
+    fetchGroupsCombined();
 
     const refetchGroups = navigation.addListener('focus', () => {
-      fetchJoinedGroups();
-      fetchGroupsAll();
+      fetchGroupsCombined();
     });
 
     return refetchGroups;
@@ -244,21 +249,25 @@ const Groups = ({navigation}) => {
   //   return <Text>All Groups</Text>;
   // };
 
-  const renderContent = () => {
-    // if (activeIndex === 0) {
-    //   return renderMyGroups();
-    // }
-    // if (activeIndex === 1) {
-    //   return renderAllGroups();
-    // }
-    // return null;
+  // const renderContent = () => {
+  //   // if (activeIndex === 0) {
+  //   //   return renderMyGroups();
+  //   // }
+  //   // if (activeIndex === 1) {
+  //   //   return renderAllGroups();
+  //   // }
+  //   // return null;
 
-    if (isLoading) {
-      return <LoadingIndicator />;
-    }
+  //   if (isLoading) {
+  //     return <LoadingIndicator />;
+  //   }
 
-    return renderGroups();
-  };
+  //   return ();
+  // };
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <View style={styles.container}>
@@ -267,15 +276,6 @@ const Groups = ({navigation}) => {
           <Grid />
           <Text> </Text>
           <Text style={{marginLeft: 20}}>Groups</Text>
-          {/* Ovo dugme te vodi na change group screen i obrisi ga kad bude trebalo */}
-          {/* groupId prosledi odakle budes isao na screen */}
-          {/* <TouchableOpacity
-            style={{marginLeft: 10}}
-            onPress={() => {
-              navigation.navigate('ChangeGroupName', {groupId: 123});
-            }}>
-            <Text>GO TO CHANGE GROUP NAME</Text>
-          </TouchableOpacity> */}
         </Text>
       </View>
       {/* {renderSwitch()} */}
@@ -284,7 +284,7 @@ const Groups = ({navigation}) => {
           marginTop: -90,
           flex: 1,
         }}>
-        {renderContent()}
+        {renderGroups()}
       </View>
     </View>
   );
