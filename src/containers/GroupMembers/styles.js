@@ -42,6 +42,22 @@ const userCardStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  headerButton: {
+    backgroundColor: Styles.Colors.white,
+    borderRadius: 50,
+    height: 35,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+  },
+  headerContainer: {
+    backgroundColor: Styles.Colors.gold,
+    paddingTop: 48,
+    paddingHorizontal: 16,
+    paddingBottom: 20,
+    marginBottom: 20,
+  },
 });
 
 export default userCardStyle;

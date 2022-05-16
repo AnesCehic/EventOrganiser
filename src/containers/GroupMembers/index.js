@@ -15,6 +15,7 @@ import {toast} from '@utils';
 import {Styles, Constants} from '@common';
 import {UserContext} from '@contexts';
 import UserIcon from '@assets/ImageComponents/UserIcon';
+import {BottomChat} from '@assets/SvgIcons';
 
 import styles from '../Groups/styles';
 import userCardStyle from './styles';
@@ -165,14 +166,7 @@ const GroupMembers = ({navigation, route}) => {
   const renderHeader = () => {
     const isUserInGroup = groupData?.members?.includes(userData._id);
     return (
-      <View
-        style={{
-          backgroundColor: Styles.Colors.gold,
-          paddingTop: 48,
-          paddingHorizontal: 16,
-          paddingBottom: 20,
-          marginBottom: 20,
-        }}>
+      <View style={userCardStyle.headerContainer}>
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <HeaderBack onPress={() => navigation.goBack()} />
@@ -188,15 +182,7 @@ const GroupMembers = ({navigation, route}) => {
                       joinGroup();
                     }
                   }}
-                  style={{
-                    backgroundColor: Styles.Colors.white,
-                    borderRadius: 50,
-                    height: 35,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    paddingHorizontal: 16,
-                  }}>
+                  style={userCardStyle.headerButton}>
                   <IconMAC
                     name="checkbox-marked-circle-outline"
                     size={16}
@@ -213,27 +199,8 @@ const GroupMembers = ({navigation, route}) => {
               )}
               <TouchableOpacity
                 onPress={createChatGroup}
-                style={{
-                  backgroundColor: Styles.Colors.white,
-                  borderRadius: 50,
-                  height: 35,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  paddingHorizontal: 16,
-                }}>
-                <IconMAC
-                  name="checkbox-marked-circle-outline"
-                  size={16}
-                  style={{marginRight: 9}}
-                />
-                <Text
-                  style={{
-                    fontSize: 15,
-                    fontWeight: '700',
-                  }}>
-                  Message
-                </Text>
+                style={[userCardStyle.headerButton, {marginLeft: 8}]}>
+                <BottomChat />
               </TouchableOpacity>
             </View>
           </View>
