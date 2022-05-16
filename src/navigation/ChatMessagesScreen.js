@@ -5,7 +5,7 @@ import {Styles} from '@common';
 
 const ChatMessagesScreen = ({navigation, route}) => {
   useEffect(() => {
-    navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+    // navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
 
     navigation.setOptions({
       headerStyle: {
@@ -14,9 +14,9 @@ const ChatMessagesScreen = ({navigation, route}) => {
       headerTintColor: Styles.Colors.white,
     });
 
-    return () => {
-      navigation.getParent()?.setOptions({tabBarStyle: undefined});
-    };
+    // return () => {
+    //   navigation.getParent()?.setOptions({tabBarStyle: undefined});
+    // };
   }, []);
 
   return <ChatMessages navigation={navigation} route={route} />;

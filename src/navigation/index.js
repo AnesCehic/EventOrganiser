@@ -70,11 +70,6 @@ const ChatNavigation = () => {
         component={ChatScreen}
       />
       <ChatStack.Screen name="CreateChat" component={CreateChatScreen} />
-      <ChatStack.Screen
-        name="Message"
-        component={ChatMessagesScreen}
-        options={({route}) => ({title: route.params.label})}
-      />
     </ChatStack.Navigator>
   );
 };
@@ -330,6 +325,11 @@ const MainNavigation = () => {
             <Stack.Screen
               name="EventsOnDayScreen"
               component={EventsOnDayScreen}
+            />
+            <Stack.Screen
+              name="Message"
+              component={ChatMessagesScreen}
+              options={({route}) => ({title: route.params.label})}
             />
             <Stack.Screen name="MyEventsScreen" component={MyEventsScreen} />
             <Stack.Screen
