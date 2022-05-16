@@ -56,15 +56,6 @@ const styles = StyleSheet.create({
     marginRight: 16,
     color: Styles.Colors.white,
   },
-  userImageFallback: {
-    backgroundColor: Styles.Colors.gray,
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontSize: 25,
-  },
 });
 
 export default styles;

@@ -9,8 +9,6 @@ import {
   Animated,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 import {MenuItem, SubmitButton, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
 import {MessageGroupsService} from '@services/apiClient';
@@ -27,6 +25,7 @@ import {Avatar, SearchBar} from 'react-native-elements';
 
 import {RectButton} from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import MainIcon from '../../components/ChatMessageIcon/MainIcon';
 
 const Chat = ({navigation}) => {
   const {allowMessaging, userData} = useContext(UserContext);
@@ -166,55 +165,7 @@ const Chat = ({navigation}) => {
   };
 
   const renderGroup = ({item}) => {
-    let image;
-    let component = null;
-    let componentHeader = null;
-    if (item.type === 0) {
-      image = item.participantList.find(e => e._id !== userData._id);
-      if (image.upload?.files[0]?.signedURL) {
-        image = image.upload?.files[0]?.signedURL;
-        component = (
-          <Avatar
-            size={Styles.Sizes.avatarMedium}
-            rounded
-            source={{
-              uri: image,
-            }}
-          />
-        );
-        componentHeader = (
-          <Avatar
-            size={Styles.Sizes.avatarSmall}
-            rounded
-            source={{
-              uri: image,
-            }}
-          />
-        );
-      } else {
-        let name = image.firstName[0] + image.lastName[0];
-        component = (
-          <Text style={styles.userImageFallback}>{name.toUpperCase()}</Text>
-        );
-        componentHeader = (
-          <Text
-            style={[
-              styles.userImageFallback,
-              {width: 32, height: 32, fontSize: 25},
-            ]}>
-            {name}
-          </Text>
-        );
-      }
-    } else {
-      component = (
-        <MaterialIcons
-          name="groups"
-          style={[styles.userImageFallback, {fontSize: 30}]}
-          size={30}
-        />
-      );
-    }
+    const {component, componentHeader} = MainIcon(item, userData);
 
     return (
       <Swipeable
