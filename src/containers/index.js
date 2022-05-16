@@ -23,6 +23,7 @@ import _ForgotPassword from './ForgotPassword';
 import _GoogleLogin from './GoogleLogin';
 import _Comments from './Comments';
 import _CreateChat from './CreateChat';
+import _ChangeGroupName from './ChangeGroupName';
 
 export const EventsList = _EventsList;
 export const Start = _Start;
@@ -49,3 +50,4 @@ export const ForgotPassword = _ForgotPassword;
 export const GoogleLogin = _GoogleLogin;
 export const Comments = _Comments;
 export const CreateChat = _CreateChat;
+export const ChangeGroupName = _ChangeGroupName;
