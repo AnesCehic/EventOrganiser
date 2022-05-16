@@ -267,6 +267,15 @@ const Groups = ({navigation}) => {
           <Grid />
           <Text> </Text>
           <Text style={{marginLeft: 20}}>Groups</Text>
+          {/* Ovo dugme te vodi na change group screen i obrisi ga kad bude trebalo */}
+          {/* groupId prosledi odakle budes isao na screen */}
+          <TouchableOpacity
+            style={{marginLeft: 10}}
+            onPress={() => {
+              navigation.navigate('ChangeGroupName', {groupId: 123});
+            }}>
+            <Text>GO TO CHANGE GROUP NAME</Text>
+          </TouchableOpacity>
         </Text>
       </View>
       {/* {renderSwitch()} */}

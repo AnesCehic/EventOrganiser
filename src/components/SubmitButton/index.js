@@ -14,7 +14,12 @@ const SubmitButton = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => {
+        if (isLoading) {
+          return null;
+        }
+        onPress();
+      }}
       activeOpacity={0.6}
       // eslint-disable-next-line react-native/no-inline-styles
       style={[styles.loginButton, style, {opacity: isLoading ? 0.5 : 1}]}>

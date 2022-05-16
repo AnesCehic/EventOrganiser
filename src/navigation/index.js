@@ -39,6 +39,7 @@ import ForgotPasswordScreen from './ForgotPasswordScreen';
 import GoogleLogin from './GoogleLogin';
 import CommentsScreen from './CommentsScreen';
 import GroupMembersScreenInfo from './GroupMembersInfoScreen';
+import ChangeGroupNameScreen from './ChangeGroupNameScreen';
 
 import {
   BottomHome,
@@ -84,6 +85,10 @@ const GroupsNavigation = () => {
       <GroupsStack.Screen name="GroupsScreen" component={GroupsScreen} />
       <GroupsStack.Screen name="GroupMembers" component={GroupMembersScreen} />
       <GroupsStack.Screen
+        name="ChangeGroupName"
+        component={ChangeGroupNameScreen}
+      />
+      <GroupsStack.Screen
         name="GroupMemberInfo"
         component={GroupMembersScreenInfo}
       />
@@ -92,8 +97,7 @@ const GroupsNavigation = () => {
 };
 
 const RenderChatBottomTab = () => {
-  const {allowMessaging, setUserData} =
-    useContext(UserContext);
+  const {allowMessaging, setUserData} = useContext(UserContext);
   if (allowMessaging) {
     return (
       <BottomTab.Screen
@@ -117,11 +121,6 @@ const BottomTabNavigation = () => {
     <BottomTab.Navigator
       screenOptions={{
         tabBarActiveTintColor: Styles.Colors.gold,
-        tabBarStyle: {
-          height: 60,
-          paddingBottom: 6,
-          paddingTop: 6,
-        },
       }}>
       <BottomTab.Screen
         name="Feed"

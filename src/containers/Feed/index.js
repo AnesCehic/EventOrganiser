@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, ImageBackground, Image} from 'react-native';
+import {View, Text, Image} from 'react-native';
 
 import {PostsList, LoadingIndicator, InfiniteLoader} from '@components';
 import {UserContext} from '@contexts';
@@ -16,11 +16,6 @@ const Feed = ({navigation}) => {
   const [events, setEvents] = useState([]);
   const [infiniteScrollLoader, setInfiniteScrollLoader] = useState(false);
 
-  // ----------------------------
-
-  //const {events, eventsError, eventsLoading, refetch} = useEvents();
-  // const [refreshing, setRefreshing] = useState(false);
-  // const [user, setUser] = useState(true);
   const [posts, setPosts] = useState({
     isLoading: false,
     data: [],
@@ -163,7 +158,7 @@ const Feed = ({navigation}) => {
           style={{position: 'absolute', top: 0, right: 0, height: '100%'}}
         />
       </View>
-      {renderPosts()}
+      <View style={{flex: 1}}>{renderPosts()}</View>
       {infiniteScrollLoader && hasMore ? <InfiniteLoader /> : null}
     </View>
   );
