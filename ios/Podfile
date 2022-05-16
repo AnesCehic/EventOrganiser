@@ -32,7 +32,6 @@ target 'LincolnApp' do
 
   pod 'Permission-Calendars', :path => "#{permissions_path}/Calendars"
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
-  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
