@@ -225,7 +225,7 @@ const Chat = ({navigation}) => {
   return (
     <View style={styles.container}>
       {renderChatHeader()}
-      <View>{renderMessageGroups()}</View>
+      {renderMessageGroups()}
     </View>
   );
 };
