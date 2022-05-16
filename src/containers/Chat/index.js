@@ -175,7 +175,13 @@ const Chat = ({navigation}) => {
         }>
         <TouchableOpacity
           onPress={() =>
-            navigateToMessages(item._id, item.label, componentHeader)
+            navigateToMessages(
+              item._id,
+              item.label.length > 20
+                ? `${item.label.slice(0, 20)}...`
+                : item.label,
+              componentHeader,
+            )
           }
           style={styles.messageContainer}>
           {component}
