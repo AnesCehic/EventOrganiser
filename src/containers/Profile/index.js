@@ -1,11 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {StackActions} from '@react-navigation/native';
 import {Avatar} from 'react-native-elements';
 import dayjs from 'dayjs';
 
-import {PostsList, LoadingIndicator, InfiniteLoader} from '@components';
+import {
+  PostsList,
+  LoadingIndicator,
+  InfiniteLoader,
+  MainIcon,
+} from '@components';
 import {Styles} from '@common';
+import {UserContext} from '@contexts';
 import {toast} from '@utils';
 import UserIcon from '@assets/ImageComponents/UserIcon';
 import {ChatBubblesMsg} from '@assets/SvgIcons';
@@ -22,6 +28,7 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation, route}) => {
+  const {userData: userDataCtx} = useContext(UserContext);
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [activeSwitch, setActiveSwitch] = useState(0);
@@ -144,11 +151,14 @@ const Profile = ({navigation, route}) => {
         type: 0,
         participants: [route.params.userId],
       });
-      navigation.dispatch(
-        StackActions.push('Messages', {
-          groupId: res._id,
-        }),
-      );
+
+      const {componentHeader} = MainIcon(res, userDataCtx);
+
+      navigation.navigate('Message', {
+        groupId: res._id,
+        label: res.label,
+        component: componentHeader,
+      });
     } catch (error) {
       console.log('[Error creating message group]', error);
     }
@@ -291,6 +301,8 @@ const Profile = ({navigation, route}) => {
 
   const redirectToAction = () => {
     if (route?.params?.userId) {
+      //navigation.navigate('MessageUserFromProfile');
+      createMessageGroup();
     } else {
       navigation.navigate('UserAccountCreatePost');
     }

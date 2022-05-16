@@ -6,7 +6,11 @@ import IconMAC from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Avatar} from 'react-native-elements';
 
 import {LoadingIndicator, HeaderBack} from '@components';
-import {GroupService, UsersService} from '@services/apiClient';
+import {
+  GroupService,
+  UsersService,
+  MessageGroupsService,
+} from '@services/apiClient';
 import {toast} from '@utils';
 import {Styles, Constants} from '@common';
 import {UserContext} from '@contexts';
@@ -14,6 +18,7 @@ import UserIcon from '@assets/ImageComponents/UserIcon';
 
 import styles from '../Groups/styles';
 import userCardStyle from './styles';
+import MainIcon from '../../components/ChatMessageIcon/MainIcon';
 
 const GroupMembers = ({navigation, route}) => {
   const {userData} = useContext(UserContext);
@@ -137,6 +142,26 @@ const GroupMembers = ({navigation, route}) => {
     }
   };
 
+  const createChatGroup = async () => {
+    const members = groupMembers
+      .map(e => e._id)
+      .filter(e => e !== userData._id);
+    console.log(members);
+
+    const res = await MessageGroupsService.create({
+      type: 1,
+      participants: [...members],
+    });
+
+    const {componentHeader} = MainIcon(res, userData);
+
+    navigation.navigate('Message', {
+      groupId: res._id,
+      label: res.label,
+      component: componentHeader,
+    });
+  };
+
   const renderHeader = () => {
     const isUserInGroup = groupData?.members?.includes(userData._id);
     return (
@@ -151,17 +176,43 @@ const GroupMembers = ({navigation, route}) => {
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <HeaderBack onPress={() => navigation.goBack()} />
-            {groupData.private ? null : (
-              <TouchableOpacity
-                onPress={() => {
-                  if (isUserInGroup) {
-                    if (groupData.leavable) {
-                      leaveGroup();
+            <View style={{flexDirection: 'row'}}>
+              {groupData.private ? null : (
+                <TouchableOpacity
+                  onPress={() => {
+                    if (isUserInGroup) {
+                      if (groupData.leavable) {
+                        leaveGroup();
+                      }
+                    } else {
+                      joinGroup();
                     }
-                  } else {
-                    joinGroup();
-                  }
-                }}
+                  }}
+                  style={{
+                    backgroundColor: Styles.Colors.white,
+                    borderRadius: 50,
+                    height: 35,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingHorizontal: 16,
+                  }}>
+                  <IconMAC
+                    name="checkbox-marked-circle-outline"
+                    size={16}
+                    style={{marginRight: 9}}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontWeight: '700',
+                    }}>
+                    {isUserInGroup ? 'Joined' : 'Join'}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity
+                onPress={createChatGroup}
                 style={{
                   backgroundColor: Styles.Colors.white,
                   borderRadius: 50,
@@ -181,10 +232,10 @@ const GroupMembers = ({navigation, route}) => {
                     fontSize: 15,
                     fontWeight: '700',
                   }}>
-                  {isUserInGroup ? 'Joined' : 'Join'}
+                  Message
                 </Text>
               </TouchableOpacity>
-            )}
+            </View>
           </View>
           <View style={{marginTop: 16}}>
             <Text style={{fontSize: 28, fontFamily: Styles.Fonts.headerBold}}>
