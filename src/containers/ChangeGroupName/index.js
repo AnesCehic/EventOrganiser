@@ -23,10 +23,9 @@ const ChangeGroupName = ({navigation, route}) => {
         label: newGroupName,
       });
 
-      console.log(res);
-
       setIsLoading(false);
       toast('success', 'Success', 'Group name changed successfully!');
+      navigation.goBack();
     } catch (error) {
       setIsLoading(false);
       toast('error', 'Error', error.message);

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {FlatList, Text, View, Image, TouchableOpacity} from 'react-native';
 import {MessageInput, HeaderBack} from '@components';
 
-import {MessagesService} from '@services/apiClient';
+import {MessagesService, MessageGroupsService} from '@services/apiClient';
 import {Styles} from '@common';
 
 import styles from './styles';
@@ -49,10 +49,19 @@ const ChatMessages = ({navigation, route}) => {
     });
   }, []);
 
+  const labelUpdate = res => {
+    navigation.setOptions({
+      title: res.label,
+    });
+  };
+
   useEffect(() => {
     MessagesService.on('created', handleNewMessages);
+    MessageGroupsService.on('patched', labelUpdate);
     return () => {
+      console.log('return');
       MessagesService.off('created', handleNewMessages);
+      MessageGroupsService.off('patched', labelUpdate);
     };
   });
 
