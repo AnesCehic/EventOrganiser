@@ -80,10 +80,6 @@ const GroupsNavigation = () => {
       <GroupsStack.Screen name="GroupsScreen" component={GroupsScreen} />
       <GroupsStack.Screen name="GroupMembers" component={GroupMembersScreen} />
       <GroupsStack.Screen
-        name="ChangeGroupName"
-        component={ChangeGroupNameScreen}
-      />
-      <GroupsStack.Screen
         name="GroupMemberInfo"
         component={GroupMembersScreenInfo}
       />
@@ -330,6 +326,10 @@ const MainNavigation = () => {
               name="Message"
               component={ChatMessagesScreen}
               options={({route}) => ({title: route.params.label})}
+            />
+            <GroupsStack.Screen
+              name="ChangeGroupName"
+              component={ChangeGroupNameScreen}
             />
             <Stack.Screen name="MyEventsScreen" component={MyEventsScreen} />
             <Stack.Screen
