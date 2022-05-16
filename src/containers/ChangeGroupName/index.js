@@ -3,6 +3,7 @@ import {View} from 'react-native';
 
 import {TextInput, SubmitButton, LoadingIndicator} from '@components';
 import {toast} from '@utils';
+import {MessageGroupsService} from '@services/apiClient';
 
 import styles from './styles';
 
@@ -17,6 +18,12 @@ const ChangeGroupName = ({navigation, route}) => {
       setIsLoading(true);
 
       /*  Do your stuff here  */
+
+      const res = await MessageGroupsService.patch(groupId, {
+        label: newGroupName,
+      });
+
+      console.log(res);
 
       setIsLoading(false);
       toast('success', 'Success', 'Group name changed successfully!');
