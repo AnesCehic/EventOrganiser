@@ -10,6 +10,7 @@ import {
   Platform,
   Dimensions,
   FlatList,
+  useColorScheme,
 } from 'react-native';
 import * as AddToCalendarEvent from 'react-native-add-calendar-event';
 import RenderHTML from 'react-native-render-html';
@@ -35,6 +36,7 @@ import DateAndPlace from './DateAndPlace';
 import styles from './styles';
 
 const FeedDetails = ({navigation, route}) => {
+  const colorScheme = useColorScheme();
   const {userData} = useContext(UserContext);
   const [eventData, setEventData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -188,7 +190,10 @@ const FeedDetails = ({navigation, route}) => {
         <TouchableOpacity
           style={styles.closeButton}
           onPress={() => setIsRSVPModalVisible(false)}>
-          <RemixIcon name="ri-close-line" />
+          <RemixIcon
+            name="ri-close-line"
+            color={colorScheme === 'light' ? '#000' : '#b5b5b5'}
+          />
         </TouchableOpacity>
         {renderModalEventDetails()}
         <View

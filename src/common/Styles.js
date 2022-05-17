@@ -27,6 +27,7 @@ const Styles = {
 
     topBackground: colorScheme === 'dark' ? '#fff' : '#BFBB85',
     darkBgLight: colorScheme === 'dark' ? '#1C2329' : '#fff',
+    darkBgGold: colorScheme === 'dark' ? '#1C2329' : '#BFBB85',
     darkBgLight2: colorScheme === 'dark' ? '#4C5761' : '#fff',
     purple: '#684BA6',
     iconGray: colorScheme === 'dark' ? 'gray' : '#fff',

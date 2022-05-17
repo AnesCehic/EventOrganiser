@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Appearance} from 'react-native';
 import {Styles} from '@common';
-
+const colorScheme = Appearance.getColorScheme();
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     paddingHorizontal: 14,
     paddingVertical: 8,
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.darkBgLight,
   },
   topRightImageText: {
     fontWeight: '600',

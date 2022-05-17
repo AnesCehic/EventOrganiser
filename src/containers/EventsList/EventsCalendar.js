@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, useColorScheme} from 'react-native';
 import dayjs from 'dayjs';
 import {CalendarList} from 'react-native-calendars';
 
@@ -11,6 +11,7 @@ import {EventService} from '@services/apiClient';
 import styles from './styles';
 
 const EventsCalendar = ({navigateToMonth, navigateToDay}) => {
+  const colorScheme = useColorScheme();
   const today = dayjs().format('YYYY-MM-DD');
 
   const [events, setEvents] = useState([]);
@@ -94,7 +95,7 @@ const EventsCalendar = ({navigateToMonth, navigateToDay}) => {
               onPress={() => {
                 navigateToMonth(date);
               }}>
-              <CalendarIcon />
+              <CalendarIcon color={colorScheme === 'dark' ? '#b5b5b5' : null} />
               <Text
                 style={[
                   styles.calendarHeaderText,

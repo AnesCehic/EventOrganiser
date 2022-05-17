@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginHorizontal: 10,
-    backgroundColor: 'white',
+    backgroundColor: Styles.Colors.darkBgLight,
     padding: 15,
     borderRadius: 5,
     top: 20,

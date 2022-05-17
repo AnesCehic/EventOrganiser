@@ -31,6 +31,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
         onChangeValue={value => setUsername(value)}
         autoCapitalize="none"
         keyboardType="email-address"
+        caretHidden={false}
       />
       <View style={styles.passwordWrapper}>
         <TextInput

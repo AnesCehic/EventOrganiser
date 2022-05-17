@@ -284,7 +284,7 @@ const EventsList = ({navigation}) => {
         <View style={styles.topImageContent}>
           <View style={styles.eventsHeaderContainer}>
             <Text style={styles.headerText}>
-              <GridIcon />
+              <GridIcon color={colorScheme === 'dark' ? '#b5b5b5' : null} />
               <Text> </Text>
               Events
             </Text>

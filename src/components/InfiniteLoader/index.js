@@ -1,10 +1,15 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, useColorScheme} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 
 const InfiniteLoader = () => {
+  const colorScheme = useColorScheme();
   return (
-    <ActivityIndicator style={styles.loaderMargin} size="small" color="black" />
+    <ActivityIndicator
+      style={styles.loaderMargin}
+      size="small"
+      color={colorScheme === 'light' ? '$000' : '#b5b5b5'}
+    />
   );
 };
 
