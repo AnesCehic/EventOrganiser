@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Appearance,
 } from 'react-native';
+import PushNotification from 'react-native-push-notification';
 
 import {client} from '@services/apiClient';
 import {UserContext} from '@contexts';
@@ -84,7 +85,9 @@ const Login = ({navigation}) => {
         <View style={{width: '100%', alignItems: 'center'}}>
           <SubmitButton
             googleLogo
-            onPress={() => null}
+            onPress={() => {
+              return null;
+            }}
             style={{
               ...stylesStart.googleButton,
               ...styles.logInWithGoogle,

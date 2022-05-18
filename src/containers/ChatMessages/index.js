@@ -10,6 +10,7 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import dayjs from 'dayjs';
 
 import ModalImage from './ModalImages';
+import PushNotification from 'react-native-push-notification';
 
 const ChatMessages = ({navigation, route}) => {
   const [messages, setMessages] = useState([]);
@@ -28,6 +29,12 @@ const ChatMessages = ({navigation, route}) => {
   });
 
   const handleNewMessages = message => {
+    console.log(message, route);
+    PushNotification.localNotification({
+      channelId: 'specialid',
+      title: `${route.params.label} sent you a message.`,
+      message: message.text,
+    });
     if (message.groupId === route.params.groupId) {
       setPagination({
         ...pagination,
@@ -50,6 +57,7 @@ const ChatMessages = ({navigation, route}) => {
   }, []);
 
   const labelUpdate = res => {
+    console.log('test')
     navigation.setOptions({
       title: res.label,
     });
