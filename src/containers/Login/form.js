@@ -66,13 +66,11 @@ const Form = ({navigation, submitLogin, isLoading}) => {
           stylesHelper.shadow,
           {marginTop: 16, backgroundColor: '#2D2B0D'},
         ]}
-        titleStyle={{color: 'white'}}
         isLoading={isLoading}
       />
 
       <TouchableOpacity
         onPress={() => {
-          console.log('asd');
           navigation.navigate('ForgotPasswordScreen');
         }}
         style={stylesHelper.forgotPassword}>

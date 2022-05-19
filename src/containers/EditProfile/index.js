@@ -254,7 +254,6 @@ const EditProfile = ({navigation}) => {
   if (isLoading) {
     return <LoadingIndicator />;
   }
-  console.log('asdasdasd', Styles.Colors.iconGray);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.topImage}>

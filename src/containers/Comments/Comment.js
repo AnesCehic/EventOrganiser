@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import styles from './styles';
 
 const Comment = ({post}) => {
-  console.log('comment', post)
   return (
     <View style={styles.commentContainer}>
       {/* {!post?.owner?.uploadId ? ( */}

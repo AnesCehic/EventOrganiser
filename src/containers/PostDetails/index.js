@@ -57,7 +57,6 @@ const PostDetails = ({navigation, route}) => {
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
     );
 
-    console.log(slide, nativeEvent);
     if (slide !== activeIndex) {
       setActiveIndex(slide);
     }

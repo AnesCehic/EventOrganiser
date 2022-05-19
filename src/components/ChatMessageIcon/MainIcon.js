@@ -13,7 +13,6 @@ const MainIcon = (item, userData, navigation) => {
     });
   };
 
-  console.log(item, userData);
   let image;
   let component = null;
   let componentHeader = null;

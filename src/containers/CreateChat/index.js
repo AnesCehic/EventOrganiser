@@ -55,8 +55,6 @@ const CreateChat = ({navigation}) => {
         },
       });
 
-      console.log(res.data);
-
       setUsers(res.data);
     } catch (error) {
       console.log(error);
@@ -107,7 +105,6 @@ const CreateChat = ({navigation}) => {
         type: selectedUsers.length === 1 ? 0 : 1,
         participants: [...usersId],
       });
-      console.log(res);
       navigation.goBack();
     } catch (error) {
       console.log('[Error creating message group]', error);

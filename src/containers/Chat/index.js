@@ -123,7 +123,6 @@ const Chat = ({navigation}) => {
       const res = await MessageGroupsService.patch(id, {
         hide: true,
       });
-      console.log(res);
       setMessageGroups(messageGroups.filter(item => item._id !== id));
     } catch (error) {
       console.log('[Error deleting group]', error);

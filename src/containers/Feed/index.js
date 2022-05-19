@@ -85,8 +85,6 @@ const Feed = ({navigation}) => {
         page: posts.page + 1,
       });
       setInfiniteScrollLoader(false);
-      // const res2 = await PostsService.get(res.data[0]._id);
-      // console.log('posts2', res2);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error loading posts and events home screen]', error);

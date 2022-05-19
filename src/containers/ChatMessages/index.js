@@ -29,12 +29,6 @@ const ChatMessages = ({navigation, route}) => {
   });
 
   const handleNewMessages = message => {
-    console.log(message, route);
-    PushNotification.localNotification({
-      channelId: 'specialid',
-      title: `${route.params.label} sent you a message.`,
-      message: message.text,
-    });
     if (message.groupId === route.params.groupId) {
       setPagination({
         ...pagination,
@@ -57,7 +51,6 @@ const ChatMessages = ({navigation, route}) => {
   }, []);
 
   const labelUpdate = res => {
-    console.log('test')
     navigation.setOptions({
       title: res.label,
     });
@@ -67,7 +60,6 @@ const ChatMessages = ({navigation, route}) => {
     MessagesService.on('created', handleNewMessages);
     MessageGroupsService.on('patched', labelUpdate);
     return () => {
-      console.log('return');
       MessagesService.off('created', handleNewMessages);
       MessageGroupsService.off('patched', labelUpdate);
     };
@@ -250,8 +242,6 @@ const ChatMessages = ({navigation, route}) => {
         text: textMessage,
         uploadId: uploadId,
       });
-
-      console.log(res);
 
       setTextMessage('');
     } catch (error) {

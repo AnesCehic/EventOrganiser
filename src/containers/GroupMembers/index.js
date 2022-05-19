@@ -34,7 +34,6 @@ const GroupMembers = ({navigation, route}) => {
       setIsLoading(true);
       let group = await GroupService.get(route.params.id);
       setGroupData(group);
-      console.log(group);
       let {data} = await UsersService.find({
         query: {
           _id: {
@@ -133,7 +132,6 @@ const GroupMembers = ({navigation, route}) => {
           leave: true,
         });
 
-        console.log(res);
         fetchGroupMembers();
       } else {
         throw new Error('You cannot leave group!');
@@ -147,7 +145,6 @@ const GroupMembers = ({navigation, route}) => {
     const members = groupMembers
       .map(e => e._id)
       .filter(e => e !== userData._id);
-    console.log(members);
 
     const res = await MessageGroupsService.create({
       type: 1,
