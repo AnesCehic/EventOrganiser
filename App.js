@@ -6,12 +6,15 @@ import {
   StyleSheet,
   Appearance,
   useColorScheme,
+  Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
+import PushNOtificationIos from '@react-native-community/push-notification-ios';
 
 import {UserContext} from '@contexts';
-import {UsersService} from '@services/apiClient';
+import {MessagesService} from '@services/apiClient';
+import {presentNotification, presentNotificationIos} from '@utils/notification';
 
 import {LoadingIndicator} from '@components';
 
@@ -77,6 +80,20 @@ const App = () => {
   useEffect(() => {
     setAnonymousMode();
     const colorScheme = Appearance.getColorScheme();
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      MessagesService.on('created', message => {
+        presentNotification(message);
+      });
+    }
+
+    if (Platform.OS === 'ios') {
+      PushNOtificationIos.addEventListener('notification', notification => {
+        presentNotificationIos(message);
+      });
+    }
   }, []);
 
   const setAnonymousMode = async () => {
