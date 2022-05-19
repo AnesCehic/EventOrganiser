@@ -12,9 +12,11 @@ const styles = StyleSheet.create({
   messageContainer: {
     padding: 8,
     marginTop: 2,
-    marginRight: 5,
+    marginHorizontal: 8,
     maxWidth: 240,
-    borderRadius: 18,
+    minWidth: 90,
+    minHeight: 35,
+    borderRadius: 12,
   },
   userMessageContainer: {
     backgroundColor: colorScheme === 'light' ? Styles.Colors.gold : '#1C2329',

@@ -133,9 +133,9 @@ const ChatMessages = ({navigation, route}) => {
                 {item.text}
               </Text>
             ) : null}
-            <Text style={styles.messageDateTime}>
+            {/* <Text style={styles.messageDateTime}>
               {dayjs(item.createdAt).format('MM/DD HH:mm')}
-            </Text>
+            </Text> */}
           </View>
         ) : null}
         {item.upload && (
