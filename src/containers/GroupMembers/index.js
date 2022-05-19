@@ -196,7 +196,10 @@ const GroupMembers = ({navigation, route}) => {
               )}
               <TouchableOpacity
                 onPress={createChatGroup}
-                style={[userCardStyle.headerButton, {marginLeft: 8}]}>
+                style={[
+                  userCardStyle.headerButton,
+                  {marginLeft: 8, paddingHorizontal: 0},
+                ]}>
                 <BottomChat />
               </TouchableOpacity>
             </View>

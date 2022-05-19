@@ -46,7 +46,8 @@ const userCardStyle = StyleSheet.create({
   headerButton: {
     backgroundColor: Styles.Colors.white,
     borderRadius: 50,
-    height: 35,
+    height: 40,
+    minWidth: 40,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
