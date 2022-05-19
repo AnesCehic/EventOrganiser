@@ -170,7 +170,8 @@ const MyEvents = ({navigation, route}) => {
       <View
         style={{
           padding: 10,
-          marginTop: -60,
+          paddingTop: 0,
+          marginTop: -70,
           flex: 1,
         }}>
         {renderEventsList()}
