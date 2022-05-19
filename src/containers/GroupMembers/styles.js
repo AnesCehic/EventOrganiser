@@ -3,9 +3,10 @@ import {Styles} from '@common';
 
 const userCardStyle = StyleSheet.create({
   container: {
+    flex: 1,
     elevation: 2,
     borderColor: Styles.Colors.lightGrayBg,
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.lightGrayBg,
     borderWidth: 1,
     borderRadius: 8,
     padding: 16,
@@ -52,7 +53,7 @@ const userCardStyle = StyleSheet.create({
     paddingHorizontal: 16,
   },
   headerContainer: {
-    backgroundColor: Styles.Colors.gold,
+    backgroundColor: Styles.Colors.darkBgGold,
     paddingTop: 48,
     paddingHorizontal: 16,
     paddingBottom: 20,

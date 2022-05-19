@@ -1,6 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Appearance} from 'react-native';
 
 import {Styles} from '@common';
+
+const colorScheme = Appearance.getColorScheme();
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +13,7 @@ const styles = StyleSheet.create({
     padding: 18,
     paddingTop: 48,
     width: '100%',
-    backgroundColor: Styles.Colors.topBackground,
+    backgroundColor: Styles.Colors.darkBgGold,
   },
   headerTitle: {
     flexDirection: 'row',
@@ -27,7 +29,8 @@ const styles = StyleSheet.create({
   createMessageIcon: {
     padding: 8,
     borderRadius: 100,
-    backgroundColor: 'rgba(45, 43, 13, 0.7)',
+    backgroundColor:
+      colorScheme === 'light' ? 'rgba(45, 43, 13, 0.7)' : '#b5b5b5',
   },
   messageContainer: {
     width: '100%',
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   separator: {
-    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+    backgroundColor: colorScheme === 'light' ? 'rgba(0, 0, 0, 0.12)' : '#000',
     width: '100%',
     height: 1,
   },

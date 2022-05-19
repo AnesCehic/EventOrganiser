@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Switch,
+  useColorScheme,
 } from 'react-native';
 import {Avatar} from 'react-native-elements';
 import Icon from 'react-native-remix-icon';
@@ -43,6 +44,7 @@ const MenuItems = [
 ];
 
 const EditProfile = ({navigation}) => {
+  const colorScheme = useColorScheme();
   const {setAuthenticated, allowMessaging, setAllowMessaging, userData} =
     useContext(UserContext);
 
@@ -175,7 +177,12 @@ const EditProfile = ({navigation}) => {
         </View>
         <View style={[styles.menuItem, styles.logoutItem]}>
           <View style={styles.leftContent}>
-            <ChatBubblesMsg width={18} height={18} viewBox="0 0 12 12" />
+            <ChatBubblesMsg
+              width={18}
+              height={18}
+              viewBox="0 0 12 12"
+              color={colorScheme === 'dark' ? '#b5b5b5' : null}
+            />
             <Text style={styles.menuItemText}>Allow messaging</Text>
           </View>
           <Switch

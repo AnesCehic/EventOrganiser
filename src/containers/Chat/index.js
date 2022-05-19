@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   Animated,
+  useColorScheme,
 } from 'react-native';
 
 import {MenuItem, SubmitButton, LoadingIndicator} from '@components';
@@ -28,6 +29,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import MainIcon from '../../components/ChatMessageIcon/MainIcon';
 
 const Chat = ({navigation}) => {
+  const colorScheme = useColorScheme();
   const {allowMessaging, userData} = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [messageGroups, setMessageGroups] = useState([]);
@@ -47,7 +49,7 @@ const Chat = ({navigation}) => {
         <View style={styles.headerTitle}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text style={styles.title}>
-              <GridIcon />
+              <GridIcon color={colorScheme === 'dark' ? '#b5b5b5' : null} />
               <Text> </Text>
               Chat
             </Text>
@@ -57,8 +59,10 @@ const Chat = ({navigation}) => {
             onPress={() => {
               navigation.navigate('CreateChat');
             }}>
-            <View style={{color: Styles.Colors.white}}>
-              <NewMessageIcon />
+            <View>
+              <NewMessageIcon
+                color={colorScheme === 'dark' ? '#b5b5b5' : null}
+              />
             </View>
           </TouchableOpacity>
         </View>

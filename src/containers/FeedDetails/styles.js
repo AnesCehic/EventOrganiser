@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
     zIndex: 99,
+    color: 'red',
   },
   eventListItemDateAndTimeWrapper: {
     marginTop: 10,

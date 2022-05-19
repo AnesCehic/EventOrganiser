@@ -1,5 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  useColorScheme,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import {LoadingIndicator} from '@components';
@@ -26,6 +32,7 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 // Add menuScreen from Constants.NavigationScreens when ready
 
 const Groups = ({navigation}) => {
+  const colorScheme = useColorScheme();
   const {userData} = useContext(UserContext);
   // const [activeIndex, setActiveIndex] = useState(1);
   // const [isAllGroupsSelected, setIsAllGroupsSelected] = useState(false);
@@ -273,7 +280,7 @@ const Groups = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.topImage}>
         <Text style={styles.headerText}>
-          <Grid />
+          <Grid color={colorScheme === 'dark' ? '#b5b5b5' : null} />
           <Text> </Text>
           <Text style={{marginLeft: 20}}>Groups</Text>
         </Text>

@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  useColorScheme,
+} from 'react-native';
 import {StackActions} from '@react-navigation/native';
 import {Avatar} from 'react-native-elements';
 import dayjs from 'dayjs';
@@ -28,6 +35,7 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation, route}) => {
+  const colorScheme = useColorScheme();
   const {userData: userDataCtx} = useContext(UserContext);
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -332,12 +340,16 @@ const Profile = ({navigation, route}) => {
             onPress={redirectToAction}>
             {route?.params?.userId ? (
               <View style={styles.topRightImage}>
-                <ChatBubblesMsg />
+                <ChatBubblesMsg
+                  color={colorScheme === 'dark' ? '#b5b5b5' : null}
+                />
                 <Text style={styles.topRightImageText}>Message</Text>
               </View>
             ) : (
               <View style={styles.topRightImage}>
-                <ChatBubblesMsg />
+                <ChatBubblesMsg
+                  color={colorScheme === 'dark' ? '#b5b5b5' : null}
+                />
                 <Text style={styles.topRightImageText}>Create Post</Text>
               </View>
             )}

@@ -9,7 +9,7 @@ const ChatMessagesScreen = ({navigation, route}) => {
 
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: Styles.Colors.topBackground,
+        backgroundColor: Styles.Colors.darkBgGold,
       },
       headerTintColor: Styles.Colors.white,
     });

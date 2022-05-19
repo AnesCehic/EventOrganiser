@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   topImage: {
     height: 200,
     width: '100%',
-    backgroundColor: Styles.Colors.topBackground,
+    backgroundColor: Styles.Colors.darkBgGold,
   },
   headerText: {
     fontSize: 32,
