@@ -269,18 +269,17 @@ const ChatMessages = ({navigation, route}) => {
     );
   };
 
+  // TODO fix keyboard aware scroll view for iOS
   return (
     <SafeAreaView edges={['right', 'left', 'top']} style={[styles.container]}>
-      <KeyboardAwareScrollView>
-        {renderMesagesList()}
-        <ModalImage
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        />
-        <View style={{width: '100%', height: 1, backgroundColor: '#E6EBF0'}} />
+      {renderMesagesList()}
+      <ModalImage
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+      <View style={{width: '100%', height: 1, backgroundColor: '#E6EBF0'}} />
 
-        {renderMessageInput()}
-      </KeyboardAwareScrollView>
+      {renderMessageInput()}
     </SafeAreaView>
   );
 };
