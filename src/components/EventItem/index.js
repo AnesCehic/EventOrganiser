@@ -11,6 +11,7 @@ const EventItem = ({
   endDate,
   startTime,
   source,
+  description,
   location,
   imageUrl,
   title,
@@ -26,7 +27,7 @@ const EventItem = ({
       </View>
       <View style={styles.eventsListItemTopWrapper}>
         <Text style={styles.eventListItemTitle}>{title}</Text>
-        {source}
+        {description}
       </View>
       <View style={styles.eventListItemDateAndTimeWrapper}>
         <View style={styles.eventListItemDateAndTime}>
