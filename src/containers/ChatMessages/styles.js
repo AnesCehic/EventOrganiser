@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Appearance} from 'react-native';
+import {StyleSheet, Appearance} from 'react-native';
+
 const colorScheme = Appearance.getColorScheme();
 
 import {Styles} from '@common';

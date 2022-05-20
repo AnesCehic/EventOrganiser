@@ -1,5 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+
 import {MessageInput, HeaderBack} from '@components';
 
 import {MessagesService, MessageGroupsService} from '@services/apiClient';
@@ -13,7 +22,6 @@ import ModalImage from './ModalImages';
 import PushNotification from 'react-native-push-notification';
 
 const ChatMessages = ({navigation, route}) => {
-  const [messages, setMessages] = useState([]);
   const [userId, setUserId] = useState(null);
   const [textMessage, setTextMessage] = useState('');
   const [images, setImages] = useState([]);
@@ -262,15 +270,18 @@ const ChatMessages = ({navigation, route}) => {
   };
 
   return (
-    <View style={styles.container}>
-      {renderMesagesList()}
-      <ModalImage
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-      />
-      <View style={{width: '100%', height: 1, backgroundColor: '#E6EBF0'}} />
-      {renderMessageInput()}
-    </View>
+    <SafeAreaView edges={['right', 'left', 'top']} style={[styles.container]}>
+      <KeyboardAwareScrollView>
+        {renderMesagesList()}
+        <ModalImage
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+        <View style={{width: '100%', height: 1, backgroundColor: '#E6EBF0'}} />
+
+        {renderMessageInput()}
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 };
 
