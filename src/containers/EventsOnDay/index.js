@@ -85,8 +85,11 @@ const EventsOnDay = ({route, navigation}) => {
     const title = event.title;
     const description = {
       html: `<section>${event.description}</section>`,
+      text: event.description
+        .replace(/(<([^>]+)>)/gi, '')
+        .replace(/&([^;]+);/gi, ''),
     };
-    const source = <RenderHTML contentWidth={10} source={description} />;
+    const source = <Text>{description.text.substring(0, 85)}...</Text>;
     return (
       <EventItem
         onPress={() => {
@@ -136,7 +139,7 @@ const EventsOnDay = ({route, navigation}) => {
       <View
         style={{
           padding: 10,
-          marginTop: -60,
+          marginTop: -80,
           flex: 1,
         }}>
         {renderEventsList()}

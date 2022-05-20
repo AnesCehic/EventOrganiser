@@ -110,6 +110,9 @@ const MyEvents = ({navigation, route}) => {
     const imageUrl = event?.upload?.files[0]?.signedURL;
     const source = {
       html: `<section>${event.description}</section>`,
+      text: event.description
+        .replace(/(<([^>]+)>)/gi, '')
+        .replace(/&([^;]+);/gi, ''),
     };
     return (
       <TouchableOpacity
@@ -126,7 +129,7 @@ const MyEvents = ({navigation, route}) => {
         </View>
         <View style={styles.eventsListItemTopWrapper}>
           <Text style={styles.eventListItemTitle}>{event.title}</Text>
-          <RenderHTML contentWidth={10} source={source} />
+          <Text>{source.text.substring(0, 85)}...</Text>
         </View>
         <View style={styles.eventListItemDateAndTimeWrapper}>
           <View style={styles.eventListItemDateAndTime}>

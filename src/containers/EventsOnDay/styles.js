@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 26,
-    marginTop: 40,
+    marginTop: 15,
     color: 'white',
     marginLeft: 20,
   },

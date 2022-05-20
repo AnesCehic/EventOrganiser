@@ -26,7 +26,6 @@ const EventItem = ({
       </View>
       <View style={styles.eventsListItemTopWrapper}>
         <Text style={styles.eventListItemTitle}>{title}</Text>
-        {/* <RenderHTML contentWidth={10} source={source} /> */}
         {source}
       </View>
       <View style={styles.eventListItemDateAndTimeWrapper}>
