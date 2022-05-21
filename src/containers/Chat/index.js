@@ -24,7 +24,7 @@ import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import {Avatar, SearchBar} from 'react-native-elements';
 
-import {RectButton} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/AntDesign';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import MainIcon from '../../components/ChatMessageIcon/MainIcon';
 
@@ -66,25 +66,29 @@ const Chat = ({navigation}) => {
             </View>
           </TouchableOpacity>
         </View>
-        {/* <View
+        <View
           style={{
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
-            marginTop: 32,
+            marginTop: 22,
             backgroundColor: Styles.Colors.white,
             borderTopWidth: 0,
             borderBottomWidth: 0,
             borderRadius: 6,
           }}>
-            <Icon name="search" size={30} style={{padding: 5}} />
+          <Icon
+            name="search1"
+            size={25}
+            style={{padding: 5, paddingLeft: 10}}
+          />
           <TextInput
             value={search}
-            style={{paddingLeft: 10, paddingRight: 10}}
+            style={{paddingRight: 10, flex: 1}}
             onChangeText={text => setSearch(text)}
             placeholder="Search conversations or people"
           />
-        </View> */}
+        </View>
       </View>
     );
   };
