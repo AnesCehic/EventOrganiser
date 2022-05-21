@@ -15,7 +15,7 @@ import {
 import * as AddToCalendarEvent from 'react-native-add-calendar-event';
 import RenderHTML from 'react-native-render-html';
 import dayjs from 'dayjs';
-import Icon from 'react-native-vector-icons/Octicons';
+import Icon from 'react-native-vector-icons/AntDesign';
 import RemixIcon from 'react-native-remix-icon';
 import AutocompleteInput from 'react-native-autocomplete-input';
 
@@ -284,7 +284,12 @@ const FeedDetails = ({navigation, route}) => {
                 <Text>
                   {item.firstName} {item.lastName}
                 </Text>
-                <Icon style={{marginLeft: 5}} name="x" size={20} color="red" />
+                <Icon
+                  style={{marginLeft: 5}}
+                  name="close"
+                  size={20}
+                  color="red"
+                />
               </TouchableOpacity>
             );
           }}

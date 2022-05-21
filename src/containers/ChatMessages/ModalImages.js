@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, Image, Modal} from 'react-native';
-import Icon from 'react-native-vector-icons/Octicons';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import {Styles} from '@common';
 
@@ -26,7 +26,7 @@ const ModalImage = ({modalVisible, setModalVisible}) => {
                   isVisible: !modalVisible.isVisible,
                 })
               }>
-              <Icon name="x" size={30} />
+              <Icon name="close" size={30} />
             </TouchableOpacity>
           </View>
         </View>

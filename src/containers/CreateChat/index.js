@@ -7,7 +7,7 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Octicons';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import {UserContext} from '@contexts';
 import {UsersService, MessageGroupsService} from '@services/apiClient';
@@ -161,7 +161,7 @@ const CreateChat = ({navigation}) => {
           {item.firstName} {item.lastName}
         </Text>
         <TouchableOpacity onPress={() => deleteSelectedUser(item)}>
-          <Icon name="x" size={20} color="red" />
+          <Icon name="close" size={20} color="red" />
         </TouchableOpacity>
       </View>
     );
