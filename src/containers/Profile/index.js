@@ -254,6 +254,7 @@ const Profile = ({navigation, route}) => {
         // hasMore
         route={route}
         navigation={navigation}
+        userData={userDataCtx}
         data={posts.data}
       />
     );
