@@ -129,18 +129,20 @@ const CreateChat = ({navigation}) => {
             style={styles.userItemImage}
           />
         ) : (
-          <Text
+          <View
             style={[
               styles.userItemImage,
               {
                 backgroundColor: Styles.Colors.gray,
-                textAlignVertical: 'center',
-                textAlign: 'center',
+                justifyContent: 'center',
+                alignItems: 'center',
               },
             ]}>
-            {user.firstName[0].toUpperCase()}
-            {user.lastName[0].toUpperCase()}
-          </Text>
+            <Text>
+              {user.firstName[0].toUpperCase()}
+              {user.lastName[0].toUpperCase()}
+            </Text>
+          </View>
         )}
         <Text style={styles.userItemText}>
           {user.firstName} {user.lastName}
