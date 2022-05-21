@@ -250,7 +250,9 @@ const FeedDetails = ({navigation, route}) => {
                     setSearchedUsers([]);
                   }}
                   style={{padding: 4}}>
-                  <Text>{item.email}</Text>
+                  <Text>
+                    {item.firstName} {item.lastName}
+                  </Text>
                 </TouchableOpacity>
               ),
             }}
