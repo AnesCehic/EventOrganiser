@@ -14,8 +14,9 @@ import Comment from './Comment';
 import {LoadingIndicator} from '@components';
 
 import styles from './styles';
+import Styles from '../../common/Styles';
 
-const Comments = ({navigation, route, postId, postLoaded}) => {
+const Comments = ({navigation, route, postId, postLoaded, isDarkMode}) => {
   const [commentInput, setCommentInput] = useState('');
   const [comments, setComments] = useState({
     data: [],
@@ -113,7 +114,13 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
   const renderHeadline = () => {
     return (
       <View style={styles.headline}>
-        <Text style={styles.commentsHeading}>Comments</Text>
+        <Text
+          style={[
+            styles.commentsHeading,
+            isDarkMode && {color: Styles.Colors.white},
+          ]}>
+          Comments
+        </Text>
         <Text style={styles.commentsCount}>{comments.total}</Text>
       </View>
     );
@@ -121,12 +128,20 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
 
   const renderCommentInput = () => {
     return (
-      <View style={styles.commentInput}>
+      <View
+        style={[
+          styles.commentInput,
+          isDarkMode && {backgroundColor: '#4C5761'},
+        ]}>
         <TextInput
           onChangeText={text => setCommentInput(text)}
           value={commentInput}
-          style={styles.inputField}
+          style={[
+            styles.inputField,
+            isDarkMode && {color: Styles.Colors.white},
+          ]}
           placeholder="Leave your comment"
+          placeholderTextColor={isDarkMode && Styles.Colors.white}
           multiline={true}
           numberOfLines={2}
         />
@@ -144,7 +159,8 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
       {renderHeadline()}
       <FlatList
         key={item => item.id}
@@ -155,7 +171,7 @@ const Comments = ({navigation, route, postId, postLoaded}) => {
           <RefreshControl refreshing={false} onRefresh={handleRefresh} />
         }
         contentContainerStyle={{paddingBottom: 16}}
-        renderItem={({item}) => <Comment post={item} />}
+        renderItem={({item}) => <Comment isDarkMode={isDarkMode} post={item} />}
       />
       {/* <Comment post={data[0]} /> */}
       {renderCommentInput()}

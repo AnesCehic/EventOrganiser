@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 
+import {Styles} from '@common';
+
 import styles from './styles';
 
-const CustomCheckBox = ({reference, text}) => {
+const CustomCheckBox = ({reference, text, isDarkMode}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
@@ -16,7 +18,10 @@ const CustomCheckBox = ({reference, text}) => {
         onPress={() => setIsChecked(!isChecked)}
         containerStyle={styles.checkboxContainer}
         wrapperStyle={styles.checkboxWrapper}
-        textStyle={styles.checkboxText}
+        textStyle={[
+          styles.checkboxText,
+          isDarkMode && {color: Styles.Colors.white},
+        ]}
       />
     </View>
   );

@@ -1,6 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef, useContext} from 'react';
-import {Text, View, ImageBackground, Keyboard} from 'react-native';
+import {
+  Text,
+  View,
+  ImageBackground,
+  Keyboard,
+  useColorScheme,
+} from 'react-native';
 import Icon from 'react-native-remix-icon';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
@@ -18,6 +24,7 @@ const ChangePassword = ({navigation}) => {
 
   const newPassRef = useRef(null);
   const confirmNewPassRef = useRef(null);
+  const colorScheme = useColorScheme();
 
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [newPassword, setNewPassword] = useState('');
@@ -40,6 +47,10 @@ const ChangePassword = ({navigation}) => {
                     borderBottomRightRadius: 0,
                   }
                 : {},
+              colorScheme === 'dark' && {
+                backgroundColor: '#273038',
+                borderWidth: 0,
+              },
             ]}
             onChangeText={setNewPassword}
             value={newPassword}
@@ -75,6 +86,10 @@ const ChangePassword = ({navigation}) => {
                     borderBottomRightRadius: 0,
                   }
                 : {},
+              colorScheme === 'dark' && {
+                backgroundColor: '#273038',
+                borderWidth: 0,
+              },
             ]}
             onChangeText={setConfirmNewPassword}
             value={confirmNewPassword}
@@ -136,13 +151,23 @@ const ChangePassword = ({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+      ]}>
       <View style={styles.topImage}>
         <Text style={styles.headerText}>Password</Text>
       </View>
       {renderInputFields()}
       <SubmitButton
-        style={styles.submitButton}
+        style={[
+          styles.submitButton,
+          colorScheme === 'dark' && {
+            backgroundColor: '#141C24',
+          },
+        ]}
+        titleStyle={colorScheme === 'dark' && {color: Styles.Colors.white}}
         onPress={handleSubmit}
         title="Update password"
         isLoading={isLoading}

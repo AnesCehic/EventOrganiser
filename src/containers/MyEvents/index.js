@@ -19,7 +19,7 @@ import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-const MyEvents = ({navigation, route}) => {
+const MyEvents = ({navigation, route, isDarkMode}) => {
   const myEventIds = route.params?.ids;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -116,7 +116,7 @@ const MyEvents = ({navigation, route}) => {
     };
     return (
       <TouchableOpacity
-        style={styles.eventsListItemContainer}
+        style={[styles.eventsListItemContainer, isDarkMode && {borderWidth: 0}]}
         onPress={() => {
           navigateToEvent(event._id);
         }}>
@@ -166,7 +166,8 @@ const MyEvents = ({navigation, route}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
       <ImageBackground style={styles.topImage}>
         <Text style={styles.headerText}>My Events</Text>
       </ImageBackground>

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 130,
     width: '100%',
-    backgroundColor: Styles.Colors.topBackground,
+    backgroundColor: Styles.Colors.headerBackground,
   },
   headerText: {
     fontSize: 26,

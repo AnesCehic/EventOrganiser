@@ -75,7 +75,13 @@ const EditProfile = ({navigation}) => {
   const renderUser = () => {
     return (
       <TouchableOpacity
-        style={styles.user}
+        style={[
+          styles.user,
+          colorScheme === 'dark' && {
+            backgroundColor: '#273038',
+            borderWidth: 0,
+          },
+        ]}
         onPress={() => {
           navigation.navigate(Constants.NavigationScreens.ProfileScreen, {
             hideListHeader: true,
@@ -103,7 +109,11 @@ const EditProfile = ({navigation}) => {
           />
         )}
         <View style={styles.userInfo}>
-          <Text style={styles.userName}>
+          <Text
+            style={[
+              styles.userName,
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>
             {userData.firstName} {userData.lastName}
           </Text>
           <Text style={styles.userEmail}>{userData.email}</Text>
@@ -134,7 +144,7 @@ const EditProfile = ({navigation}) => {
   const renderMenu = () => {
     return (
       <>
-        <View style={styles.menu}>
+        <View style={[styles.menu, colorScheme === 'dark' && {borderWidth: 0}]}>
           {MenuItems.map((menuItem, i) => {
             return (
               <TouchableOpacity
@@ -148,6 +158,10 @@ const EditProfile = ({navigation}) => {
                   {
                     borderBottomRightRadius:
                       i === MenuItems.length - 1 ? 10 : 0,
+                  },
+                  colorScheme === 'dark' && {
+                    backgroundColor: '#273038',
+                    borderBottomWidth: 0,
                   },
                 ]}
                 onPress={() => {
@@ -175,7 +189,15 @@ const EditProfile = ({navigation}) => {
             );
           })}
         </View>
-        <View style={[styles.menuItem, styles.logoutItem]}>
+        <View
+          style={[
+            styles.menuItem,
+            styles.logoutItem,
+            colorScheme === 'dark' && {
+              backgroundColor: '#141C24',
+              borderWidth: 0,
+            },
+          ]}>
           <View style={styles.leftContent}>
             <ChatBubblesMsg
               width={18}
@@ -188,7 +210,7 @@ const EditProfile = ({navigation}) => {
           <Switch
             trackColor={{
               false: Styles.Colors.darkGrayBg,
-              true: Styles.Colors.success,
+              true: Styles.Colors.gold,
             }}
             thumbColor={Styles.Colors.white}
             ios_backgroundColor={Styles.Colors.darkGrayBg}
@@ -199,7 +221,15 @@ const EditProfile = ({navigation}) => {
         </View>
         <TouchableOpacity
           onPress={() => logout()}
-          style={[styles.menuItem, styles.logoutItem, {marginBottom: 16}]}>
+          style={[
+            styles.menuItem,
+            styles.logoutItem,
+            {marginBottom: 16},
+            colorScheme === 'dark' && {
+              backgroundColor: '#141C24',
+              borderWidth: 0,
+            },
+          ]}>
           <View style={styles.leftContent}>
             <LogoutIcon />
             <Text style={styles.menuItemText}>Log out</Text>
@@ -255,8 +285,16 @@ const EditProfile = ({navigation}) => {
     return <LoadingIndicator />;
   }
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.topImage}>
+    <ScrollView
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+      ]}>
+      <View
+        style={[
+          styles.topImage,
+          colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+        ]}>
         <Text style={styles.headerText}>My account</Text>
       </View>
       <View style={styles.content}>

@@ -5,6 +5,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Platform,
+  useColorScheme,
 } from 'react-native';
 import {Avatar} from 'react-native-elements';
 import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
@@ -14,6 +15,7 @@ import {LoadingIndicator, TextInput} from '@components';
 import {toast} from '@utils';
 import {UserContext} from '@contexts';
 import UserIcon from '@assets/ImageComponents/UserIcon';
+import {Styles} from '@common';
 
 import {UsersService} from '@services/apiClient';
 
@@ -23,6 +25,7 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 const PersonalDetails = ({navigation, route}) => {
   const {userData, setUserData} = useContext(UserContext);
 
+  const colorScheme = useColorScheme();
   const [firstName, setFirstName] = useState(userData.firstName);
   const [lastName, setLastName] = useState(userData.lastName);
   const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +127,7 @@ const PersonalDetails = ({navigation, route}) => {
               size={20}
               style={styles.avatarIcon}
               name="vertical-align-top"
-              color="white"
+              color={Styles.Colors.white}
             />
           </Avatar>
         </View>
@@ -142,7 +145,7 @@ const PersonalDetails = ({navigation, route}) => {
               size={20}
               style={styles.avatarIcon}
               name="vertical-align-top"
-              color="white"
+              color={Styles.Colors.white}
             />
           </Avatar>
         </View>
@@ -156,7 +159,13 @@ const PersonalDetails = ({navigation, route}) => {
         <View style={styles.fieldWrapper}>
           <Text style={styles.inputFieldLabel}>First name</Text>
           <TextInput
-            style={styles.inputField}
+            style={[
+              styles.inputField,
+              colorScheme === 'dark' && {
+                backgroundColor: '#273038',
+                borderWidth: 0,
+              },
+            ]}
             onChangeText={setFirstName}
             value={firstName}
           />
@@ -164,7 +173,13 @@ const PersonalDetails = ({navigation, route}) => {
         <View style={styles.fieldWrapper}>
           <Text style={styles.inputFieldLabel}>Last name</Text>
           <TextInput
-            style={styles.inputField}
+            style={[
+              styles.inputField,
+              colorScheme === 'dark' && {
+                backgroundColor: '#273038',
+                borderWidth: 0,
+              },
+            ]}
             onChangeText={setLastName}
             value={lastName}
           />
@@ -174,9 +189,24 @@ const PersonalDetails = ({navigation, route}) => {
           <TextInput
             value={userData.email}
             editable={false}
-            style={[styles.inputField, styles.disabledInput]}
+            style={[
+              styles.inputField,
+              styles.disabledInput,
+              colorScheme === 'dark' && {
+                backgroundColor: '#141C24',
+                borderWidth: 0,
+              },]}
           />
-          <View style={styles.disabledInputBottomTextWrapper}>
+          <View
+            style={[
+              styles.disabledInputBottomTextWrapper,
+              colorScheme === 'dark' && {
+                backgroundColor: '#141C24',
+                borderLeftWidth: 0,
+                borderRightWidth: 0,
+                borderBottomWidth: 0,
+              },
+            ]}>
             <Text style={styles.disabledInputBottomText}>
               To request an email change please{' '}
               <Text
@@ -196,7 +226,11 @@ const PersonalDetails = ({navigation, route}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+      ]}>
       <View style={styles.topImage}>
         <Text style={styles.headerText}>Personal details</Text>
       </View>

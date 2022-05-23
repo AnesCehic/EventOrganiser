@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     minHeight: 25,
     borderRadius: 50,
     flexDirection: 'row',
-    backgroundColor: Styles.Colors.textInputGrayBg
+    backgroundColor: Styles.Colors.textInputGrayBg,
   },
   postSubmitButton: {
     paddingHorizontal: 16,
@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
   },
   postSubmitButtonText: {
     color: Styles.Colors.white,
-    fontWeight: '700'
+    fontWeight: '700',
   },
   inputField: {
     flexGrow: 1,
     padding: 0,
     flexShrink: 1,
-    paddingLeft: 11
+    paddingLeft: 11,
   },
   headline: {
     flexDirection: 'row',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   commentsHeading: {
     fontSize: 14,
     fontWeight: '500',
-    color: Styles.Colors.darkGrayText
+    color: Styles.Colors.darkGrayText,
   },
   commentsCount: {
     fontSize: 14,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F3F6',
     borderRadius: 50,
     marginLeft: 8,
-    color: Styles.Colors.darkGrayText
+    color: Styles.Colors.darkGrayText,
   },
   commentContainer: {
     width: '100%',
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     padding: 12,
     ontSize: 12,
     fontWeight: '400',
-    ...Styles.Shadows.textBox
+    ...Styles.Shadows.textBox,
   },
   userImageFallback: {
     padding: 6,

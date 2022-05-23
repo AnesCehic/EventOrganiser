@@ -35,7 +35,7 @@ import DateAndPlace from './DateAndPlace';
 
 import styles from './styles';
 
-const FeedDetails = ({navigation, route}) => {
+const FeedDetails = ({navigation, route, isDarkMode}) => {
   const colorScheme = useColorScheme();
   const {userData} = useContext(UserContext);
   const [eventData, setEventData] = useState({});
@@ -102,11 +102,14 @@ const FeedDetails = ({navigation, route}) => {
           Event details
         </Text>
         <Text
-          style={{
-            color: '#000',
-            fontSize: 18,
-            fontFamily: Styles.Fonts.headerBold,
-          }}>
+          style={[
+            {
+              color: '#000',
+              fontSize: 18,
+              fontFamily: Styles.Fonts.headerBold,
+            },
+            isDarkMode && {color: Styles.Colors.white},
+          ]}>
           {eventData.title}
         </Text>
         {renderInformations()}
@@ -185,7 +188,10 @@ const FeedDetails = ({navigation, route}) => {
         isVisible={isRSVPModalVisible}
         title="RSVP Now"
         closeModal={() => setIsRSVPModalVisible(false)}
-        contentContainerStyle={styles.modalContainer}>
+        contentContainerStyle={[
+          styles.modalContainer,
+          isDarkMode && {backgroundColor: '#0A121A'},
+        ]}>
         <TouchableOpacity
           style={styles.closeButton}
           onPress={() => setIsRSVPModalVisible(false)}>
@@ -196,12 +202,15 @@ const FeedDetails = ({navigation, route}) => {
         </TouchableOpacity>
         {renderModalEventDetails()}
         <View
-          style={{
-            width: screenWidth,
-            backgroundColor: '#E6EBF0',
-            height: 1,
-            marginBottom: 20,
-          }}
+          style={[
+            {
+              width: screenWidth,
+              backgroundColor: '#E6EBF0',
+              height: 1,
+              marginBottom: 20,
+            },
+            isDarkMode && {backgroundColor: '#273038'},
+          ]}
         />
         <Text
           style={{
@@ -215,7 +224,10 @@ const FeedDetails = ({navigation, route}) => {
         </Text>
         <TextInput
           placeholder="Dietary Restrictions & notes..."
-          style={styles.modalTextAraea}
+          style={[
+            styles.modalTextAraea,
+            isDarkMode && {backgroundColor: '#273038'},
+          ]}
           multiline={true}
           value={note}
           onChangeText={setNoteText}
@@ -233,14 +245,19 @@ const FeedDetails = ({navigation, route}) => {
               height: 100,
             }}
             style
-            inputContainerStyle={{
-              borderRadius: 6,
-              borderColor: 'black',
-              paddingHorizontal: 6,
-              borderWidth: 0,
-              elevation: 2,
-              backgroundColor: Styles.Colors.white,
-            }}
+            inputContainerStyle={[
+              {
+                borderRadius: 6,
+                borderColor: 'black',
+                paddingHorizontal: 6,
+                borderWidth: 0,
+                elevation: 2,
+                backgroundColor: Styles.Colors.white,
+              },
+              isDarkMode && {
+                backgroundColor: '#273038',
+              },
+            ]}
             flatListProps={{
               keyExtractor: (_, idx) => idx,
               renderItem: ({item}) => (
@@ -270,17 +287,20 @@ const FeedDetails = ({navigation, route}) => {
                     selectedUsers.filter(u => u._id !== item._id),
                   );
                 }}
-                style={{
-                  paddingHorizontal: 5,
-                  paddingVertical: 3,
-                  borderRadius: 8,
-                  flexDirection: 'row',
-                  elevation: 1,
-                  backgroundColor: 'white',
-                  alignItems: 'center',
-                  margin: 3,
-                  justifyContent: 'center',
-                }}>
+                style={[
+                  {
+                    paddingHorizontal: 5,
+                    paddingVertical: 3,
+                    borderRadius: 8,
+                    flexDirection: 'row',
+                    elevation: 1,
+                    backgroundColor: 'white',
+                    alignItems: 'center',
+                    margin: 3,
+                    justifyContent: 'center',
+                  },
+                  isDarkMode && {backgroundColor: '#273038'},
+                ]}>
                 <Text>
                   {item.firstName} {item.lastName}
                 </Text>
@@ -434,6 +454,7 @@ const FeedDetails = ({navigation, route}) => {
         text1={`${eventData.startDay} - ${eventData.endDay}`}
         text2={`${eventData.startTime} - ${eventData.endTime}`}
         bold
+        isDarkMode={isDarkMode}
       />
     );
   };
@@ -441,13 +462,24 @@ const FeedDetails = ({navigation, route}) => {
   const renderDateAndPlaceLocation = () => {
     const location1 = eventData?.location?.split(',')[0];
     const location2 = eventData?.location?.split(',').slice(1).join('');
-    return <DateAndPlace icon="place" text1={location1} text2={location2} />;
+    return (
+      <DateAndPlace
+        isDarkMode={isDarkMode}
+        icon="place"
+        text1={location1}
+        text2={location2}
+      />
+    );
   };
 
   const renderRSVP = () => {
     if (eventData.didRSVP || localDidRSVP) {
       return (
-        <View style={styles.rsvpContainer}>
+        <View
+          style={[
+            styles.rsvpContainer,
+            isDarkMode && {backgroundColor: '#141C24'},
+          ]}>
           <View>
             <Text style={styles.joinText}>Already attending!</Text>
             <Text>We saved a seat for you</Text>
@@ -479,7 +511,8 @@ const FeedDetails = ({navigation, route}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
       <ScrollView contentContainerStyle={styles.scrollViewStyle}>
         <Image
           style={styles.image}
@@ -490,7 +523,13 @@ const FeedDetails = ({navigation, route}) => {
 
         <View style={styles.scrollViewContentStyle}>
           <View>
-            <Text style={styles.header}>{eventData.title}</Text>
+            <Text
+              style={[
+                styles.header,
+                isDarkMode && {color: Styles.Colors.white},
+              ]}>
+              {eventData.title}
+            </Text>
           </View>
           <View style={styles.dateAndLocationWithInfo}>
             {renderDateAndPlace()}

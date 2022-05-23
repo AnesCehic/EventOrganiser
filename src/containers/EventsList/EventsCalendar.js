@@ -10,7 +10,7 @@ import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-const EventsCalendar = ({navigateToMonth, navigateToDay}) => {
+const EventsCalendar = ({navigateToMonth, navigateToDay, isDarkMode}) => {
   const colorScheme = useColorScheme();
   const today = dayjs().format('YYYY-MM-DD');
 
@@ -88,10 +88,14 @@ const EventsCalendar = ({navigateToMonth, navigateToDay}) => {
       renderHeader={date => {
         const month = dayjs(date).format('MMMM YYYY');
         return (
-          <View style={styles.header}>
+          <View
+            style={[styles.header, isDarkMode && {backgroundColor: '#0A121A'}]}>
             <Text style={styles.calendarHeaderText}>{month}</Text>
             <TouchableOpacity
-              style={styles.headerBtn}
+              style={[
+                styles.headerBtn,
+                isDarkMode && {backgroundColor: '#4C5761'},
+              ]}
               onPress={() => {
                 navigateToMonth(date);
               }}>
@@ -100,6 +104,7 @@ const EventsCalendar = ({navigateToMonth, navigateToDay}) => {
                 style={[
                   styles.calendarHeaderText,
                   styles.calendarHeaderTextMonth,
+                  isDarkMode && {color: Styles.Colors.white},
                 ]}>
                 Show entire month
               </Text>

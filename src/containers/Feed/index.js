@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, useColorScheme} from 'react-native';
 
 import {PostsList, LoadingIndicator, InfiniteLoader} from '@components';
 import {UserContext} from '@contexts';
@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 
 const Feed = ({navigation}) => {
   const {userData} = useContext(UserContext);
+  const colorScheme = useColorScheme();
   const [events, setEvents] = useState([]);
   const [infiniteScrollLoader, setInfiniteScrollLoader] = useState(false);
 
@@ -125,6 +126,7 @@ const Feed = ({navigation}) => {
       <PostsList
         handleRefresh={handleRefresh}
         headerData={events}
+        isDarkMode={colorScheme === 'dark'}
         onEndReached={loadPostsBefore}
         hasMore={posts.data.length < posts.total}
         data={posts.data}
@@ -142,7 +144,11 @@ const Feed = ({navigation}) => {
   const hasMore = (posts.page - 1) * 5 < posts.total;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' && styles.containerDark,
+      ]}>
       <View style={styles.imageBackground}>
         <Image
           source={require('../../assets/Home/white.png')}

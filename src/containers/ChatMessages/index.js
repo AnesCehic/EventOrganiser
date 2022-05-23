@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  useColorScheme,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -21,8 +22,12 @@ import dayjs from 'dayjs';
 import ModalImage from './ModalImages';
 import PushNotification from 'react-native-push-notification';
 
+import isToday from 'dayjs/plugin/isToday';
+import isYesterday from 'dayjs/plugin/isYesterday';
+
 const ChatMessages = ({navigation, route}) => {
   const [userId, setUserId] = useState(null);
+  const colorScheme = useColorScheme();
   const [textMessage, setTextMessage] = useState('');
   const [images, setImages] = useState([]);
   const [modalVisible, setModalVisible] = useState({
@@ -32,7 +37,7 @@ const ChatMessages = ({navigation, route}) => {
   const [pagination, setPagination] = useState({
     total: 10,
     page: 1,
-    limit: 10,
+    limit: 20,
     messages: [],
   });
 
@@ -75,7 +80,7 @@ const ChatMessages = ({navigation, route}) => {
 
   const getMessages = async () => {
     try {
-      if ((pagination.page - 1) * 10 > pagination.total) {
+      if ((pagination.page - 1) * 20 > pagination.total) {
         return;
       }
       const userIdH = await AsyncStorageLib.getItem('@userId');
@@ -114,7 +119,51 @@ const ChatMessages = ({navigation, route}) => {
     });
   };
 
-  const renderItem = ({item}) => {
+  const renderDate = date => {
+    dayjs.extend(isToday);
+    dayjs.extend(isYesterday);
+    let message = '';
+    if (dayjs(date).isToday()) {
+      message = 'Today';
+    } else if (dayjs(date).isYesterday()) {
+      message = 'Yesterday';
+    } else {
+      message = date;
+    }
+    return <Text style={styles.messageDate}>{message}</Text>;
+  };
+
+  const renderTriangle = (curr, next, nextDate, currDate) => {
+    // console.log('t', curr, next);
+    // if (!next) {
+    //   if (curr)
+    // }
+    // if (next) {
+    //   if (nextDate !== currDate) {
+    //     return {
+    //       borderTop
+    //     }
+    //   }
+
+    //   if (nextDate === currDate) {
+    //     if (next !== curr) {
+    //       return <Text>B</Text>;
+    //     }
+    //   }
+    // }
+  };
+
+  const renderItem = ({item, index}) => {
+    const previousMessage = pagination.messages[index + 1]?.createdAt;
+    const nextMessage = pagination.messages[index - 1]?.ownerId;
+    const nextMessageDate = pagination.messages[index - 1]?.createdAt;
+    let currentMessage = item.ownerId;
+    let previousDate =
+      previousMessage && dayjs(previousMessage).format('MM/DD/YYYY');
+    let nextMessageDateFormatted =
+      nextMessageDate && dayjs(nextMessageDate).format('MM/DD/YYYY');
+    let currentDate = dayjs(item.createdAt).format('MM/DD/YYYY');
+
     return (
       <View
       // style={{
@@ -123,6 +172,10 @@ const ChatMessages = ({navigation, route}) => {
       //   alignItems: 'flex-end',
       // }}
       >
+        {!previousDate && renderDate(currentDate)}
+        {previousDate && currentDate !== previousDate
+          ? renderDate(currentDate)
+          : null}
         {item.text ? (
           <View
             style={[
@@ -141,9 +194,9 @@ const ChatMessages = ({navigation, route}) => {
                 {item.text}
               </Text>
             ) : null}
-            {/* <Text style={styles.messageDateTime}>
-              {dayjs(item.createdAt).format('MM/DD HH:mm')}
-            </Text> */}
+            <Text style={styles.messageDateTime}>
+              {dayjs(item.createdAt).format('HH:mm')}
+            </Text>
           </View>
         ) : null}
         {item.upload && (
@@ -171,6 +224,7 @@ const ChatMessages = ({navigation, route}) => {
                     justifyContent: 'flex-start',
                   },
               {backgroundColor: Styles.Colors.white, borderRadius: 8},
+              colorScheme === 'dark' && {backgroundColor: '#273038'},
             ]}>
             {item.upload?.files.map((image, index) => {
               return (
@@ -200,7 +254,10 @@ const ChatMessages = ({navigation, route}) => {
   const renderMesagesList = () => {
     return (
       <FlatList
-        contentContainerStyle={{alignItems: 'stretch'}}
+        contentContainerStyle={[
+          {alignItems: 'stretch'},
+          colorScheme === 'dark' && {backgroundColor: '#273038'},
+        ]}
         style={{marginBottom: 16}}
         data={pagination.messages}
         keyExtractor={item => item._id}
@@ -262,6 +319,7 @@ const ChatMessages = ({navigation, route}) => {
       <MessageInput
         value={textMessage}
         onTextChange={textChange}
+        isDarkMode={colorScheme === 'dark'}
         onPress={sendMessage}
         images={images}
         setImages={setImages}
@@ -271,14 +329,24 @@ const ChatMessages = ({navigation, route}) => {
 
   // TODO fix keyboard aware scroll view for iOS
   return (
-    <SafeAreaView edges={['right', 'left', 'top']} style={[styles.container]}>
+    <SafeAreaView
+      edges={['right', 'left', 'top']}
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#273038'},
+      ]}>
       <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
         {renderMesagesList()}
         <ModalImage
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
         />
-        <View style={{width: '100%', height: 1, backgroundColor: '#E6EBF0'}} />
+        <View
+          style={[
+            {width: '100%', height: 1, backgroundColor: '#E6EBF0'},
+            colorScheme === 'dark' && {backgroundColor: '#273038'},
+          ]}
+        />
 
         {renderMessageInput()}
       </KeyboardAwareScrollView>

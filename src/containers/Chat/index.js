@@ -55,13 +55,16 @@ const Chat = ({navigation}) => {
             </Text>
           </View>
           <TouchableOpacity
-            style={styles.createMessageIcon}
+            style={[
+              styles.createMessageIcon,
+              colorScheme === 'dark' && {backgroundColor: '#4C5761'},
+            ]}
             onPress={() => {
               navigation.navigate('CreateChat');
             }}>
             <View>
               <NewMessageIcon
-                color={colorScheme === 'dark' ? '#b5b5b5' : null}
+                color={colorScheme === 'dark' ? '#b5b5b5' : Styles.Colors.white}
               />
             </View>
           </TouchableOpacity>
@@ -72,7 +75,7 @@ const Chat = ({navigation}) => {
             flexDirection: 'row',
             alignItems: 'center',
             marginTop: 22,
-            backgroundColor: Styles.Colors.white,
+            backgroundColor: colorScheme === 'dark' ? '#0A121A' : Styles.Colors.white,
             borderTopWidth: 0,
             borderBottomWidth: 0,
             borderRadius: 6,
@@ -80,17 +83,40 @@ const Chat = ({navigation}) => {
           <Icon
             name="search1"
             size={25}
-            style={{padding: 5, paddingLeft: 10}}
+            style={[
+              {padding: 5, paddingLeft: 10},
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}
           />
           <TextInput
             value={search}
-            style={{paddingRight: 10, flex: 1}}
-            onChangeText={text => setSearch(text)}
+            style={[
+              {paddingRight: 10, flex: 1},
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}
+            placeholderTextColor={colorScheme === 'dark' && Styles.Colors.white}
+            onChangeText={text => {
+              setSearch(text);
+              searchChats();
+            }}
             placeholder="Search conversations or people"
           />
         </View>
       </View>
     );
+  };
+
+  const searchChats = async () => {
+    try {
+      const res = await MessageGroupsService.find({
+        query: {
+          label: search,
+        },
+      });
+      console.log('search results', res);
+    } catch (error) {
+      console.log('[Error seraching chat groups]', error);
+    }
   };
 
   const getAllMessages = async () => {
@@ -160,7 +186,7 @@ const Chat = ({navigation}) => {
             <DeleteIconBig />
             <Text
               style={{
-                color: 'white',
+                color: Styles.Colors.white,
                 marginTop: 3,
               }}>
               Delete
@@ -177,6 +203,7 @@ const Chat = ({navigation}) => {
     return (
       <Swipeable
         friction={2}
+        containerStyle={colorScheme === 'dark' && {backgroundColor: '#0A121A'}}
         renderRightActions={(progress, dragX) =>
           renderRightActions(progress, dragX, item._id)
         }>
@@ -190,14 +217,29 @@ const Chat = ({navigation}) => {
               componentHeader,
             )
           }
-          style={styles.messageContainer}>
+          style={[
+            styles.messageContainer,
+            colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+          ]}>
           {component}
           <View style={styles.infoContainer}>
             <View style={styles.nameAndTime}>
-              <Text style={styles.label}>{item.label}</Text>
+              <Text
+                style={[
+                  styles.label,
+                  colorScheme === 'dark' && {color: Styles.Colors.white},
+                ]}>
+                {item.label}
+              </Text>
             </View>
             <View>
-              <Text style={{fontSize: 14}}>{item.lastMessage}</Text>
+              <Text
+                style={[
+                  {fontSize: 14},
+                  colorScheme === 'dark' && {color: Styles.Colors.white},
+                ]}>
+                {item.lastMessage}
+              </Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -236,7 +278,11 @@ const Chat = ({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+      ]}>
       {renderChatHeader()}
       {renderMessageGroups()}
     </View>

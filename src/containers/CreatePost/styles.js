@@ -5,7 +5,7 @@ import {Styles} from '@common';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.darkBgLight,
   },
   postTextInput: {
     paddingBottom: 20,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     paddingLeft: 12,
     borderRadius: 6,
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.createPostButton,
   },
   text: {
     textAlign: 'center',

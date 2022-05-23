@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {FlatList, View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  useColorScheme,
+} from 'react-native';
 import Icon from 'react-native-remix-icon';
 import IconFeathers from 'react-native-vector-icons/Feather';
 import IconMAC from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -28,6 +35,7 @@ const GroupMembers = ({navigation, route}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [groupData, setGroupData] = useState({});
+  const colorScheme = useColorScheme();
 
   const fetchGroupMembers = async () => {
     try {
@@ -75,7 +83,13 @@ const GroupMembers = ({navigation, route}) => {
             userId: member._id,
           });
         }}
-        style={userCardStyle.container}>
+        style={[
+          userCardStyle.container,
+          colorScheme === 'dark' && {
+            backgroundColor: '#4C5761',
+            borderWidth: 0,
+          },
+        ]}>
         <View style={userCardStyle.userInfo}>
           {member.upload?.files[0]?.signedURL ? (
             <Avatar
@@ -179,7 +193,10 @@ const GroupMembers = ({navigation, route}) => {
                       joinGroup();
                     }
                   }}
-                  style={userCardStyle.headerButton}>
+                  style={[
+                    userCardStyle.headerButton,
+                    colorScheme === 'dark' && {backgroundColor: '#4C5761'},
+                  ]}>
                   <IconMAC
                     name="checkbox-marked-circle-outline"
                     size={16}
@@ -199,8 +216,13 @@ const GroupMembers = ({navigation, route}) => {
                 style={[
                   userCardStyle.headerButton,
                   {marginLeft: 8, paddingHorizontal: 0},
+                  colorScheme === 'dark' && {
+                    backgroundColor: '#4C5761',
+                  },
                 ]}>
-                <BottomChat />
+                <BottomChat
+                  fill={colorScheme === 'dark' && Styles.Colors.white}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -225,7 +247,12 @@ const GroupMembers = ({navigation, route}) => {
   }
 
   return (
-    <View style={[styles.container, userCardStyle.paddingOverride]}>
+    <View
+      style={[
+        styles.container,
+        userCardStyle.paddingOverride,
+        colorScheme === 'dark' && {backgroundColor: '#141C24'},
+      ]}>
       {renderHeader()}
       <FlatList
         data={groupMembers}

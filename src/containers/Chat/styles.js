@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   separator: {
-    backgroundColor: colorScheme === 'light' ? 'rgba(0, 0, 0, 0.12)' : '#000',
+    backgroundColor:
+      colorScheme === 'light' ? 'rgba(0, 0, 0, 0.12)' : '#1C2329',
     width: '100%',
     height: 1,
   },

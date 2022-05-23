@@ -1,6 +1,10 @@
 import React, {useEffect, useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {LoadingIndicator} from '@components';
@@ -53,6 +57,7 @@ import {
   BottomAccount,
   BottomAccountActive,
 } from '@assets/SvgIcons';
+import {useColorScheme} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -218,6 +223,8 @@ const MainNavigation = () => {
   const {authenticated, setAuthenticated, setUserData} =
     useContext(UserContext);
 
+  const colorScheme = useColorScheme();
+
   useEffect(() => {
     getAuth();
   }, []);
@@ -276,7 +283,9 @@ const MainNavigation = () => {
   };
 
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer
+      theme={colorScheme === 'light' ? DefaultTheme : DarkTheme}
+      linking={linking}>
       <Stack.Navigator initialRouteName="Start">
         {!authenticated ? (
           <>

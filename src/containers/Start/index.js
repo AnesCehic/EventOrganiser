@@ -5,6 +5,7 @@ import Video from 'react-native-video';
 import {SubmitButton, BottomStartScreenButton} from '@components';
 
 import styles from './styles';
+import Styles from '../../common/Styles';
 
 const Start = ({navigation}) => {
   const [videoLoading, setVideoLoading] = useState(true);
@@ -56,7 +57,13 @@ const Start = ({navigation}) => {
           ignoreSilentSwitch={'obey'}
         />
       </View>
-      <View style={[styles.overlay, {opacity: videoLoading ? 1 : 0.5}]} />
+      <View
+        style={[
+          styles.overlay,
+          {opacity: videoLoading ? 1 : 0.5},
+          colorScheme === 'dark' && {backgroundColor: 'black'},
+        ]}
+      />
       {videoLoading ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image source={require('../../assets/Home/white.png')} />
@@ -81,8 +88,14 @@ const Start = ({navigation}) => {
             <SubmitButton
               onPress={() => navigation.navigate('Login')}
               title="Sign in with email"
-              style={styles.button}
-              titleStyle={styles.textStyle}
+              style={[
+                styles.button,
+                colorScheme === 'dark' && {backgroundColor: '#273038'},
+              ]}
+              titleStyle={[
+                styles.textStyle,
+                colorScheme === 'dark' && {color: Styles.Colors.white},
+              ]}
             />
           </View>
         </>

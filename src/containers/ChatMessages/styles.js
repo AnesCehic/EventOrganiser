@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   userMessageContainer: {
-    backgroundColor: colorScheme === 'light' ? Styles.Colors.gold : '#1C2329',
+    backgroundColor: Styles.Colors.gold,
     alignSelf: 'flex-end',
   },
   messageDateTime: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   friendMessageContainerText: {
-    color: Styles.Colors.grayText,
+    color: colorScheme === 'dark' ? 'white' : Styles.Colors.grayText,
   },
 
   triangle: {
@@ -55,6 +55,12 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     borderTopColor: Styles.Colors.primaryBlue,
     transform: [{rotate: '90deg'}],
+  },
+  messageDate: {
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    textAlign: 'center',
+    marginVertical: 12,
   },
 });
 

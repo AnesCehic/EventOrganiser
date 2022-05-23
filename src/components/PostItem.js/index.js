@@ -4,6 +4,7 @@ import {Text} from 'react-native-elements';
 import dayjs from 'dayjs';
 
 import UserIcon from '@assets/ImageComponents/UserIcon';
+import {Styles} from '@common';
 
 import styles from './styles';
 
@@ -12,6 +13,8 @@ const PostItem = ({
   img,
   time,
   headline,
+  isDarkMode,
+  styleDarkMode,
   content,
   owner,
   createdAt,
@@ -20,7 +23,9 @@ const PostItem = ({
   const postAvatar = owner?.upload?.files[0]?.signedURL || 'default-uri';
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, isDarkMode && styleDarkMode]}>
       {img && img[0]?.signedURL ? (
         <View style={styles.imageContainer}>
           <Image
@@ -48,16 +53,25 @@ const PostItem = ({
             )}
           </View>
           <Text
-            style={
-              styles.ownerName
-            }>{`${owner.firstName} ${owner.lastName}`}</Text>
+            style={[
+              styles.ownerName,
+              isDarkMode && {color: Styles.Colors.white},
+            ]}>{`${owner.firstName} ${owner.lastName}`}</Text>
         </View>
         <View style={styles.timeFromNowContainer}>
-          <Text style={styles.timeFromNow}>{timeFromNow}</Text>
+          <Text
+            style={[
+              styles.timeFromNow,
+              isDarkMode && {color: Styles.Colors.white},
+            ]}>
+            {timeFromNow}
+          </Text>
         </View>
       </View>
       {content ? (
-        <Text style={styles.content} numberOfLines={2}>
+        <Text
+          style={[styles.content, isDarkMode && {color: Styles.Colors.white}]}
+          numberOfLines={2}>
           {content}
         </Text>
       ) : null}

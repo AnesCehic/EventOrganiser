@@ -22,7 +22,7 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import Styles from '../../common/Styles';
 import {UploadsService} from '../../services/apiClient';
 
-const Login = ({navigation}) => {
+const Login = ({navigation, isDarkMode}) => {
   const colorScheme = Appearance.getColorScheme();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -62,25 +62,40 @@ const Login = ({navigation}) => {
   };
 
   const render = () => {
-    return colorScheme === 'light' ? (
+    return (
       <ImageBackground
         resizeMode="cover"
         source={require('../../assets/background-video.png')}
         style={styles.container}>
         {renderChildren()}
       </ImageBackground>
-    ) : (
-      <View style={styles.container}>{renderChildren()}</View>
     );
+    // (
+    //   <View style={styles.container}>{renderChildren()}</View>
+    // );
   };
 
   const renderChildren = () => {
     return (
       <>
+        <View
+          style={[
+            {
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              opacity: 0.5,
+            },
+            isDarkMode && {backgroundColor: '#273038'},
+          ]}
+        />
         <Form
           navigation={navigation}
           submitLogin={login}
           isLoading={isLoading}
+          isDarkMode={isDarkMode}
         />
         <View style={{width: '100%', alignItems: 'center'}}>
           <SubmitButton

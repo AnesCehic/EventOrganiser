@@ -12,7 +12,7 @@ const ChangeGroupNameScreen = ({navigation, route}) => {
       headerTintColor: '#fff',
       headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
       headerStyle: {
-        backgroundColor: Styles.Colors.gold,
+        backgroundColor: Styles.Colors.headerBackground,
       },
     });
   }, []);

@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
-import {Text} from 'react-native';
+import {Text, useColorScheme} from 'react-native';
 
 import {ForgotPassword} from '@containers';
 import {HeaderBack} from '@components';
 
 const ForgotPasswordScreen = ({navigation}) => {
+  const colorScheme = useColorScheme();
   useEffect(() => {
     navigation.setOptions({
       headerTitle: () => <Text />,
@@ -14,7 +15,12 @@ const ForgotPasswordScreen = ({navigation}) => {
     });
   }, []);
 
-  return <ForgotPassword navigation={navigation} />;
+  return (
+    <ForgotPassword
+      navigation={navigation}
+      isDarkMode={colorScheme === 'dark'}
+    />
+  );
 };
 
 export default ForgotPasswordScreen;

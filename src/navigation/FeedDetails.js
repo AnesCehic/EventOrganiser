@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import FeedDetails from '@containers/FeedDetails';
-import {View} from 'react-native';
+import {View, useColorScheme} from 'react-native';
 
 import {HeaderBack} from '@components';
 
 const FeedDetailsScreen = ({navigation, route}) => {
+  const colorScheme = useColorScheme();
   useEffect(() => {
     navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
     navigation.setOptions({
@@ -21,7 +22,11 @@ const FeedDetailsScreen = ({navigation, route}) => {
   return (
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={{flex: 1}}>
-      <FeedDetails navigation={navigation} route={route} />
+      <FeedDetails
+        navigation={navigation}
+        route={route}
+        isDarkMode={colorScheme === 'dark'}
+      />
     </View>
   );
 };

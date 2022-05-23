@@ -9,7 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 
 import {LoadingIndicator} from '@components';
-// import {Styles} from '@common';
+import {Styles} from '@common';
 import {GroupService} from '@services/apiClient';
 import {toast} from '@utils';
 import {UserContext} from '@contexts';
@@ -186,15 +186,30 @@ const Groups = ({navigation}) => {
               borderTopRightRadius: 12,
               borderTopLeftRadius: 12,
             },
+            colorScheme === 'dark' && {backgroundColor: '#0A121A'},
           ]}
         />
         <View style={[styles.halfContainer, styles.myGroupData]}>
-          <Text style={styles.groupNameLogo}>{item.name[0]}</Text>
-          <Text style={styles.myGroupName}>
+          <Text
+            style={[
+              styles.groupNameLogo,
+              colorScheme === 'dark' && {color: Styles.Colors.black},
+            ]}>
+            {item.name[0]}
+          </Text>
+          <Text
+            style={[
+              styles.myGroupName,
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>
             {item.name.substring(0, 15)}
             {item.name.length > 15 ? '...' : ''}
           </Text>
-          <Text style={{textAlign: 'center'}}>
+          <Text
+            style={[
+              {textAlign: 'center'},
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>
             <Icon name={'user'} size={14} style={styles.userIcon} />
             {item.members.length} Members
           </Text>
@@ -226,12 +241,18 @@ const Groups = ({navigation}) => {
     return (
       <View>
         {myGroups.length !== 0 ? (
-          <Text style={[styles.allGroupsText, {color: 'white'}]}>
+          <Text style={[styles.allGroupsText, {color: Styles.Colors.white}]}>
             My groups
           </Text>
         ) : null}
         <View>{myGroups.length !== 0 ? renderMyGroups() : null}</View>
-        <Text style={styles.allGroupsText}>All groups</Text>
+        <Text
+          style={[
+            styles.allGroupsText,
+            colorScheme === 'dark' && {color: Styles.Colors.white},
+          ]}>
+          All groups
+        </Text>
       </View>
     );
   };
@@ -277,7 +298,11 @@ const Groups = ({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#273038'},
+      ]}>
       <View style={styles.topImage}>
         <Text style={styles.headerText}>
           <Grid color={colorScheme === 'dark' ? '#b5b5b5' : null} />

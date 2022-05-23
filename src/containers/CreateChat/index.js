@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  useColorScheme,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -17,6 +18,7 @@ import {HeaderBack} from '@components';
 import styles from './styles';
 
 const CreateChat = ({navigation}) => {
+  const colorScheme = useColorScheme();
   const [users, setUsers] = useState([]);
   const {userData} = useContext(UserContext);
   const [username, setUsername] = useState('');
@@ -67,10 +69,22 @@ const CreateChat = ({navigation}) => {
 
   const searchUser = () => {
     return (
-      <View style={styles.searchContainer}>
-        <Text>To: </Text>
+      <View
+        style={[
+          styles.searchContainer,
+          colorScheme === 'dark' && {
+            color: Styles.Colors.white,
+            backgroundColor: '#1C2329',
+          },
+        ]}>
+        <Text style={colorScheme === 'dark' && {color: Styles.Colors.white}}>
+          To:{' '}
+        </Text>
         <TextInput
-          style={styles.searchUser}
+          style={[
+            styles.searchUser,
+            colorScheme === 'dark' && {color: Styles.Colors.white},
+          ]}
           onChangeText={text => setUsername(text)}
           value={username}
         />
@@ -81,12 +95,18 @@ const CreateChat = ({navigation}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: Styles.Colors.gold,
+        backgroundColor: Styles.Colors.headerBackground,
       },
+      headerTitleStyle: colorScheme === 'dark' && {color: Styles.Colors.white},
       headerTitleAlign: 'center',
       title: 'New message',
       headerRight: () => (
-        <TouchableOpacity style={styles.createChatButton} onPress={createChat}>
+        <TouchableOpacity
+          style={[
+            styles.createChatButton,
+            colorScheme === 'dark' && {backgroundColor: Styles.Colors.gold},
+          ]}
+          onPress={createChat}>
           <Text style={styles.createChatButtonText}>Create</Text>
         </TouchableOpacity>
       ),
@@ -144,7 +164,11 @@ const CreateChat = ({navigation}) => {
             </Text>
           </View>
         )}
-        <Text style={styles.userItemText}>
+        <Text
+          style={[
+            styles.userItemText,
+            colorScheme === 'dark' && {color: Styles.Colors.white},
+          ]}>
           {user.firstName} {user.lastName}
         </Text>
         {isAdded ? <Icon name="check" size={30} color="green" /> : null}
@@ -170,7 +194,11 @@ const CreateChat = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+      ]}>
       {searchUser()}
       <View style={{width: '100%', flexDirection: 'row', flexWrap: 'wrap'}}>
         {selectedUsers.map(u => {
@@ -180,8 +208,18 @@ const CreateChat = ({navigation}) => {
       <FlatList
         keyExtractor={user => user._id}
         data={users}
+        contentContainerStyle={
+          colorScheme === 'dark' && {backgroundColor: '#0A121A'}
+        }
         renderItem={renderUsers}
-        ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
+        ItemSeparatorComponent={() => (
+          <View
+            style={[
+              styles.itemSeparator,
+              colorScheme === 'dark' && {backgroundColor: '#1C2329'},
+            ]}
+          />
+        )}
       />
     </View>
   );

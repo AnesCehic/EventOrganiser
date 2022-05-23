@@ -27,13 +27,21 @@ const PostsList = ({
   hasMore,
   onEndReached,
   userData,
+  isDarkMode,
 }) => {
   const renderFeaturedPosts = () => {
+    let shouldCreateNewPostBeVisible = !route?.params?.userId;
     return (
       <View>
         {headerData?.length !== 0 ? (
           <View>
-            <Text style={styles.featuredItemHeader}>Upcoming Events</Text>
+            <Text
+              style={[
+                styles.featuredItemHeader,
+                isDarkMode && {color: Styles.Colors.white},
+              ]}>
+              Upcoming Events
+            </Text>
             <FlatList
               style={styles.headerList}
               data={headerData}
@@ -44,29 +52,51 @@ const PostsList = ({
             />
           </View>
         ) : null}
-        <Text style={styles.latestUpdate}>Latest updates</Text>
-        <TouchableOpacity
-          style={styles.createPost}
-          onPress={() => navigation.navigate('CreatePost')}>
-          {userData?.avatarImg ? (
-            <Image
-              source={{uri: userData.avatarImg}}
-              style={styles.createPostImage}
-            />
-          ) : (
-            <UserIcon style={styles.createPostImage} />
-          )}
-          <View style={styles.createPostText}>
-            <Text>Create a new post</Text>
-            <View style={styles.imageContainer}>
-              <NewPost />
-              {/* <Image
-                style={styles.image}
-                source={require('../../assets/Gallery.png')}
-              /> */}
+        <Text
+          style={[
+            styles.latestUpdate,
+            isDarkMode && {color: Styles.Colors.white},
+          ]}>
+          Latest updates
+        </Text>
+        {shouldCreateNewPostBeVisible && (
+          <TouchableOpacity
+            style={[
+              styles.createPost,
+              isDarkMode && {backgroundColor: '#1C2329', borderWidth: 0},
+            ]}
+            onPress={() => navigation.navigate('CreatePost')}>
+            {userData?.avatarImg ? (
+              <Image
+                source={{uri: userData.avatarImg}}
+                style={styles.createPostImage}
+              />
+            ) : (
+              <UserIcon style={styles.createPostImage} />
+            )}
+            <View
+              style={[
+                styles.createPostText,
+                isDarkMode && styles.backgroundPostColorDarkMode,
+              ]}>
+              <Text
+                style={
+                  isDarkMode
+                    ? {color: Styles.Colors.white}
+                    : {color: Styles.Colors.black}
+                }>
+                Create a new post
+              </Text>
+              <View style={styles.imageContainer}>
+                <NewPost />
+                {/* <Image
+                  style={styles.image}
+                  source={require('../../assets/Gallery.png')}
+                /> */}
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        )}
       </View>
     );
   };
@@ -74,7 +104,10 @@ const PostsList = ({
   const renderFeaturedItem = ({item}) => {
     return (
       <TouchableOpacity
-        style={styles.featuredItemContainer}
+        style={[
+          styles.featuredItemContainer,
+          isDarkMode && styles.backgroundPostColorDarkMode,
+        ]}
         onPress={() => {
           navigation.navigate('FeedDetails', {
             id: item._id,
@@ -90,7 +123,13 @@ const PostsList = ({
           <ImageBackground
             imageStyle={{opacity: 0.08}}
             source={{uri: item.upload?.files[0]?.signedURL}}
-            style={styles.featuredItemTopTime}>
+            style={[
+              styles.featuredItemTopTime,
+              isDarkMode && {
+                borderWidth: 0,
+                backgroundColor: Styles.Colors.white,
+              },
+            ]}>
             <TimeCircle />
             {/* <Icon name="ri-time-fill" color="#684BA6" size={13} /> */}
             <Text style={styles.featuredItemTopTimeText}>
@@ -100,7 +139,11 @@ const PostsList = ({
         </View>
 
         <View style={styles.featuredItemBottom}>
-          <Text style={styles.featuredItemBottomText}>
+          <Text
+            style={[
+              styles.featuredItemBottomText,
+              isDarkMode && {color: Styles.Colors.white},
+            ]}>
             {item.title.length > 18
               ? `${item.title.slice(0, 18)}...`
               : item.title}
@@ -113,6 +156,8 @@ const PostsList = ({
   const renderItem = ({item: post}) => {
     return (
       <PostItem
+        isDarkMode={isDarkMode}
+        styleDarkMode={styles.backgroundPostColorDarkMode}
         key={post._id}
         onPress={() =>
           navigation.navigate('PostDetails', {
@@ -166,6 +211,10 @@ const styles = StyleSheet.create({
   },
   featuredItemTop: {
     flexDirection: 'row',
+  },
+  backgroundPostColorDarkMode: {
+    backgroundColor: '#273038',
+    borderWidth: 0,
   },
   featuredItemTopDate: {
     justifyContent: 'center',

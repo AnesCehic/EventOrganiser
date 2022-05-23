@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 200,
     width: '100%',
-    backgroundColor: Styles.Colors.topBackground,
+    backgroundColor: Styles.Colors.headerBackground,
   },
   headerText: {
     fontSize: 32,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 
   eventsListItemContainer: {
-    backgroundColor: Styles.Colors.white,
+    backgroundColor: Styles.Colors.darkBgLight,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: Styles.Colors.grayBorder,

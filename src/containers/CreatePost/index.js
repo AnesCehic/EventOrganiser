@@ -9,6 +9,7 @@ import {
   TouchableHighlight,
   Image,
   PermissionsAndroid,
+  useColorScheme,
 } from 'react-native';
 
 import {PostsService} from '@services/apiClient';
@@ -24,6 +25,7 @@ import IconFa from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 
 const CreatePost = ({navigation}) => {
+  const colorScheme = useColorScheme();
   const {userData} = useContext(UserContext);
   const [loadedImages, setLoadedImages] = useState([]);
   const [postData, setPostData] = useState('');
@@ -77,7 +79,10 @@ const CreatePost = ({navigation}) => {
       headerTitleAlign: 'center',
       title: 'New post',
       headerStyle: {
-        backgroundColor: Styles.Colors.topBackground,
+        backgroundColor: Styles.Colors.headerBackground,
+      },
+      headerTitleStyle: {
+        color: Styles.Colors.white,
       },
       headerRight: () => {
         return (
@@ -86,6 +91,7 @@ const CreatePost = ({navigation}) => {
               styles.createPostButton,
               // postData === '' ? styles.createPostButtonDisabled : null,
             ]}
+            disabled={postData === ''}
             onPress={() => createPostMethod()}>
             <Text>Post</Text>
           </TouchableHighlight>
@@ -101,7 +107,7 @@ const CreatePost = ({navigation}) => {
         />
       ),
     });
-  }, [loadedImages, postData]);
+  }, [loadedImages, postData, colorScheme]);
 
   const hasAndroidPermission = async () => {
     const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
@@ -143,7 +149,7 @@ const CreatePost = ({navigation}) => {
                 <TouchableOpacity
                   onPress={() => removeImage(index)}
                   style={styles.deleteButton}>
-                  <Icon name="close" size={16} color="white" />
+                  <Icon name="close" size={16} color={Styles.Colors.white} />
                 </TouchableOpacity>
               </View>
             );
@@ -158,12 +164,32 @@ const CreatePost = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.userData}>
-        <Text style="username">{`${userData.firstName} ${userData.lastName}`}</Text>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+      ]}>
+      <View
+        style={[
+          styles.userData,
+          colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+        ]}>
+        <Text
+          style={
+            colorScheme === 'dark' && {
+              color: Styles.Colors.white,
+            }
+          }>{`${userData.firstName} ${userData.lastName}`}</Text>
       </View>
       <TextInput
-        style={styles.postTextInput}
+        style={[
+          styles.postTextInput,
+          colorScheme === 'dark' && {
+            color: Styles.Colors.white,
+            backgroundColor: '#0A121A',
+          },
+        ]}
+        placeholderTextColor={colorScheme === 'dark' && Styles.Colors.white}
         placeholder="Write something to share"
         onChangeText={text => setPostData(text)}
         value={postData}
@@ -181,7 +207,13 @@ const CreatePost = ({navigation}) => {
           color={Styles.Colors.gold}
           style={styles.imageMargin}
         />
-        <Text style={styles.uploadPhotoText}>Add a photo</Text>
+        <Text
+          style={[
+            styles.uploadPhotoText,
+            colorScheme === 'dark' && {color: Styles.Colors.black},
+          ]}>
+          Add a photo
+        </Text>
       </TouchableOpacity>
     </View>
   );

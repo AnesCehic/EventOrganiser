@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 import styles from './styles';
 
-const Form = ({navigation, submitLogin, isLoading}) => {
+const Form = ({navigation, submitLogin, isLoading, isDarkMode}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
@@ -26,7 +26,11 @@ const Form = ({navigation, submitLogin, isLoading}) => {
         name="username"
         placeholder="Username"
         value={username}
-        style={[stylesHelper.shadow, stylesHelper.inputShadow]}
+        style={[
+          stylesHelper.shadow,
+          stylesHelper.inputShadow,
+          isDarkMode && {backgroundColor: '#273038', borderWidth: 0},
+        ]}
         setUsername={setUsername}
         onChangeValue={value => setUsername(value)}
         autoCapitalize="none"
@@ -39,6 +43,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
             styles.passwordInput,
             stylesHelper.shadow,
             stylesHelper.inputShadow,
+            isDarkMode && {backgroundColor: '#273038', borderWidth: 0},
           ]}
           name="password"
           placeholder="Password"
@@ -61,7 +66,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
       <SubmitButton
         onPress={() => submitLogin(username, password)}
         title="Sign in"
-        titleStyle={{color: 'white'}}
+        titleStyle={{color: Styles.Colors.white}}
         style={[
           stylesHelper.shadow,
           {marginTop: 16, backgroundColor: '#2D2B0D'},
@@ -74,7 +79,7 @@ const Form = ({navigation, submitLogin, isLoading}) => {
           navigation.navigate('ForgotPasswordScreen');
         }}
         style={stylesHelper.forgotPassword}>
-        <Text style={{color: 'white'}}>Forgot your password?</Text>
+        <Text style={{color: Styles.Colors.white}}>Forgot your password?</Text>
       </TouchableOpacity>
     </View>
   );
@@ -96,7 +101,7 @@ const stylesHelper = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     fontSize: 30,
-    color: 'white',
+    color: Styles.Colors.white,
     fontFamily: Styles.Fonts.headerMedium,
   },
   image: {

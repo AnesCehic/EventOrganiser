@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Styles.Colors.lightGrayBg,
   },
+  containerDark: {
+    backgroundColor: Styles.Colors.darkGrayText,
+  },
   headerLogo: {
     position: 'absolute',
     top: 48,

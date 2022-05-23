@@ -22,7 +22,7 @@ import EventsCalendar from './EventsCalendar';
 import {EventService, RSVPService} from '@services/apiClient';
 import styles from './styles';
 
-const EventsList = ({navigation}) => {
+const EventsList = ({navigation, isDarkMode}) => {
   const colorScheme = Appearance.getColorScheme();
   const {userData} = useContext(UserContext);
 
@@ -165,7 +165,7 @@ const EventsList = ({navigation}) => {
     };
     return (
       <TouchableOpacity
-        style={styles.eventsListItemContainer}
+        style={[styles.eventsListItemContainer, isDarkMode && {borderWidth: 0}]}
         onPress={() => {
           navigateToEvent(event._id);
         }}>
@@ -254,11 +254,17 @@ const EventsList = ({navigation}) => {
   const renderAgenda = () => {
     return (
       <BottomSheetModal
-        contentContainerStyle={styles.sheetContainer}
+        contentContainerStyle={[
+          styles.sheetContainer,
+          isDarkMode && {backgroundColor: '#0A121A'},
+        ]}
         isVisible={showAgenda}
         closeModal={() => setShowAgenda(false)}>
         <TouchableOpacity
-          style={styles.showAgendaBtn}
+          style={[
+            styles.showAgendaBtn,
+            isDarkMode && {backgroundColor: '#0A121A'},
+          ]}
           onPress={() => setShowAgenda(false)}>
           <Icon
             name="ri-close-line"
@@ -269,6 +275,7 @@ const EventsList = ({navigation}) => {
           navigateToEvent={navigateToEvent}
           navigateToMonth={navigateToMonth}
           navigateToDay={navigateToDay}
+          isDarkMode={isDarkMode}
         />
       </BottomSheetModal>
     );
@@ -279,7 +286,8 @@ const EventsList = ({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
       <View style={styles.topImage}>
         <View style={styles.topImageContent}>
           <View style={styles.eventsHeaderContainer}>
@@ -313,7 +321,9 @@ const EventsList = ({navigation}) => {
         </View>
       ) : (
         <View>
-          <Text>No future events...</Text>
+          <Text style={isDarkMode && {color: Styles.Colors.white}}>
+            No future events...
+          </Text>
         </View>
       )}
 

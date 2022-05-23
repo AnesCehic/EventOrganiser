@@ -5,7 +5,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  TouchableOpacity,
+  useColorScheme,
 } from 'react-native';
 import dayjs from 'dayjs';
 
@@ -18,6 +18,7 @@ import styles from './styles';
 
 const PostDetails = ({navigation, route}) => {
   const width = Dimensions.get('window').width;
+  const colorScheme = useColorScheme();
   const customStyle = {
     width: width,
     height: 224,
@@ -39,7 +40,7 @@ const PostDetails = ({navigation, route}) => {
           alignSelf: 'center',
         },
         headerStyle: {
-          backgroundColor: Styles.Colors.topBackground,
+          backgroundColor: Styles.Colors.headerBackground,
         },
         title: `${res.owner.firstName} ${res.owner.lastName}'s post`,
       });
@@ -110,9 +111,13 @@ const PostDetails = ({navigation, route}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       {renderPostImages()}
-      <View style={styles.ownerAndTimeInfo}>
+      <View
+        style={[
+          styles.ownerAndTimeInfo,
+          colorScheme === 'dark' && {backgroundColor: '#141C24'},
+        ]}>
         <View style={styles.ownerData}>
           {post?.owner?.upload?.files[0].signedURL ? (
             <Image
@@ -121,9 +126,10 @@ const PostDetails = ({navigation, route}) => {
             />
           ) : null}
           <Text
-            style={
-              styles.ownerName
-            }>{`${post?.owner?.firstName} ${post?.owner?.lastName}`}</Text>
+            style={[
+              styles.ownerName,
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>{`${post?.owner?.firstName} ${post?.owner?.lastName}`}</Text>
         </View>
         <Text style={styles.postedDate}>
           {post.createdAt ? dayjs(post.createdAt).format('MMM D, YYYY') : null}
@@ -146,8 +152,22 @@ const PostDetails = ({navigation, route}) => {
         }}>
         <Text>Comments</Text>
       </TouchableOpacity> */}
-      <Text style={styles.postBody}>{post?.body}</Text>
-      <Comments postId={post._id} postLoaded={post.postLoaded} />
+      <Text
+        style={[
+          styles.postBody,
+          colorScheme === 'dark' && {
+            backgroundColor: '#141C24',
+            borderBottomWidth: 0,
+            color: Styles.Colors.white,
+          },
+        ]}>
+        {post?.body}
+      </Text>
+      <Comments
+        isDarkMode={colorScheme === 'dark'}
+        postId={post._id}
+        postLoaded={post.postLoaded}
+      />
     </View>
   );
 };

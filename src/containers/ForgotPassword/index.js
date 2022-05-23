@@ -10,7 +10,7 @@ import {ForgotPasswordService} from '@services/apiClient';
 
 import styles from './styles';
 
-const ForgotPassword = ({navigation}) => {
+const ForgotPassword = ({navigation, isDarkMode}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [userEmailErr, setUserEmailErr] = useState(false);
@@ -54,13 +54,30 @@ const ForgotPassword = ({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, isDarkMode && {backgroundColor: '#141C24'}]}>
       <View style={styles.topImage}>
-        <Text style={styles.headerText}>Reset password</Text>
+        <Text
+          style={[
+            styles.headerText,
+            isDarkMode && {color: Styles.Colors.white},
+          ]}>
+          Reset password
+        </Text>
       </View>
-      <View style={styles.formWrapper}>
+      <View
+        style={[
+          styles.formWrapper,
+          isDarkMode && {backgroundColor: '#141C24'},
+        ]}>
         <View style={styles.fieldWrapper}>
-          <Text style={styles.inputFieldLabel}>Email</Text>
+          <Text
+            style={[
+              styles.inputFieldLabel,
+              isDarkMode && {color: Styles.Colors.white},
+            ]}>
+            Email
+          </Text>
           <TextInput
             style={[
               styles.inputField,
@@ -71,6 +88,7 @@ const ForgotPassword = ({navigation}) => {
                     borderBottomRightRadius: 0,
                   }
                 : {},
+              isDarkMode && {backgroundColor: '#273038', borderWidth: 0},
             ]}
             onChangeText={setUserEmail}
             value={userEmail}

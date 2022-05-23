@@ -10,7 +10,7 @@ import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-const EventsOnDay = ({route, navigation}) => {
+const EventsOnDay = ({route, navigation, isDarkMode}) => {
   const day = route?.params?.day;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -97,6 +97,7 @@ const EventsOnDay = ({route, navigation}) => {
             id: event._id,
           });
         }}
+        isDarkMode={isDarkMode}
         startDate={startDate}
         endDate={endDate}
         startTime={startTime}
@@ -127,7 +128,8 @@ const EventsOnDay = ({route, navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
       <View
         style={styles.topImage}
         source={require('../../assets/headerBackground.png')}

@@ -3,6 +3,8 @@ import {View, Image, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-elements';
 import Icon from 'react-native-remix-icon';
 
+import {Styles} from '@common';
+
 import styles from './styles';
 
 const EventItem = ({
@@ -15,9 +17,12 @@ const EventItem = ({
   location,
   imageUrl,
   title,
+  isDarkMode,
 }) => {
   return (
-    <TouchableOpacity style={styles.eventsListItemContainer} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.eventsListItemContainer, isDarkMode && {borderWidth: 0}]}
+      onPress={onPress}>
       <View style={styles.eventsListItemImageWrapper}>
         <Image
           source={{uri: imageUrl}}
@@ -26,7 +31,13 @@ const EventItem = ({
         />
       </View>
       <View style={styles.eventsListItemTopWrapper}>
-        <Text style={styles.eventListItemTitle}>{title}</Text>
+        <Text
+          style={[
+            styles.eventListItemTitle,
+            isDarkMode && {color: Styles.Colors.white},
+          ]}>
+          {title}
+        </Text>
         {description}
       </View>
       <View style={styles.eventListItemDateAndTimeWrapper}>

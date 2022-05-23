@@ -138,7 +138,10 @@ const Profile = ({navigation, route}) => {
           size={140}
           rounded
           source={{uri: userData.upload?.files[0].signedURL}}
-          containerStyle={styles.avatar}
+          containerStyle={[
+            styles.avatar,
+            colorScheme === 'dark' && {borderWidth: 0},
+          ]}
         />
       );
     } else {
@@ -147,7 +150,10 @@ const Profile = ({navigation, route}) => {
           size={140}
           rounded
           renderPlaceholderContent={() => <UserIcon />}
-          containerStyle={styles.avatar}
+          containerStyle={[
+            styles.avatar,
+            colorScheme === 'dark' && {borderWidth: 0},
+          ]}
         />
       );
     }
@@ -175,7 +181,11 @@ const Profile = ({navigation, route}) => {
   const renderUserInfo = () => {
     return (
       <View style={styles.userInfo}>
-        <Text style={styles.userName}>
+        <Text
+          style={[
+            styles.userName,
+            colorScheme === 'dark' && {color: Styles.Colors.white},
+          ]}>
           {userData.firstName} {userData.lastName}
         </Text>
         <Text style={styles.memberSince}>
@@ -253,6 +263,8 @@ const Profile = ({navigation, route}) => {
         onEndReached={loadMore}
         // hasMore
         route={route}
+        isDarkMode={colorScheme === 'dark'}
+        hideHeaderContent
         navigation={navigation}
         userData={userDataCtx}
         data={posts.data}
@@ -324,10 +336,22 @@ const Profile = ({navigation, route}) => {
   const hasMore = (posts.page - 1) * 5 > posts.total;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark' && {backgroundColor: '#141C24'},
+      ]}>
       <View style={styles.topImage} />
-      <View style={styles.contentContainer}>
-        <View style={styles.userWrapper}>
+      <View
+        style={[
+          styles.contentContainer,
+          colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+        ]}>
+        <View
+          style={[
+            styles.userWrapper,
+            colorScheme === 'dark' && {backgroundColor: '#141C24'},
+          ]}>
           <View>
             {renderAvatar()}
             {renderUserInfo()}
@@ -340,11 +364,23 @@ const Profile = ({navigation, route}) => {
             }}
             onPress={redirectToAction}>
             {route?.params?.userId ? (
-              <View style={styles.topRightImage}>
+              <View
+                style={[
+                  styles.topRightImage,
+                  colorScheme === 'dark' && {backgroundColor: '#273038'},
+                ]}>
                 <ChatBubblesMsg
                   color={colorScheme === 'dark' ? '#b5b5b5' : null}
                 />
-                <Text style={styles.topRightImageText}>Message</Text>
+                <Text
+                  style={[
+                    styles.topRightImageText,
+                    colorScheme === 'dark' && {
+                      color: Styles.Colors.white,
+                    },
+                  ]}>
+                  Message
+                </Text>
               </View>
             ) : (
               <View style={styles.topRightImage}>

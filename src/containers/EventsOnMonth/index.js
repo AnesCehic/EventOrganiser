@@ -10,7 +10,7 @@ import {EventService} from '@services/apiClient';
 
 import styles from './styles';
 
-const EventsOnMonth = ({route, navigation}) => {
+const EventsOnMonth = ({route, navigation, isDarkMode}) => {
   const date = route?.params?.date;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -97,6 +97,7 @@ const EventsOnMonth = ({route, navigation}) => {
             id: event._id,
           });
         }}
+        isDarkMode={isDarkMode}
         startDate={startDate}
         endDate={endDate}
         startTime={startTime}
@@ -127,7 +128,8 @@ const EventsOnMonth = ({route, navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
       <View style={styles.topImage}>
         <Text style={styles.headerText}>{`${dayjs(date).format(
           'MMMM',
