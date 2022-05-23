@@ -133,24 +133,62 @@ const ChatMessages = ({navigation, route}) => {
     return <Text style={styles.messageDate}>{message}</Text>;
   };
 
-  const renderTriangle = (curr, next, nextDate, currDate) => {
-    // console.log('t', curr, next);
-    // if (!next) {
-    //   if (curr)
-    // }
-    // if (next) {
-    //   if (nextDate !== currDate) {
-    //     return {
-    //       borderTop
-    //     }
-    //   }
+  const renderImageLink = (sender, position) => {
+    let image = sender?.upload?.files[0].signedURL;
 
-    //   if (nextDate === currDate) {
-    //     if (next !== curr) {
-    //       return <Text>B</Text>;
-    //     }
-    //   }
-    // }
+    if (!image) {
+      return (
+        <View
+          style={[
+            styles.senderImage,
+            position,
+            {
+              backgroundColor: '#B7BFC7',
+              justifyContent: 'center',
+              alignItems: 'center',
+            },
+          ]}>
+          <Text
+            style={{
+              fontSize: 12,
+            }}>{`${sender.firstName[0]}${sender.lastName[0]}`}</Text>
+        </View>
+      );
+    }
+    return (
+      <Image source={{uri: image}} style={[styles.senderImage, position]} />
+    );
+  };
+
+  const renderTriangle = (
+    curr,
+    next,
+    nextDate,
+    currDate,
+    sender,
+    shouldRender,
+    position,
+  ) => {
+    if (shouldRender) {
+      return null;
+    }
+
+    let image = renderImageLink(sender, position);
+
+    if (!next) {
+      return image;
+    }
+    if (next) {
+      if (nextDate !== currDate) {
+        return image;
+      }
+
+      if (nextDate === currDate) {
+        if (next !== curr) {
+          return image;
+        }
+      }
+    }
   };
 
   const renderItem = ({item, index}) => {
@@ -163,6 +201,10 @@ const ChatMessages = ({navigation, route}) => {
     let nextMessageDateFormatted =
       nextMessageDate && dayjs(nextMessageDate).format('MM/DD/YYYY');
     let currentDate = dayjs(item.createdAt).format('MM/DD/YYYY');
+
+    const senderImageUrl = route.params.participants.find(
+      e => e._id === item.ownerId,
+    );
 
     return (
       <View
@@ -194,9 +236,9 @@ const ChatMessages = ({navigation, route}) => {
                 {item.text}
               </Text>
             ) : null}
-            <Text style={styles.messageDateTime}>
+            {/* <Text style={styles.messageDateTime}>
               {dayjs(item.createdAt).format('HH:mm')}
-            </Text>
+            </Text> */}
           </View>
         ) : null}
         {item.upload && (
@@ -205,7 +247,6 @@ const ChatMessages = ({navigation, route}) => {
               styles.messageContainer,
               {
                 padding: 0,
-                margin: 0,
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 overflow: 'hidden',
@@ -219,7 +260,6 @@ const ChatMessages = ({navigation, route}) => {
                   }
                 : {
                     ...styles.friendMessageContainer,
-                    marginLeft: 5,
                     alignItems: 'flex-start',
                     justifyContent: 'flex-start',
                   },
@@ -245,6 +285,15 @@ const ChatMessages = ({navigation, route}) => {
               );
             })}
           </View>
+        )}
+        {renderTriangle(
+          currentMessage,
+          nextMessage,
+          nextMessageDateFormatted,
+          currentDate,
+          senderImageUrl,
+          item.ownerId === userId,
+          {left: 2},
         )}
         {/* <Icon name="checkmark-circle-outline" size={20} /> */}
       </View>

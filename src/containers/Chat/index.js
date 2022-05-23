@@ -35,11 +35,12 @@ const Chat = ({navigation}) => {
   const [messageGroups, setMessageGroups] = useState([]);
   const [search, setSearch] = useState('');
 
-  const navigateToMessages = (groupId, label, component) => {
+  const navigateToMessages = (groupId, label, component, participants) => {
     navigation.navigate('Message', {
       groupId,
       label,
       component,
+      participants,
     });
   };
 
@@ -215,6 +216,7 @@ const Chat = ({navigation}) => {
                 ? `${item.label.slice(0, 20)}...`
                 : item.label,
               componentHeader,
+              item.participantList,
             )
           }
           style={[

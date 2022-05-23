@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   messageContainer: {
     padding: 8,
     marginTop: 2,
-    marginHorizontal: 8,
+    marginHorizontal: 30,
     maxWidth: 240,
     minWidth: 90,
     minHeight: 35,
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   userMessageContainer: {
     backgroundColor: Styles.Colors.gold,
+    marginRight: 10,
     alignSelf: 'flex-end',
   },
   messageDateTime: {
@@ -61,6 +62,13 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     textAlign: 'center',
     marginVertical: 12,
+  },
+  senderImage: {
+    width: 25,
+    height: 25,
+    borderRadius: 50,
+    position: 'absolute',
+    bottom: 0,
   },
 });
 
