@@ -268,7 +268,7 @@ const EventsList = ({navigation, isDarkMode}) => {
           onPress={() => setShowAgenda(false)}>
           <Icon
             name="ri-close-line"
-            color={colorScheme === 'light' ? '#000' : Styles.Colors.gold}
+            color={colorScheme === 'light' ? '#000' : Styles.Colors.white}
           />
         </TouchableOpacity>
         <EventsCalendar

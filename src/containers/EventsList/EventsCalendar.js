@@ -73,6 +73,11 @@ const EventsCalendar = ({navigateToMonth, navigateToDay, isDarkMode}) => {
           navigateToDay(selectedDay);
         }
       }}
+      theme={
+        isDarkMode && {
+          calendarBackground: '#0A121A',
+        }
+      }
       onVisibleMonthsChange={months => {
         setEventsMonths(months);
       }}
@@ -90,7 +95,13 @@ const EventsCalendar = ({navigateToMonth, navigateToDay, isDarkMode}) => {
         return (
           <View
             style={[styles.header, isDarkMode && {backgroundColor: '#0A121A'}]}>
-            <Text style={styles.calendarHeaderText}>{month}</Text>
+            <Text
+              style={[
+                styles.calendarHeaderText,
+                isDarkMode && {color: Styles.Colors.white},
+              ]}>
+              {month}
+            </Text>
             <TouchableOpacity
               style={[
                 styles.headerBtn,
