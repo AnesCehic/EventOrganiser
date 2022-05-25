@@ -369,13 +369,16 @@ const FeedDetails = ({navigation, route, isDarkMode}) => {
             <RemixIcon name="ri-close-line" />
           </TouchableOpacity>
           <View
-            style={{
-              alignSelf: 'flex-start',
-              borderBottomWidth: 1,
-              borderBottomColor: Styles.Colors.grayBorder,
-              marginBottom: 10,
-              width: '100%',
-            }}>
+            style={[
+              {
+                alignSelf: 'flex-start',
+                borderBottomWidth: 1,
+                borderBottomColor: Styles.Colors.grayBorder,
+                marginBottom: 10,
+                width: '100%',
+              },
+              isDarkMode && {borderColor: Styles.Colors.grayBorderDark},
+            ]}>
             <Image source={require('../../assets/accept.png')} />
             <Text
               style={{
@@ -403,6 +406,7 @@ const FeedDetails = ({navigation, route, isDarkMode}) => {
                   borderWidth: 1,
                   borderColor: Styles.Colors.grayBorder,
                 },
+                isDarkMode && {borderColor: Styles.Colors.grayBorderDark},
               ]}
               titleStyle={{color: '#5D6470'}}
               title="Update reservation"
@@ -531,7 +535,11 @@ const FeedDetails = ({navigation, route, isDarkMode}) => {
               {eventData.title}
             </Text>
           </View>
-          <View style={styles.dateAndLocationWithInfo}>
+          <View
+            style={[
+              styles.dateAndLocationWithInfo,
+              isDarkMode && {borderColor: Styles.Colors.grayBorderDark},
+            ]}>
             {renderDateAndPlace()}
             <TouchableOpacity
               onPress={() => {

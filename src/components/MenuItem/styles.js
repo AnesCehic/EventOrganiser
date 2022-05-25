@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     justifyContent: 'space-between',
   },
+  menuItemDark: {
+    borderColor: Styles.Colors.grayBorderDark,
+  },
   menuItemText: {
     fontSize: 18,
   },

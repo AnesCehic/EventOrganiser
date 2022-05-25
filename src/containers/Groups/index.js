@@ -118,7 +118,11 @@ const Groups = ({navigation}) => {
 
   const renderGroup = ({item}) => {
     return (
-      <View style={styles.groupContainer}>
+      <View
+        style={[
+          styles.groupContainer,
+          colorScheme === 'dark' && {backgroundColor: Styles.Colors.darkBgDark},
+        ]}>
         <View>
           <Text style={styles.groupName}>{item.name}</Text>
           <Text style={styles.groupMembers}>
@@ -176,7 +180,10 @@ const Groups = ({navigation}) => {
   const renderMyGroupInfo = ({item}) => {
     return (
       <TouchableOpacity
-        style={styles.myGroupInfo}
+        style={[
+          styles.myGroupInfo,
+          colorScheme === 'dark' && {backgroundColor: Styles.Colors.darkBgDark},
+        ]}
         onPress={() => navigateToGroupDetails(item._id, item.name)}>
         <View
           style={[
@@ -309,9 +316,17 @@ const Groups = ({navigation}) => {
     <View
       style={[
         styles.container,
-        colorScheme === 'dark' && {backgroundColor: '#273038'},
+        colorScheme === 'dark' && {
+          backgroundColor: '#4C5761',
+        },
       ]}>
-      <View style={styles.topImage}>
+      <View
+        style={[
+          styles.topImage,
+          colorScheme === 'dark' && {
+            backgroundColor: Styles.Colors.headerBackgroundDark,
+          },
+        ]}>
         <Text style={styles.headerText}>
           <Grid color={colorScheme === 'dark' ? '#b5b5b5' : null} />
           <Text> </Text>

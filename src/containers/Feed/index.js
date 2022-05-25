@@ -10,6 +10,7 @@ import {toast} from '@utils';
 
 import styles from './styles';
 import dayjs from 'dayjs';
+import Styles from '../../common/Styles';
 
 const Feed = ({navigation}) => {
   const {userData} = useContext(UserContext);
@@ -149,7 +150,11 @@ const Feed = ({navigation}) => {
         styles.container,
         colorScheme === 'dark' && styles.containerDark,
       ]}>
-      <View style={styles.imageBackground}>
+      <View
+        style={[
+          styles.imageBackground,
+          colorScheme === 'dark' && {backgroundColor: Styles.Colors.darkBgDark},
+        ]}>
         <Image
           source={require('../../assets/Home/white.png')}
           style={styles.headerLogo}

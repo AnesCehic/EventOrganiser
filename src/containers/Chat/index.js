@@ -46,7 +46,11 @@ const Chat = ({navigation}) => {
 
   const renderChatHeader = () => {
     return (
-      <View style={styles.headerContainer}>
+      <View
+        style={[
+          styles.headerContainer,
+          colorScheme === 'dark' && {backgroundColor: Styles.Colors.darkBgDark},
+        ]}>
         <View style={styles.headerTitle}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text style={styles.title}>

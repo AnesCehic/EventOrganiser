@@ -21,7 +21,10 @@ const EventItem = ({
 }) => {
   return (
     <TouchableOpacity
-      style={[styles.eventsListItemContainer, isDarkMode && {borderWidth: 0}]}
+      style={[
+        styles.eventsListItemContainer,
+        isDarkMode && styles.eventsListItemContainerDark,
+      ]}
       onPress={onPress}>
       <View style={styles.eventsListItemImageWrapper}>
         <Image

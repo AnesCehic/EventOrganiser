@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 200,
     width: '100%',
-    backgroundColor: Styles.Colors.topBackground,
+    backgroundColor: Styles.Colors.headerBackground,
   },
   headerText: {
     fontSize: 30,
@@ -34,6 +34,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+
+  userDark: {
+    borderColor: Styles.Colors.grayBorderDark,
   },
 
   avatarContainer: {
@@ -89,6 +93,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: Styles.Colors.grayBorder,
   },
+  menuDark: {
+    borderColor: Styles.Colors.grayBorderDark,
+  },
   menuItem: {
     backgroundColor: Styles.Colors.white,
     paddingHorizontal: 10,
@@ -97,6 +104,9 @@ const styles = StyleSheet.create({
     borderBottomColor: Styles.Colors.grayBorder,
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  menuItemDark: {
+    backgroundColor: Styles.Colors.grayBorderDark,
   },
   leftContent: {
     flexDirection: 'row',
@@ -114,6 +124,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 10,
     // marginBottom: 20,
+  },
+  logoutItemDark: {
+    borderColor: Styles.Colors.grayBorderDark,
   },
 });
 

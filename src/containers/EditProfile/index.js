@@ -80,6 +80,7 @@ const EditProfile = ({navigation}) => {
           colorScheme === 'dark' && {
             backgroundColor: '#273038',
             borderWidth: 0,
+            ...styles.userDark,
           },
         ]}
         onPress={() => {
@@ -122,7 +123,11 @@ const EditProfile = ({navigation}) => {
           name="ri-arrow-right-s-line"
           size={34}
           style={styles.userArrowIcon}
-          color={Styles.Colors.iconGray}
+          color={
+            colorScheme === 'dark'
+              ? Styles.Colors.iconGrayDark
+              : Styles.Colors.iconGray
+          }
         />
       </TouchableOpacity>
     );
@@ -144,7 +149,11 @@ const EditProfile = ({navigation}) => {
   const renderMenu = () => {
     return (
       <>
-        <View style={[styles.menu, colorScheme === 'dark' && {borderWidth: 0}]}>
+        <View
+          style={[
+            styles.menu,
+            colorScheme === 'dark' && {borderWidth: 0, ...styles.menuDark},
+          ]}>
           {MenuItems.map((menuItem, i) => {
             return (
               <TouchableOpacity
@@ -162,6 +171,7 @@ const EditProfile = ({navigation}) => {
                   colorScheme === 'dark' && {
                     backgroundColor: '#273038',
                     borderBottomWidth: 0,
+                    ...styles.menuItemDark,
                   },
                 ]}
                 onPress={() => {
@@ -202,6 +212,7 @@ const EditProfile = ({navigation}) => {
             colorScheme === 'dark' && {
               backgroundColor: '#141C24',
               borderWidth: 0,
+              ...styles.logoutItemDark,
             },
           ]}>
           <View style={styles.leftContent}>
@@ -311,7 +322,9 @@ const EditProfile = ({navigation}) => {
       <View
         style={[
           styles.topImage,
-          colorScheme === 'dark' && {backgroundColor: '#0A121A'},
+          colorScheme === 'dark' && {
+            backgroundColor: '#141C24',
+          },
         ]}>
         <Text style={styles.headerText}>My account</Text>
       </View>
@@ -321,7 +334,11 @@ const EditProfile = ({navigation}) => {
           <Icon
             name="ri-sound-module-line"
             size={16}
-            color={Styles.Colors.iconGray}
+            color={
+              colorScheme === 'dark'
+                ? Styles.Colors.iconGrayDark
+                : Styles.Colors.iconGray
+            }
           />
           <Text style={styles.settingsText}>Settings</Text>
         </View>

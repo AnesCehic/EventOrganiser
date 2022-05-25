@@ -165,7 +165,14 @@ const EventsList = ({navigation, isDarkMode}) => {
     };
     return (
       <TouchableOpacity
-        style={[styles.eventsListItemContainer, isDarkMode && {borderWidth: 0}]}
+        style={[
+          styles.eventsListItemContainer,
+          isDarkMode && {
+            borderWidth: 0,
+            borderColor: Styles.Colors.grayBorderDark,
+            backgroundColor: Styles.Colors.darkBgDark,
+          },
+        ]}
         onPress={() => {
           navigateToEvent(event._id);
         }}>
@@ -217,7 +224,10 @@ const EventsList = ({navigation, isDarkMode}) => {
   const renderMyEventsButton = () => {
     return myEventsCount > 0 ? (
       <TouchableOpacity
-        style={styles.myEventsButtonContainer}
+        style={[
+          styles.myEventsButtonContainer,
+          colorScheme === 'dark' && {backgroundColor: Styles.Colors.darkBgDark},
+        ]}
         onPress={() => {
           navigateToMyEvents();
         }}>
@@ -329,7 +339,12 @@ const EventsList = ({navigation, isDarkMode}) => {
             </Text>
           </View>
           <TouchableOpacity
-            style={styles.topMonthTouch}
+            style={[
+              styles.topMonthTouch,
+              colorScheme === 'dark' && {
+                backgroundColor: Styles.Colors.darkBgDark2,
+              },
+            ]}
             onPress={() => {
               setShowAgenda(true);
             }}>

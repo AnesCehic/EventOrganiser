@@ -92,6 +92,9 @@ const CreatePost = ({navigation}) => {
           <TouchableHighlight
             style={[
               styles.createPostButton,
+              colorScheme === 'dark' && {
+                backgroundColor: Styles.Colors.createPostButtonDark,
+              },
               // postData === '' ? styles.createPostButtonDisabled : null,
             ]}
             disabled={postData === ''}

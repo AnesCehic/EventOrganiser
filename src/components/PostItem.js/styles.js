@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     maxHeight: 300,
-    ...Styles.Shadows.textBox
+    ...Styles.Shadows.textBox,
   },
   imageContainer: {
     borderRadius: 8,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   ownerAndTimeInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16
+    marginTop: 16,
   },
   ownerImageContainer: {
     borderRadius: 100,
@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
   },
   timeFromNow: {
     fontSize: 11,
-    color: Styles.Colors.darkGrayText
+    color: Styles.Colors.darkGrayText,
   },
   timeFromNowContainer: {
-    paddingTop: 4
+    paddingTop: 4,
   },
   time: {
     textAlign: 'right',

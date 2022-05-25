@@ -1,5 +1,5 @@
 import React, {forwardRef} from 'react';
-import {TextInput} from 'react-native';
+import {TextInput, useColorScheme} from 'react-native';
 
 import styles from './styles';
 
@@ -16,10 +16,16 @@ const CustomTextInput = forwardRef(
     },
     ref,
   ) => {
+    const colorScheme = useColorScheme();
     return (
       <TextInput
         value={value}
-        style={[styles.textInput, {paddingTop: multiline ? 15 : null}, style]}
+        style={[
+          styles.textInput,
+          {paddingTop: multiline ? 15 : null},
+          style,
+          colorScheme === 'dark' && styles.textInputDark,
+        ]}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
         onChangeText={onChangeValue}

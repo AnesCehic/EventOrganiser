@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
   },
+  textInputDark: {
+    backgroundColor: Styles.Colors.grayBorderDark,
+  },
 });
 
 export default styles;

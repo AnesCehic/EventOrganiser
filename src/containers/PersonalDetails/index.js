@@ -233,6 +233,7 @@ const PersonalDetails = ({navigation, route}) => {
                 borderLeftWidth: 0,
                 borderRightWidth: 0,
                 borderBottomWidth: 0,
+                borderColor: Styles.Colors.grayBorderDark,
               },
             ]}>
             <Text

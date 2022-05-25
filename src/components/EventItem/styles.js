@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     padding: 10,
   },
+  eventsListItemContainerDark: {
+    borderWidth: 0,
+    borderColor: Styles.Colors.grayBorderDark,
+    backgroundColor: Styles.Colors.darkBgDark,
+  },
   eventsListItemImageWrapper: {
     maxHeight: 150,
   },

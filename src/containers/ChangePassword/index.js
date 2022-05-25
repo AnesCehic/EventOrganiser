@@ -172,7 +172,11 @@ const ChangePassword = ({navigation}) => {
         styles.container,
         colorScheme === 'dark' && {backgroundColor: '#0A121A'},
       ]}>
-      <View style={styles.topImage}>
+      <View
+        style={[
+          styles.topImage,
+          colorScheme === 'dark' && {backgroundColor: Styles.Colors.darkBgDark},
+        ]}>
         <Text
           style={[
             styles.headerText,

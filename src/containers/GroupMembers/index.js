@@ -189,7 +189,11 @@ const GroupMembers = ({navigation, route}) => {
   const renderHeader = () => {
     const isUserInGroup = groupData?.members?.includes(userData._id);
     return (
-      <View style={userCardStyle.headerContainer}>
+      <View
+        style={[
+          userCardStyle.headerContainer,
+          colorScheme === 'dark' && {backgroundColor: Styles.Colors.darkBgDark},
+        ]}>
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <HeaderBack onPress={() => navigation.goBack()} />

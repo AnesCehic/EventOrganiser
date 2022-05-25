@@ -106,7 +106,10 @@ const PostsList = ({
       <TouchableOpacity
         style={[
           styles.featuredItemContainer,
-          isDarkMode && styles.backgroundPostColorDarkMode,
+          isDarkMode && {
+            backgroundColor: Styles.Colors.darkBgDark,
+            ...styles.backgroundPostColorDarkMode,
+          },
         ]}
         onPress={() => {
           navigation.navigate('FeedDetails', {

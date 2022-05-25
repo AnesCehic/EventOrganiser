@@ -360,7 +360,9 @@ const Profile = ({navigation, route}) => {
         <View
           style={[
             styles.userWrapper,
-            colorScheme === 'dark' && {backgroundColor: '#141C24'},
+            colorScheme === 'dark' && {
+              backgroundColor: Styles.Colors.headerBackgroundDark,
+            },
           ]}>
           <View>
             {renderAvatar()}
@@ -393,7 +395,13 @@ const Profile = ({navigation, route}) => {
                 </Text>
               </View>
             ) : (
-              <View style={styles.topRightImage}>
+              <View
+                style={[
+                  styles.topRightImage,
+                  colorScheme === 'dark' && {
+                    backgroundColor: Styles.Colors.darkBgDark,
+                  },
+                ]}>
                 <ChatBubblesMsg
                   color={colorScheme === 'dark' ? '#b5b5b5' : null}
                 />

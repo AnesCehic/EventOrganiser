@@ -25,7 +25,13 @@ const PostItem = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.container, isDarkMode && styleDarkMode]}>
+      style={[
+        styles.container,
+        isDarkMode && {
+          ...styleDarkMode,
+          backgroundColor: Styles.Colors.darkBgDark,
+        },
+      ]}>
       {img && img[0]?.signedURL ? (
         <View style={styles.imageContainer}>
           <Image

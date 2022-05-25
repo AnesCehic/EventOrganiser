@@ -117,7 +117,14 @@ const MyEvents = ({navigation, route, isDarkMode}) => {
     };
     return (
       <TouchableOpacity
-        style={[styles.eventsListItemContainer, isDarkMode && {borderWidth: 0}]}
+        style={[
+          styles.eventsListItemContainer,
+          isDarkMode && {
+            borderWidth: 0,
+            borderColor: Styles.Colors.grayBorderDark,
+            backgroundColor: Styles.Colors.darkBgDark,
+          },
+        ]}
         onPress={() => {
           navigateToEvent(event._id);
         }}>
