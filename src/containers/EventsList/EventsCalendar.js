@@ -75,7 +75,11 @@ const EventsCalendar = ({navigateToMonth, navigateToDay, isDarkMode}) => {
       }}
       theme={
         isDarkMode && {
+          dayTextColor: Styles.Colors.white,
           calendarBackground: '#0A121A',
+          selectedDayTextColor: Styles.Colors.white,
+          monthTextColor: Styles.Colors.white,
+          indicatorColor: Styles.Colors.white,
         }
       }
       onVisibleMonthsChange={months => {

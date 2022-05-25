@@ -321,7 +321,7 @@ const EventsList = ({navigation, isDarkMode}) => {
             <Text
               style={[
                 styles.headerText,
-                isDarkMode && {backgroundColor: Styles.Colors.white},
+                isDarkMode && {color: Styles.Colors.white},
               ]}>
               <GridIcon color={colorScheme === 'dark' ? '#b5b5b5' : null} />
               <Text> </Text>
