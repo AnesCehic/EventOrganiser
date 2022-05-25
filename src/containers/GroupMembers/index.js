@@ -107,8 +107,20 @@ const GroupMembers = ({navigation, route}) => {
             />
           )}
           <View style={{marginLeft: 14}}>
-            <Text style={userCardStyle.name}>{firstName}</Text>
-            <Text style={userCardStyle.email}>{member.email}</Text>
+            <Text
+              style={[
+                userCardStyle.name,
+                colorScheme === 'dark' && Styles.Colors.white,
+              ]}>
+              {firstName}
+            </Text>
+            <Text
+              style={[
+                userCardStyle.email,
+                colorScheme === 'dark' && {color: Styles.Colors.white},
+              ]}>
+              {member.email}
+            </Text>
           </View>
         </View>
 
@@ -203,10 +215,13 @@ const GroupMembers = ({navigation, route}) => {
                     style={{marginRight: 9}}
                   />
                   <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: '700',
-                    }}>
+                    style={[
+                      {
+                        fontSize: 15,
+                        fontWeight: '700',
+                      },
+                      colorScheme === 'dark' && {color: Styles.Colors.white},
+                    ]}>
                     {isUserInGroup ? 'Joined' : 'Join'}
                   </Text>
                 </TouchableOpacity>
@@ -227,12 +242,20 @@ const GroupMembers = ({navigation, route}) => {
             </View>
           </View>
           <View style={{marginTop: 16}}>
-            <Text style={{fontSize: 28, fontFamily: Styles.Fonts.headerBold}}>
+            <Text
+              style={[
+                {fontSize: 28, fontFamily: Styles.Fonts.headerBold},
+                colorScheme === 'dark' && {color: Styles.Colors.white},
+              ]}>
               {groupData.name}
             </Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <IconFeathers name="user" size={13} style={{marginRight: 6}} />
-              <Text style={{fontSize: 13, fontWeight: '400'}}>
+              <Text
+                style={[
+                  {fontSize: 13, fontWeight: '400'},
+                  colorScheme === 'dark' && {color: Styles.Colors.white},
+                ]}>
                 {groupMembers.length}
               </Text>
             </View>

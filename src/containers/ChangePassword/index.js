@@ -36,7 +36,13 @@ const ChangePassword = ({navigation}) => {
     return (
       <View style={styles.inputFieldsContainer}>
         <View style={styles.fieldWrapper}>
-          <Text style={styles.inputFieldLabel}>New password</Text>
+          <Text
+            style={[
+              styles.inputFieldLabel,
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>
+            New password
+          </Text>
           <TextInput
             style={[
               styles.inputField,
@@ -50,11 +56,13 @@ const ChangePassword = ({navigation}) => {
               colorScheme === 'dark' && {
                 backgroundColor: '#273038',
                 borderWidth: 0,
+                color: Styles.Colors.white,
               },
             ]}
             onChangeText={setNewPassword}
             value={newPassword}
             ref={newPassRef}
+            placeholderTextColor={colorScheme === 'dark' && Styles.Colors.white}
             placeholder="Type new password here"
             blurOnSubmit={false}
             onSubmitEditing={() => {
@@ -75,7 +83,13 @@ const ChangePassword = ({navigation}) => {
           ) : null}
         </View>
         <View style={styles.fieldWrapper}>
-          <Text style={styles.inputFieldLabel}>Confirm new password</Text>
+          <Text
+            style={[
+              styles.inputFieldLabel,
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>
+            Confirm new password
+          </Text>
           <TextInput
             style={[
               styles.inputField,
@@ -89,10 +103,12 @@ const ChangePassword = ({navigation}) => {
               colorScheme === 'dark' && {
                 backgroundColor: '#273038',
                 borderWidth: 0,
+                color: Styles.Colors.white,
               },
             ]}
             onChangeText={setConfirmNewPassword}
             value={confirmNewPassword}
+            placeholderTextColor={colorScheme === 'dark' && Styles.Colors.white}
             placeholder="Type new password here"
             blurOnSubmit={false}
             onSubmitEditing={() => {
@@ -157,7 +173,13 @@ const ChangePassword = ({navigation}) => {
         colorScheme === 'dark' && {backgroundColor: '#0A121A'},
       ]}>
       <View style={styles.topImage}>
-        <Text style={styles.headerText}>Password</Text>
+        <Text
+          style={[
+            styles.headerText,
+            colorScheme === 'dark' && {color: Styles.Colors.white},
+          ]}>
+          Password
+        </Text>
       </View>
       {renderInputFields()}
       <SubmitButton

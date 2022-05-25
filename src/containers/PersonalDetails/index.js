@@ -81,7 +81,13 @@ const PersonalDetails = ({navigation, route}) => {
       headerRight: () => {
         return (
           <TouchableOpacity onPress={saveUserData}>
-            <Text style={styles.headerSaveButton}>Save</Text>
+            <Text
+              style={[
+                styles.headerSaveButton,
+                colorScheme === 'dark' && {color: Styles.Colors.white},
+              ]}>
+              Save
+            </Text>
           </TouchableOpacity>
         );
       },
@@ -157,13 +163,20 @@ const PersonalDetails = ({navigation, route}) => {
     return (
       <View style={styles.inputFieldsContainer}>
         <View style={styles.fieldWrapper}>
-          <Text style={styles.inputFieldLabel}>First name</Text>
+          <Text
+            style={[
+              styles.inputFieldLabel,
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>
+            First name
+          </Text>
           <TextInput
             style={[
               styles.inputField,
               colorScheme === 'dark' && {
                 backgroundColor: '#273038',
                 borderWidth: 0,
+                color: Styles.Colors.white,
               },
             ]}
             onChangeText={setFirstName}
@@ -171,13 +184,20 @@ const PersonalDetails = ({navigation, route}) => {
           />
         </View>
         <View style={styles.fieldWrapper}>
-          <Text style={styles.inputFieldLabel}>Last name</Text>
+          <Text
+            style={[
+              styles.inputFieldLabel,
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>
+            Last name
+          </Text>
           <TextInput
             style={[
               styles.inputField,
               colorScheme === 'dark' && {
                 backgroundColor: '#273038',
                 borderWidth: 0,
+                color: Styles.Colors.white,
               },
             ]}
             onChangeText={setLastName}
@@ -185,7 +205,13 @@ const PersonalDetails = ({navigation, route}) => {
           />
         </View>
         <View style={styles.fieldWrapper}>
-          <Text style={styles.inputFieldLabel}>Your email</Text>
+          <Text
+            style={[
+              styles.inputFieldLabel,
+              colorScheme === 'dark' && {color: Styles.Colors.white},
+            ]}>
+            Your email
+          </Text>
           <TextInput
             value={userData.email}
             editable={false}
@@ -195,7 +221,9 @@ const PersonalDetails = ({navigation, route}) => {
               colorScheme === 'dark' && {
                 backgroundColor: '#141C24',
                 borderWidth: 0,
-              },]}
+                color: Styles.Colors.white,
+              },
+            ]}
           />
           <View
             style={[
@@ -207,10 +235,17 @@ const PersonalDetails = ({navigation, route}) => {
                 borderBottomWidth: 0,
               },
             ]}>
-            <Text style={styles.disabledInputBottomText}>
+            <Text
+              style={[
+                styles.disabledInputBottomText,
+                colorScheme === 'dark' && {color: Styles.Colors.white},
+              ]}>
               To request an email change please{' '}
               <Text
-                style={styles.disabledInputBottomTextLink}
+                style={[
+                  styles.disabledInputBottomTextLink,
+                  colorScheme === 'dark' && {color: Styles.Colors.white},
+                ]}
                 onPress={() => console.log('contact us')}>
                 contact us
               </Text>
@@ -241,7 +276,13 @@ const PersonalDetails = ({navigation, route}) => {
                 : Styles.Colors.headerBackground,
           },
         ]}>
-        <Text style={styles.headerText}>Personal details</Text>
+        <Text
+          style={[
+            styles.headerText,
+            colorScheme === 'dark' && {color: Styles.Colors.white},
+          ]}>
+          Personal details
+        </Text>
       </View>
       {renderAvatar()}
       {renderInputFields()}
