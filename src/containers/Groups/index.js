@@ -190,13 +190,21 @@ const Groups = ({navigation}) => {
           ]}
         />
         <View style={[styles.halfContainer, styles.myGroupData]}>
-          <Text
-            style={[
-              styles.groupNameLogo,
-              colorScheme === 'dark' && {color: Styles.Colors.black},
-            ]}>
-            {item.name[0]}
-          </Text>
+          <View style={styles.groupNameLogo}>
+            <Text
+              style={[
+                {
+                  textAlign: 'center',
+                  textAlignVertical: 'center',
+                  fontSize: 40,
+                  height: '100%',
+                  width: '100%',
+                },
+                colorScheme === 'dark' && {color: Styles.Colors.black},
+              ]}>
+              {item.name[0]}
+            </Text>
+          </View>
           <Text
             style={[
               styles.myGroupName,
