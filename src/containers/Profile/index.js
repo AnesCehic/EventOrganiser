@@ -341,7 +341,17 @@ const Profile = ({navigation, route}) => {
         styles.container,
         colorScheme === 'dark' && {backgroundColor: '#141C24'},
       ]}>
-      <View style={styles.topImage} />
+      <View
+        style={[
+          styles.topImage,
+          {
+            backgroundColor:
+              colorScheme === 'dark'
+                ? Styles.Colors.headerBackgroundDark
+                : Styles.Colors.headerBackground,
+          },
+        ]}
+      />
       <View
         style={[
           styles.contentContainer,

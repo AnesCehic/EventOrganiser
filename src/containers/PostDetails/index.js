@@ -40,7 +40,10 @@ const PostDetails = ({navigation, route}) => {
           alignSelf: 'center',
         },
         headerStyle: {
-          backgroundColor: Styles.Colors.headerBackground,
+          backgroundColor:
+            colorScheme === 'dark'
+              ? Styles.Colors.headerBackgroundDark
+              : Styles.Colors.headerBackground,
         },
         title: `${res.owner.firstName} ${res.owner.lastName}'s post`,
       });

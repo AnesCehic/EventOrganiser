@@ -29,7 +29,11 @@ const Form = ({navigation, submitLogin, isLoading, isDarkMode}) => {
         style={[
           stylesHelper.shadow,
           stylesHelper.inputShadow,
-          isDarkMode && {backgroundColor: '#273038', borderWidth: 0},
+          isDarkMode && {
+            backgroundColor: '#273038',
+            borderWidth: 0,
+            color: Styles.Colors.white,
+          },
         ]}
         setUsername={setUsername}
         onChangeValue={value => setUsername(value)}
@@ -43,7 +47,11 @@ const Form = ({navigation, submitLogin, isLoading, isDarkMode}) => {
             styles.passwordInput,
             stylesHelper.shadow,
             stylesHelper.inputShadow,
-            isDarkMode && {backgroundColor: '#273038', borderWidth: 0},
+            isDarkMode && {
+              backgroundColor: '#273038',
+              borderWidth: 0,
+              color: Styles.Colors.white,
+            },
           ]}
           name="password"
           placeholder="Password"

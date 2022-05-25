@@ -177,7 +177,13 @@ const EditProfile = ({navigation}) => {
                 }}>
                 <View style={styles.leftContent}>
                   {menuItem.icon}
-                  <Text style={styles.menuItemText}>{menuItem.menuText}</Text>
+                  <Text
+                    style={[
+                      styles.menuItemText,
+                      colorScheme === 'dark' && {color: Styles.Colors.white},
+                    ]}>
+                    {menuItem.menuText}
+                  </Text>
                 </View>
                 <Icon
                   name="ri-arrow-right-s-line"
@@ -205,7 +211,13 @@ const EditProfile = ({navigation}) => {
               viewBox="0 0 12 12"
               color={colorScheme === 'dark' ? '#b5b5b5' : null}
             />
-            <Text style={styles.menuItemText}>Allow messaging</Text>
+            <Text
+              style={[
+                styles.menuItemText,
+                colorScheme === 'dark' && {color: Styles.Colors.white},
+              ]}>
+              Allow messaging
+            </Text>
           </View>
           <Switch
             trackColor={{
@@ -232,7 +244,13 @@ const EditProfile = ({navigation}) => {
           ]}>
           <View style={styles.leftContent}>
             <LogoutIcon />
-            <Text style={styles.menuItemText}>Log out</Text>
+            <Text
+              style={[
+                styles.menuItemText,
+                colorScheme === 'dark' && {color: Styles.Colors.white},
+              ]}>
+              Log out
+            </Text>
           </View>
           <Icon
             name="ri-arrow-right-s-line"

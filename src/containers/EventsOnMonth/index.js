@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, RefreshControl} from 'react-native';
+import {View, Text, FlatList, RefreshControl, StyleSheet} from 'react-native';
 import dayjs from 'dayjs';
 import RenderHTML from 'react-native-render-html';
 
 import {LoadingIndicator, EventItem} from '@components';
 import {toast} from '@utils';
+import {Styles} from '@common';
 
 import {EventService} from '@services/apiClient';
 
@@ -130,7 +131,15 @@ const EventsOnMonth = ({route, navigation, isDarkMode}) => {
   return (
     <View
       style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
-      <View style={styles.topImage}>
+      <View
+        style={[
+          styles.topImage,
+          {
+            backgroundColor: isDarkMode
+              ? Styles.Colors.headerBackgroundDark
+              : Styles.Colors.headerBackground,
+          },
+        ]}>
         <Text style={styles.headerText}>{`${dayjs(date).format(
           'MMMM',
         )} events`}</Text>

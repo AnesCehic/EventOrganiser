@@ -79,7 +79,10 @@ const CreatePost = ({navigation}) => {
       headerTitleAlign: 'center',
       title: 'New post',
       headerStyle: {
-        backgroundColor: Styles.Colors.headerBackground,
+        backgroundColor:
+          colorScheme === 'dark'
+            ? Styles.Colors.headerBackgroundDark
+            : Styles.Colors.headerBackground,
       },
       headerTitleStyle: {
         color: Styles.Colors.white,

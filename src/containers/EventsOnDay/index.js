@@ -5,6 +5,7 @@ import RenderHTML from 'react-native-render-html';
 
 import {LoadingIndicator, EventItem} from '@components';
 import {toast} from '@utils';
+import {Styles} from '@common';
 
 import {EventService} from '@services/apiClient';
 
@@ -131,7 +132,14 @@ const EventsOnDay = ({route, navigation, isDarkMode}) => {
     <View
       style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
       <View
-        style={styles.topImage}
+        style={[
+          styles.topImage,
+          {
+            backgroundColor: isDarkMode
+              ? Styles.Colors.headerBackgroundDark
+              : Styles.Colors.headerBackground,
+          },
+        ]}
         source={require('../../assets/headerBackground.png')}
         resizeMode="cover">
         <Text style={styles.headerText}>{`${dayjs(day).format(

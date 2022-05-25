@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 200,
     width: '100%',
-    backgroundColor: Styles.Colors.headerBackground,
   },
   topImageContent: {
     paddingHorizontal: 16,
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 30,
-    color: 'white',
+    color: Styles.Colors.white,
     fontFamily: Styles.Fonts.headerMedium,
   },
   topMonthTouch: {

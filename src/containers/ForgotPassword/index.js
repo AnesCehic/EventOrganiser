@@ -56,7 +56,15 @@ const ForgotPassword = ({navigation, isDarkMode}) => {
   return (
     <View
       style={[styles.container, isDarkMode && {backgroundColor: '#141C24'}]}>
-      <View style={styles.topImage}>
+      <View
+        style={[
+          styles.topImage,
+          {
+            backgroundColor: isDarkMode
+              ? Styles.Colors.headerBackgroundDark
+              : Styles.Colors.headerBackground,
+          },
+        ]}>
         <Text
           style={[
             styles.headerText,

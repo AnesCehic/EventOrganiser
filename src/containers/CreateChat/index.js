@@ -95,7 +95,10 @@ const CreateChat = ({navigation}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: Styles.Colors.headerBackground,
+        backgroundColor:
+          colorScheme === 'dark'
+            ? Styles.Colors.headerBackgroundDark
+            : Styles.Colors.headerBackground,
       },
       headerTitleStyle: colorScheme === 'dark' && {color: Styles.Colors.white},
       headerTitleAlign: 'center',

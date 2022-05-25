@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 
 import {LoadingIndicator, InfiniteLoader} from '@components';
 import {toast} from '@utils';
+import {Styles} from '@common';
 
 import {EventService} from '@services/apiClient';
 
@@ -168,7 +169,15 @@ const MyEvents = ({navigation, route, isDarkMode}) => {
   return (
     <View
       style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
-      <ImageBackground style={styles.topImage}>
+      <ImageBackground
+        style={[
+          styles.topImage,
+          {
+            backgroundColor: isDarkMode
+              ? Styles.Colors.headerBackgroundDark
+              : Styles.Colors.headerBackground,
+          },
+        ]}>
         <Text style={styles.headerText}>My Events</Text>
       </ImageBackground>
       <View

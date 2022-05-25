@@ -177,19 +177,37 @@ const EventsList = ({navigation, isDarkMode}) => {
           />
         </View>
         <View style={styles.eventsListItemTopWrapper}>
-          <Text style={styles.eventListItemTitle}>{event.title}</Text>
-          <Text>{source.text.substring(0, 85)}...</Text>
+          <Text
+            style={[
+              styles.eventListItemTitle,
+              isDarkMode && {color: Styles.Colors.white},
+            ]}>
+            {event.title}
+          </Text>
+          <Text style={isDarkMode && {color: '#E6EBF0'}}>
+            {source.text.substring(0, 85)}...
+          </Text>
         </View>
         <View style={styles.eventListItemDateAndTimeWrapper}>
           <View style={styles.eventListItemDateAndTime}>
             <Icon name="ri-time-line" color="#BFBB85" size={22} />
-            <Text style={styles.eventListDateAndTimeText}>
+            <Text
+              style={[
+                styles.eventListDateAndTimeText,
+                isDarkMode && {color: '#E6EBF0'},
+              ]}>
               {startDate} - {endDate} • {startTime}
             </Text>
           </View>
           <View style={styles.eventListItemDateAndTime}>
             <Icon name="ri-map-pin-2-line" color="#BFBB85" size={22} />
-            <Text style={styles.eventListDateAndTimeText}>{location}</Text>
+            <Text
+              style={[
+                styles.eventListDateAndTimeText,
+                isDarkMode && {color: '#E6EBF0'},
+              ]}>
+              {location}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -288,10 +306,23 @@ const EventsList = ({navigation, isDarkMode}) => {
   return (
     <View
       style={[styles.container, isDarkMode && {backgroundColor: '#0A121A'}]}>
-      <View style={styles.topImage}>
+      <View
+        style={[
+          styles.topImage,
+          {
+            backgroundColor:
+              colorScheme !== 'dark'
+                ? Styles.Colors.headerBackground
+                : Styles.Colors.headerBackgroundDark,
+          },
+        ]}>
         <View style={styles.topImageContent}>
           <View style={styles.eventsHeaderContainer}>
-            <Text style={styles.headerText}>
+            <Text
+              style={[
+                styles.headerText,
+                isDarkMode && {backgroundColor: Styles.Colors.white},
+              ]}>
               <GridIcon color={colorScheme === 'dark' ? '#b5b5b5' : null} />
               <Text> </Text>
               Events
@@ -305,7 +336,15 @@ const EventsList = ({navigation, isDarkMode}) => {
             <CalendarIcon
               color={colorScheme === 'light' ? '#000' : Styles.Colors.gold}
             />
-            <Text style={styles.monthSelected}>{dayjs().format('MMMM')}</Text>
+            <Text
+              style={[
+                styles.monthSelected,
+                colorScheme === 'dark' && {
+                  color: '#E6EBF0',
+                },
+              ]}>
+              {dayjs().format('MMMM')}
+            </Text>
           </TouchableOpacity>
         </View>
         {renderMyEventsButton()}

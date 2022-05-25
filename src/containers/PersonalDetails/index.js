@@ -231,7 +231,16 @@ const PersonalDetails = ({navigation, route}) => {
         styles.container,
         colorScheme === 'dark' && {backgroundColor: '#0A121A'},
       ]}>
-      <View style={styles.topImage}>
+      <View
+        style={[
+          styles.topImage,
+          {
+            backgroundColor:
+              colorScheme === 'dark'
+                ? Styles.Colors.headerBackgroundDark
+                : Styles.Colors.headerBackground,
+          },
+        ]}>
         <Text style={styles.headerText}>Personal details</Text>
       </View>
       {renderAvatar()}
