@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    marginTop: -50,
+    //marginTop: -50,
   },
   topImage: {
     justifyContent: 'center',
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDF1F5',
     borderWidth: 5,
     borderColor: 'white',
+    marginTop: -50,
   },
   userInfo: {
     width: '100%',
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: -50,
     borderRadius: 50,
     paddingHorizontal: 14,
     paddingVertical: 8,

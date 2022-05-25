@@ -98,7 +98,11 @@ const FeedDetails = ({navigation, route, isDarkMode}) => {
   const renderModalEventDetails = () => {
     return (
       <View style={styles.rsvpInfo}>
-        <Text style={{fontSize: 16, marginBottom: 8, fontWeight: '400'}}>
+        <Text
+          style={[
+            {fontSize: 16, marginBottom: 8, fontWeight: '400'},
+            isDarkMode && {color: Styles.Colors.white},
+          ]}>
           Event details
         </Text>
         <Text
@@ -359,6 +363,7 @@ const FeedDetails = ({navigation, route, isDarkMode}) => {
           closeModal={() => setIsConfirmRSVPModalVisible(false)}
           contentContainerStyle={[
             styles.modalContainer,
+            isDarkMode && {backgroundColor: '#0A121A'},
             {justifyContent: 'space-between'},
           ]}>
           <TouchableOpacity
@@ -381,11 +386,14 @@ const FeedDetails = ({navigation, route, isDarkMode}) => {
             ]}>
             <Image source={require('../../assets/accept.png')} />
             <Text
-              style={{
-                fontSize: 30,
-                marginVertical: 25,
-                fontFamily: Styles.Fonts.headerBold,
-              }}>
+              style={[
+                {
+                  fontSize: 30,
+                  marginVertical: 25,
+                  fontFamily: Styles.Fonts.headerBold,
+                },
+                isDarkMode && {color: Styles.Colors.white},
+              ]}>
               Reservation {'\n'} Confirmed
             </Text>
           </View>
@@ -439,7 +447,7 @@ const FeedDetails = ({navigation, route, isDarkMode}) => {
       <View style={styles.eventListItemDateAndTimeWrapper}>
         <View style={styles.eventListItemDateAndTime}>
           <RemixIcon name="ri-time-line" color="#BFBB85" size={22} />
-          <Text style={styles.eventListDateAndTimeText}>
+          <Text style={[styles.eventListDateAndTimeText]}>
             {startDate} - {endDate} • {startTime}
           </Text>
         </View>

@@ -177,7 +177,6 @@ const FeedNavigation = () => {
     <FeedStack.Navigator screenOptions={{headerShadowVisible: false}}>
       <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
       <FeedStack.Screen name="FeedDetails" component={FeedDetailsScreen} />
-      <FeedStack.Screen name="PostDetails" component={PostDetailsSCreen} />
       <FeedStack.Screen name="Comments" component={CommentsScreen} />
     </FeedStack.Navigator>
   );
@@ -321,6 +320,10 @@ const MainNavigation = () => {
             />
             <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
             <FeedStack.Screen name="CreatePost" component={CreatePostScreen} />
+            <FeedStack.Screen
+              name="PostDetails"
+              component={PostDetailsSCreen}
+            />
             <FeedStack.Screen
               name="FeedDetails"
               component={FeedDetailsScreen}

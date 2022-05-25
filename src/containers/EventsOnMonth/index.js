@@ -90,7 +90,11 @@ const EventsOnMonth = ({route, navigation, isDarkMode}) => {
         .replace(/(<([^>]+)>)/gi, '')
         .replace(/&([^;]+);/gi, ''),
     };
-    const source = <Text>{description.text.substring(0, 85)}...</Text>;
+    const source = (
+      <Text style={isDarkMode && {color: '#E6EBF0'}}>
+        {description.text.substring(0, 85)}...
+      </Text>
+    );
     return (
       <EventItem
         onPress={() => {

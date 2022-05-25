@@ -347,7 +347,7 @@ const Profile = ({navigation, route}) => {
           {
             backgroundColor:
               colorScheme === 'dark'
-                ? Styles.Colors.headerBackgroundDark
+                ? '#0A1219'
                 : Styles.Colors.headerBackground,
           },
         ]}
@@ -361,7 +361,7 @@ const Profile = ({navigation, route}) => {
           style={[
             styles.userWrapper,
             colorScheme === 'dark' && {
-              backgroundColor: Styles.Colors.headerBackgroundDark,
+              backgroundColor: '#141C24',
             },
           ]}>
           <View>
