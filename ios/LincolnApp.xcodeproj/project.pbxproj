@@ -19,15 +19,15 @@
 		57BDA47BC78444CFBCBBDCDF /* IBMPlexSerif-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE0539E721CF478186A647EE /* IBMPlexSerif-Regular.ttf */; };
 		57FD98D977B942509F3B8A53 /* IBMPlexSerif-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6E892A2084F43B0A68B5A12 /* IBMPlexSerif-SemiBoldItalic.ttf */; };
 		5DDBED74177D4D0B988C35F1 /* IBMPlexSerif-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F754234994FB44A287E40D7B /* IBMPlexSerif-Light.ttf */; };
+		660BB3AB6DBA8ACEB614D6D3 /* libPods-LincolnApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DCCD2F5135223810A889C8 /* libPods-LincolnApp.a */; };
 		67F30C4EC31C42578A486A75 /* IBMPlexSerif-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75F2AF7CE474434F9887B4E8 /* IBMPlexSerif-Bold.ttf */; };
 		7BA48020D362450B9C078BEF /* IBMPlexSerif-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD1384F2C887477699B1FF04 /* IBMPlexSerif-BoldItalic.ttf */; };
+		7DAAA09D0A1B5FF074F9A976 /* libPods-LincolnApp-LincolnAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB50878B28E2659CC11A721 /* libPods-LincolnApp-LincolnAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		82442BE9F5838B1EE64AA886 /* libPods-LincolnApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D7BF62772075AAB2B22981F /* libPods-LincolnApp.a */; };
 		982B92B01C954832B594101F /* IBMPlexSerif-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF5E814283BE428D969B3BE2 /* IBMPlexSerif-ExtraLightItalic.ttf */; };
 		CC53EB667D6C49FFBC7003BF /* IBMPlexSerif-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C2DC71700A5413E83A0ABDF /* IBMPlexSerif-Thin.ttf */; };
 		D0941410ED66429FA2FFFEBB /* IBMPlexSerif-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 119AEBD0BA2C4F37A0754E97 /* IBMPlexSerif-LightItalic.ttf */; };
 		DAB81C99022C4941953385E3 /* IBMPlexSerif-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F31B43B66B394168AF7C368B /* IBMPlexSerif-ExtraLight.ttf */; };
-		DDCAB9B023B378A83C6FB450 /* libPods-LincolnApp-LincolnAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A8BB1CFD95949B74EAD68B /* libPods-LincolnApp-LincolnAppTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,16 +54,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LincolnApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LincolnApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LincolnApp/main.m; sourceTree = "<group>"; };
-		1D7BF62772075AAB2B22981F /* libPods-LincolnApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LincolnApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		36DCCD2F5135223810A889C8 /* libPods-LincolnApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LincolnApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B81B0B602D949A2838EEDF7 /* IBMPlexSerif-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSerif-Medium.ttf"; path = "../src/assets/fonts/IBM_Plex_Serif/IBMPlexSerif-Medium.ttf"; sourceTree = "<group>"; };
-		443DB9279A5213178352C5C7 /* Pods-LincolnApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LincolnApp.release.xcconfig"; path = "Target Support Files/Pods-LincolnApp/Pods-LincolnApp.release.xcconfig"; sourceTree = "<group>"; };
-		586481DBBA40EFDF541B7BF6 /* Pods-LincolnApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LincolnApp.debug.xcconfig"; path = "Target Support Files/Pods-LincolnApp/Pods-LincolnApp.debug.xcconfig"; sourceTree = "<group>"; };
-		60A8BB1CFD95949B74EAD68B /* libPods-LincolnApp-LincolnAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LincolnApp-LincolnAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CC8824976776FC19032253E /* Pods-LincolnApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LincolnApp.release.xcconfig"; path = "Target Support Files/Pods-LincolnApp/Pods-LincolnApp.release.xcconfig"; sourceTree = "<group>"; };
 		750F83AC61D4498D8A25325D /* IBMPlexSerif-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSerif-ThinItalic.ttf"; path = "../src/assets/fonts/IBM_Plex_Serif/IBMPlexSerif-ThinItalic.ttf"; sourceTree = "<group>"; };
 		75F2AF7CE474434F9887B4E8 /* IBMPlexSerif-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSerif-Bold.ttf"; path = "../src/assets/fonts/IBM_Plex_Serif/IBMPlexSerif-Bold.ttf"; sourceTree = "<group>"; };
 		7F1FB1AC817243AF82FE23FE /* IBMPlexSerif-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSerif-MediumItalic.ttf"; path = "../src/assets/fonts/IBM_Plex_Serif/IBMPlexSerif-MediumItalic.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LincolnApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9B17510D47EAB1B13EFE7D2C /* Pods-LincolnApp-LincolnAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LincolnApp-LincolnAppTests.debug.xcconfig"; path = "Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		81CBDBD087DEFEB7B320EE1D /* Pods-LincolnApp-LincolnAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LincolnApp-LincolnAppTests.debug.xcconfig"; path = "Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A096B1302836C59300D26336 /* LincolnApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LincolnApp.entitlements; path = LincolnApp/LincolnApp.entitlements; sourceTree = "<group>"; };
 		A09CB2B327A9EB55009111A7 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		A09CB2B427A9EB55009111A7 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
@@ -81,8 +79,10 @@
 		A09CB2C027A9EB56009111A7 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		A09CB2C127A9EB56009111A7 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A09CB2C227A9EB56009111A7 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		BFF78E62F5AF39E7AE7F112E /* Pods-LincolnApp-LincolnAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LincolnApp-LincolnAppTests.release.xcconfig"; path = "Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		A37DB2C72BE1067EBAC4AC40 /* Pods-LincolnApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LincolnApp.debug.xcconfig"; path = "Target Support Files/Pods-LincolnApp/Pods-LincolnApp.debug.xcconfig"; sourceTree = "<group>"; };
+		BEB50878B28E2659CC11A721 /* libPods-LincolnApp-LincolnAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LincolnApp-LincolnAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF5E814283BE428D969B3BE2 /* IBMPlexSerif-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSerif-ExtraLightItalic.ttf"; path = "../src/assets/fonts/IBM_Plex_Serif/IBMPlexSerif-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		EAECC280391548A7C211F7A6 /* Pods-LincolnApp-LincolnAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LincolnApp-LincolnAppTests.release.xcconfig"; path = "Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE0539E721CF478186A647EE /* IBMPlexSerif-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSerif-Regular.ttf"; path = "../src/assets/fonts/IBM_Plex_Serif/IBMPlexSerif-Regular.ttf"; sourceTree = "<group>"; };
 		F31B43B66B394168AF7C368B /* IBMPlexSerif-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSerif-ExtraLight.ttf"; path = "../src/assets/fonts/IBM_Plex_Serif/IBMPlexSerif-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDCAB9B023B378A83C6FB450 /* libPods-LincolnApp-LincolnAppTests.a in Frameworks */,
+				7DAAA09D0A1B5FF074F9A976 /* libPods-LincolnApp-LincolnAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82442BE9F5838B1EE64AA886 /* libPods-LincolnApp.a in Frameworks */,
+				660BB3AB6DBA8ACEB614D6D3 /* libPods-LincolnApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,10 +146,10 @@
 		1665B054311AEFB697EDF84A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				586481DBBA40EFDF541B7BF6 /* Pods-LincolnApp.debug.xcconfig */,
-				443DB9279A5213178352C5C7 /* Pods-LincolnApp.release.xcconfig */,
-				9B17510D47EAB1B13EFE7D2C /* Pods-LincolnApp-LincolnAppTests.debug.xcconfig */,
-				BFF78E62F5AF39E7AE7F112E /* Pods-LincolnApp-LincolnAppTests.release.xcconfig */,
+				A37DB2C72BE1067EBAC4AC40 /* Pods-LincolnApp.debug.xcconfig */,
+				4CC8824976776FC19032253E /* Pods-LincolnApp.release.xcconfig */,
+				81CBDBD087DEFEB7B320EE1D /* Pods-LincolnApp-LincolnAppTests.debug.xcconfig */,
+				EAECC280391548A7C211F7A6 /* Pods-LincolnApp-LincolnAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -158,8 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				1D7BF62772075AAB2B22981F /* libPods-LincolnApp.a */,
-				60A8BB1CFD95949B74EAD68B /* libPods-LincolnApp-LincolnAppTests.a */,
+				36DCCD2F5135223810A889C8 /* libPods-LincolnApp.a */,
+				BEB50878B28E2659CC11A721 /* libPods-LincolnApp-LincolnAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -247,12 +247,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LincolnAppTests" */;
 			buildPhases = (
-				3FF5CB4B9C0B6FFFE3ABD6A7 /* [CP] Check Pods Manifest.lock */,
+				C5EED794FEA1BFE86D35D160 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				9EAA03DA9B18390D8D9F20F1 /* [CP] Embed Pods Frameworks */,
-				BA4699E526BBAC1E92F85A00 /* [CP] Copy Pods Resources */,
+				B22284AD4D729CA6CDE29524 /* [CP] Embed Pods Frameworks */,
+				CECB871679CB922AE97E023F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,14 +268,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LincolnApp" */;
 			buildPhases = (
-				F232A05C8297DF7D4B7541FF /* [CP] Check Pods Manifest.lock */,
+				227AD0C6D50AEE987EFF1A51 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				86C7D2F770631513F213D711 /* [CP] Embed Pods Frameworks */,
-				8414B29C7B7151D8DE587849 /* [CP] Copy Pods Resources */,
+				764A9572F26AF320F7CAC127 /* [CP] Embed Pods Frameworks */,
+				48686463A26B9BC1876043AE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -370,7 +370,80 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		3FF5CB4B9C0B6FFFE3ABD6A7 /* [CP] Check Pods Manifest.lock */ = {
+		227AD0C6D50AEE987EFF1A51 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LincolnApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		48686463A26B9BC1876043AE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		764A9572F26AF320F7CAC127 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B22284AD4D729CA6CDE29524 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5EED794FEA1BFE86D35D160 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -392,58 +465,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8414B29C7B7151D8DE587849 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		86C7D2F770631513F213D711 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LincolnApp/Pods-LincolnApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9EAA03DA9B18390D8D9F20F1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BA4699E526BBAC1E92F85A00 /* [CP] Copy Pods Resources */ = {
+		CECB871679CB922AE97E023F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -458,28 +480,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LincolnApp-LincolnAppTests/Pods-LincolnApp-LincolnAppTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F232A05C8297DF7D4B7541FF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LincolnApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -534,7 +534,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B17510D47EAB1B13EFE7D2C /* Pods-LincolnApp-LincolnAppTests.debug.xcconfig */;
+			baseConfigurationReference = 81CBDBD087DEFEB7B320EE1D /* Pods-LincolnApp-LincolnAppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -562,7 +562,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BFF78E62F5AF39E7AE7F112E /* Pods-LincolnApp-LincolnAppTests.release.xcconfig */;
+			baseConfigurationReference = EAECC280391548A7C211F7A6 /* Pods-LincolnApp-LincolnAppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -587,14 +587,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 586481DBBA40EFDF541B7BF6 /* Pods-LincolnApp.debug.xcconfig */;
+			baseConfigurationReference = A37DB2C72BE1067EBAC4AC40 /* Pods-LincolnApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = LincolnApp/LincolnApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 9FY42W8KWT;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LincolnApp/Info.plist;
@@ -618,14 +618,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 443DB9279A5213178352C5C7 /* Pods-LincolnApp.release.xcconfig */;
+			baseConfigurationReference = 4CC8824976776FC19032253E /* Pods-LincolnApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = LincolnApp/LincolnApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 9FY42W8KWT;
 				INFOPLIST_FILE = LincolnApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
