@@ -13,6 +13,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {LoadingIndicator, TextInput} from '@components';
 import {toast} from '@utils';
+import {askForPermissions} from '@utils/permissions';
 import {UserContext} from '@contexts';
 import UserIcon from '@assets/ImageComponents/UserIcon';
 import {Styles} from '@common';
@@ -34,17 +35,11 @@ const PersonalDetails = ({navigation, route}) => {
   const loadCamera = async () => {
     try {
       // await hasPermission();
-      const token = await AsyncStorageLib.getItem('feathers-jwt');
-
-      let per;
-
-      if (Platform.OS === 'android') {
-        per = await check(PERMISSIONS.ANDROID.CAMERA);
-      }
-
-      if (!per) {
-        throw new Error('You do not have permissions to use camera!');
-      }
+      const isGranted = await askForPermissions(
+        Platform.OS === 'android'
+          ? PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
+          : PERMISSIONS.IOS.PHOTO_LIBRARY,
+      );
 
       const res = await launchImageLibrary();
       setUserData({
