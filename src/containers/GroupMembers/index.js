@@ -8,7 +8,7 @@ import {
   useColorScheme,
 } from 'react-native';
 import Icon from 'react-native-remix-icon';
-import IconFeathers from 'react-native-vector-icons/Feather';
+import IconFeathers from 'react-native-vector-icons/AntDesign';
 import IconMAC from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Avatar} from 'react-native-elements';
 
@@ -183,6 +183,7 @@ const GroupMembers = ({navigation, route}) => {
       groupId: res._id,
       label: res.label,
       component: componentHeader,
+      participants: res.participantList,
     });
   };
 

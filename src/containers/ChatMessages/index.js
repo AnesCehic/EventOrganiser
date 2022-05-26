@@ -195,12 +195,13 @@ const ChatMessages = ({navigation, route}) => {
     const previousMessage = pagination.messages[index + 1]?.createdAt;
     const nextMessage = pagination.messages[index - 1]?.ownerId;
     const nextMessageDate = pagination.messages[index - 1]?.createdAt;
-    let currentMessage = item.ownerId;
+    let currentMessage = item?.ownerId;
+    let previousSender = pagination.messages[index + 1]?.ownerId;
     let previousDate =
       previousMessage && dayjs(previousMessage).format('MM/DD/YYYY');
     let nextMessageDateFormatted =
       nextMessageDate && dayjs(nextMessageDate).format('MM/DD/YYYY');
-    let currentDate = dayjs(item.createdAt).format('MM/DD/YYYY');
+    let currentDate = dayjs(item?.createdAt).format('MM/DD/YYYY');
 
     const senderImageUrl = route.params.participants.find(
       e => e._id === item.ownerId,
@@ -225,6 +226,16 @@ const ChatMessages = ({navigation, route}) => {
               item.ownerId === userId
                 ? styles.userMessageContainer
                 : styles.friendMessageContainer,
+              (previousDate !== currentDate ||
+                previousSender !== currentMessage) && {
+                borderTopRightRadius: 17,
+                borderTopLeftRadius: 17,
+              },
+              (currentDate !== nextMessageDateFormatted ||
+                currentMessage !== nextMessage) && {
+                borderBottomRightRadius: 17,
+                borderBottomLeftRadius: 17,
+              },
             ]}>
             {item.text ? (
               <Text
@@ -263,7 +274,17 @@ const ChatMessages = ({navigation, route}) => {
                     alignItems: 'flex-start',
                     justifyContent: 'flex-start',
                   },
-              {backgroundColor: Styles.Colors.white, borderRadius: 8},
+              {backgroundColor: Styles.Colors.white},
+              (previousDate !== currentDate ||
+                previousSender !== currentMessage) && {
+                borderTopRightRadius: 17,
+                borderTopLeftRadius: 17,
+              },
+              (currentDate !== nextMessageDateFormatted ||
+                currentMessage !== nextMessage) && {
+                borderBottomRightRadius: 17,
+                borderBottomLeftRadius: 17,
+              },
               colorScheme === 'dark' && {backgroundColor: '#273038'},
             ]}>
             {item.upload?.files.map((image, index) => {
@@ -272,13 +293,16 @@ const ChatMessages = ({navigation, route}) => {
                   key={index}
                   onPress={() => openFullScreen(image.signedURL)}>
                   <Image
-                    style={{
-                      alignSelf: 'flex-end',
-                      borderRadius: 8,
-                      margin: 1,
-                      width: 100,
-                      height: 70,
-                    }}
+                    style={[
+                      {
+                        alignSelf: 'flex-end',
+                        margin: 1,
+                        width: 100,
+                        height: 70,
+                        marginLeft: item?.ownerId !== userId ? 0 : 1,
+                        marginRight: item?.ownerId !== userId ? 1 : 0,
+                      },
+                    ]}
                     source={{uri: image.signedURL}}
                   />
                 </TouchableOpacity>
@@ -382,14 +406,20 @@ const ChatMessages = ({navigation, route}) => {
       edges={['right', 'left', 'top']}
       style={[
         styles.container,
+        {backgroundColor: '#141C24'},
         colorScheme === 'dark' && {backgroundColor: '#273038'},
       ]}>
-      <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+      <ModalImage
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+      <KeyboardAwareScrollView
+        contentContainerStyle={[
+          {flex: 1, backgroundColor: 'white'},
+          colorScheme === 'dark' && {backgroundColor: '#141C24'},
+        ]}>
         {renderMesagesList()}
-        <ModalImage
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        />
+
         <View
           style={[
             {width: '100%', height: 1, backgroundColor: '#E6EBF0'},

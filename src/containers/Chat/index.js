@@ -10,7 +10,7 @@ import {
   useColorScheme,
 } from 'react-native';
 
-import {MenuItem, SubmitButton, LoadingIndicator} from '@components';
+import {InfiniteLoader, LoadingIndicator} from '@components';
 import {UserContext} from '@contexts';
 import {MessageGroupsService} from '@services/apiClient';
 import {Styles} from '@common';
@@ -32,8 +32,14 @@ const Chat = ({navigation}) => {
   const colorScheme = useColorScheme();
   const {allowMessaging, userData} = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [infiniteLoading, setInfiniteLoading] = useState(false);
   const [messageGroups, setMessageGroups] = useState([]);
   const [search, setSearch] = useState('');
+  const [pagination, setPagination] = useState({
+    limit: 10,
+    total: 10,
+    page: 1,
+  });
 
   const navigateToMessages = (groupId, label, component, participants) => {
     navigation.navigate('Message', {
@@ -126,14 +132,32 @@ const Chat = ({navigation}) => {
 
   const getAllMessages = async () => {
     try {
-      setIsLoading(true);
+      if (pagination.total < pagination.limit) {
+        return;
+      }
+
+      if (messageGroups.length >= pagination.total) {
+        setInfiniteLoading(false);
+        return;
+      }
+
       const userId = await AsyncStorageLib.getItem('@userId');
-      const {data} = await MessageGroupsService.find({
+      const res = await MessageGroupsService.find({
         query: {
           participants: userId,
+          $skip: (pagination.page - 1) * 10,
+          $limit: pagination.limit,
+          $sort: {
+            updatedAt: -1,
+          },
         },
       });
-      setMessageGroups(data);
+      setMessageGroups([...messageGroups, ...res.data]);
+      setPagination({
+        total: res.total,
+        page: pagination.page + 1,
+      });
+      setInfiniteLoading(false);
     } catch (error) {
       console.log('[Error get message groups]', error);
     } finally {
@@ -142,6 +166,7 @@ const Chat = ({navigation}) => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     getAllMessages();
   }, []);
 
@@ -159,6 +184,10 @@ const Chat = ({navigation}) => {
         hide: true,
       });
       setMessageGroups(messageGroups.filter(item => item._id !== id));
+      setPagination({
+        ...pagination,
+        total: pagination.total - 1,
+      });
     } catch (error) {
       console.log('[Error deleting group]', error);
     }
@@ -264,6 +293,10 @@ const Chat = ({navigation}) => {
         ItemSeparatorComponent={renderSeparator}
         keyExtractor={item => item._id}
         renderItem={renderGroup}
+        onEndReached={() => {
+          setInfiniteLoading(true);
+          getAllMessages();
+        }}
       />
     );
   };
@@ -291,6 +324,11 @@ const Chat = ({navigation}) => {
       ]}>
       {renderChatHeader()}
       {renderMessageGroups()}
+      {infiniteLoading && messageGroups.length < pagination.total ? (
+        <View>
+          <InfiniteLoader />
+        </View>
+      ) : null}
     </View>
   );
 };
