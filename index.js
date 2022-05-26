@@ -8,10 +8,21 @@ import {AppRegistry, Platform} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 
+import {DevicesService} from './src/services/apiClient';
+
 import PushNotification from 'react-native-push-notification';
 
 PushNotification.configure({
-  onRegister: function (token) {},
+  onRegister: async function (token) {
+    try {
+      const res = await DevicesService.create({
+        token,
+        os: Platform.OS,
+      });
+    } catch (error) {
+      console.log('[Error creating token]', error);
+    }
+  },
   onNotification: function (notification) {},
   onAction: function (notification) {},
   onRegistrationError: function (err) {},
