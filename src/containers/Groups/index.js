@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import {LoadingIndicator} from '@components';
+import {LoadingIndicator, InfiniteLoader} from '@components';
 import {Styles} from '@common';
 import {GroupService} from '@services/apiClient';
 import {toast} from '@utils';
@@ -39,6 +39,7 @@ const Groups = ({navigation}) => {
   const [myGroups, setMyGroups] = useState([]);
   const [groups, setGroups] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [infiniteLoading, setInfiniteLoading] = useState(false);
 
   const [limit, setLimit] = useState(10);
   const [skip, setSkip] = useState(0);
@@ -82,6 +83,12 @@ const Groups = ({navigation}) => {
       if (total < limit) {
         return;
       }
+
+      if (groups.length >= total) {
+        setInfiniteLoading(false);
+        return;
+      }
+
       const res = await GroupService.find({
         query: {
           $limit: limit,
@@ -101,6 +108,7 @@ const Groups = ({navigation}) => {
       // change this line to personalGroups
       // setMyGroups([...myGroups, ...res.data]);
       setGroups([...groups, ...res.data]);
+      setInfiniteLoading(false);
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error fetching all groups]', error);
@@ -279,7 +287,10 @@ const Groups = ({navigation}) => {
           numColumns={2}
           ListHeaderComponent={renderListHeader}
           data={groups}
-          onEndReached={loadMore}
+          onEndReached={() => {
+            setInfiniteLoading(true);
+            loadMore();
+          }}
           keyExtractor={item => item._id}
           showsVerticalScrollIndicator={false}
           renderItem={renderMyGroupInfo}
@@ -341,6 +352,11 @@ const Groups = ({navigation}) => {
         }}>
         {renderGroups()}
       </View>
+      {infiniteLoading && groups.length < total ? (
+        <View>
+          <InfiniteLoader />
+        </View>
+      ) : null}
     </View>
   );
 };
