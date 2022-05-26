@@ -10,6 +10,7 @@ import {
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {Styles} from '@common';
+import {askForPermissions} from '@utils/permissions';
 
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
@@ -28,15 +29,11 @@ const MessageInput = ({
 }) => {
   const loadCamera = async () => {
     try {
-      let per;
-
-      if (Platform.OS === 'android') {
-        per = await request(PERMISSIONS.ANDROID.CAMERA);
-      }
-
-      if (per !== RESULTS.GRANTED) {
-        throw new Error('Permission not granted');
-      }
+      const per = await askForPermissions(
+        Platform.OS === 'android'
+          ? PERMISSIONS.ANDROID.CAMERA
+          : PERMISSIONS.IOS.CAMERA,
+      );
 
       const res = await launchCamera();
 
@@ -48,6 +45,12 @@ const MessageInput = ({
 
   const loadGallery = async () => {
     try {
+      const per = await askForPermissions(
+        Platform.OS === 'android'
+          ? PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
+          : PERMISSIONS.IOS.PHOTO_LIBRARY,
+      );
+
       const res = await launchImageLibrary({
         mediaType: 'photo',
       });

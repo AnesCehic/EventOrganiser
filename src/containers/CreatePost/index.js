@@ -10,6 +10,7 @@ import {
   Image,
   PermissionsAndroid,
   useColorScheme,
+  Platform,
 } from 'react-native';
 
 import {PostsService} from '@services/apiClient';
@@ -17,12 +18,14 @@ import {UserContext} from '@contexts';
 import {HeaderBack} from '@components';
 import {Styles} from '@common';
 import {toast} from '@utils';
+import {askForPermissions} from '../../utils/permissions';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconFa from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
+import {PERMISSIONS} from 'react-native-permissions';
 
 const CreatePost = ({navigation}) => {
   const colorScheme = useColorScheme();
@@ -115,20 +118,14 @@ const CreatePost = ({navigation}) => {
     });
   }, [loadedImages, postData, colorScheme]);
 
-  const hasAndroidPermission = async () => {
-    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
-
-    const hasPermission = await PermissionsAndroid.check(permission);
-    if (hasPermission) {
-      return true;
-    }
-
-    const status = await PermissionsAndroid.request(permission);
-    return status === 'granted';
-  };
-
   const loadImages = async () => {
     try {
+      await askForPermissions(
+        Platform.OS === 'android'
+          ? PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
+          : PERMISSIONS.IOS.PHOTO_LIBRARY,
+      );
+
       const res = await launchImageLibrary({
         mediaType: 'photo',
       });

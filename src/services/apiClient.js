@@ -30,6 +30,7 @@ const MessageGroupsService = client.service('message-groups');
 const MessagesService = client.service('messages');
 const UploadsService = client.service('uploads');
 const CommentsService = client.service('comments');
+const DevicesService = client.service('devices');
 
 export {
   UsersService,
@@ -46,4 +47,5 @@ export {
   MessagesService,
   UploadsService,
   CommentsService,
+  DevicesService,
 };

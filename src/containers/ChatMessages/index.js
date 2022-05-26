@@ -235,6 +235,7 @@ const ChatMessages = ({navigation, route}) => {
                 currentMessage !== nextMessage) && {
                 borderBottomRightRadius: 17,
                 borderBottomLeftRadius: 17,
+                marginBottom: 16,
               },
             ]}>
             {item.text ? (
@@ -284,6 +285,7 @@ const ChatMessages = ({navigation, route}) => {
                 currentMessage !== nextMessage) && {
                 borderBottomRightRadius: 17,
                 borderBottomLeftRadius: 17,
+                marginBottom: 16,
               },
               colorScheme === 'dark' && {backgroundColor: '#273038'},
             ]}>
@@ -331,7 +333,6 @@ const ChatMessages = ({navigation, route}) => {
           {alignItems: 'stretch'},
           colorScheme === 'dark' && {backgroundColor: '#273038'},
         ]}
-        style={{marginBottom: 16}}
         data={pagination.messages}
         keyExtractor={item => item._id}
         renderItem={renderItem}
@@ -418,7 +419,7 @@ const ChatMessages = ({navigation, route}) => {
           {flex: 1, backgroundColor: 'white'},
           colorScheme === 'dark' && {backgroundColor: '#141C24'},
         ]}>
-        {renderMesagesList()}
+        <View style={{flex: 1}}>{renderMesagesList()}</View>
 
         <View
           style={[

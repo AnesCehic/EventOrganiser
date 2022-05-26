@@ -231,19 +231,21 @@ const GroupMembers = ({navigation, route}) => {
                   </Text>
                 </TouchableOpacity>
               )}
-              <TouchableOpacity
-                onPress={createChatGroup}
-                style={[
-                  userCardStyle.headerButton,
-                  {marginLeft: 8, paddingHorizontal: 0},
-                  colorScheme === 'dark' && {
-                    backgroundColor: '#4C5761',
-                  },
-                ]}>
-                <BottomChat
-                  fill={colorScheme === 'dark' && Styles.Colors.white}
-                />
-              </TouchableOpacity>
+              {isUserInGroup && (
+                <TouchableOpacity
+                  onPress={createChatGroup}
+                  style={[
+                    userCardStyle.headerButton,
+                    {marginLeft: 8, paddingHorizontal: 0},
+                    colorScheme === 'dark' && {
+                      backgroundColor: '#4C5761',
+                    },
+                  ]}>
+                  <BottomChat
+                    fill={colorScheme === 'dark' && Styles.Colors.white}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
           <View style={{marginTop: 16}}>
