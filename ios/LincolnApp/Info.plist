@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>LincolnApp</string>
+	<string>Lincoln Club</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -48,10 +48,10 @@
 	<string>App allows users to stored RSVP event info in their personal calendar.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>App allows users to take pictures for posts, messages and their profile photo.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App allows users to pull photos from their phone to post, send in messages or use as a profile photo.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>App allows user to acces contacts list for calendar events</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App allows users to pull photos from their phone to post, send in messages or use as a profile photo.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>
