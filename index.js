@@ -15,10 +15,12 @@ import PushNotification from 'react-native-push-notification';
 PushNotification.configure({
   onRegister: async function (token) {
     try {
-      const res = await DevicesService.create({
-        token,
-        os: Platform.OS,
-      });
+      if (Platform.OS === 'ios') {
+        const res = await DevicesService.create({
+          token,
+          os: Platform.OS,
+        });
+      }
     } catch (error) {
       console.log('[Error creating token]', error);
     }
