@@ -382,14 +382,17 @@ const ChatMessages = ({navigation, route}) => {
       edges={['right', 'left', 'top']}
       style={[
         styles.container,
+        {backgroundColor: '#141C24'},
         colorScheme === 'dark' && {backgroundColor: '#273038'},
       ]}>
-      <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+      <ModalImage
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+      <KeyboardAwareScrollView
+        contentContainerStyle={{flex: 1, backgroundColor: 'white'}}>
         {renderMesagesList()}
-        <ModalImage
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        />
+
         <View
           style={[
             {width: '100%', height: 1, backgroundColor: '#E6EBF0'},
