@@ -50,6 +50,8 @@
 	<string>App allows users to take pictures for posts, messages and their profile photo.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App allows users to pull photos from their phone to post, send in messages or use as a profile photo.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>App allows user to acces contacts list for calendar events</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>
