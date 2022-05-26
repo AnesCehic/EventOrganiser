@@ -172,6 +172,7 @@ const Profile = ({navigation, route}) => {
         groupId: res._id,
         label: res.label,
         component: componentHeader,
+        participants: res.participantList,
       });
     } catch (error) {
       console.log('[Error creating message group]', error);

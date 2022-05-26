@@ -6,7 +6,7 @@ import {
   FlatList,
   useColorScheme,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import {LoadingIndicator} from '@components';
 import {Styles} from '@common';

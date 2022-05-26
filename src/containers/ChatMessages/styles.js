@@ -16,10 +16,12 @@ const styles = StyleSheet.create({
     maxWidth: 240,
     minWidth: 90,
     minHeight: 35,
-    borderRadius: 12,
+    borderRadius: 20,
   },
   userMessageContainer: {
     backgroundColor: Styles.Colors.gold,
+    borderTopRightRadius: 6,
+    borderBottomRightRadius: 6,
     marginRight: 10,
     alignSelf: 'flex-end',
   },
@@ -31,6 +33,8 @@ const styles = StyleSheet.create({
     color: Styles.Colors.white,
   },
   friendMessageContainer: {
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
     backgroundColor:
       colorScheme === 'light' ? Styles.Colors.lightGrayBg : '#4C5761',
     alignSelf: 'flex-start',
