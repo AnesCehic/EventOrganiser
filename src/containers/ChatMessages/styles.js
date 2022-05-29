@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     height: 25,
     borderRadius: 50,
     position: 'absolute',
-    bottom: 0,
+    bottom: 16,
   },
 });
 

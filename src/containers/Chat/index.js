@@ -42,12 +42,7 @@ const Chat = ({navigation}) => {
   });
 
   const navigateToMessages = (groupId, label, component, participants) => {
-    navigation.navigate('Message', {
-      groupId,
-      label,
-      component,
-      participants,
-    });
+    navigation.navigate('Message', {groupId});
   };
 
   const renderChatHeader = () => {

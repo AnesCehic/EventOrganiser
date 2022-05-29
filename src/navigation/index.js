@@ -277,6 +277,10 @@ const MainNavigation = () => {
           path: 'oauth/:result',
           exact: true,
         },
+        Message: {
+          path: 'events/:groupId',
+          exact: true,
+        },
       },
     },
   };
@@ -318,16 +322,10 @@ const MainNavigation = () => {
               name="EventsOnMonthScreen"
               component={EventsOnMonthScreen}
             />
-            <FeedStack.Screen name="FeedScreen" component={FeedScreen} />
-            <FeedStack.Screen name="CreatePost" component={CreatePostScreen} />
-            <FeedStack.Screen
-              name="PostDetails"
-              component={PostDetailsSCreen}
-            />
-            <FeedStack.Screen
-              name="FeedDetails"
-              component={FeedDetailsScreen}
-            />
+            <Stack.Screen name="FeedScreen" component={FeedScreen} />
+            <Stack.Screen name="CreatePost" component={CreatePostScreen} />
+            <Stack.Screen name="PostDetails" component={PostDetailsSCreen} />
+            <Stack.Screen name="FeedDetails" component={FeedDetailsScreen} />
             <Stack.Screen name="InsightsScreen" component={InsightsScreen} />
             <Stack.Screen name="ExpensesScreen" component={ExpensesScreen} />
             <Stack.Screen
@@ -339,7 +337,7 @@ const MainNavigation = () => {
               component={ChatMessagesScreen}
               options={({route}) => ({title: route.params.label})}
             />
-            <GroupsStack.Screen
+            <Stack.Screen
               name="ChangeGroupName"
               component={ChangeGroupNameScreen}
             />

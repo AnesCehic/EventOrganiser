@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext, useLayoutEffect} from 'react';
 import {
   FlatList,
   Text,
@@ -9,8 +9,9 @@ import {
   useColorScheme,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import {UserContext} from '@contexts';
 import {MessageInput, HeaderBack} from '@components';
+import MainIcon from '../../components/ChatMessageIcon/MainIcon';
 
 import {MessagesService, MessageGroupsService} from '@services/apiClient';
 import {Styles} from '@common';
@@ -27,6 +28,8 @@ import isYesterday from 'dayjs/plugin/isYesterday';
 
 const ChatMessages = ({navigation, route}) => {
   const [userId, setUserId] = useState(null);
+  const {userData} = useContext(UserContext);
+  const [groupData, setGroupData] = useState(null);
   const colorScheme = useColorScheme();
   const [textMessage, setTextMessage] = useState('');
   const [images, setImages] = useState([]);
@@ -51,17 +54,31 @@ const ChatMessages = ({navigation, route}) => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const {setOptions} = navigation;
 
     setOptions({
       headerTitleAlign: 'center',
+      title: groupData?.groupData.label,
       headerRight: () => {
-        return route.params.component;
+        return groupData?.componentHeader;
       },
-      headerLeft: () => <HeaderBack onPress={() => navigation.goBack()} />,
+      headerLeft: () => (
+        <HeaderBack
+          onPress={() => {
+            if (navigation.canGoBack()) {
+              navigation.goBack();
+            } else {
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'Home'}],
+              });
+            }
+          }}
+        />
+      ),
     });
-  }, []);
+  }, [groupData]);
 
   const labelUpdate = res => {
     navigation.setOptions({
@@ -110,6 +127,7 @@ const ChatMessages = ({navigation, route}) => {
 
   useEffect(() => {
     getMessages();
+    getMessageGroupInfo();
   }, []);
 
   const openFullScreen = url => {
@@ -151,7 +169,7 @@ const ChatMessages = ({navigation, route}) => {
           <Text
             style={{
               fontSize: 12,
-            }}>{`${sender.firstName[0]}${sender.lastName[0]}`}</Text>
+            }}>{`${sender?.firstName[0]}${sender?.lastName[0]}`}</Text>
         </View>
       );
     }
@@ -203,18 +221,12 @@ const ChatMessages = ({navigation, route}) => {
       nextMessageDate && dayjs(nextMessageDate).format('MM/DD/YYYY');
     let currentDate = dayjs(item?.createdAt).format('MM/DD/YYYY');
 
-    const senderImageUrl = route.params.participants.find(
+    const senderImageUrl = groupData?.groupData?.participantList?.find(
       e => e._id === item.ownerId,
     );
 
     return (
-      <View
-      // style={{
-      //   flexDirection: 'row',
-      //   justifyContent: 'flex-end',
-      //   alignItems: 'flex-end',
-      // }}
-      >
+      <View>
         {!previousDate && renderDate(currentDate)}
         {previousDate && currentDate !== previousDate
           ? renderDate(currentDate)
@@ -326,6 +338,20 @@ const ChatMessages = ({navigation, route}) => {
     );
   };
 
+  const getMessageGroupInfo = async () => {
+    try {
+      let res = await MessageGroupsService.get(route?.params?.groupId);
+      console.log(res);
+      const {component, componentHeader} = MainIcon(res, userData, navigation);
+      setGroupData({
+        groupData: res,
+        componentHeader,
+      });
+    } catch (error) {
+      console.log('Error loading group data', error);
+    }
+  };
+
   const renderMesagesList = () => {
     return (
       <FlatList
@@ -407,8 +433,7 @@ const ChatMessages = ({navigation, route}) => {
       edges={['right', 'left', 'top']}
       style={[
         styles.container,
-        {backgroundColor: '#141C24'},
-        colorScheme === 'dark' && {backgroundColor: '#273038'},
+        colorScheme === 'dark' && {backgroundColor: '#141C24'},
       ]}>
       <ModalImage
         modalVisible={modalVisible}
@@ -417,7 +442,7 @@ const ChatMessages = ({navigation, route}) => {
       <KeyboardAwareScrollView
         contentContainerStyle={[
           {flex: 1, backgroundColor: 'white'},
-          colorScheme === 'dark' && {backgroundColor: '#141C24'},
+          colorScheme === 'dark' && {backgroundColor: '#273038'},
         ]}>
         <View style={{flex: 1}}>{renderMesagesList()}</View>
 
