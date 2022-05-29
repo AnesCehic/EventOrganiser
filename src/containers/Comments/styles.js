@@ -46,16 +46,18 @@ const styles = StyleSheet.create({
     color: Styles.Colors.darkGrayText,
   },
   commentsCount: {
-    fontSize: 14,
-    fontWeight: '500',
     width: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 24,
-    textAlign: 'center',
-    textAlignVertical: 'center',
     backgroundColor: '#F2F3F6',
     borderRadius: 50,
     marginLeft: 8,
     color: Styles.Colors.darkGrayText,
+  },
+  commentsCountText: {
+    fontSize: 14,
+    fontWeight: '500',
   },
   commentContainer: {
     width: '100%',

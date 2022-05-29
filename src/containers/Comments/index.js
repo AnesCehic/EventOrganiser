@@ -121,7 +121,9 @@ const Comments = ({navigation, route, postId, postLoaded, isDarkMode}) => {
           ]}>
           Comments
         </Text>
-        <Text style={styles.commentsCount}>{comments.total}</Text>
+        <View style={styles.commentsCount}>
+          <Text style={styles.commentsCountText}>{comments.total}</Text>
+        </View>
       </View>
     );
   };
