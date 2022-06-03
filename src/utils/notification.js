@@ -10,6 +10,7 @@ const presentNotification = async message => {
         channelId: 'specialid',
         title: 'Someone sent you a message.',
         message: message.text,
+        group: message.groupId,
       });
     }
   } catch (error) {

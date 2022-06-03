@@ -4,28 +4,25 @@
 
 import 'react-native-gesture-handler';
 
-import {AppRegistry, Platform} from 'react-native';
+import {AppRegistry, Linking} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 
 import {DevicesService} from './src/services/apiClient';
 
 import PushNotification from 'react-native-push-notification';
+import messaging from '@react-native-firebase/messaging';
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
 
 PushNotification.configure({
-  onRegister: async function (token) {
+  onRegister: function (token) {},
+  onNotification: async function (notification) {
     try {
-      if (Platform.OS === 'ios') {
-        const res = await DevicesService.create({
-          token,
-          os: Platform.OS,
-        });
-      }
+      await Linking.openURL(`lincoln://events/${notification.group}`);
     } catch (error) {
-      console.log('[Error creating token]', error);
+      console.log('[Error clicking notif]', error);
     }
   },
-  onNotification: function (notification) {},
   onAction: function (notification) {},
   onRegistrationError: function (err) {},
   permissions: {
@@ -34,7 +31,7 @@ PushNotification.configure({
     sound: true,
   },
   popInitialNotification: true,
-  requestPermissions: Platform.OS === 'ios',
+  requestPermissions: true,
 });
 
 PushNotification.createChannel(
@@ -47,5 +44,9 @@ PushNotification.createChannel(
   },
   created => {}, // (optional) callback returns whether the channel was created, false means it already existed.
 );
+
+messaging().setBackgroundMessageHandler(async message => {
+  console.log('Message in quit and background mode', message);
+});
 
 AppRegistry.registerComponent(appName, () => App);

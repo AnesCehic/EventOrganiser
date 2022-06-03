@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast, {BaseToast, ErrorToast} from 'react-native-toast-message';
-import PushNOtificationIos from '@react-native-community/push-notification-ios';
+import messaging from '@react-native-firebase/messaging';
 
 import {UserContext} from '@contexts';
-import {MessagesService} from '@services/apiClient';
+import {MessagesService, DevicesService} from '@services/apiClient';
 import {presentNotification, presentNotificationIos} from '@utils/notification';
 
 import {LoadingIndicator} from '@components';
@@ -87,10 +87,10 @@ const App = () => {
       MessagesService.on('created', message => {
         presentNotification(message);
       });
-    }
+    }    
 
     if (Platform.OS === 'ios') {
-      PushNOtificationIos.addEventListener('notification', notification => {
+      MessagesService.on('created', message => {
         presentNotificationIos(message);
       });
     }
