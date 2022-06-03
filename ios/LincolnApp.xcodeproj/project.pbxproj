@@ -612,7 +612,7 @@
 				CODE_SIGN_ENTITLEMENTS = LincolnApp/LincolnApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 9FY42W8KWT;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LincolnApp/Info.plist;
@@ -643,7 +643,7 @@
 				CODE_SIGN_ENTITLEMENTS = LincolnApp/LincolnApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 9FY42W8KWT;
 				INFOPLIST_FILE = LincolnApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
