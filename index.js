@@ -46,7 +46,7 @@ PushNotification.createChannel(
 );
 
 messaging().setBackgroundMessageHandler(async message => {
-  console.log('Message in quit and background mode', message);
+  await Linking.openURL(`lincoln://events/${message.data?.groupId}`);
 });
 
 AppRegistry.registerComponent(appName, () => App);

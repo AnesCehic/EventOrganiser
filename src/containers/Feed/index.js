@@ -28,8 +28,9 @@ const Feed = ({navigation}) => {
 
   useEffect(() => {
     if (deepLinkUrl) {
+      const url = deepLinkUrl.split('/');
       navigation.navigate('Message', {
-        groupId: '123',
+        groupId: url[url.length - 1],
       });
     } else {
       loadPosts();
