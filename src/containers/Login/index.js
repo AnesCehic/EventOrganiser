@@ -20,7 +20,9 @@ import Form from './form';
 import styles from './styles';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import Styles from '../../common/Styles';
-import {UploadsService} from '../../services/apiClient';
+import {UploadsService, DevicesService} from '../../services/apiClient';
+
+import messaging from '@react-native-firebase/messaging';
 
 const Login = ({navigation, isDarkMode}) => {
   const colorScheme = Appearance.getColorScheme();
@@ -38,6 +40,12 @@ const Login = ({navigation, isDarkMode}) => {
         password: password,
       });
 
+      const token = await messaging().getToken();
+
+      // const res = await DevicesService.create({
+      //   token,
+      // });
+
       let upload = null;
       if (user.uploadId) {
         upload = await UploadsService.get(user.uploadId);
@@ -54,6 +62,7 @@ const Login = ({navigation, isDarkMode}) => {
       await AsyncStorageLib.setItem('@userId', user._id);
       await AsyncStorageLib.setItem('@user', JSON.stringify(user));
       handleLogin();
+      //navigation.navigate('Home');
     } catch (error) {
       toast('error', 'Error', error.message);
       console.log('[Error login]', error);

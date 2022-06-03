@@ -74,6 +74,7 @@ const App = () => {
   // if needed put all states into one object state
   const [isLoading, setIsLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [deepLinkUrl, setDeepLinkUrl] = useState(false);
   const [allowMessaging, setAllowMessaging] = useState(false);
   const [userData, setUserData] = useState({});
 
@@ -130,6 +131,8 @@ const App = () => {
           setAllowMessaging,
           userData,
           setUserData,
+          deepLinkUrl,
+          setDeepLinkUrl,
         }}>
         <View style={styles.container}>
           <StatusBar translucent backgroundColor="transparent" />

@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import Styles from '../../common/Styles';
 
 const Feed = ({navigation}) => {
-  const {userData} = useContext(UserContext);
+  const {userData, deepLinkUrl} = useContext(UserContext);
   const colorScheme = useColorScheme();
   const [events, setEvents] = useState([]);
   const [infiniteScrollLoader, setInfiniteScrollLoader] = useState(false);
@@ -27,7 +27,13 @@ const Feed = ({navigation}) => {
   });
 
   useEffect(() => {
-    loadPosts();
+    if (deepLinkUrl) {
+      navigation.navigate('Message', {
+        groupId: '123',
+      });
+    } else {
+      loadPosts();
+    }
   }, []);
 
   useEffect(() => {

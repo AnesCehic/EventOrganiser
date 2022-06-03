@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {Text} from 'react-native';
 
 import Feed from '@containers/Feed';

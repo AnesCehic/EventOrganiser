@@ -57,7 +57,7 @@ import {
   BottomAccount,
   BottomAccountActive,
 } from '@assets/SvgIcons';
-import {useColorScheme} from 'react-native';
+import {Linking, useColorScheme} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -219,13 +219,21 @@ const ProfileNavigation = () => {
 
 const MainNavigation = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const {authenticated, setAuthenticated, setUserData} =
+  const {authenticated, setAuthenticated, setUserData, setDeepLinkUrl} =
     useContext(UserContext);
 
   const colorScheme = useColorScheme();
 
   useEffect(() => {
     getAuth();
+
+    const linking = Linking.addEventListener('url', ({url}) => {
+      setDeepLinkUrl(url);
+    });
+
+    return () => {
+      linking.remove();
+    };
   }, []);
 
   const isTokenExpired = token =>
@@ -235,7 +243,7 @@ const MainNavigation = () => {
     try {
       setIsLoading(true);
       const token = await AsyncStorage.getItem('feathers-jwt');
-      if (isTokenExpired(token)) {
+      if (!token) {
         setAuthenticated(false);
         setIsLoading(false);
         return;

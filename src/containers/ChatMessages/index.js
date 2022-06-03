@@ -28,7 +28,7 @@ import isYesterday from 'dayjs/plugin/isYesterday';
 
 const ChatMessages = ({navigation, route}) => {
   const [userId, setUserId] = useState(null);
-  const {userData} = useContext(UserContext);
+  const {userData, setDeepLinkUrl} = useContext(UserContext);
   const [groupData, setGroupData] = useState(null);
   const colorScheme = useColorScheme();
   const [textMessage, setTextMessage] = useState('');
@@ -101,6 +101,7 @@ const ChatMessages = ({navigation, route}) => {
         return;
       }
       const userIdH = await AsyncStorageLib.getItem('@userId');
+      setDeepLinkUrl(null);
       setUserId(userIdH);
 
       const {data, ...res} = await MessagesService.find({

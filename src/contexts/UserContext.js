@@ -7,6 +7,8 @@ const UserContext = createContext({
   setAllowMessaging: chat => {},
   userData: {},
   setUserData: userData => {},
+  deepLinkUrl: null,
+  setDeepLinkUrl: url => {},
 });
 
 export default UserContext;
