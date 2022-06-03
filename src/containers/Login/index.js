@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Appearance,
+  Platform,
 } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 
@@ -42,9 +43,10 @@ const Login = ({navigation, isDarkMode}) => {
 
       const token = await messaging().getToken();
 
-      // const res = await DevicesService.create({
-      //   token,
-      // });
+      const res = await DevicesService.create({
+        token,
+        os: Platform.OS,
+      });
 
       let upload = null;
       if (user.uploadId) {
