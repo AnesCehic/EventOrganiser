@@ -31,6 +31,7 @@
     "react-native-add-calendar-event": "^4.0.0",
     "react-native-autocomplete-input": "^5.1.0",
     "react-native-calendars": "^1.1277.0",
+    "react-native-device-info": "^9.0.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "2.3.2",
     "react-native-ico": "^28.7.4",

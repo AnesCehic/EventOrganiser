@@ -24,6 +24,7 @@ import Styles from '../../common/Styles';
 import {UploadsService, DevicesService} from '../../services/apiClient';
 
 import messaging from '@react-native-firebase/messaging';
+import DeviceInfo from 'react-native-device-info';
 
 const Login = ({navigation, isDarkMode}) => {
   const colorScheme = Appearance.getColorScheme();
@@ -42,10 +43,14 @@ const Login = ({navigation, isDarkMode}) => {
       });
 
       const token = await messaging().getToken();
+      const uniqueId = DeviceInfo.getUniqueId();
+      const brand = DeviceInfo.getBrand();
 
       const res = await DevicesService.create({
         token,
         os: Platform.OS,
+        uniqueId,
+        brand,
       });
 
       let upload = null;
