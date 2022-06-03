@@ -23,9 +23,15 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string></string>
+			<key>CFBundleURLName</key>
+			<string>linkoln</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>lincolnapp</string>
+				<string>linkoln</string>
 			</array>
 		</dict>
 	</array>
