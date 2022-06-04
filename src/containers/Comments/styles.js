@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 8,
     minHeight: 25,
-    borderRadius: 50,
+    borderRadius: 20,
     flexDirection: 'row',
     backgroundColor: Styles.Colors.textInputGrayBg,
   },
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Styles.Colors.gold,
-    borderRadius: 50,
+    borderRadius: 20,
   },
   postSubmitButtonText: {
     color: Styles.Colors.white,
