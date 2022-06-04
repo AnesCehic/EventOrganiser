@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Keyboard,
 } from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {CommentsService} from '../../services/apiClient';
 
 import Comment from './Comment';
@@ -17,6 +18,7 @@ import styles from './styles';
 import Styles from '../../common/Styles';
 
 const Comments = ({navigation, route, postId, postLoaded, isDarkMode}) => {
+  const insets = useSafeAreaInsets();
   const [commentInput, setCommentInput] = useState('');
   const [comments, setComments] = useState({
     data: [],
@@ -134,6 +136,7 @@ const Comments = ({navigation, route, postId, postLoaded, isDarkMode}) => {
         style={[
           styles.commentInput,
           isDarkMode && {backgroundColor: '#4C5761'},
+          {paddingBottom: insets.bottom},
         ]}>
         <TextInput
           onChangeText={text => setCommentInput(text)}
